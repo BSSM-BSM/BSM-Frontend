@@ -1,0 +1,70 @@
+<main>
+  <div class="container">
+    <div class="title">
+      <h1>급식</h1>
+    </div>
+    <div class="information">
+      <div class="food center">
+        <table class="food-1" onclick="day--;date--;food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+          <tr><th class="food-date">x월x일</th></tr>
+          <tr><th>아침</th></tr>
+          <tr></tr>
+          <tr><th>점심</th></tr>
+          <tr></tr>
+          <tr><th>저녁</th></tr>
+          <tr></tr>
+        </table>
+        <table class="food-2 hover-food">
+          <tr><th class="food-date">x월x일</th></tr>
+          <tr><th>아침</th></tr>
+          <tr></tr>
+          <tr><th>점심</th></tr>
+          <tr></tr>
+          <tr><th>저녁</th></tr>
+          <tr></tr>
+        </table>
+        <table class="food-3" onclick="day++;date++;food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+          <tr><th class="food-date">x월x일</th></tr>
+          <tr><th>아침</th></tr>
+          <tr></tr>
+          <tr><th>점심</th></tr>
+          <tr></tr>
+          <tr><th>저녁</th></tr>
+          <tr></tr>
+        </table>
+        <script>
+          var i, j, time, day, date, month;
+          var food_table=
+            [
+                [ [''], [''], [''], [''], [''] ]
+              , [ [''], [''], [''], [''], [''] ]
+              , [ [''], [''], [''], ['']]
+            ];
+          time=new Date();
+          day=time.getDay();
+          date=time.getDate();
+          month=time.getMonth();
+          food_refresh();
+          function food_refresh(){
+            $('.food-1 tr:nth-child(1) th').text((month+1)+'월'+(date-1)+'일');
+            $('.food-1 tr:nth-child(3)').html('<td>'+food_table[0][day-2]+'</td>');
+            $('.food-1 tr:nth-child(5)').html('<td>'+food_table[1][day-2]+'</td>');
+            $('.food-1 tr:nth-child(7)').html('<td>'+food_table[2][day-2]+'</td>');
+            $('.food-2 tr:nth-child(1) th').text((month+1)+'월'+date+'일');
+            $('.food-2 tr:nth-child(3)').html('<td>'+food_table[0][day-1]+'</td>');
+            $('.food-2 tr:nth-child(5)').html('<td>'+food_table[1][day-1]+'</td>');
+            $('.food-2 tr:nth-child(7)').html('<td>'+food_table[2][day-1]+'</td>');
+            $('.food-3 tr:nth-child(1) th').text((month+1)+'월'+(date+1)+'일');
+            $('.food-3 tr:nth-child(3)').html('<td>'+food_table[0][day]+'</td>');
+            $('.food-3 tr:nth-child(5)').html('<td>'+food_table[1][day]+'</td>');
+            $('.food-3 tr:nth-child(7)').html('<td>'+food_table[2][day]+'</td>');
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+</main>
+<div class="dim menu_close"></div>
+<title>급식표</title>
+<meta property="og:title" content="급식표">
+<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 관리 서비스">

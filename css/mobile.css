@@ -1,0 +1,103 @@
+@charset "utf-8";
+h1{
+  font-size:3.2rem;
+}
+h2{
+  font-size:2.2rem;
+}
+main,.container{
+  width:auto;
+}
+main::-webkit-scrollbar{
+  width:2px;
+}
+div.top_menu{
+  width:auto; padding:0rem;
+}
+div.top_menu button.page, div.top_menu div.home{
+  display:none;
+}
+.section#main h1#main_txt{
+  font-size:3.6rem;
+}
+.section#minecraft-main h1#main_txt{
+  font-size:3.6rem;
+}
+.input_text{
+  width:325px;
+}
+.video, .video div{
+  width:auto;
+}
+.board{
+  padding: 5% 0% 5% 0%;
+}
+.board_list ul li{
+  padding:.5rem;
+}
+.board_list ul.table_header{
+  display:none;
+}
+.board_list ul li:nth-child(1){
+  font-size:1.3rem;
+  padding-left:5%;
+  width:10%;
+  color:#CCC;
+}
+.board_list ul li:nth-child(2){
+  font-size:1.5rem;
+  width:90%;
+  padding-right:5%;
+}
+.board_list ul li:nth-child(3){
+  font-size:1.3rem;
+  padding-left:5%;
+  width:auto;
+}
+.board_list ul li:nth-child(4){
+  font-size:1.3rem;
+  width:auto;
+  color:#CCC;
+}
+.board_list ul li:nth-child(5){
+  font-size:1.3rem;
+  width:auto;
+  padding-right:5%;
+  float:right;
+  color:#CCC;
+}
+.board_list ul li:nth-child(5):before{
+  content:"조회 ";
+}
+.post{
+  padding:0% 5% 0% 5%;
+}
+.comment_write{
+  padding:0rem 5% 0rem 5%;
+}
+.class_time tbody tr td, .class_time tbody tr th{
+  padding:1rem .5rem 1rem .5rem;
+}
+.class_time tbody tr td:nth-child(1){
+  font-size:1.4rem;
+}
+.food tbody tr th{
+  padding:2rem 1rem 0rem 1rem;
+}
+.food tbody tr td{
+  padding:1rem 1rem 1rem 1rem;
+}
+
+.status_view{
+  flex-direction:column;
+  padding:5rem 1rem;
+}
+.minecraft_serverVersion{
+  display:none;
+}
+.minecraft_serverQueryTime{
+  display:none;
+}
+.server_right_wrap{
+  margin-top:2rem;
+}
