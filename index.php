@@ -22,6 +22,7 @@
     <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/menu_bar.js"></script>
+    <script src="/js/search.js"></script>
     <script>
       window.addEventListener('resize', () => {
         let vh = window.innerHeight * 0.01;
@@ -58,40 +59,48 @@
     <header>
       <nav>
         <div class="top_menu">
-          <div class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></div>
-          <div class="all_menu">
+          <span class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
+          <span class="all_menu">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
-          </div>
-          <div class="dropdown_menu">
-            <button class="page">학교</button>
+          </span>
+          <span class="dropdown_menu">
+            <span class="page">학교</span>
             <ul class="dropdown_content">
               <li><a href="/time">시간표</a></li>
               <li><a href="/food">급식</a></li>
               <li><a href="/calendar">학사일정</a></li>
               <li><a href="/best_teacher">인기 교직원</a></li>
               <li><a href="/song">신청곡</a></li>
+              <li><a href="/goodbed">상벌점</a></li>
             </ul>
-          </div>
-          <button class="page"><a href="/patch">패치 노트</a></button>
-          <button class="page"><a href="/minecraft">마크 서버</a></button>
-          <button class="page"><a href="/board?boardType=board">커뮤니티</a></button>
-          <button class="page"><a href="/board?boardType=blog">블로그</a></button>
-          <button class="search"><a href="/search">검색</a></button>
+          </span>
+          <span class="page"><a href="/patch">패치 노트</a></span>
+          <span class="page"><a href="/minecraft">마크 서버</a></span>
+          <span class="page"><a href="/board?boardType=board">커뮤니티</a></span>
+          <span class="page"><a href="/board?boardType=blog">블로그</a></span>
           <?php
             if (isset($_SESSION['member_id'])){ ?>
-              <div class="dropdown_menu user_menu">
-                <button><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></button>
+              <span class="dropdown_menu user_menu">
+                <span class="page"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></span>
                 <ul class="dropdown_content">
                   <li><a href="/memberinfo?member_code=<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
                   <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
                 </ul>
-              </div>
+              </span>
             <?php }else{ ?>
-              <button class="user_menu"><a href="/login?returnUrl=<?php echo $returnUrl ?>">로그인</a></button>
+              <span class="page user_menu"><a href="/login?returnUrl=<?php echo $returnUrl ?>">로그인</a></span>
             <?php }
           ?>
+          <span class="searchBar">
+            <input type="text" class="searchQuery input_text searchBox" onchange='search();$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
+            <div class="searchResult">
+              <div class="boardResult"></div>
+              <br>
+              <div class="blogResult"></div>
+            </div>
+          </span>
         </div>
         <div class="side_menu">
           <ul>
@@ -114,6 +123,7 @@
             <li class="page"><a href="/song">신청곡</a></li>
             <li class="page"><a href="/calendar">학사일정</a></li>
             <li class="page"><a href="/best_teacher">인기 교직원</a></li>
+            <li class="page"><a href="/goodbed">상벌점</a></li>
           </ul>
         </div>
       </nav>

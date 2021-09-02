@@ -25,6 +25,16 @@ $(document).ready(function(){
   $(".menu_close").on("click",function(){
     $(".all_menu").removeClass("on");
     $(".side_menu").removeClass("on");
+    $(".searchResult").removeClass("on");
     $(".dim").removeClass("on");
+  });
+  $(".searchBox").on("click",function(){
+    if ($(".searchResult").attr("class").indexOf("on") > 1) {
+      $(".searchResult").removeClass("on");
+      $(".dim").removeClass("on");
+    } else {
+      $(".searchResult").addClass("on");
+      $(".dim").addClass("on");
+    }
   });
 });

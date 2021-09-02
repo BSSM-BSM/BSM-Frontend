@@ -14,8 +14,11 @@ main::-webkit-scrollbar{
 div.top_menu{
   width:auto; padding:0rem;
 }
-div.top_menu button.page, div.top_menu div.home{
+div.top_menu .page:not(.user_menu, .search), .top_menu .home{
   display:none;
+}
+div.top_menu .search{
+  float:left;
 }
 .section#main h1#main_txt{
   font-size:3.6rem;
@@ -28,6 +31,49 @@ div.top_menu button.page, div.top_menu div.home{
 }
 .video, .video div{
   width:auto;
+}
+.searchBar .searchResult{
+  left:0;
+}
+.searchBar .searchBox{
+  margin-left:0;
+}
+.searchResult{
+  padding: 5% 0% 5% 0%;
+}
+.searchResult ul li{
+  padding:.5rem;
+}
+.searchResult ul li:nth-child(1){
+  font-size:1.3rem;
+  padding-left:5%;
+  width:10%;
+  color:#CCC;
+}
+.searchResult ul li:nth-child(2){
+  font-size:1.5rem;
+  width:90%;
+  padding-right:5%;
+}
+.searchResult ul li:nth-child(3){
+  font-size:1.3rem;
+  padding-left:5%;
+  width:auto;
+}
+.searchResult ul li:nth-child(4){
+  font-size:1.3rem;
+  width:auto;
+  color:#CCC;
+}
+.searchResult ul li:nth-child(5){
+  font-size:1.3rem;
+  width:auto;
+  padding-right:5%;
+  float:right;
+  color:#CCC;
+}
+.searchResult ul li:nth-child(5):before{
+  content:"조회 ";
 }
 .board{
   padding: 5% 0% 5% 0%;

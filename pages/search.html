@@ -3,41 +3,12 @@
     <h1>Search</h1>
     <br><br>
     <div class="search">
-      <input type="text" class="searchQuery input_text" placeholder="검색할 내용 입력" required autofocus>
-      <button class="button" onclick="search();">검색</button>
-      </form>
-      <script>
-        function search(){
-          $.ajax({
-            type:'POST',
-            data:{
-              command_type:'search',
-              searchType:'board',
-              searchQuery:$('.searchQuery').val()
-            },
-            url:'database',
-            cache:false,
-            success:function(data){
-              data=JSON.parse(data);
-              searchResults = "";
-              if(Object.keys(data).length==0){
-                $('.search .searchResult').html("검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요");
-              }else{
-                for(var i=1;i<=Object.keys(data).length;i++){
-                  var searchResult = "";
-                  searchResult += "<li>"+data[i].postNo+"</li>";
-                  searchResult += "<li>"+data[i].postTitle+"</li>";
-                  searchResult += "<li>"+data[i].memberNickname+"</li>";
-                  searchResult += "<li>"+data[i].postDate+"</li>";
-                  searchResults += "<ul>"+searchResult+"</ul>";
-                }
-                $('.search .searchResult').html(searchResults);
-              }              
-            }
-          });
-        }
-      </script>
-      <div class="searchResult"></div>
+      <input type="text" class="searchQuery input_text" onchange="search();" placeholder="검색할 내용 입력" required autofocus>
+      <div class="searchResult">
+        <div class="boardResult"></div>
+        <br>
+        <div class="blogResult"></div>
+      </div>
     </div>
   </div>
 </main>
