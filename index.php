@@ -23,6 +23,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/menu_bar.js"></script>
     <script src="/js/search.js"></script>
+    <script src="/js/ajax_error.js"></script>
     <script>
       window.addEventListener('resize', () => {
         let vh = window.innerHeight * 0.01;

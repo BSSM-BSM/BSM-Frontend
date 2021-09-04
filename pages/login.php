@@ -2,17 +2,67 @@
   <div class="container vertical_center">
     <h1>Login</h1>
     <br><br>
-    <form class="login" action="database" method="post" autocomplete="off">
-      <input type="hidden" name="command_type" value="login">
-      <input type="text" name="member_id" placeholder="아이디" class="input_text" required autofocus>
+    <form class="login" method="post" autocomplete="off" onsubmit="return false;">
+      <input type="text" id="member_id" placeholder="아이디" class="input_text" required autofocus>
       <br>
-      <input type="password" name="member_pw" placeholder="비밀번호" class="input_text" required>
+      <input type="password" id="member_pw" placeholder="비밀번호" class="input_text" required>
       <br><br>
-      <input type="hidden" name="returnUrl" value="<?php echo $returnUrl ?>">
       <a href="/register?returnUrl=<?php echo $returnUrl ?>" class="button">회원가입</a>
-      <input type="submit" name="" value="로그인" class="button">
+      <button type="submit" onclick="login();" class="button">로그인</button>
     </form>
+    <script>
+      function login(){
+        $.ajax({
+          type:'POST',
+          data:{
+            command_type:'login',
+            returnUrl:'<?php echo $returnUrl ?>',
+            member_id:$('#member_id').val(),
+            member_pw:$('#member_pw').val()
+          },
+          url:'database',
+          cache:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              ajax_error(data.status);
+            }else{
+              window.location.href=data.returnUrl;
+            }
+          }
+        });
+      }
+      function authentication(){
+        $.ajax({
+          type:'POST',
+          data:{
+            command_type:'authentication',
+            code:$('#code').val()
+          },
+          url:'database',
+          cache:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              ajax_error(data.status);
+            }else{
+              alert("인증이 완료되었습니다.\n다시 로그인 해주세요.");
+              $('.authentication_box').removeClass('on');
+            }
+          }
+        });
+      }
+    </script>
     <br>
+  </div>
+  <div class="authentication_box popup center">
+    <h2>인증코드 활성화가 필요합니다</h2>
+    <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
+    <form class="authentication" method="post" autocomplete="off" onsubmit="return false;">
+      <input type="text" id="code" placeholder="인증코드" class="input_text" required autofocus>
+      <br><br>
+      <button type="submit" onclick="authentication();" class="button">계정 인증</button>
+    </form>
   </div>
 </main>
 <div class="dim menu_close"></div>

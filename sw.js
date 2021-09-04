@@ -7,6 +7,8 @@ var cacheFiles = [
     '/js/summernote-lite.min.js',
     '/js/lang/summernote-ko-KR.js',
     '/js/menu_bar.js',
+    '/js/search.js',
+    '/js/ajax_error.js',
     '/resource/font/minecraftia-webfont.woff',
 ];
 self.addEventListener('install', (event) => {
@@ -33,4 +35,3 @@ self.addEventListener('fetch', (event) => {
             })
     );
 });
-//최은결 왔다감

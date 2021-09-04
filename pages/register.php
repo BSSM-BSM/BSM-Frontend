@@ -11,6 +11,8 @@
       <input type="password" name="member_pw_check" placeholder="비밀번호 재입력" class="input_text" required>
       <br>
       <input type="text" name="member_nickname" placeholder="닉네임" class="input_text" required>
+      <br>
+      <input type="text" name="code" placeholder="확인 코드" class="input_text" required>
       <br><br>
       <input type="hidden" name="returnUrl" value="<?php echo $returnUrl ?>">
       <a href="/login?returnUrl=<?php echo $returnUrl ?>" class="button">로그인 페이지</a>
