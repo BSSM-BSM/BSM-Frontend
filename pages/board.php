@@ -78,10 +78,47 @@
           <li>작성 시간</li>
           <li>조회수</li>
         </ul>
-          <?php
-          $_POST['command_type'] = 'board';
-          require "database.php";?>
+        <div></div>
+        <script>
+          function board_refresh(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'board',
+                <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
+                boardType:'<?php echo $_GET['boardType'] ?>'
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                boards = "";
+                for(var i=1;i<=Object.keys(data).length;i++){
+                  var board = "";
+                  board += "<li>"+data[i].postNo+"</li>";
+                  if(data[i].postComments>=1){
+                    board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p><p class="post_comments">[' +data[i].postComments+ ']</p></a></li>';
+                  }else{
+                    board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p></a></li>';
+                  }
+                  board += '<li><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ "</a></li>";
+                  board += "<li>"+data[i].postDate+"</li>";
+                  board += "<li>"+data[i].postHit+"</li>";
+                  if(i%2){
+                    boards += '<ul>'+board+'</ul>';
+                  }else{
+                    boards += '<ul class="odd">'+board+'</ul>';
+                  }
+                }
+                $('.board_list div').html(boards);
+              }
+            });
+          }
+          board_refresh();
+        </script>
       </div>
+      <div class="page_num"></div>
+      <button onClick="board_refresh();" class="button">글 새로고침</button>
       <?php
       switch ($_GET['boardType']){
         case 'board': ?>

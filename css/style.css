@@ -63,10 +63,16 @@ ul,ol,li{
   list-style:none;
 }
 h1{
-  font-size:4rem;
+  font-size:3.8rem;
 }
 h2{
   font-size:2.4rem;
+}
+h3{
+  font-size:3.2rem;
+}
+h4{
+  font-size:2.2rem;
 }
 p{
   font-size:1.5rem;
@@ -326,7 +332,7 @@ div.alert{
   text-align:center;
 }
 
-.input_text{
+input[type=text], input[type=password], textarea{
   border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
@@ -334,13 +340,13 @@ div.alert{
   border-left:1px solid rgba(128, 128, 128, 0.3);
   transition:.25s;
 }
-.input_text::placeholder{
+input[type=text]::placeholder, input[type=password]::placeholder, textarea::placeholder{
   color:#AAA;
 }
-.input_text:hover{
+input[type=text]:hover, input[type=password]:hover, textarea:hover{
   background-color:rgba(0, 0, 0, .2);
 }
-.input_text:focus{
+input[type=text]:focus, input[type=password]:focus, textarea:focus{
   box-shadow:0 0 2rem 0 #0080FF;
 }
 .button{
@@ -374,8 +380,8 @@ div.alert{
 
 .searchBar .searchBox{
   margin:0;
-  width:25rem;
-  margin-left:11.5rem;
+  width:20rem;
+  margin-left:14rem;
 }
 .searchBar .searchResult{
   display:none;
@@ -483,6 +489,9 @@ div.alert{
 }
 .board_list ul li:nth-child(2){
   width:50%;
+}
+.board_list ul li:nth-child(2) a:visited{
+  color:#f185ff;
 }
 .board_list ul li:nth-child(2) *{
   float:left;
@@ -654,6 +663,9 @@ div.alert{
   opacity:1;
 }
 
+.launch_minecraft{
+  display:none;
+}
 .minecraft_status h1{
   font-family:minecraftiaregular; font-weight:normal;
 }

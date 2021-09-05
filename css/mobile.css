@@ -5,6 +5,12 @@ h1{
 h2{
   font-size:2.2rem;
 }
+h3{
+  font-size:2.6rem;
+}
+h4{
+  font-size:2rem;
+}
 main,.container{
   width:auto;
 }
@@ -14,7 +20,7 @@ main::-webkit-scrollbar{
 div.top_menu{
   width:auto; padding:0rem;
 }
-div.top_menu .page:not(.user_menu, .search), .top_menu .home{
+div.top_menu span:not(.user_menu, .searchBar, .all_menu) *, .top_menu .home{
   display:none;
 }
 div.top_menu .search{
@@ -134,6 +140,9 @@ div.top_menu .search{
   padding:1rem 1rem 1rem 1rem;
 }
 
+.launch_minecraft{
+  display:inline-block;
+}
 .status_view{
   flex-direction:column;
   padding:5rem 1rem;
