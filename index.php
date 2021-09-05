@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  require_once "session.php";
   if (isset($_GET['page']))
     $page = $_GET['page'];
   else 
