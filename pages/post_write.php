@@ -56,6 +56,35 @@
     <form class="post_write" action="database" method="post" autocomplete="off">
       <input type="hidden" name="command_type" value="post_write">
       <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">
+      <?php
+      if(isset($_GET['post_no'])){ ?>
+        <input type="hidden" name="post_no" value=<?php echo $_GET['post_no'] ?>>
+        <script>
+          function post_refresh(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'post',
+                post_no:'<?php echo $_GET['post_no'] ?>',
+                boardType:'<?php echo $_GET['boardType'] ?>'
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  $('input[name=post_title]').val(data.post_title);
+                  $('#summernote').summernote('code', data.post_content);
+                }
+              }
+            });
+          }
+          post_refresh();
+        </script>
+      <?php }
+      ?>
       <input type="text" name="post_title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
       <textarea name="post_content" placeholder="내용" id="summernote" class="input_text" style="width:100%;" required></textarea>
       <br><br>
@@ -68,8 +97,10 @@
 </div>
 <div class="dim menu_close"></div>
 <title>글쓰기</title>
-<meta property="og:title" content="글쓰기">
-<meta property="og:description" content="bssm project">
+<meta property="title" content="글쓰기 | BSM - 부산소마고 지원 서비스">
+<meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
+<meta property="og:title" content="글쓰기 | BSM - 부산소마고 지원 서비스">
+<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
 <link rel="stylesheet" href="/css/summernote-lite.min.css">
 <script src="/js/summernote-lite.min.js"></script>
 <script src="/js/lang/summernote-ko-KR.js"></script>

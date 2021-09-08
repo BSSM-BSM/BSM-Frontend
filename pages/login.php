@@ -109,5 +109,7 @@
 </main>
 <div class="dim menu_close"></div>
 <title>로그인</title>
-<meta property="og:title" content="Login">
-<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 관리 서비스">
+<meta property="title" content="Login | BSM - 부산소마고 지원 서비스">
+<meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
+<meta property="og:title" content="Login | BSM - 부산소마고 지원 서비스">
+<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
