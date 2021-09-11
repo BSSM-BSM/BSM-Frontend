@@ -16,20 +16,6 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#333"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
-    <!--모바일 css-->
-    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
-    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/menu_bar.js"></script>
-    <script src="/js/search.js"></script>
-    <script src="/js/ajax_error.js"></script>
-    <script>
-      window.addEventListener('resize', () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      });
-    </script>
     <!-- PWA 설정 시작 -->
     <!-- 주소창 등의 웹 브라우저 UI를 표시하지 않기 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,6 +40,20 @@
       }
     </script>
     <!-- PWA 설정 끝 -->
+    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+    <!--모바일 css-->
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
+    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/menu_bar.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/ajax_error.js"></script>
+    <script>
+      window.addEventListener('resize', () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+    </script>
   </head>
   <body>
     <div class="overlay-fadein"></div>
@@ -70,17 +70,29 @@
             <span class="page">학교</span>
             <ul class="dropdown_content">
               <li><a href="/time">시간표</a></li>
-              <li><a href="/food">급식</a></li>
               <li><a href="/calendar">학사일정</a></li>
               <li><a href="/best_teacher">인기 교직원</a></li>
+              <li><a href="/goodbed">상벌점</a></li>
+            </ul>
+          </span>
+          <span class="dropdown_menu">
+            <span class="page">생활</span>
+            <ul class="dropdown_content">
+              <li><a href="/food">급식</a></li>
               <li><a href="/song">신청곡</a></li>
               <li><a href="/goodbed">상벌점</a></li>
+              <li><a href="/dorm_rule">기숙사 규정</a></li>
+            </ul>
+          </span>
+          <span class="dropdown_menu">
+            <span class="page">커뮤니티</span>
+            <ul class="dropdown_content">
+              <li><a href="/board?boardType=board">자유게시판</a></li>
+              <li><a href="/board?boardType=blog">블로그</a></li>
             </ul>
           </span>
           <span class="page"><a href="/patch">패치 노트</a></span>
           <span class="page"><a href="/minecraft">마크 서버</a></span>
-          <span class="page"><a href="/board?boardType=board">커뮤니티</a></span>
-          <span class="page"><a href="/board?boardType=blog">블로그</a></span>
           <?php
             if (isset($_SESSION['member_id'])){ ?>
               <span class="dropdown_menu user_menu">
@@ -103,31 +115,31 @@
             </div>
           </span>
         </div>
-        <div class="side_menu">
-          <ul>
-            <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
-            <?php
-              if (isset($_SESSION['member_id'])){ ?>
-                <li class="user_menu"><a href="/memberinfo?member_code=<?php echo $_SESSION['member_code']?>"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></a></li>
-                <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
-              <?php }else{ ?>
-                <li class="user_menu"><a href="/login?returnUrl=<?php echo $returnUrl ?>">로그인해 주세요</a></li>
-              <?php }
-            ?>
-            <li class="page"><a href="/search">검색</a></li>
-            <li class="page"><a href="/patch">패치 노트</a></li>
-            <li class="page"><a href="/minecraft">마크 서버</a></li>
-            <li class="page"><a href="/time">시간표</a></li>
-            <li class="page"><a href="/food">급식</a></li>
-            <li class="page"><a href="/board?boardType=board">커뮤니티</a></li>
-            <li class="page"><a href="/board?boardType=blog">블로그</a></li>
-            <li class="page"><a href="/song">신청곡</a></li>
-            <li class="page"><a href="/calendar">학사일정</a></li>
-            <li class="page"><a href="/best_teacher">인기 교직원</a></li>
-            <li class="page"><a href="/goodbed">상벌점</a></li>
-          </ul>
-        </div>
       </nav>
+      <div class="side_menu">
+        <ul>
+          <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
+          <?php
+          if (isset($_SESSION['member_id'])){ ?>
+          <li class="user_menu"><a href="/memberinfo?member_code=<?php echo $_SESSION['member_code']?>"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></a></li>
+          <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
+          <?php }else{ ?>
+          <li class="user_menu"><a href="/login?returnUrl=<?php echo $returnUrl ?>">로그인해 주세요</a></li>
+          <?php }
+          ?>
+          <li class="page"><a href="/search">검색</a></li>
+          <li class="page"><a href="/patch">패치 노트</a></li>
+          <li class="page"><a href="/minecraft">마크 서버</a></li>
+          <li class="page"><a href="/time">시간표</a></li>
+          <li class="page"><a href="/food">급식</a></li>
+          <li class="page"><a href="/board?boardType=board">커뮤니티</a></li>
+          <li class="page"><a href="/board?boardType=blog">블로그</a></li>
+          <li class="page"><a href="/song">신청곡</a></li>
+          <li class="page"><a href="/calendar">학사일정</a></li>
+          <li class="page"><a href="/best_teacher">인기 교직원</a></li>
+          <li class="page"><a href="/goodbed">상벌점</a></li>
+        </ul>
+      </div>
       <div class="alert">
         <div>
           <script>
@@ -159,6 +171,9 @@
         break;
       case 'register':
         require "./pages/register.php";
+        break;
+      case 'memberinfo':
+        require "./pages/memberinfo.php";
         break;
       case 'search':
         require "./pages/search.html";

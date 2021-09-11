@@ -178,9 +178,9 @@
 <?php
 switch ($_GET['boardType']){
   case 'board':
-    echo '<title>커뮤니티</title>
-    <meta property="title" content="board | BSM - 부산소마고 지원 서비스">
-    <meta property="og:title" content="board | BSM - 부산소마고 지원 서비스">';
+    echo '<title>커뮤니티 - BSM</title>
+    <meta property="title" content="커뮤니티 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:title" content="커뮤니티 - BSM | 부산소마고 지원 서비스';
     break;
   case 'blog':
     echo '<title>블로그</title>
@@ -188,5 +188,5 @@ switch ($_GET['boardType']){
     <meta property="og:title" content="부산소마고 이현준의 개발 블로그">';
 }
 ?>
-<meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
-<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
+<meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">

@@ -96,10 +96,10 @@
   </div>
 </div>
 <div class="dim menu_close"></div>
-<title>글쓰기</title>
-<meta property="title" content="글쓰기 | BSM - 부산소마고 지원 서비스">
+<title>글쓰기 - BSM</title>
+<meta property="title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
 <meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
-<meta property="og:title" content="글쓰기 | BSM - 부산소마고 지원 서비스">
+<meta property="og:title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
 <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
 <link rel="stylesheet" href="/css/summernote-lite.min.css">
 <script src="/js/summernote-lite.min.js"></script>
