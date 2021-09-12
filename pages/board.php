@@ -17,33 +17,40 @@
     if(isset($_GET['post_no'])){ ?>
       <div class="post">
         <script>
-          function post_refresh(){
-            $.ajax({
-              type:'POST',
-              data:{
-                command_type:'post',
-                post_no:'<?php echo $_GET['post_no'] ?>',
-                boardType:'<?php echo $_GET['boardType'] ?>'
-              },
-              url:'database',
-              cache:false,
-              success:function(data){
-                data=JSON.parse(data);
-                if(data.status!=1){
-                  ajax_error(data.status);
-                }else{
-                  $('.post_title').text(data.post_title);
-                  $('.post_date').text(data.post_date);
-                  $('.post_hit').text(data.post_hit);
-                  $('.post_comments').text(data.post_comments);
-                  $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
-                  $('.post_content div').html(data.post_content);
-                  post_menu(data.member_code);
+          $(document).ready(function(){
+            function post_refresh(){
+              $.ajax({
+                type:'POST',
+                data:{
+                  command_type:'post',
+                  post_no:'<?php echo $_GET['post_no'] ?>',
+                  boardType:'<?php echo $_GET['boardType'] ?>'
+                },
+                url:'database',
+                cache:false,
+                success:function(data){
+                  data=JSON.parse(data);
+                  if(data.status!=1){
+                    ajax_error(data.status);
+                  }else{
+                    $('.post_title').text(data.post_title);
+                    $('.post_date').text(data.post_date);
+                    $('.post_hit').text(data.post_hit);
+                    $('.post_comments').text(data.post_comments);
+                    $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
+                    $('.post_content div').html(data.post_content);
+                    $('.note-video-clip').each(function(){
+                      var tmp = $(this).wrap('<p/>').parent().html();
+                      $(this).parent().html('<div class="video-container">'+tmp+'</div>');
+                    });
+                    post_menu(data.member_code);
+                    comment_refresh();
+                  }
                 }
-              }
-            });
-          }
-          post_refresh();
+              });
+            }
+            post_refresh();
+          });
         </script>
         <div class="post_title"></div>
         <div class="post_date"><p></p></div>
@@ -66,19 +73,23 @@
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
-                comments = "";
-                for(var i=1;i<=Object.keys(data).length;i++){
-                  var comment = "";
-                  comment += "<li>"+data[i].memberNickname+"</li>";
-                  comment += "<li>"+data[i].comment+"</li>";
-                  comment += "<li>"+data[i].commentDate+"</li>";
-                  comments += "<ul>"+comment+"</ul>";
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  data=data.arr_comment;
+                  comments = "";
+                  for(var i=1;i<=Object.keys(data).length;i++){
+                    var comment = "";
+                    comment += "<li>"+data[i].memberNickname+"</li>";
+                    comment += "<li>"+data[i].comment+"</li>";
+                    comment += "<li>"+data[i].commentDate+"</li>";
+                    comments += "<ul>"+comment+"</ul>";
+                  }
+                  $('.comment_list .comment').html(comments);
                 }
-                $('.comment_list .comment').html(comments);
               }
             });
           }
-          comment_refresh();
         </script>
         <div class="comment"></div>
       </div>
@@ -120,41 +131,48 @@
         </ul>
         <div></div>
         <script>
-          function board_refresh(){
-            $.ajax({
-              type:'POST',
-              data:{
-                command_type:'board',
-                <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
-                boardType:'<?php echo $_GET['boardType'] ?>'
-              },
-              url:'database',
-              cache:false,
-              success:function(data){
-                data=JSON.parse(data);
-                boards = "";
-                for(var i=1;i<=Object.keys(data).length;i++){
-                  var board = "";
-                  board += "<li>"+data[i].postNo+"</li>";
-                  if(data[i].postComments>=1){
-                    board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p><p class="post_comments">[' +data[i].postComments+ ']</p></a></li>';
+          $(document).ready(function(){
+            function board_refresh(){
+              $.ajax({
+                type:'POST',
+                data:{
+                  command_type:'board',
+                  <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
+                  boardType:'<?php echo $_GET['boardType'] ?>'
+                },
+                url:'database',
+                cache:false,
+                success:function(data){
+                  data=JSON.parse(data);
+                  if(data.status!=1){
+                    ajax_error(data.status);
                   }else{
-                    board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p></a></li>';
-                  }
-                  board += '<li><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ "</a></li>";
-                  board += "<li>"+data[i].postDate+"</li>";
-                  board += "<li>"+data[i].postHit+"</li>";
-                  if(i%2){
-                    boards += '<ul>'+board+'</ul>';
-                  }else{
-                    boards += '<ul class="odd">'+board+'</ul>';
+                    data=data.arr_board;
+                    boards = "";
+                    for(var i=1;i<=Object.keys(data).length;i++){
+                      var board = "";
+                      board += "<li>"+data[i].postNo+"</li>";
+                      if(data[i].postComments>=1){
+                        board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p><p class="post_comments">[' +data[i].postComments+ ']</p></a></li>';
+                      }else{
+                        board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p></a></li>';
+                      }
+                      board += '<li><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ "</a></li>";
+                      board += "<li>"+data[i].postDate+"</li>";
+                      board += "<li>"+data[i].postHit+"</li>";
+                      if(i%2){
+                        boards += '<ul>'+board+'</ul>';
+                      }else{
+                        boards += '<ul class="odd">'+board+'</ul>';
+                      }
+                    }
+                    $('.board_list div').html(boards);
                   }
                 }
-                $('.board_list div').html(boards);
-              }
-            });
-          }
-          board_refresh();
+              });
+            }
+            board_refresh();
+          });
         </script>
       </div>
       <div class="page_num"></div>
