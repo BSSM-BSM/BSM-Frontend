@@ -99,41 +99,41 @@ input[type=text], input[type=password]{
 .board{
   padding: 5% 0% 5% 0%;
 }
-.board_list ul li{
+.board_item_info{
   padding:.5rem;
 }
-.board_list ul.table_header{
+.board_item_info.table_header{
   display:none;
 }
-.board_list ul li:nth-child(1){
+.board_item_info:nth-child(1){
   font-size:1.3rem;
   padding-left:5%;
   width:10%;
   color:#CCC;
 }
-.board_list ul li:nth-child(2){
+.board_item_info:nth-child(2){
   font-size:1.5rem;
   width:90%;
   padding-right:5%;
 }
-.board_list ul li:nth-child(3){
+.board_item_info:nth-child(3){
   font-size:1.3rem;
   padding-left:5%;
   width:auto;
 }
-.board_list ul li:nth-child(4){
+.board_item_info:nth-child(4){
   font-size:1.3rem;
   width:auto;
   color:#CCC;
 }
-.board_list ul li:nth-child(5){
+.board_item_info:nth-child(5){
   font-size:1.3rem;
   width:auto;
   padding-right:5%;
   float:right;
   color:#CCC;
 }
-.board_list ul li:nth-child(5):before{
+.board_item_info:nth-child(5):before{
   content:"조회 ";
 }
 .post{

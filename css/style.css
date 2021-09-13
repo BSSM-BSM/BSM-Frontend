@@ -456,57 +456,57 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.board_list ul li a *:visited{
+.board_item_info a *:visited{
   color: rgb(192, 0, 192);
 }
-.board_list ul li a *:hover{
+.board_item_info a *:hover{
   text-decoration:underline;
 }
-.board_list ul li a *.post_comments{
+.board_item_info a *.post_comments{
   color:#AAA;
   padding-left:.5rem;
 }
-.board_list ul{
+.board_item{
   display:table;
   width:100%;
   transition:.25s;
 }
-.board_list ul.odd{
+.board_item.odd{
   background-color:rgba(128, 128, 128, .2);
 }
-.board_list ul:hover:not(.table_header){
+.board_item:hover:not(.table_header){
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
 }
-.board_list ul{
+.board_item{
   font-size:1.5rem;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.board_list ul li{
+.board_item_info{
   float:left;
   padding:1rem;
 }
-.board_list ul li:nth-child(1){
+.board_item_info:nth-child(1){
   width:10%;
 }
-.board_list ul li:nth-child(2){
+.board_item_info:nth-child(2){
   width:50%;
 }
-.board_list ul li:nth-child(2) a:visited{
+.board_item_info:nth-child(2) a:visited{
   color:#f185ff;
 }
-.board_list ul li:nth-child(2) *{
+.board_item_info:nth-child(2) *{
   float:left;
 }
-.board_list ul li:nth-child(3){
+.board_item_info:nth-child(3){
   width:15%;
 }
-.board_list ul li:nth-child(4){
+.board_item_info:nth-child(4){
   width:15%;
 }
-.board_list ul li:nth-child(5){
+.board_item_info:nth-child(5){
   width:10%;
 }
 .post{

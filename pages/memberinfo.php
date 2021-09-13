@@ -33,7 +33,7 @@
                 $('.member_id').text("id: "+data.member_id);
                 $('.member_nickname').text("닉네임: "+data.member_nickname);
                 $('.member_level').text("권한 수준: "+data.member_level);
-                $('.member_created').text(data.member_created+" 가입");
+                $('.member_created').text(data.member_created.split(' ')[0]+" 가입");
                 $('.member_enrolled').text(data.member_enrolled+"년 입학");
                 $('.member_grade').text(data.member_grade+"학년");
                 $('.member_class').text(data.member_class+"반");

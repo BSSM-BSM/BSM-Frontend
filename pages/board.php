@@ -122,57 +122,58 @@
         </script>
     <?php } ?>
       <div class=board_list>
-        <ul class="table_header">
-          <li>번호</li>
-          <li>제목</li>
-          <li>작성자</li>
-          <li>작성 시간</li>
-          <li>조회수</li>
-        </ul>
-        <div></div>
+        <div class="table_header">
+          <span class="board_item_info">번호</span>
+          <span class="board_item_info">제목</span>
+          <span class="board_item_info">작성자</span>
+          <span class="board_item_info">작성 시간</span>
+          <span class="board_item_info">조회수</span>
+        </div>
+        <div class="table_main"></div>
         <script>
-          $(document).ready(function(){
-            function board_refresh(){
-              $.ajax({
-                type:'POST',
-                data:{
-                  command_type:'board',
-                  <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
-                  boardType:'<?php echo $_GET['boardType'] ?>'
-                },
-                url:'database',
-                cache:false,
-                success:function(data){
-                  data=JSON.parse(data);
-                  if(data.status!=1){
-                    ajax_error(data.status);
-                  }else{
-                    data=data.arr_board;
-                    boards = "";
-                    for(var i=1;i<=Object.keys(data).length;i++){
-                      var board = "";
-                      board += "<li>"+data[i].postNo+"</li>";
-                      if(data[i].postComments>=1){
-                        board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p><p class="post_comments">[' +data[i].postComments+ ']</p></a></li>';
-                      }else{
-                        board += '<li><a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"><p>' +data[i].postTitle+ '</p></a></li>';
-                      }
-                      board += '<li><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ "</a></li>";
-                      board += "<li>"+data[i].postDate+"</li>";
-                      board += "<li>"+data[i].postHit+"</li>";
-                      if(i%2){
-                        boards += '<ul>'+board+'</ul>';
-                      }else{
-                        boards += '<ul class="odd">'+board+'</ul>';
-                      }
+          function board_refresh(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'board',
+                <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
+                boardType:'<?php echo $_GET['boardType'] ?>'
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  data=data.arr_board;
+                  boards = "";
+                  for(var i=1;i<=Object.keys(data).length;i++){
+                    var board = "";
+                    board += '<span class="board_item_info">'+data[i].postNo+'</span>';
+                    
+                    board += '<a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"class="board_item_info"><span><p>' +data[i].postTitle;
+                    if(data[i].postComments>=1){
+                      board += '</p><p class="post_comments">[' +data[i].postComments+ ']</p></span></a>';
+                    }else{
+                      board += '</p></span></a>';
                     }
-                    $('.board_list div').html(boards);
+
+                    board += '<span class="board_item_info"><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ '</a></span>';
+                    board += '<span class="board_item_info">'+data[i].postDate+'</span>';
+                    board += '<span class="board_item_info">'+data[i].postHit+'</span>';
+                    if(i%2){
+                      boards += '<span class="board_item">'+board+'</span>';
+                    }else{
+                      boards += '<span class="board_item odd">'+board+'</span>';
+                    }
                   }
+                  $('.board_list .table_main').html(boards);
                 }
-              });
-            }
-            board_refresh();
-          });
+              }
+            });
+          }
+          board_refresh();
         </script>
       </div>
       <div class="page_num"></div>
