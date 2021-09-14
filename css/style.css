@@ -337,7 +337,7 @@ div.alert{
 }
 
 input[type=text], input[type=password], textarea{
-  border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
+  color:#e8eaed; border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
   border-top:1px solid rgba(128, 128, 128, 0.3);
@@ -456,13 +456,10 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.board_item_info a *:visited{
-  color: rgb(192, 0, 192);
-}
-.board_item_info a *:hover{
+a.board_item_info *:hover{
   text-decoration:underline;
 }
-.board_item_info a *.post_comments{
+a.board_item_info *.post_comments{
   color:#AAA;
   padding-left:.5rem;
 }
@@ -494,7 +491,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 .board_item_info:nth-child(2){
   width:50%;
 }
-.board_item_info:nth-child(2) a:visited{
+a:visited.board_item_info:nth-child(2){
   color:#f185ff;
 }
 .board_item_info:nth-child(2) *{

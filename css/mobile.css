@@ -102,7 +102,7 @@ input[type=text], input[type=password]{
 .board_item_info{
   padding:.5rem;
 }
-.board_item_info.table_header{
+.table_header{
   display:none;
 }
 .board_item_info:nth-child(1){
