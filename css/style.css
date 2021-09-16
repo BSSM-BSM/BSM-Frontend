@@ -452,6 +452,8 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 }
 .board_list{
   margin:5rem 0rem 5rem 0rem;
+}
+.board_list *{
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;

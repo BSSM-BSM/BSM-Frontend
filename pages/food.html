@@ -5,7 +5,7 @@
     </div>
     <div class="information">
       <div class="food center">
-        <table class="food-1" onclick="day--;date--;food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+        <table class="food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
           <tr><th class="food-date">x월x일</th></tr>
           <tr><th>아침</th></tr>
           <tr></tr>
@@ -23,7 +23,7 @@
           <tr><th>저녁</th></tr>
           <tr></tr>
         </table>
-        <table class="food-3" onclick="day++;date++;food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+        <table class="food-3" onclick="today.setDate(today.getDate()+1);food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
           <tr><th class="food-date">x월x일</th></tr>
           <tr><th>아침</th></tr>
           <tr></tr>
@@ -33,31 +33,69 @@
           <tr></tr>
         </table>
         <script>
-          var i, j, time, day, date, month;
-          var food_table=
-            [
-                [ [''], [''], [''], [''], [''] ]
-              , [ [''], [''], [''], [''], [''] ]
-              , [ [''], [''], [''], ['']]
-            ];
-          time=new Date();
-          day=time.getDay();
-          date=time.getDate();
-          month=time.getMonth();
+          var times, today, yesterday, tomorrow, day, date, month, year, food_date;
+          var food_table=[];
+          times=new Date();
+          today=new Date(times);
+          day=today.getDate();
+          month=today.getMonth()+1;
+          year=today.getFullYear();
           food_refresh();
           function food_refresh(){
-            $('.food-1 tr:nth-child(1) th').text((month+1)+'월'+(date-1)+'일');
-            $('.food-1 tr:nth-child(3)').html('<td>'+food_table[0][day-2]+'</td>');
-            $('.food-1 tr:nth-child(5)').html('<td>'+food_table[1][day-2]+'</td>');
-            $('.food-1 tr:nth-child(7)').html('<td>'+food_table[2][day-2]+'</td>');
-            $('.food-2 tr:nth-child(1) th').text((month+1)+'월'+date+'일');
-            $('.food-2 tr:nth-child(3)').html('<td>'+food_table[0][day-1]+'</td>');
-            $('.food-2 tr:nth-child(5)').html('<td>'+food_table[1][day-1]+'</td>');
-            $('.food-2 tr:nth-child(7)').html('<td>'+food_table[2][day-1]+'</td>');
-            $('.food-3 tr:nth-child(1) th').text((month+1)+'월'+(date+1)+'일');
-            $('.food-3 tr:nth-child(3)').html('<td>'+food_table[0][day]+'</td>');
-            $('.food-3 tr:nth-child(5)').html('<td>'+food_table[1][day]+'</td>');
-            $('.food-3 tr:nth-child(7)').html('<td>'+food_table[2][day]+'</td>');
+            yesterday=new Date(today);
+            tomorrow=new Date(today);
+            yesterday.setDate(yesterday.getDate()-1);
+            tomorrow.setDate(tomorrow.getDate()+1)
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'food',
+                food_date:year+'-'+month+'-'+day,
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  food_table[data.food_date]={'morning':data.morning, 'lunch':data.lunch, 'dinner':data.dinner};
+                  food_render();
+                }
+              }
+            });
+          }
+          function food_render(){
+            $('.food-1 tr:nth-child(1) th').text((yesterday.getMonth()+1)+'월'+(yesterday.getDate())+'일');
+            if(food_table.hasOwnProperty(yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate())){
+              $('.food-1 tr:nth-child(3)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['morning']+'</td>');
+              $('.food-1 tr:nth-child(5)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['lunch']+'</td>');
+              $('.food-1 tr:nth-child(7)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['dinner']+'</td>');
+            }else{
+              $('.food-1 tr:nth-child(3)').html('<td></td>');
+              $('.food-1 tr:nth-child(5)').html('<td></td>');
+              $('.food-1 tr:nth-child(7)').html('<td></td>');
+            }
+            $('.food-2 tr:nth-child(1) th').text((today.getMonth()+1)+'월'+today.getDate()+'일');
+            if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
+              $('.food-2 tr:nth-child(3)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']+'</td>');
+              $('.food-2 tr:nth-child(5)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']+'</td>');
+              $('.food-2 tr:nth-child(7)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']+'</td>');
+            }else{
+              $('.food-2 tr:nth-child(3)').html('<td></td>');
+              $('.food-2 tr:nth-child(5)').html('<td></td>');
+              $('.food-2 tr:nth-child(7)').html('<td></td>');
+            }
+            $('.food-3 tr:nth-child(1) th').text((tomorrow.getMonth()+1)+'월'+(tomorrow.getDate())+'일');
+            if(food_table.hasOwnProperty(tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate())){
+              $('.food-3 tr:nth-child(3)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['morning']+'</td>');
+              $('.food-3 tr:nth-child(5)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['lunch']+'</td>');
+              $('.food-3 tr:nth-child(7)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['dinner']+'</td>');
+            }else{
+              $('.food-3 tr:nth-child(3)').html('<td></td>');
+              $('.food-3 tr:nth-child(5)').html('<td></td>');
+              $('.food-3 tr:nth-child(7)').html('<td></td>');
+            }
           }
         </script>
       </div>
