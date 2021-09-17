@@ -17,6 +17,9 @@ main,.container{
 main::-webkit-scrollbar{
   width:2px;
 }
+header nav{
+  height:5.1rem;
+}
 div.top_menu{
   width:auto; padding:0rem;
 }
@@ -97,7 +100,7 @@ input[type=text], input[type=password]{
   content:"조회 ";
 }
 .board{
-  padding: 5% 0% 5% 0%;
+  padding: 5% 0%;
 }
 .board_item_info{
   padding:.5rem;
@@ -137,22 +140,32 @@ input[type=text], input[type=password]{
   content:"조회 ";
 }
 .post{
-  padding:0% 5% 0% 5%;
+  padding:0 2.5%;
 }
 .comment_write{
-  padding:0rem 5% 0rem 5%;
+  padding:0 2.5%;
+}
+.comment_list{
+  padding:0 2.5%;
 }
 .class_time tbody tr td, .class_time tbody tr th{
-  padding:1rem .5rem 1rem .5rem;
+  padding:1rem .5rem;
 }
 .class_time tbody tr td:nth-child(1){
   font-size:1.4rem;
 }
 .food tbody tr th{
-  padding:2rem 1rem 0rem 1rem;
+  padding:2rem 1rem;
 }
 .food tbody tr td{
-  padding:1rem 1rem 1rem 1rem;
+  padding:1rem;
+}
+.food .food-1, .food .food-3{
+  display:none;
+}
+.food .food-2{
+  transform: scale(1);
+  opacity:1;
 }
 
 .launch_minecraft{

@@ -37,11 +37,11 @@
           var food_table=[];
           times=new Date();
           today=new Date(times);
-          day=today.getDate();
-          month=today.getMonth()+1;
-          year=today.getFullYear();
           food_refresh();
           function food_refresh(){
+            day=today.getDate();
+            month=today.getMonth()+1;
+            year=today.getFullYear();
             yesterday=new Date(today);
             tomorrow=new Date(today);
             yesterday.setDate(yesterday.getDate()-1);
@@ -72,9 +72,9 @@
               $('.food-1 tr:nth-child(5)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['lunch']+'</td>');
               $('.food-1 tr:nth-child(7)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['dinner']+'</td>');
             }else{
-              $('.food-1 tr:nth-child(3)').html('<td></td>');
-              $('.food-1 tr:nth-child(5)').html('<td></td>');
-              $('.food-1 tr:nth-child(7)').html('<td></td>');
+              $('.food-1 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
+              $('.food-1 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
+              $('.food-1 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
             }
             $('.food-2 tr:nth-child(1) th').text((today.getMonth()+1)+'월'+today.getDate()+'일');
             if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
@@ -82,9 +82,9 @@
               $('.food-2 tr:nth-child(5)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']+'</td>');
               $('.food-2 tr:nth-child(7)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']+'</td>');
             }else{
-              $('.food-2 tr:nth-child(3)').html('<td></td>');
-              $('.food-2 tr:nth-child(5)').html('<td></td>');
-              $('.food-2 tr:nth-child(7)').html('<td></td>');
+              $('.food-2 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
+              $('.food-2 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
+              $('.food-2 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
             }
             $('.food-3 tr:nth-child(1) th').text((tomorrow.getMonth()+1)+'월'+(tomorrow.getDate())+'일');
             if(food_table.hasOwnProperty(tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate())){
@@ -92,9 +92,9 @@
               $('.food-3 tr:nth-child(5)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['lunch']+'</td>');
               $('.food-3 tr:nth-child(7)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['dinner']+'</td>');
             }else{
-              $('.food-3 tr:nth-child(3)').html('<td></td>');
-              $('.food-3 tr:nth-child(5)').html('<td></td>');
-              $('.food-3 tr:nth-child(7)').html('<td></td>');
+              $('.food-3 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
+              $('.food-3 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
+              $('.food-3 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
             }
           }
         </script>

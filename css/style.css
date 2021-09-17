@@ -94,7 +94,7 @@ span{
 main{
   height: calc(var(--vh, 1vh) * 100);
   overflow:auto;
-  scroll-snap-type:y mandatory;
+  scroll-snap-type:y proximity;
 }
 .footer{
   height:calc(var(--vh, 1vh) * 100 - 71px);
@@ -188,11 +188,8 @@ header *{
   color:#e8eaed; font-weight: bold;
 }
 header nav{
-  height:51px;
-}
-header.on nav{
   box-shadow:20px 20px 25px rgba(0, 0, 0, 0.5);
-  background-color:rgba(192, 192, 192, 0.2);
+  background-color:rgba(0, 0, 0, 0.2);
   backdrop-filter:blur(5px);
 }
 header nav , header nav *{
@@ -226,48 +223,47 @@ header.on nav .top_menu{
 .all_menu.on .line:nth-child(3){
   transform: translateY(-.85rem) rotate(-40deg);
 }
-div.top_menu .home{
+.top_menu .home{
   padding:0 2.5rem;
 }
-div.top_menu .home a img{
-  height:5.1rem; padding:1.2rem;
+.top_menu .home a img{
+  height:5.1rem; padding:1.2rem; float:left;
 }
-div.top_menu{
-  margin:0 auto; padding:2.5em 0rem; width:1320px;
+.top_menu{
+  margin:0 auto; padding:2.5rem 0; width:1320px;
 }
-div.top_menu > span{
-  float:left;
+.top_menu > span{
+  text-align:center; font-size:1.6rem; border-radius:.5rem;
   height:auto;
   background:none;
   border:0;
 }
-div.top_menu .page > *, div.top_menu * .page{
+.top_menu span.home, .top_menu span.all_menu{
+  float:left;
+}
+.top_menu .page > *,.top_menu * .page{
   display:inline-block;
   padding:1.5rem 2.5rem;
 }
-div.top_menu span, .top_menu .page{
-  text-align:center; font-size:1.6rem; border-radius:.5rem;
-}
-div.top_menu .dropdown_menu span{
+.top_menu .dropdown_menu span{
   border-radius:.5rem .5rem 0 0;
 }
-div.top_menu span > .page:hover a, div.top_menu span > .page:hover span{
-  text-shadow:0 0 .8rem #FFF;
-}
-div.top_menu .user_menu{
+.top_menu .user_menu{
   border-radius:.75rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 128, 255, 0.2);
-  border-top:1px solid rgba(128, 128, 128, 0.3);
-  border-left:1px solid rgba(128, 128, 128, 0.3);
   float:right;
 }
-div.top_menu > .page:hover, div.top_menu > .all_menu:hover, div.top_menu > span > .page:hover{
+.top_menu span:hover:not(.searchBar){
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  text-shadow:0 0 .8rem #FFF;
   background-color:rgba(0, 0, 0, .2);
 }
-div.top_menu .searchBar{
+.top_menu .searchBar{
   float:right;
+}
+.top_menu .searchBar input{
+  padding:1.7rem 1rem;
 }
 .dropdown_menu {
   position: relative;
@@ -547,13 +543,16 @@ a:visited.board_item_info:nth-child(2){
 }
 .post .post_content{
   width:100%;
-  margin:5rem 0rem 5rem 0rem;
+  margin:5rem 0rem;
+}
+.post_img{
+  width:100%;
 }
 .post .post_content div{
   text-align:left;
 }
 .comment_list{
-  padding:0rem 5rem 0rem 5rem;
+  padding:0rem 5rem;
 }
 .comment_list .comment ul{
   display:inline-block;
@@ -567,10 +566,10 @@ a:visited.board_item_info:nth-child(2){
   float:right;
 }
 .comment_write{
-  padding:0rem 5rem 0rem 5rem;
+  padding:0rem 5rem;
 }
 .page_num *{
-  width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem 1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
+  width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
   background-color:rgba(192, 192, 192, 0.2);
   border-top:1px solid rgba(128, 128, 128, 0.3);
   transition:.25s;
@@ -593,8 +592,12 @@ a:visited.board_item_info:nth-child(2){
 .note-editable{
   background-color:rgba(255, 255, 255, .5);
 }
+.note-editing-area{
+  text-align:start;
+}
+
 .information{
-  padding: 3rem 0rem 3rem 0rem;
+  padding: 3rem 0rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 0, 0, 0.2);
@@ -620,14 +623,31 @@ a:visited.board_item_info:nth-child(2){
   background-color:rgba(128, 128, 128, 0.2);
 }
 .food table tbody tr th{
-  padding:2rem 2rem 0rem 2rem;
+  padding:2rem 2rem;
   font-size:2.5rem;
   font-weight:bold;
 }
 .food table tbody tr td{
-  padding:1rem 2rem 1rem 2rem;
+  padding:1rem 2rem;
   font-size:1.8rem;
 }
+.food *{
+  cursor: pointer;
+  transition:.25s;
+}
+.food table{
+  height:850px;
+  transform: scale(.75);
+  opacity:.5;
+}
+.food .hover-food{
+  transform: scale(1);
+  opacity:1;
+}
+.food table *{
+  user-select:none;
+}
+
 .active_time{
   background-color:rgba(32, 32, 32, .65);
   animation:effect-active 1000ms infinite;
@@ -645,18 +665,6 @@ a:visited.board_item_info:nth-child(2){
 }
 .clock{
   font-size:2rem;
-}
-.food *{
-  cursor: pointer;
-  transition:.25s;
-}
-.food table{
-  transform: scale(.75);
-  opacity:.5;
-}
-.food .hover-food{
-  transform: scale(1);
-  opacity:1;
 }
 
 .pageAlert{

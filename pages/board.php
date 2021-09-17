@@ -17,40 +17,38 @@
     if(isset($_GET['post_no'])){ ?>
       <div class="post">
         <script>
-          $(document).ready(function(){
-            function post_refresh(){
-              $.ajax({
-                type:'POST',
-                data:{
-                  command_type:'post',
-                  post_no:'<?php echo $_GET['post_no'] ?>',
-                  boardType:'<?php echo $_GET['boardType'] ?>'
-                },
-                url:'database',
-                cache:false,
-                success:function(data){
-                  data=JSON.parse(data);
-                  if(data.status!=1){
-                    ajax_error(data.status);
-                  }else{
-                    $('.post_title').text(data.post_title);
-                    $('.post_date').text(data.post_date);
-                    $('.post_hit').text(data.post_hit);
-                    $('.post_comments').text(data.post_comments);
-                    $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
-                    $('.post_content div').html(data.post_content);
-                    $('.note-video-clip').each(function(){
-                      var tmp = $(this).wrap('<p/>').parent().html();
-                      $(this).parent().html('<div class="video-container">'+tmp+'</div>');
-                    });
-                    post_menu(data.member_code);
-                    comment_refresh();
-                  }
+          function post_refresh(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'post',
+                post_no:'<?php echo $_GET['post_no'] ?>',
+                boardType:'<?php echo $_GET['boardType'] ?>'
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  $('.post_title').text(data.post_title);
+                  $('.post_date').text(data.post_date);
+                  $('.post_hit').text(data.post_hit);
+                  $('.post_comments').text(data.post_comments);
+                  $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
+                  $('.post_content div').html(data.post_content);
+                  $('.note-video-clip').each(function(){
+                    var tmp = $(this).wrap('<p/>').parent().html();
+                    $(this).parent().html('<div class="video-container">'+tmp+'</div>');
+                  });
+                  post_menu(data.member_code);
+                  comment_refresh();
                 }
-              });
-            }
-            post_refresh();
-          });
+              }
+            });
+          }
+          post_refresh();
         </script>
         <div class="post_title"></div>
         <div class="post_date"><p></p></div>
@@ -146,22 +144,22 @@
                 if(data.status!=1){
                   ajax_error(data.status);
                 }else{
-                  data=data.arr_board;
+                  board_data=data.arr_board;
                   boards = "";
-                  for(var i=1;i<=Object.keys(data).length;i++){
+                  for(var i=1;i<=Object.keys(board_data).length;i++){
                     var board = "";
-                    board += '<span class="board_item_info">'+data[i].postNo+'</span>';
+                    board += '<span class="board_item_info">'+board_data[i].postNo+'</span>';
                     
-                    board += '<a href="./board?boardType=' +data[i].boardType+ '&post_no=' +data[i].postNo+ '"class="board_item_info"><span><p>' +data[i].postTitle;
-                    if(data[i].postComments>=1){
-                      board += '</p><p class="post_comments">[' +data[i].postComments+ ']</p></span></a>';
+                    board += '<a href="./board?boardType=' +board_data[i].boardType+ '&post_no=' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
+                    if(board_data[i].postComments>=1){
+                      board += '</p><p class="post_comments">[' +board_data[i].postComments+ ']</p></span></a>';
                     }else{
                       board += '</p></span></a>';
                     }
 
-                    board += '<span class="board_item_info"><a href="./memberinfo.php?member_code=' +data[i].memberCode+ '">' +data[i].memberNickname+ '</a></span>';
-                    board += '<span class="board_item_info">'+data[i].postDate+'</span>';
-                    board += '<span class="board_item_info">'+data[i].postHit+'</span>';
+                    board += '<span class="board_item_info"><a href="./memberinfo.php?member_code=' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
+                    board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
+                    board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
                     if(i%2){
                       boards += '<span class="board_item">'+board+'</span>';
                     }else{
@@ -169,6 +167,7 @@
                     }
                   }
                   $('.board_list .table_main').html(boards);
+                  $('.page_num').html(data.page_num);
                 }
               }
             });
