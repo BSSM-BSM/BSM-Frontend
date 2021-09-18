@@ -63,7 +63,7 @@ input[type=text], input[type=password]{
   margin-left:0;
 }
 .searchResult{
-  padding: 5% 0% 5% 0%;
+  padding: 5% 0%;
 }
 .searchResult ul li{
   padding:.5rem;
@@ -140,13 +140,13 @@ input[type=text], input[type=password]{
   content:"조회 ";
 }
 .post{
-  padding:0 2.5%;
+  padding:0 5%;
 }
 .comment_write{
-  padding:0 2.5%;
+  padding:0 5%;
 }
 .comment_list{
-  padding:0 2.5%;
+  padding:0 5%;
 }
 .class_time tbody tr td, .class_time tbody tr th{
   padding:1rem .5rem;
@@ -154,16 +154,16 @@ input[type=text], input[type=password]{
 .class_time tbody tr td:nth-child(1){
   font-size:1.4rem;
 }
-.food tbody tr th{
+.food_date, .food_time{
   padding:2rem 1rem;
 }
-.food tbody tr td{
+.food_menu{
   padding:1rem;
 }
-.food .food-1, .food .food-3{
+.foods .food-1, .foods .food-3{
   display:none;
 }
-.food .food-2{
+.foods .food-2{
   transform: scale(1);
   opacity:1;
 }

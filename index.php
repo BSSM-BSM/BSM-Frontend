@@ -72,7 +72,6 @@
               <li><a href="/time">시간표</a></li>
               <li><a href="/calendar">학사일정</a></li>
               <li><a href="/best_teacher">인기 교직원</a></li>
-              <li><a href="/goodbed">상벌점</a></li>
             </ul>
           </span>
           <span class="dropdown_menu">
@@ -283,22 +282,24 @@
       }
     </script>
     <div class="login_box popup center">
+      <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
       <h2>로그인</h2>
       <br>
-      <form class="login" method="post" autocomplete="off" onsubmit="return false;">
+      <form class="login" method="post" autocomplete="off" onsubmit="login();return false;">
         <input type="text" class="member_id" placeholder="아이디" class="input_text" required autofocus>
         <br>
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
         <br><br>
         <div class="button" onClick="$('.login_box').removeClass('on');">닫기</div>
         <div class="button" onClick="$('.register_box').addClass('on');">회원가입</div>
-        <button type="submit" onclick="login();" class="button">로그인</button>
+        <button type="submit" onclick="" class="button">로그인</button>
       </form>
     </div>
     <div class="register_box popup center">
+      <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
       <h2>회원가입</h2>
       <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
-      <form class="register" method="post" autocomplete="off" onsubmit="return false;">
+      <form class="register" method="post" autocomplete="off" onsubmit="register();return false;">
         <input type="text" class="member_id" placeholder="아이디" class="input_text" required autofocus>
         <br>
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
@@ -310,16 +311,17 @@
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
         <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
-        <button type="submit" onclick="register();" class="button">가입하기</button>
+        <button type="submit" class="button">가입하기</button>
       </form>
     </div>
     <div class="authentication_box popup center">
+      <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
       <h2>인증코드 활성화가 필요합니다</h2>
       <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
-      <form class="authentication" method="post" autocomplete="off" onsubmit="return false;">
+      <form class="authentication" method="post" autocomplete="off" onsubmit="authentication();return false;">
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
-        <button type="submit" onclick="authentication();" class="button">계정 인증</button>
+        <button type="submit" class="button">계정 인증</button>
       </form>
     </div>
   </body>

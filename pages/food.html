@@ -4,36 +4,22 @@
       <h1>급식</h1>
     </div>
     <div class="information">
-      <div class="food center">
-        <table class="food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
-          <tr><th class="food-date">x월x일</th></tr>
-          <tr><th>아침</th></tr>
-          <tr></tr>
-          <tr><th>점심</th></tr>
-          <tr></tr>
-          <tr><th>저녁</th></tr>
-          <tr></tr>
-        </table>
-        <table class="food-2 hover-food">
-          <tr><th class="food-date">x월x일</th></tr>
-          <tr><th>아침</th></tr>
-          <tr></tr>
-          <tr><th>점심</th></tr>
-          <tr></tr>
-          <tr><th>저녁</th></tr>
-          <tr></tr>
-        </table>
-        <table class="food-3" onclick="today.setDate(today.getDate()+1);food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
-          <tr><th class="food-date">x월x일</th></tr>
-          <tr><th>아침</th></tr>
-          <tr></tr>
-          <tr><th>점심</th></tr>
-          <tr></tr>
-          <tr><th>저녁</th></tr>
-          <tr></tr>
-        </table>
+      <div class="foods center">
+        <div class="food food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+          <div class="food_time">아침</div>
+          <div class="food_menu"></div>
+        </div>
+        <div class="food food-2 hover-food">
+          <div class="food_date">x월x일</div>
+          <div class="food_time">점심</div>
+          <div class="food_menu"></div>
+        </div>
+        <div class="food food-3" onclick="today.setDate(today.getDate()+1);food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+          <div class="food_time">저녁</div>
+          <div class="food_menu"></div>
+        </div>
         <script>
-          var times, today, yesterday, tomorrow, day, date, month, year, food_date;
+          var times, today, day, date, month, year, food_date;
           var food_table=[];
           times=new Date();
           today=new Date(times);
@@ -42,10 +28,6 @@
             day=today.getDate();
             month=today.getMonth()+1;
             year=today.getFullYear();
-            yesterday=new Date(today);
-            tomorrow=new Date(today);
-            yesterday.setDate(yesterday.getDate()-1);
-            tomorrow.setDate(tomorrow.getDate()+1)
             $.ajax({
               type:'POST',
               data:{
@@ -66,35 +48,15 @@
             });
           }
           function food_render(){
-            $('.food-1 tr:nth-child(1) th').text((yesterday.getMonth()+1)+'월'+(yesterday.getDate())+'일');
-            if(food_table.hasOwnProperty(yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate())){
-              $('.food-1 tr:nth-child(3)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['morning']+'</td>');
-              $('.food-1 tr:nth-child(5)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['lunch']+'</td>');
-              $('.food-1 tr:nth-child(7)').html('<td>'+food_table[yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate()]['dinner']+'</td>');
-            }else{
-              $('.food-1 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
-              $('.food-1 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
-              $('.food-1 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
-            }
-            $('.food-2 tr:nth-child(1) th').text((today.getMonth()+1)+'월'+today.getDate()+'일');
+            $('.food-2 .food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일');
             if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
-              $('.food-2 tr:nth-child(3)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']+'</td>');
-              $('.food-2 tr:nth-child(5)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']+'</td>');
-              $('.food-2 tr:nth-child(7)').html('<td>'+food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']+'</td>');
+              $('.food-1 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']);
+              $('.food-2 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']);
+              $('.food-3 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']);
             }else{
-              $('.food-2 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
-              $('.food-2 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
-              $('.food-2 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
-            }
-            $('.food-3 tr:nth-child(1) th').text((tomorrow.getMonth()+1)+'월'+(tomorrow.getDate())+'일');
-            if(food_table.hasOwnProperty(tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate())){
-              $('.food-3 tr:nth-child(3)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['morning']+'</td>');
-              $('.food-3 tr:nth-child(5)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['lunch']+'</td>');
-              $('.food-3 tr:nth-child(7)').html('<td>'+food_table[tomorrow.getFullYear()+'-'+(tomorrow.getMonth()+1)+'-'+tomorrow.getDate()]['dinner']+'</td>');
-            }else{
-              $('.food-3 tr:nth-child(3)').html('<td>급식이 없습니다.</td>');
-              $('.food-3 tr:nth-child(5)').html('<td>급식이 없습니다.</td>');
-              $('.food-3 tr:nth-child(7)').html('<td>급식이 없습니다.</td>');
+              $('.food-1 .food_menu').html('급식이 없습니다.');
+              $('.food-2 .food_menu').html('급식이 없습니다.');
+              $('.food-3 .food_menu').html('급식이 없습니다.');
             }
           }
         </script>
