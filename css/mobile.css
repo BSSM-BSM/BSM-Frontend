@@ -142,6 +142,9 @@ input[type=text], input[type=password]{
 .post{
   padding:0 5%;
 }
+.post_content div p img{
+  width:100%;
+}
 .comment_write{
   padding:0 5%;
 }

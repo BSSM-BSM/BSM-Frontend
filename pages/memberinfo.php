@@ -1,8 +1,9 @@
 <main>
-  <div class="container vertical_center">
-    <h1>유저 정보</h1>
-    <br><br>
-    <div class="information">
+  <div class="container">
+    <div class="title">
+      <h1>유저 정보</h1>
+    </div>
+    <div class="information blur">
       <div class="member_code"></div>
       <div class="member_id"></div>
       <div class="member_nickname"></div>

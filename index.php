@@ -90,7 +90,6 @@
               <li><a href="/board?boardType=blog">블로그</a></li>
             </ul>
           </span>
-          <span class="page"><a href="/patch">패치 노트</a></span>
           <span class="page"><a href="/minecraft">마크 서버</a></span>
           <?php
             if (isset($_SESSION['member_id'])){ ?>
@@ -126,13 +125,11 @@
           <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
           <?php }
           ?>
-          <li class="page"><a href="/search">검색</a></li>
-          <li class="page"><a href="/patch">패치 노트</a></li>
-          <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/time">시간표</a></li>
           <li class="page"><a href="/food">급식</a></li>
           <li class="page"><a href="/board?boardType=board">커뮤니티</a></li>
           <li class="page"><a href="/board?boardType=blog">블로그</a></li>
+          <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/song">신청곡</a></li>
           <li class="page"><a href="/calendar">학사일정</a></li>
           <li class="page"><a href="/best_teacher">인기 교직원</a></li>

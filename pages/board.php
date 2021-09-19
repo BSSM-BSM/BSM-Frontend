@@ -12,7 +12,7 @@
         ?>
       <br>
     </div>
-    <div class="board">
+    <div class="board blur">
     <?php
     if(isset($_GET['post_no'])){ ?>
       <div class="post">
