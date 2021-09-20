@@ -146,7 +146,7 @@
                 }else{
                   board_data=data.arr_board;
                   boards = "";
-                  for(var i=1;i<=Object.keys(board_data).length;i++){
+                  for(var i=0;i<Object.keys(board_data).length;i++){
                     var board = "";
                     board += '<span class="board_item_info">'+board_data[i].postNo+'</span>';
                     
