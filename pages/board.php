@@ -76,7 +76,7 @@
                 }else{
                   data=data.arr_comment;
                   comments = "";
-                  for(var i=1;i<=Object.keys(data).length;i++){
+                  for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
                     comment += "<li>"+data[i].memberNickname+"</li>";
                     comment += "<li>"+data[i].comment+"</li>";
@@ -88,18 +88,33 @@
               }
             });
           }
+          function comment_write(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'comment_write',
+                boardType:'<?php echo $_GET['boardType'] ?>',
+                post_no:'<?php echo $_GET['post_no'] ?>',
+                post_comment:$('.post_comment').val(),
+              },
+              url:'database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  comment_refresh();
+                }
+              }
+            });
+          }
         </script>
         <div class="comment"></div>
       </div>
-        <form class="comment_write" action="database" method="post" autocomplete="off">
-          <input type="hidden" name="command_type" value="comment_write">
-          <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">
-          <input type="hidden" name="post_no" value=<?php echo $_GET['post_no'] ?>>
-          <textarea name="post_comment" placeholder="댓글" class="input_text" style="width:100%;height:10rem;" required></textarea>
-          <input type="hidden" name="comment_depth" value=0>
-          <input type="hidden" name="comment_parent" value=NULL>
+        <form class="comment_write" action="database" method="post" autocomplete="off" onsubmit="comment_write();return false;">
+          <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
           <br><br>
-          <input type="hidden" name="returnUrl" value="<?php echo $returnUrl ?>">
           <div class="button" onclick="comment_refresh();">댓글 새로고침</div>
           <input type="submit" name="" value="댓글작성" class="button">
         </form>
