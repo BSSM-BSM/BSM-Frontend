@@ -1,5 +1,7 @@
 function ajax_error(status){
     error_msg={
+        0:{type:1, msg:'서버와의 연결에 실패하였습니다.'},
+        1:{type:0, msg:'정상 처리되었습니다.'},
         2:{type:1, msg:'정상적인 접근이 아닙니다.'},
         3:{type:1, msg:'로그인 세션 저장에 실패하였습니다.'},
         4:{type:1, msg:'id 또는 password가 맞지 않습니다.'},
@@ -17,15 +19,18 @@ function ajax_error(status){
         16:{type:1, msg:'잘못된 검색 대상입니다.'},
         17:{type:1, msg:'게시글 번호가 없습니다.'},
         18:{type:1, msg:'삭제된 게시글 입니다.'},
-        19:{type:1, msg:'정상적인 접근이 아닙니다 로그인 해주세요.'},
+        19:{type:2, msg:'정상적인 접근이 아닙니다 로그인 해주세요.'},
         20:{type:1, msg:'게시글 작성자가 아닙니다.'},
         21:{type:2, msg:'로그인후 이용 가능 합니다.'},
+        22:{type:1, msg:'파일 업로드에 실패하였습니다.'},
+        23:{type:1, msg:'게시글 작성에 실패하였습니다.'},
     };
     if(error_msg[status].type!=1){
         switch(status){
             case 8:
                 $('.authentication_box').addClass('on');
                 break;
+            case 19:
             case 21:
                 alert("에러코드 "+status+"\n"+error_msg[status].msg);
                 $('.login_box').addClass('on');

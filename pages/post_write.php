@@ -1,3 +1,6 @@
+<script>
+  var refresh = false;
+</script>
 <main>
   <div class="container">
     <div class="title">
@@ -44,21 +47,23 @@
             cache:false,
             contentType:false,
             processData:false,
-            success:function(url){
-                $(el).summernote('editor.insertImage', $.trim(url));
+            success:function(data){
+              data=JSON.parse(data);
+              if(data.status!=1){
+                ajax_error(data.status);
+              }else{
+                $(el).summernote('editor.insertImage', $.trim(data.file_path));
+              }
             },
             error: function(data) {
-                console.log(data);
+              ajax_error(0);
             }
         });
       }
     </script>
-    <form class="post_write" action="database" method="post" autocomplete="off">
-      <input type="hidden" name="command_type" value="post_write">
-      <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">
+    <form class="post_write" method="post" autocomplete="off" onsubmit="post_write();return false;">
       <?php
       if(isset($_GET['post_no'])){ ?>
-        <input type="hidden" name="post_no" value=<?php echo $_GET['post_no'] ?>>
         <script>
           function post_refresh(){
             $.ajax({
@@ -88,10 +93,33 @@
       <input type="text" name="post_title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
       <textarea name="post_content" placeholder="내용" id="summernote" class="input_text" style="width:100%;" required></textarea>
       <br><br>
-      <input type="hidden" name="returnUrl" value="<?php echo $returnUrl ?>">
       <a href="/board?boardType=<?php echo $_GET['boardType'] ?>" class="button">커뮤니티</a>
-      <input type="submit" name="" value="글작성" class="button">
+      <input type="submit" value="글작성" class="button">
     </form>
+    <script>
+      function post_write(){
+        $.ajax({
+          type:'POST',
+          data:{
+            command_type:'post_write',
+            boardType:'<?php echo $_GET['boardType'] ?>',
+            <?php if(isset($_GET['post_no'])){ echo "post_no:'".$_GET['post_no']."',";} ?>
+            post_title:$('input[name=post_title]').val(),
+            post_content:$('textarea[name=post_content]').val(),
+          },
+          url:'database',
+          cache:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              ajax_error(data.status);
+            }else{
+              window.location.href="board?boardType=<?php echo $_GET['boardType'] ?>";
+            }
+          }
+        });
+      }
+    </script>
     <br>
   </div>
 </div>

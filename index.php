@@ -53,6 +53,7 @@
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       });
+      var refresh = true;
     </script>
   </head>
   <body>
@@ -228,7 +229,11 @@
             if(data.status!=1){
               ajax_error(data.status);
             }else{
-              window.location.href=data.returnUrl;
+              if(refresh){
+                window.location.href=data.returnUrl;
+              }
+              alert("로그인에 성공하였습니다.");
+              $('.login_box').removeClass('on');
             }
           }
         });
