@@ -38,6 +38,23 @@
                   $('.post_comments').text(data.post_comments);
                   $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
                   $('.post_content div').html(data.post_content);
+                  if(data.like>0){
+                    $('.like_button').addClass('on');
+                    $('.dislike_button').removeClass('on');
+                    like=0;
+                    dislike=-1;
+                  }else if(data.like<0){
+                    $('.like_button').removeClass('on');
+                    $('.dislike_button').addClass('on');
+                    like=1;
+                    dislike=0;
+                  }else{
+                    $('.like_button').removeClass('on');
+                    $('.dislike_button').removeClass('on');
+                    like=1;
+                    dislike=-1;
+                  }
+                  $('.post_like').text(data.post_like);
                   $('.note-video-clip').each(function(){
                     var tmp = $(this).wrap('<p/>').parent().html();
                     $(this).parent().html('<div class="video-container">'+tmp+'</div>');
@@ -57,6 +74,51 @@
         <div class="member_nickname"></div>
         <div class="post_content"><div></div></div>
       </div>
+      <div class="post_like_wrap">
+        <button class="button like_button" onclick="post_like=like;like_send();">좋아요</button>
+        <span class="post_like"></span>
+        <button class="button dislike_button" onclick="post_like=dislike;like_send();">싫어요</button>
+      </div>
+      <script>
+        var like=1, dislike=-1, post_like=0;
+        function like_send(){
+          $.ajax({
+            type:'POST',
+            data:{
+              command_type:'like',
+              boardType:'<?php echo $_GET['boardType'] ?>',
+              post_no:'<?php echo $_GET['post_no'] ?>',
+              like:post_like,
+            },
+            url:'database',
+            cache:false,
+            success:function(data){
+              data=JSON.parse(data);
+              if(data.status!=1){
+                ajax_error(data.status);
+              }else{
+                if(data.like>0){
+                  $('.like_button').addClass('on');
+                  $('.dislike_button').removeClass('on');
+                  like=0;
+                  dislike=-1;
+                }else if(data.like<0){
+                  $('.like_button').removeClass('on');
+                  $('.dislike_button').addClass('on');
+                  like=1;
+                  dislike=0;
+                }else{
+                  $('.like_button').removeClass('on');
+                  $('.dislike_button').removeClass('on');
+                  like=1;
+                  dislike=-1;
+                }
+                $('.post_like').text(data.post_like);
+              }
+            }
+          });
+        }
+      </script>
       <div class="comment_list">
         <script>
           function comment_refresh(){

@@ -24,6 +24,7 @@ function ajax_error(status){
         21:{type:2, msg:'로그인후 이용 가능 합니다.'},
         22:{type:1, msg:'파일 업로드에 실패하였습니다.'},
         23:{type:1, msg:'게시글 작성에 실패하였습니다.'},
+        24:{type:1, msg:'이미 누르셨습니다.'},
     };
     if(error_msg[status].type!=1){
         switch(status){
