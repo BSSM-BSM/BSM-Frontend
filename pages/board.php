@@ -41,18 +41,12 @@
                   if(data.like>0){
                     $('.like_button').addClass('on');
                     $('.dislike_button').removeClass('on');
-                    like=0;
-                    dislike=-1;
                   }else if(data.like<0){
                     $('.like_button').removeClass('on');
                     $('.dislike_button').addClass('on');
-                    like=1;
-                    dislike=0;
                   }else{
                     $('.like_button').removeClass('on');
                     $('.dislike_button').removeClass('on');
-                    like=1;
-                    dislike=-1;
                   }
                   $('.post_like').text(data.post_like);
                   $('.note-video-clip').each(function(){
@@ -75,20 +69,20 @@
         <div class="post_content"><div></div></div>
       </div>
       <div class="post_like_wrap">
-        <button class="button like_button" onclick="post_like=like;like_send();">좋아요</button>
+        <button class="button like_button" onclick="like_send(1);">좋아요</button>
         <span class="post_like"></span>
-        <button class="button dislike_button" onclick="post_like=dislike;like_send();">싫어요</button>
+        <button class="button dislike_button" onclick="like_send(-1);">싫어요</button>
       </div>
       <script>
-        var like=1, dislike=-1, post_like=0;
-        function like_send(){
+        var like;
+        function like_send(like){
           $.ajax({
             type:'POST',
             data:{
               command_type:'like',
               boardType:'<?php echo $_GET['boardType'] ?>',
               post_no:'<?php echo $_GET['post_no'] ?>',
-              like:post_like,
+              like:like,
             },
             url:'database',
             cache:false,
@@ -100,18 +94,12 @@
                 if(data.like>0){
                   $('.like_button').addClass('on');
                   $('.dislike_button').removeClass('on');
-                  like=0;
-                  dislike=-1;
                 }else if(data.like<0){
                   $('.like_button').removeClass('on');
                   $('.dislike_button').addClass('on');
-                  like=1;
-                  dislike=0;
                 }else{
                   $('.like_button').removeClass('on');
                   $('.dislike_button').removeClass('on');
-                  like=1;
-                  dislike=-1;
                 }
                 $('.post_like').text(data.post_like);
               }

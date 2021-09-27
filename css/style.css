@@ -118,7 +118,7 @@ main{
   scroll-snap-type:y proximity;
 }
 .footer{
-  height:calc(var(--vh, 1vh) * 100 - 71px);
+  height:calc(var(--vh, 1vh) * 100 - 91px);
 }
 main::-webkit-scrollbar{
   width:8px;
