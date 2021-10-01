@@ -21,18 +21,20 @@
         <script>
           var times, today, day, date, month, year, food_date;
           var food_table=[];
+          var day_table=['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
           times=new Date();
           today=new Date(times);
           food_refresh();
           function food_refresh(){
-            day=today.getDate();
+            day=day_table[today.getDay()];
+            date=today.getDate();
             month=today.getMonth()+1;
             year=today.getFullYear();
             $.ajax({
               type:'POST',
               data:{
                 command_type:'food',
-                food_date:year+'-'+month+'-'+day,
+                food_date:year+'-'+month+'-'+date,
               },
               url:'database',
               cache:false,
@@ -48,7 +50,7 @@
             });
           }
           function food_render(){
-            $('.food-2 .food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일');
+            $('.food-2 .food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
             if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
               $('.food-1 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']);
               $('.food-2 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']);

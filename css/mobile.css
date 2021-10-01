@@ -102,7 +102,11 @@ input[type=text], input[type=password]{
 .board{
   padding: 5% 0%;
 }
+.board_item{
+  display:block;
+}
 .board_item_info{
+  float:left;
   padding:.5rem;
 }
 .table_header{
@@ -139,6 +143,15 @@ input[type=text], input[type=password]{
 .board_item_info:nth-child(5):before{
   content:"조회 ";
 }
+.board_item_info:nth-child(6){
+  font-size:1.3rem;
+  width:auto;
+  float:right;
+  color:#CCC;
+}
+.board_item_info:nth-child(6):before{
+  content:"좋아요 ";
+}
 .post{
   padding:0 5%;
 }
@@ -163,12 +176,8 @@ input[type=text], input[type=password]{
 .food_menu{
   padding:1rem;
 }
-.foods .food-1, .foods .food-3{
-  display:none;
-}
-.foods .food-2{
-  transform: scale(1);
-  opacity:1;
+.foods{
+  display:block;
 }
 
 .launch_minecraft{

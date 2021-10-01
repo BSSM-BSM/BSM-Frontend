@@ -128,7 +128,7 @@
                   comments = "";
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
-                    comment += "<li>"+data[i].memberNickname+"</li>";
+                    comment += '<li><a href="/memberinfo?member_code=' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></li>';
                     comment += "<li>"+data[i].comment+"</li>";
                     comment += "<li>"+data[i].commentDate+"</li>";
                     comments += "<ul>"+comment+"</ul>";
@@ -186,11 +186,14 @@
     <?php } ?>
       <div class=board_list>
         <div class="table_header">
-          <span class="board_item_info">번호</span>
-          <span class="board_item_info">제목</span>
-          <span class="board_item_info">작성자</span>
-          <span class="board_item_info">작성 시간</span>
-          <span class="board_item_info">조회수</span>
+          <span class="board_item">
+            <span class="board_item_info">번호</span>
+            <span class="board_item_info">제목</span>
+            <span class="board_item_info">작성자</span>
+            <span class="board_item_info">작성 시간</span>
+            <span class="board_item_info">조회수</span>
+            <span class="board_item_info">좋아요</span>
+          </span>
         </div>
         <div class="table_main"></div>
         <script>
@@ -222,9 +225,10 @@
                       board += '</p></span></a>';
                     }
 
-                    board += '<span class="board_item_info"><a href="./memberinfo.php?member_code=' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
+                    board += '<span class="board_item_info"><a href="/memberinfo?member_code=' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
                     board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
+                    board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
                     if(i%2){
                       boards += '<span class="board_item">'+board+'</span>';
                     }else{

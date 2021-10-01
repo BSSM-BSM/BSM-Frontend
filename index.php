@@ -231,9 +231,10 @@
             }else{
               if(refresh){
                 window.location.href=data.returnUrl;
+              }else{
+                alert("로그인에 성공하였습니다.");
+                $('.login_box').removeClass('on');
               }
-              alert("로그인에 성공하였습니다.");
-              $('.login_box').removeClass('on');
             }
           }
         });
