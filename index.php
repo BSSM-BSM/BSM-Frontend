@@ -114,6 +114,16 @@
             </div>
           </span>
         </div>
+        <div class="notice_bar">
+          <script>
+            var agent = navigator.userAgent.toLowerCase();
+            if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
+              document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
+            }
+          </script>
+          <div class="notice warning">Version 0.4 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다.</div>
+          <a href="/#download" class="notice">안드로이드 앱 베타버전이 공개되었습니다. 클릭하여 다운로드</a>
+        </div>
       </nav>
       <div class="side_menu">
         <ul>
@@ -136,17 +146,6 @@
           <li class="page"><a href="/best_teacher">인기 교직원</a></li>
           <li class="page"><a href="/goodbed">상벌점</a></li>
         </ul>
-      </div>
-      <div class="alert">
-        <div>
-          <script>
-            var agent = navigator.userAgent.toLowerCase();
-            if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
-              document.write("<li>현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</li>");
-            }
-          </script>
-        </div>
-        <div></div>
       </div>
     </header>
     <?php

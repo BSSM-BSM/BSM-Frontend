@@ -23,11 +23,11 @@ header nav{
 div.top_menu{
   width:auto; padding:0rem;
 }
-div.top_menu span:not(.user_menu, .searchBar, .all_menu) *, .top_menu .home{
+.top_menu > span:not(.user_menu, .searchBar, .all_menu), .top_menu .home{
   display:none;
 }
-div.top_menu .search{
-  float:left;
+.top_menu .searchBar{
+  float:none;
 }
 .section#main h1#main_txt{
   font-size:3.6rem;
