@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/css/etc/board.css">
 <main>
   <div class="container">
     <div class="title">
@@ -154,6 +155,7 @@
                 if(data.status!=1){
                   ajax_error(data.status);
                 }else{
+                  $('.post_comment').val("");
                   comment_refresh();
                 }
               }
@@ -252,9 +254,12 @@
           <a href="/post_write?boardType=<?php echo $_GET['boardType'] ?>" class="button">글쓰기</a>
           <?php break;
         case 'blog':
-          if($_GET['boardType']=='blog'&&$_SESSION['member_code']==1){ ?>
-            <a href="/post_write?boardType=<?php echo $_GET['boardType'] ?>" class="button">글쓰기</a>
-          <?php }
+          if(isset($_SESSION['member_code'])){
+            if($_GET['boardType']=='blog'&&$_SESSION['member_code']==1){ ?>
+              <a href="/post_write?boardType=<?php echo $_GET['boardType'] ?>" class="button">글쓰기</a>
+            <?php
+            }
+          }
           break;
       }
       ?>

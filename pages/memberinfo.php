@@ -47,10 +47,11 @@
         member_info();
       </script>
     <?php
-      if($_GET['member_code']==$_SESSION['member_code']){
-      ?>
-      <div class="button" onClick="$('.pw_modify_box').addClass('on');">비밀번호 변경</div>
-      <?php
+      if(isset($_SESSION['member_code'])){
+        if($_GET['member_code']==$_SESSION['member_code']){ ?>
+          <div class="button" onClick="$('.pw_modify_box').addClass('on');">비밀번호 변경</div>
+        <?php
+        }
       }
     ?>
     </div>

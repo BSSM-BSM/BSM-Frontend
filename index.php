@@ -41,9 +41,6 @@
     </script>
     <!-- PWA 설정 끝 -->
     <link rel="stylesheet" type="text/css" href="/css/style.min.css">
-    <!--모바일 css-->
-    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
-    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/menu_bar.js"></script>
     <script src="/js/search.js"></script>
@@ -72,7 +69,6 @@
             <ul class="dropdown_content">
               <li><a href="/time">시간표</a></li>
               <li><a href="/calendar">학사일정</a></li>
-              <li><a href="/best_teacher">인기 교직원</a></li>
             </ul>
           </span>
           <span class="dropdown_menu">
@@ -143,7 +139,6 @@
           <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/song">신청곡</a></li>
           <li class="page"><a href="/calendar">학사일정</a></li>
-          <li class="page"><a href="/best_teacher">인기 교직원</a></li>
           <li class="page"><a href="/goodbed">상벌점</a></li>
         </ul>
       </div>
@@ -211,6 +206,9 @@
         break;
       }
     ?>
+    <!--모바일 css-->
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
+    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script>
       function login(){
         $.ajax({
