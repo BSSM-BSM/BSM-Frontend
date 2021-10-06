@@ -40,7 +40,29 @@
       }
     </script>
     <!-- PWA 설정 끝 -->
+    <?php
+    switch ($page) {
+      case 'time': ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/time.css">
+        <?php break;
+      case 'food' ?>
+      <link rel="stylesheet" type="text/css" href="/css/etc/food.css">
+      <?php break;
+      case 'minecraft' ?>
+      <link rel="stylesheet" type="text/css" href="/css/etc/minecraft.css">
+      <?php break;
+      case 'board' ?>
+      <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+      <?php break;
+      case 'post_write' ?>
+      <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+      <?php break;
+      }
+    ?>
     <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+    <!--모바일 css-->
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
+    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/menu_bar.js"></script>
     <script src="/js/search.js"></script>
@@ -160,29 +182,14 @@
       case 'memberinfo':
         require "./pages/memberinfo.php";
         break;
-      case 'search':
-        require "./pages/search.html";
-        break;
-      case 'blog':
-        require "./pages/blog.php";
-        break;
       case 'time':
         require "./pages/time.html";
         break;
       case 'food':
         require "./pages/food.html";
         break;
-      case 'bssm':
-        require "./pages/bssm.html";
-        break;
       case 'remote':
         require "./pages/remote.html";
-        break;
-      case 'patch':
-        require "./pages/patch.html";
-        break;
-      case 'game':
-        require "./pages/game.html";
         break;
       case 'minecraft':
         require "./pages/minecraft.html";
@@ -206,9 +213,6 @@
         break;
       }
     ?>
-    <!--모바일 css-->
-    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
-    <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script>
       function login(){
         $.ajax({

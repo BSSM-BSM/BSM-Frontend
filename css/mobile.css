@@ -154,16 +154,16 @@ input[type=text], input[type=password]{
   content:"좋아요 ";
 }
 .post{
-  padding:0 5%;
+  padding:0 3%;
 }
 .post_content div p img{
-  width:100%;
+  width:100% !important;
 }
 .comment_write{
-  padding:0 5%;
+  padding:0 3%;
 }
-.comment_list{
-  padding:0 5%;
+.comment_item{
+  padding:1rem 3%;
 }
 .information{
   border-left:none;

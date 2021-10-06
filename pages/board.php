@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/css/etc/board.css">
 <main>
   <div class="container">
     <div class="title">
@@ -26,7 +25,7 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'database',
+              url:'/database',
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
@@ -85,7 +84,7 @@
               post_no:'<?php echo $_GET['post_no'] ?>',
               like:like,
             },
-            url:'database',
+            url:'/database',
             cache:false,
             success:function(data){
               data=JSON.parse(data);
@@ -118,7 +117,7 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'database',
+              url:'/database',
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
@@ -129,10 +128,14 @@
                   comments = "";
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
-                    comment += '<li><a href="/memberinfo?member_code=' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></li>';
-                    comment += "<li>"+data[i].comment+"</li>";
-                    comment += "<li>"+data[i].commentDate+"</li>";
-                    comments += "<ul>"+comment+"</ul>";
+                    comment += '<div class="comment_item_info"><a href="/memberinfo?member_code=' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
+                    comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
+                    comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
+                    if(i%2){
+                      comments += '<div class="comment_item">'+comment+'</div>';
+                    }else{
+                      comments += '<div class="comment_item odd">'+comment+'</div>';
+                    }
                   }
                   $('.comment_list .comment').html(comments);
                 }
@@ -148,7 +151,7 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 post_comment:$('.post_comment').val(),
               },
-              url:'database',
+              url:'/database',
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
@@ -207,7 +210,7 @@
                 <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'database',
+              url:'/database',
               cache:false,
               success:function(data){
                 data=JSON.parse(data);

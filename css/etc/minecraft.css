@@ -1,0 +1,74 @@
+.launch_minecraft{
+  display:none;
+}
+.minecraft_status h1{
+  font-family:minecraftiaregular; font-weight:normal;
+}
+.status_view{
+  display:flex;
+  padding:5rem;
+  background-image: url('/resource/minecraft/images/minecraft.png');
+  border-radius:2rem;
+  margin:5rem 0;
+}
+.status_view *{
+  font-size:2.2rem; font-family:minecraftiaregular;
+}
+.server_left_wrap{
+  flex:2;
+  display:flex;
+}
+.server_image{
+  display:flex;
+  margin:auto 1rem;
+  align-items:center;
+}
+.server_description{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+.server_top_wrap{
+  width:100%;
+  flex:1;
+}
+.minecraft_motd{
+  width:100%;
+  flex:1;
+  float:left;
+}
+.minecraft_name{
+  float:left;
+}
+.minecraft_serverVersion{
+  float:right;
+  margin-right:2rem;
+  color:#A8A8A8;
+}
+.minecraft_ping{
+  float:right;
+  width:30px;
+  height:21px;
+  margin:7px;
+  background-image:url('/resource/minecraft/images/pingError.png');
+}
+.minecraft_players{
+  float:right;
+  margin-right:1rem;
+  color:#A8A8A8;
+}
+.minecraft_serverQueryTime{
+  float:right;
+  margin-right:2rem;
+  color:#A8A8A8;
+}
+.server_right_wrap{
+  flex:1;
+}
+.minecraft_playersName ul{
+  display:flex;
+  flex-flow:wrap;
+}
+.minecraft_playersName ul li{
+  width:50%;
+}

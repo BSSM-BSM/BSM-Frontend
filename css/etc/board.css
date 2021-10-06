@@ -1,0 +1,173 @@
+.board{
+  padding: 5rem 0rem 5rem 0rem;
+  border-radius:2rem;
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.2);
+  border-top:1px solid rgba(128, 128, 128, 0.3);
+  border-left:1px solid rgba(128, 128, 128, 0.3);
+}
+.board_list{
+  margin:5rem 0rem 5rem 0rem;
+}
+.board_list *{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+a.board_item_info *:hover{
+  text-decoration:underline;
+}
+a.board_item_info *.post_comments{
+  color:#D8D8D8;
+  padding-left:.5rem;
+}
+.board_item{
+  display:table;
+  width:100%;
+  transition:.25s;
+}
+.board_item.odd{
+  background-color:rgba(128, 128, 128, .2);
+}
+.table_main .board_item:hover{
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  background-color:rgba(192, 192, 192, 0.2);
+}
+.board_item{
+  display:flex;
+  font-size:1.5rem;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.board_item_info{
+  padding:1rem;
+}
+.board_item_info:nth-child(1){
+  flex:1;
+}
+.board_item_info:nth-child(2){
+  flex:7;
+}
+a:visited.board_item_info:nth-child(2){
+  color:#f4a4ff;
+}
+.board_item_info:nth-child(2) *{
+  float:left;
+}
+.board_item_info:nth-child(3){
+  flex:2;
+}
+.board_item_info:nth-child(4){
+  flex:2;
+}
+.board_item_info:nth-child(5){
+  flex:1;
+}
+.board_item_info:nth-child(6){
+  flex:1;
+}
+.post{
+  width:100%;
+  padding:0rem 5rem 10rem 5rem;
+}
+.post > div:not(.post_content) > *{
+  float:left;
+  font-size:1.5rem;
+}
+.post .post_title{
+  width:100%;
+  font-size:1.8rem;
+  text-align:left;
+  margin-bottom:1rem;
+}
+.post .post_date{
+  float:right;
+  width:auto;
+  text-align:right;
+  margin-left:2.5rem;
+}
+.post .post_hit{
+  float:right;
+  width:auto;
+  text-align:right;
+}
+.post .post_hit::before{
+  content:"조회 ";
+}
+.post .post_comments{
+  float:right;
+  width:auto;
+  text-align:right;
+  margin-right:2.5rem;
+}
+.post .post_comments::after{
+  content:" 댓글";
+}
+.post .post_content{
+  width:100%;
+  margin-top:10rem;
+}
+.post_img{
+  width:100%;
+}
+.post .post_content div{
+  text-align:left;
+}
+.comment{
+  margin:5rem 0;
+}
+.comment_item{
+  display:inline-block;
+  width:100%;
+  padding:1rem 5rem;
+  transition:.25s;
+}
+.comment_item.odd{
+  background-color:rgba(128, 128, 128, .2);
+}
+.comment_item:hover{
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  background-color:rgba(192, 192, 192, 0.2);
+}
+.comment_item_info{
+  float:left;
+  text-align:left;
+}
+.comment_item_info:nth-child(2){
+  float:right;
+}
+.comment_item_info:nth-child(3){
+  width:100%;
+}
+
+.comment_write{
+  padding:0rem 5rem;
+}
+.page_num *{
+  width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
+  background-color:rgba(192, 192, 192, 0.2);
+  border-top:1px solid rgba(128, 128, 128, 0.3);
+  transition:.25s;
+}
+.page_num *.active{
+  text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
+  background-color:rgba(128, 128, 128, .5);
+}
+.page_num *:first-child{
+  border-radius:1rem 0rem 0rem 1rem;
+}
+.page_num *:last-child{
+  border-radius:0rem 1rem 1rem 0rem;
+}
+.page_num *:hover{
+  text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
+  background-color:rgba(32, 32, 32, .5);
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+}
+.note-editable{
+  background-color:rgba(255, 255, 255, .5);
+}
+.note-editing-area{
+  text-align:start;
+}

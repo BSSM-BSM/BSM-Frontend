@@ -31,7 +31,6 @@
                 ajax_error(data.status);
               }else{
                 $('.member_code').text("멤버 코드: "+data.member_code);
-                $('.member_id').text("id: "+data.member_id);
                 $('.member_nickname').text("닉네임: "+data.member_nickname);
                 $('.member_level').text("권한 수준: "+data.member_level);
                 $('.member_created').text(data.member_created.split(' ')[0]+" 가입");

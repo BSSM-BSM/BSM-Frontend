@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/css/etc/board.css">
 <script>
   var refresh = false;
 </script>

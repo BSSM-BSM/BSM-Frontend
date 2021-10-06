@@ -34,6 +34,7 @@ function ajax_error(status){
             case 21:
                 alert("에러코드 "+status+"\n"+error_msg[status].msg);
                 $('.login_box').addClass('on');
+                refresh = false;
                 break;
             default:
                 break;
