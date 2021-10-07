@@ -1,6 +1,17 @@
 <style>
   body{background-image:none;}
 </style>
+<script>
+  var installed = true;
+  var prompt;
+  window.addEventListener('beforeinstallprompt', function(e){
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    prompt = e;
+    installed = false;
+  });
+</script>
 <main>
   <div class="section" id="main">
     <div class="container vertical_center">
@@ -17,17 +28,17 @@
         <div class="container vertical_center">
           <h3>다운로드</h3>
           <br><br>
-          <a class="download_button button">
+          <a class="webapp_install_button download_button button" onclick="if(installed){alert('이미 설치되어있습니다.');}else{prompt.prompt();}">
             <img src="/resource/etc/images/download.png" class="download_image">
-            <p>프로그래시브 웹 앱</p>
+            <p>Progressive Web App</p>
             <br>
-            <p>Version 0.4</p>
+            <p>Ver. 0.4</p>
           </a>
           <a href="/resource/bsm/download/bsm_v0.1(1).apk" download="bsm_v0.1(1).apk" class="download_button button">
             <img src="/resource/etc/images/download.png" class="download_image">
-            <p>안드로이드 앱</p>
+            <p>Android Native App</p>
             <br>
-            <p>Version Beta 0.1(1)</p>
+            <p>Ver. Beta 0.1</p>
           </a>
         </div>
       </div>

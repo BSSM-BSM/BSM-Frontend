@@ -128,16 +128,42 @@
                   comments = "";
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
+                    comment += '<div class="comment_item_info_wrap">';
                     comment += '<div class="comment_item_info"><a href="/memberinfo?member_code=' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
+                    comment += '</div>';
+                    if(data[i].memberCode==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1 ?>){
+                      comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
+                    }
                     if(i%2){
-                      comments += '<div class="comment_item">'+comment+'</div>';
+                      comments += `<div class="comment_item" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
                     }else{
-                      comments += '<div class="comment_item odd">'+comment+'</div>';
+                      comments += `<div class="comment_item odd" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
                     }
                   }
                   $('.comment_list .comment').html(comments);
+                }
+              }
+            });
+          }
+          function comment_delete(comment_index){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'comment_delete',
+                boardType:'<?php echo $_GET['boardType'] ?>',
+                post_no:'<?php echo $_GET['post_no'] ?>',
+                comment_index:comment_index,
+              },
+              url:'/database',
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  ajax_error(data.status);
+                }else{
+                  comment_refresh();
                 }
               }
             });
@@ -177,7 +203,7 @@
         <span class="post_modify"></span>
         <script>
           function post_menu(member_code){
-            if(member_code==<?php echo $_SESSION['member_code'] ?>){
+            if(member_code==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1 ?>){
               $('.post_delete').html(`<form action="database" method="post" autocomplete="off">
                 <input type="hidden" name="command_type" value="post_delete">
                 <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">

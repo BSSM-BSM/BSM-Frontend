@@ -1,4 +1,4 @@
-var cacheName = '0.3.4';
+var cacheName = '0.4';
 var cacheFiles = [
     '/js/jquery.min.js',
     '/css/video-js.min.css',
@@ -9,6 +9,9 @@ var cacheFiles = [
     '/js/menu_bar.js',
     '/js/search.js',
     '/js/ajax_error.js',
+    '/resource/home/images/BG_image.webp',
+    '/resource/home/images/BG_image_blur.webp',
+    '/resource/home/images/main.webp',
     '/resource/font/minecraftia-webfont.woff',
 ];
 self.addEventListener('install', (event) => {

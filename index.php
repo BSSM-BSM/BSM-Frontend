@@ -288,7 +288,7 @@
     <div class="login_box popup center">
       <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
       <h2>로그인</h2>
-      <br>
+      <br><br>
       <form class="login" method="post" autocomplete="off" onsubmit="login();return false;">
         <input type="text" class="member_id" placeholder="아이디" class="input_text" required autofocus>
         <br>

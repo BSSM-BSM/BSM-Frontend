@@ -17,9 +17,6 @@ main,.container{
 main::-webkit-scrollbar{
   width:2px;
 }
-header nav{
-  height:5.1rem;
-}
 div.top_menu{
   width:auto; padding:0rem;
 }
@@ -163,7 +160,13 @@ input[type=text], input[type=password]{
   padding:0 3%;
 }
 .comment_item{
+  padding:1rem 0;
+}
+.comment_item_info_wrap{
   padding:1rem 3%;
+}
+.comment_menu{
+  padding:0 3%;
 }
 .information{
   border-left:none;

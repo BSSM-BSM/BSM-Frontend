@@ -31,8 +31,7 @@ footer{
   width:1200px;
   text-align:center;
   margin-left:auto; margin-right:auto;
-  padding-top:20rem;
-  padding-bottom:5rem;
+  padding:20rem 0;
   justify-content:center;
   align-items:center;
 }
@@ -47,6 +46,9 @@ footer{
 }
 .text_left{
   text-align:left;
+}
+.title{
+  margin:5rem 0;
 }
 .bg{
   position:fixed;
@@ -397,6 +399,12 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 }
 .blue_button{
   background-color:rgba(0,128,255,.2)
+}
+.green_button{
+  background-color:rgba(0, 192, 0, 0.2);
+}
+.red_button{
+  background-color:rgba(192, 0, 0, 0.2);
 }
 .like_button.on{
   background-color:rgba(0, 192, 0, 0.2);
