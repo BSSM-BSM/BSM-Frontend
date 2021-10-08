@@ -36,16 +36,19 @@
                 command_type:'food',
                 food_date:year+'-'+month+'-'+date,
               },
-              url:'database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   food_table[data.food_date]={'morning':data.morning, 'lunch':data.lunch, 'dinner':data.dinner};
                   food_render();
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }

@@ -50,13 +50,13 @@
             success:function(data){
               data=JSON.parse(data);
               if(data.status!=1){
-                ajax_error(data.status);
+                error_code(data.status);
               }else{
                 $(el).summernote('editor.insertImage', $.trim(data.file_path));
               }
             },
             error: function(data) {
-              ajax_error(0);
+              error_code(0);
             }
         });
       }
@@ -73,16 +73,19 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   $('input[name=post_title]').val(data.post_title);
                   $('#summernote').summernote('code', data.post_content);
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }
@@ -106,15 +109,18 @@
             post_title:$('input[name=post_title]').val(),
             post_content:$('textarea[name=post_content]').val(),
           },
-          url:'/database',
+          url:db_url,
           cache:false,
           success:function(data){
             data=JSON.parse(data);
             if(data.status!=1){
-              ajax_error(data.status);
+              error_code(data.status);
             }else{
               window.close();
             }
+          },
+          error: function(data) {
+            error_code(0);
           }
         });
       }

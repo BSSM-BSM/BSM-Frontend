@@ -27,7 +27,10 @@
     <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
     <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script src="/js/jquery.min.js"></script>
-    <script src="/js/ajax_error.js"></script>
+    <script src="/js/error_code.js"></script>
+    <script>
+      var db_url = '/database';
+    </script>
   </head>
   <body>
     <?php

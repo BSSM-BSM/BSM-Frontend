@@ -25,18 +25,18 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   $('.post_title').text(data.post_title);
                   $('.post_date').text(data.post_date);
                   $('.post_hit').text(data.post_hit);
                   $('.post_comments').text(data.post_comments);
-                  $('.member_nickname').html('<a href="./memberinfo.php?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
+                  $('.member_nickname').html('<a href="./memberinfo?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
                   $('.post_content div').html(data.post_content);
                   if(data.like>0){
                     $('.like_button').addClass('on');
@@ -56,6 +56,9 @@
                   post_menu(data.member_code);
                   comment_refresh();
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }
@@ -84,12 +87,12 @@
               post_no:'<?php echo $_GET['post_no'] ?>',
               like:like,
             },
-            url:'/database',
+            url:db_url,
             cache:false,
             success:function(data){
               data=JSON.parse(data);
               if(data.status!=1){
-                ajax_error(data.status);
+                error_code(data.status);
               }else{
                 if(data.like>0){
                   $('.like_button').addClass('on');
@@ -103,6 +106,9 @@
                 }
                 $('.post_like').text(data.post_like);
               }
+            },
+            error: function(data) {
+              error_code(0);
             }
           });
         }
@@ -117,12 +123,12 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   data=data.arr_comment;
                   comments = "";
@@ -144,6 +150,9 @@
                   }
                   $('.comment_list .comment').html(comments);
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }
@@ -156,15 +165,18 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 comment_index:comment_index,
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   comment_refresh();
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }
@@ -177,23 +189,26 @@
                 post_no:'<?php echo $_GET['post_no'] ?>',
                 post_comment:$('.post_comment').val(),
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   $('.post_comment').val("");
                   comment_refresh();
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }
         </script>
         <div class="comment"></div>
       </div>
-        <form class="comment_write" action="database" method="post" autocomplete="off" onsubmit="comment_write();return false;">
+        <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write();return false;">
           <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
           <br><br>
           <div class="button" onclick="comment_refresh();">댓글 새로고침</div>
@@ -236,12 +251,12 @@
                 <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
                 boardType:'<?php echo $_GET['boardType'] ?>'
               },
-              url:'/database',
+              url:db_url,
               cache:false,
               success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                  ajax_error(data.status);
+                  error_code(data.status);
                 }else{
                   board_data=data.arr_board;
                   boards = "";
@@ -269,6 +284,9 @@
                   $('.board_list .table_main').html(boards);
                   $('.page_num').html(data.page_num);
                 }
+              },
+              error: function(data) {
+                error_code(0);
               }
             });
           }

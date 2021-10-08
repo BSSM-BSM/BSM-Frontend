@@ -66,13 +66,14 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/menu_bar.js"></script>
     <script src="/js/search.js"></script>
-    <script src="/js/ajax_error.js"></script>
+    <script src="/js/error_code.js"></script>
     <script>
       window.addEventListener('resize', () => {
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       });
       var refresh = true;
+      var db_url = '/database';
     </script>
   </head>
   <body>
@@ -223,12 +224,12 @@
             member_id:$('.login .member_id').val(),
             member_pw:$('.login .member_pw').val(),
           },
-          url:'database',
+          url:db_url,
           cache:false,
           success:function(data){
             data=JSON.parse(data);
             if(data.status!=1){
-              ajax_error(data.status);
+              error_code(data.status);
             }else{
               if(refresh){
                 window.location.href=data.returnUrl;
@@ -237,6 +238,9 @@
                 $('.login_box').removeClass('on');
               }
             }
+          },
+          error: function(data) {
+            error_code(0);
           }
         });
       }
@@ -251,16 +255,19 @@
             member_nickname:$('.register .member_nickname').val(),
             code:$('.register .code').val(),
           },
-          url:'database',
+          url:db_url,
           cache:false,
           success:function(data){
             data=JSON.parse(data);
             if(data.status!=1){
-              ajax_error(data.status);
+              error_code(data.status);
             }else{
               alert("회원가입이 완료되었습니다.\n다시 로그인 해주세요.");
               $('.register_box').removeClass('on');
             }
+          },
+          error: function(data) {
+            error_code(0);
           }
         });
       }
@@ -271,16 +278,19 @@
             command_type:'authentication',
             code:$('.authentication .code').val(),
           },
-          url:'database',
+          url:db_url,
           cache:false,
           success:function(data){
             data=JSON.parse(data);
             if(data.status!=1){
-              ajax_error(data.status);
+              error_code(data.status);
             }else{
               alert("인증이 완료되었습니다.\n다시 로그인 해주세요.");
               $('.authentication_box').removeClass('on');
             }
+          },
+          error: function(data) {
+            error_code(0);
           }
         });
       }

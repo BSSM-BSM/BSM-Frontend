@@ -23,12 +23,12 @@
               command_type:'member',
               member_code:'<?php echo $_GET['member_code'] ?>',
             },
-            url:'database',
+            url:db_url,
             cache:false,
             success:function(data){
               data=JSON.parse(data);
               if(data.status!=1){
-                ajax_error(data.status);
+                error_code(data.status);
               }else{
                 $('.member_code').text("멤버 코드: "+data.member_code);
                 $('.member_nickname').text("닉네임: "+data.member_nickname);
@@ -40,6 +40,9 @@
                 $('.member_studentNo').text(data.member_studentNo+"번");
                 $('.member_name').text(data.member_name);
               }
+            },
+            error: function(data) {
+              error_code(0);
             }
           });
         }
@@ -65,16 +68,19 @@
             modifymember_pw:$('.pw_modify .modifymember_pw').val(),
             modifymember_pw_check:$('.pw_modify .modifymember_pw_check').val(),
           },
-          url:'database',
+          url:db_url,
           cache:false,
           success:function(data){
             data=JSON.parse(data);
             if(data.status!=1){
-              ajax_error(data.status);
+              error_code(data.status);
             }else{
               alert("비밀번호 수정이 완료되었습니다.\n다시 로그인 해주세요.");
               window.location.href=data.returnUrl;
             }
+          },
+          error: function(data) {
+            error_code(0);
           }
         });
       }
