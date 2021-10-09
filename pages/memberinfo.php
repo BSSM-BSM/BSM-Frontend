@@ -65,8 +65,8 @@
             command_type:'modify',
             modify_type:'pw',
             member_pw:$('.pw_modify .member_pw').val(),
-            modifymember_pw:$('.pw_modify .modifymember_pw').val(),
-            modifymember_pw_check:$('.pw_modify .modifymember_pw_check').val(),
+            modify_member_pw:$('.pw_modify .modify_member_pw').val(),
+            modify_member_pw_check:$('.pw_modify .modify_member_pw_check').val(),
           },
           url:db_url,
           cache:false,
@@ -93,9 +93,9 @@
     <form class="pw_modify" method="post" autocomplete="off" onsubmit="return false;">
       <input type="password" class="member_pw" placeholder="현재 비밀번호" required autofocus>
       <br>
-      <input type="password" class="modifymember_pw" placeholder="수정할 비밀번호" required>
+      <input type="password" class="modify_member_pw" placeholder="수정할 비밀번호" required>
       <br>
-      <input type="password" class="modifymember_pw_check" placeholder="수정할 비밀번호 재입력" required>
+      <input type="password" class="modify_member_pw_check" placeholder="수정할 비밀번호 재입력" required>
       <br><br>
       <div class="button" onClick="$('.pw_modify_box').removeClass('on');">닫기</div>
       <button type="submit" onclick="pw_modify();" class="button">비밀번호 수정</button>

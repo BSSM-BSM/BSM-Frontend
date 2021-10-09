@@ -93,6 +93,7 @@
               data=JSON.parse(data);
               if(data.status!=1){
                 error_code(data.status);
+                refresh = false;
               }else{
                 if(data.like>0){
                   $('.like_button').addClass('on');
@@ -139,7 +140,7 @@
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                     comment += '</div>';
-                    if(data[i].memberCode==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1 ?>){
+                    if(data[i].memberCode==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
                       comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
                     }
                     if(i%2){
@@ -171,6 +172,7 @@
                 data=JSON.parse(data);
                 if(data.status!=1){
                   error_code(data.status);
+                  refresh = false;
                 }else{
                   comment_refresh();
                 }
@@ -195,6 +197,7 @@
                 data=JSON.parse(data);
                 if(data.status!=1){
                   error_code(data.status);
+                  refresh = false;
                 }else{
                   $('.post_comment').val("");
                   comment_refresh();
@@ -218,7 +221,7 @@
         <span class="post_modify"></span>
         <script>
           function post_menu(member_code){
-            if(member_code==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1 ?>){
+            if(member_code==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
               $('.post_delete').html(`<form action="database" method="post" autocomplete="off">
                 <input type="hidden" name="command_type" value="post_delete">
                 <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">

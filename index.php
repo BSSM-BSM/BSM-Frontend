@@ -271,6 +271,30 @@
           }
         });
       }
+      function pw_reset(){
+        $.ajax({
+          type:'POST',
+          data:{
+            command_type:'reset_pw',
+            reset_member_pw:$('.pw_reset .reset_member_pw').val(),
+            reset_member_pw_check:$('.pw_reset .reset_member_pw_check').val(),
+          },
+          url:db_url,
+          cache:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              error_code(data.status);
+            }else{
+              alert("비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.");
+              $('.pw_reset_box').removeClass('on');
+            }
+          },
+          error: function(data) {
+            error_code(0);
+          }
+        });
+      }
       function authentication(){
         $.ajax({
           type:'POST',
@@ -326,6 +350,17 @@
         <br><br>
         <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
         <button type="submit" class="button">가입하기</button>
+      </form>
+    </div>
+    <div class="pw_reset_box popup center">
+      <h2>비밀번호 재설정이 필요합니다</h2>
+      <br>
+      <form class="pw_reset" method="post" autocomplete="off" onsubmit="return false;">
+        <input type="password" class="reset_member_pw" placeholder="재설정할 비밀번호" required>
+        <br>
+        <input type="password" class="reset_member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
+        <br><br>
+        <button type="submit" onclick="pw_reset();" class="button">비밀번호 재설정</button>
       </form>
     </div>
     <div class="authentication_box popup center">

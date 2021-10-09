@@ -24,6 +24,7 @@ function error_code(status){
         21:{type:2, msg:'로그인후 이용 가능 합니다.'},
         22:{type:1, msg:'파일 업로드에 실패하였습니다.'},
         23:{type:1, msg:'게시글 작성에 실패하였습니다.'},
+        24:{type:2, msg:'비밀번호 재설정이 필요합니다.'},
     };
     if(error_msg[status].type!=1){
         switch(status){
@@ -34,7 +35,9 @@ function error_code(status){
             case 21:
                 alert("에러코드 "+status+"\n"+error_msg[status].msg);
                 $('.login_box').addClass('on');
-                refresh = false;
+                break;
+            case 24:
+                $('.pw_reset_box').addClass('on');
                 break;
             default:
                 break;
