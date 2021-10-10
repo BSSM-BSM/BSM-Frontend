@@ -1,4 +1,5 @@
 function error_code(status){
+    window.navigator.vibrate(100);
     error_msg={
         0:{type:1, msg:'서버와의 연결에 실패하였습니다.'},
         1:{type:0, msg:'정상 처리되었습니다.'},

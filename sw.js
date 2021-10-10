@@ -1,4 +1,4 @@
-var cacheName = '0.4';
+var cacheName = '0.5';
 var cacheFiles = [
     '/js/jquery.min.js',
     '/css/video-js.min.css',

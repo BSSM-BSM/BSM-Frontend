@@ -1,3 +1,7 @@
+<?php
+$boardType=getParam(2);
+$post_no=getParam(3);
+?>
 <script>
   var refresh = false;
 </script>
@@ -63,15 +67,15 @@
     </script>
     <form class="post_write" method="post" autocomplete="off" onsubmit="post_write();return false;">
       <?php
-      if(isset($_GET['post_no'])){ ?>
+      if(isset($post_no)){ ?>
         <script>
           function post_refresh(){
             $.ajax({
               type:'POST',
               data:{
                 command_type:'post',
-                post_no:'<?php echo $_GET['post_no'] ?>',
-                boardType:'<?php echo $_GET['boardType'] ?>'
+                post_no:'<?php echo $post_no ?>',
+                boardType:'<?php echo $boardType ?>'
               },
               url:db_url,
               cache:false,
@@ -105,8 +109,8 @@
           type:'POST',
           data:{
             command_type:'post_write',
-            boardType:'<?php echo $_GET['boardType'] ?>',
-            <?php if(isset($_GET['post_no'])){ echo "post_no:'".$_GET['post_no']."',";} ?>
+            boardType:'<?php echo $boardType ?>',
+            <?php if(isset($post_no)){ echo "post_no:'".$post_no."',";} ?>
             post_title:$('input[name=post_title]').val(),
             post_content:$('textarea[name=post_content]').val(),
           },
@@ -117,7 +121,7 @@
             if(data.status!=1){
               error_code(data.status);
             }else{
-              window.location.href="board?boardType=<?php echo $_GET['boardType'] ?>";
+              window.location.href="/board/<?php echo $boardType ?>";
             }
           },
           error: function(data) {

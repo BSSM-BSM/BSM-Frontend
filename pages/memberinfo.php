@@ -1,3 +1,6 @@
+<?php
+$member_code=getParam(2);
+?>
 <main>
   <div class="container">
     <div class="title">
@@ -21,7 +24,7 @@
             type:'POST',
             data:{
               command_type:'member',
-              member_code:'<?php echo $_GET['member_code'] ?>',
+              member_code:'<?php echo $member_code ?>',
             },
             url:db_url,
             cache:false,
@@ -50,7 +53,7 @@
       </script>
     <?php
       if(isset($_SESSION['member_code'])){
-        if($_GET['member_code']==$_SESSION['member_code']){ ?>
+        if($member_code==$_SESSION['member_code']){ ?>
           <div class="button" onClick="$('.pw_modify_box').addClass('on');">비밀번호 변경</div>
         <?php
         }

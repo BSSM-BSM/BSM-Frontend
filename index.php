@@ -1,8 +1,6 @@
 <?php
   require_once "session.php";
-  if (isset($_GET['page']))
-    $page = $_GET['page'];
-  else 
+  if (!isset($page)) 
     $page = 'index';
   if(isset($_GET['returnUrl'])){
     $returnUrl = $_GET['returnUrl'];
@@ -28,12 +26,12 @@
     <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
     <!-- 웹 앱 매니페스트를 읽어 들이기 -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <script src="/sw.js"></script>
     <!-- 서비스 워커를 등록 -->
     <script>
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
+        navigator.serviceWorker.register('/sw.js')
         .then((reg) => {
           console.log('서비스 워커가 등록됨.', reg);
         });
@@ -42,21 +40,21 @@
     <!-- PWA 설정 끝 -->
     <?php
     switch ($page) {
-      case 'time': ?>
+      case 'timetable': ?>
         <link rel="stylesheet" type="text/css" href="/css/etc/time.css">
         <?php break;
-      case 'food' ?>
-      <link rel="stylesheet" type="text/css" href="/css/etc/food.css">
-      <?php break;
+      case 'meal' ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/food.css">
+        <?php break;
       case 'minecraft' ?>
-      <link rel="stylesheet" type="text/css" href="/css/etc/minecraft.css">
-      <?php break;
+        <link rel="stylesheet" type="text/css" href="/css/etc/minecraft.css">
+        <?php break;
       case 'board' ?>
-      <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
-      <?php break;
+        <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+        <?php break;
       case 'post_write' ?>
-      <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
-      <?php break;
+        <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+        <?php break;
       }
     ?>
     <link rel="stylesheet" type="text/css" href="/css/style.min.css">
@@ -90,14 +88,14 @@
           <span class="dropdown_menu">
             <span class="page">학교</span>
             <ul class="dropdown_content">
-              <li><a href="/time">시간표</a></li>
+              <li><a href="/timetable">시간표</a></li>
               <li><a href="/calendar">학사일정</a></li>
             </ul>
           </span>
           <span class="dropdown_menu">
             <span class="page">생활</span>
             <ul class="dropdown_content">
-              <li><a href="/food">급식</a></li>
+              <li><a href="/meal">급식</a></li>
               <li><a href="/song">신청곡</a></li>
               <li><a href="/goodbed">상벌점</a></li>
               <li><a href="/dorm_rule">기숙사 규정</a></li>
@@ -106,8 +104,8 @@
           <span class="dropdown_menu">
             <span class="page">커뮤니티</span>
             <ul class="dropdown_content">
-              <li><a href="/board?boardType=board">자유게시판</a></li>
-              <li><a href="/board?boardType=blog">블로그</a></li>
+              <li><a href="/board/board">자유게시판</a></li>
+              <li><a href="/board/blog">블로그</a></li>
             </ul>
           </span>
           <span class="page"><a href="/minecraft">마크 서버</a></span>
@@ -140,7 +138,7 @@
               document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
             }
           </script>
-          <div class="notice warning">Version 0.4 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다.</div>
+          <div class="notice warning">Version 0.5 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다</div>
           <a href="/#download" class="notice">안드로이드 앱 베타버전이 공개되었습니다. 클릭하여 다운로드</a>
         </div>
       </nav>
@@ -155,10 +153,10 @@
           <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
           <?php }
           ?>
-          <li class="page"><a href="/time">시간표</a></li>
-          <li class="page"><a href="/food">급식</a></li>
-          <li class="page"><a href="/board?boardType=board">커뮤니티</a></li>
-          <li class="page"><a href="/board?boardType=blog">블로그</a></li>
+          <li class="page"><a href="/timetable">시간표</a></li>
+          <li class="page"><a href="/meal">급식</a></li>
+          <li class="page"><a href="/board/board">커뮤니티</a></li>
+          <li class="page"><a href="/board/blog">블로그</a></li>
           <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/song">신청곡</a></li>
           <li class="page"><a href="/calendar">학사일정</a></li>
@@ -183,10 +181,10 @@
       case 'memberinfo':
         require "./pages/memberinfo.php";
         break;
-      case 'time':
+      case 'timetable':
         require "./pages/time.html";
         break;
-      case 'food':
+      case 'meal':
         require "./pages/food.html";
         break;
       case 'remote':

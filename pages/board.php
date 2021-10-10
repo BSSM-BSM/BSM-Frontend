@@ -1,8 +1,12 @@
+<?php
+$boardType=getParam(2);
+$post_no=getParam(3);
+?>
 <main>
   <div class="container">
     <div class="title">
         <?php
-        switch ($_GET['boardType']){
+        switch ($boardType){
           case 'board':
             echo '<h1>커뮤니티</h1>';
             break;
@@ -14,7 +18,7 @@
     </div>
     <div class="board blur">
     <?php
-    if(isset($_GET['post_no'])){ ?>
+    if(isset($post_no)){ ?>
       <div class="post">
         <script>
           function post_refresh(){
@@ -22,8 +26,8 @@
               type:'POST',
               data:{
                 command_type:'post',
-                post_no:'<?php echo $_GET['post_no'] ?>',
-                boardType:'<?php echo $_GET['boardType'] ?>'
+                post_no:'<?php echo $post_no ?>',
+                boardType:'<?php echo $boardType ?>'
               },
               url:db_url,
               cache:false,
@@ -83,8 +87,8 @@
             type:'POST',
             data:{
               command_type:'like',
-              boardType:'<?php echo $_GET['boardType'] ?>',
-              post_no:'<?php echo $_GET['post_no'] ?>',
+              boardType:'<?php echo $boardType ?>',
+              post_no:'<?php echo $post_no ?>',
               like:like,
             },
             url:db_url,
@@ -121,8 +125,8 @@
               type:'POST',
               data:{
                 command_type:'comment',
-                post_no:'<?php echo $_GET['post_no'] ?>',
-                boardType:'<?php echo $_GET['boardType'] ?>'
+                post_no:'<?php echo $post_no ?>',
+                boardType:'<?php echo $boardType ?>'
               },
               url:db_url,
               cache:false,
@@ -136,7 +140,7 @@
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
                     comment += '<div class="comment_item_info_wrap">';
-                    comment += '<div class="comment_item_info"><a href="/memberinfo?member_code=' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
+                    comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                     comment += '</div>';
@@ -162,8 +166,8 @@
               type:'POST',
               data:{
                 command_type:'comment_delete',
-                boardType:'<?php echo $_GET['boardType'] ?>',
-                post_no:'<?php echo $_GET['post_no'] ?>',
+                boardType:'<?php echo $boardType ?>',
+                post_no:'<?php echo $post_no ?>',
                 comment_index:comment_index,
               },
               url:db_url,
@@ -187,8 +191,8 @@
               type:'POST',
               data:{
                 command_type:'comment_write',
-                boardType:'<?php echo $_GET['boardType'] ?>',
-                post_no:'<?php echo $_GET['post_no'] ?>',
+                boardType:'<?php echo $boardType ?>',
+                post_no:'<?php echo $post_no ?>',
                 post_comment:$('.post_comment').val(),
               },
               url:db_url,
@@ -222,13 +226,13 @@
         <script>
           function post_menu(member_code){
             if(member_code==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
-              $('.post_delete').html(`<form action="database" method="post" autocomplete="off">
+              $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
                 <input type="hidden" name="command_type" value="post_delete">
-                <input type="hidden" name="boardType" value="<?php echo $_GET['boardType'] ?>">
-                <input type="hidden" name="post_no" value=<?php echo $_GET['post_no'] ?>>
+                <input type="hidden" name="boardType" value="<?php echo $boardType ?>">
+                <input type="hidden" name="post_no" value=<?php echo $post_no ?>>
                 <input type="submit" name="" value="글 삭제하기" class="button">
               </form>`);
-              $('.post_modify').html('<a class="button" href="./post_write?boardType=<?php echo $_GET['boardType'] ?>&post_no=<?php echo $_GET['post_no'] ?>">게시글 수정</a>');
+              $('.post_modify').html('<a class="button" href="/post_write/<?php echo $boardType ?>/<?php echo $post_no ?>">게시글 수정</a>');
             }
           }
         </script>
@@ -251,8 +255,8 @@
               type:'POST',
               data:{
                 command_type:'board',
+                boardType:'<?php echo $boardType ?>',
                 <?php if(isset($_GET['page_no']))echo "page_no:".$_GET['page_no']."," ?>
-                boardType:'<?php echo $_GET['boardType'] ?>'
               },
               url:db_url,
               cache:false,
@@ -267,14 +271,14 @@
                     var board = "";
                     board += '<span class="board_item_info">'+board_data[i].postNo+'</span>';
                     
-                    board += '<a href="./board?boardType=' +board_data[i].boardType+ '&post_no=' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
+                    board += '<a href="./' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
                     if(board_data[i].postComments>=1){
                       board += '</p><p class="post_comments">[' +board_data[i].postComments+ ']</p></span></a>';
                     }else{
                       board += '</p></span></a>';
                     }
 
-                    board += '<span class="board_item_info"><a href="/memberinfo?member_code=' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
+                    board += '<span class="board_item_info"><a href="/memberinfo/' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
                     board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
@@ -299,18 +303,9 @@
       <div class="page_num"></div>
       <button onClick="board_refresh();" class="button">글 새로고침</button>
       <?php
-      switch ($_GET['boardType']){
-        case 'board': ?>
-          <a href="/post_write?boardType=<?php echo $_GET['boardType'] ?>" class="button">글쓰기</a>
-          <?php break;
-        case 'blog':
-          if(isset($_SESSION['member_code'])){
-            if($_GET['boardType']=='blog'&&$_SESSION['member_code']==1){ ?>
-              <a href="/post_write?boardType=<?php echo $_GET['boardType'] ?>" class="button">글쓰기</a>
-            <?php
-            }
-          }
-          break;
+      if(isset($_SESSION['member_code'])){ ?>
+        <a href="/post_write/<?php echo getParam(2); ?>" class="button">글쓰기</a>
+      <?php
       }
       ?>
     </div>
@@ -318,11 +313,11 @@
 </main>
 <div class="dim menu_close"></div>
 <?php
-switch ($_GET['boardType']){
+switch (getParam(2)){
   case 'board':
-    echo '<title>커뮤니티 - BSM</title>
-    <meta property="title" content="커뮤니티 - BSM | 부산소마고 지원 서비스">
-    <meta property="og:title" content="커뮤니티 - BSM | 부산소마고 지원 서비스';
+    echo '<title>자유게시판 - BSM</title>
+    <meta property="title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:title" content="자유게시판 - BSM | 부산소마고 지원 서비스';
     break;
   case 'blog':
     echo '<title>블로그</title>
