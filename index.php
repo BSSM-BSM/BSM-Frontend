@@ -182,10 +182,10 @@
         require "./pages/memberinfo.php";
         break;
       case 'timetable':
-        require "./pages/time.html";
+        require "./pages/timetable.html";
         break;
       case 'meal':
-        require "./pages/food.html";
+        require "./pages/meal.html";
         break;
       case 'remote':
         require "./pages/remote.html";

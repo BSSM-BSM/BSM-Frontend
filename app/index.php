@@ -1,9 +1,5 @@
 <?php
-  require_once "$_SERVER[DOCUMENT_ROOT]/session.php";
-  if (isset($_GET['page']))
-    $page = $_GET['page'];
-  else 
-    $page = 'index';
+  require_once "$root_dir/session.php";
   if(isset($_GET['returnUrl'])){
     $returnUrl = $_GET['returnUrl'];
   }else{
@@ -18,14 +14,25 @@
     <link rel="stylesheet" type="text/css" href="/css/style.min.css">
     <?php
     switch ($page) {
+      case 'timetable': ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/time.css">
+        <?php break;
+      case 'meal' ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/food.css">
+        <?php break;
       case 'post_write' ?>
-      <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
-      <?php break;
+        <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+        <?php break;
       }
     ?>
     <!--모바일 css-->
     <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
     <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
+    <style>
+      .container{
+        padding:0 0 5rem 0;
+      }
+    </style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/error_code.js"></script>
     <script>
@@ -40,13 +47,14 @@
           echo "<script>alert('로그인 해주세요.');window.close();</script>";
           exit();
         }else{
-          if($_GET['boardType']=='blog'&&$_SESSION['member_code']!=1){
-            echo "<script>alert('정상적인 접근이 아닙니다.');window.close();</script>";
-            exit();
-          }else{
-            require "./pages/post_write.php";
-          }
+          require "$root_dir/app/pages/post_write.php";
         }
+        break;
+      case 'meal':
+        require "$root_dir/app/pages/meal.html";
+        break;
+      case 'timetable':
+        require "$root_dir/app/pages/timetable.html";
         break;
       }
     ?>
