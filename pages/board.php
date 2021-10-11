@@ -8,10 +8,10 @@ $post_no=getParam(3);
         <?php
         switch ($boardType){
           case 'board':
-            echo '<h1>커뮤니티</h1>';
+            echo '<h1>자유게시판</h1>';
             break;
-          case 'blog':
-            echo '<h1>블로그</h1>';
+          case 'anonymous':
+            echo '<h1>익명게시판</h1>';
         }
         ?>
       <br>
@@ -40,7 +40,7 @@ $post_no=getParam(3);
                   $('.post_date').text(data.post_date);
                   $('.post_hit').text(data.post_hit);
                   $('.post_comments').text(data.post_comments);
-                  $('.member_nickname').html('<a href="./memberinfo?member_code='+data.member_code+'">'+data.member_nickname+'</a>');
+                  $('.member_nickname').html('<a href="/memberinfo/'+data.member_code+'">'+data.member_nickname+'</a>');
                   $('.post_content div').html(data.post_content);
                   if(data.like>0){
                     $('.like_button').addClass('on');
@@ -144,7 +144,7 @@ $post_no=getParam(3);
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                     comment += '</div>';
-                    if(data[i].memberCode==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
+                    if(data[i].memberCode==<?php if(isset($_SESSION['member_code'])) echo $_SESSION['member_code']; else echo 0 ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
                       comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
                     }
                     if(i%2){
@@ -225,7 +225,7 @@ $post_no=getParam(3);
         <span class="post_modify"></span>
         <script>
           function post_menu(member_code){
-            if(member_code==<?php echo $_SESSION['member_code'] ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
+            if(member_code==<?php if(isset($_SESSION['member_code'])) echo $_SESSION['member_code']; else echo 0 ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
               $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
                 <input type="hidden" name="command_type" value="post_delete">
                 <input type="hidden" name="boardType" value="<?php echo $boardType ?>">
@@ -271,7 +271,7 @@ $post_no=getParam(3);
                     var board = "";
                     board += '<span class="board_item_info">'+board_data[i].postNo+'</span>';
                     
-                    board += '<a href="./' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
+                    board += '<a href="/board/' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
                     if(board_data[i].postComments>=1){
                       board += '</p><p class="post_comments">[' +board_data[i].postComments+ ']</p></span></a>';
                     }else{
@@ -319,10 +319,10 @@ switch (getParam(2)){
     <meta property="title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
     <meta property="og:title" content="자유게시판 - BSM | 부산소마고 지원 서비스';
     break;
-  case 'blog':
-    echo '<title>블로그</title>
-    <meta property="title" content="부산소마고 이현준의 개발 블로그">
-    <meta property="og:title" content="부산소마고 이현준의 개발 블로그">';
+  case 'anonymous':
+    echo '<title>익명게시판</title>
+    <meta property="title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스';
 }
 ?>
 <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">

@@ -105,7 +105,7 @@
             <span class="page">커뮤니티</span>
             <ul class="dropdown_content">
               <li><a href="/board/board">자유게시판</a></li>
-              <li><a href="/board/blog">블로그</a></li>
+              <li><a href="/board/anonymous">익명게시판</a></li>
             </ul>
           </span>
           <span class="page"><a href="/minecraft">마크 서버</a></span>
@@ -155,8 +155,8 @@
           ?>
           <li class="page"><a href="/timetable">시간표</a></li>
           <li class="page"><a href="/meal">급식</a></li>
-          <li class="page"><a href="/board/board">커뮤니티</a></li>
-          <li class="page"><a href="/board/blog">블로그</a></li>
+          <li class="page"><a href="/board/board">자유게시판</a></li>
+          <li class="page"><a href="/board/anonymous">익명게시판</a></li>
           <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/song">신청곡</a></li>
           <li class="page"><a href="/calendar">학사일정</a></li>
@@ -198,16 +198,10 @@
         break;
       case 'post_write':
         if(!isset($_SESSION['member_code'])){
-          echo "<script>alert('로그인 해주세요.');</script>";
-          echo "<meta http-equiv='refresh' content='0; url=/login?returnUrl=$returnUrl'></meta>";
+          echo "<script>alert('로그인 해주세요.');history.go(-1);</script>";
           exit();
         }else{
-          if($_GET['boardType']=='blog'&&$_SESSION['member_code']!=1){
-            echo "<script>alert('정상적인 접근이 아닙니다.');history.go(-1);</script>";
-            exit();
-          }else{
-            require "./pages/post_write.php";
-          }
+          require "./pages/post_write.php";
         }
         break;
       }

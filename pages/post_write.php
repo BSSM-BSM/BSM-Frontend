@@ -100,7 +100,7 @@ $post_no=getParam(3);
       <input type="text" name="post_title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
       <textarea name="post_content" placeholder="내용" id="summernote" class="input_text" style="width:100%;" required></textarea>
       <br><br>
-      <a href="/board?boardType=<?php echo $_GET['boardType'] ?>" class="button">커뮤니티</a>
+      <a href="/board/<?php echo $boardType ?>" class="button"><?php switch($boardType){case 'board': echo '자유게시판'; break; case 'anonymous': echo '익명게시판';break;} ?></a>
       <input type="submit" value="글작성" class="button">
     </form>
     <script>
