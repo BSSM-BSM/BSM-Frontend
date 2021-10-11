@@ -114,7 +114,7 @@
               <span class="dropdown_menu user_menu">
                 <span class="page"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></span>
                 <ul class="dropdown_content">
-                  <li><a href="/memberinfo?member_code=<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
+                  <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
                   <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
                 </ul>
               </span>
@@ -147,7 +147,7 @@
           <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
           <?php
           if (isset($_SESSION['member_id'])){ ?>
-          <li class="user_menu"><a href="/memberinfo?member_code=<?php echo $_SESSION['member_code']?>"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></a></li>
+          <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></a></li>
           <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
           <?php }else{ ?>
           <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>

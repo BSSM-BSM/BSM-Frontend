@@ -170,6 +170,7 @@ input[type=text], input[type=password]{
 }
 .information{
   border-left:none;
+  padding:3rem 0;
 }
 .class_time tbody tr td, .class_time tbody tr th{
   padding:1rem .5rem;
