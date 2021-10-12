@@ -7,7 +7,7 @@ function search(){
       searchType:'board',
       searchQuery:$('.searchQuery').val()
     },
-    url:'database',
+    url:'/database',
     cache:false,
     success:function(data){
       data=JSON.parse(data);
@@ -32,16 +32,16 @@ function search(){
     type:'POST',
     data:{
       command_type:'search',
-      searchType:'blog',
+      searchType:'anonymous',
       searchQuery:$('.searchQuery').val()
     },
-    url:'database',
+    url:'/database',
     cache:false,
     success:function(data){
       data=JSON.parse(data);
       searchResults = "";
       if(Object.keys(data).length==0){
-        $('.searchResult .blogResult').html("<h2>블로그</h2><br>"+"검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요");
+        $('.searchResult .blogResult').html("<h2>익명게시판</h2><br>"+"검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요");
       }else{
         for(var i=1;i<=Object.keys(data).length;i++){
           var searchResult = "";
@@ -52,7 +52,7 @@ function search(){
           searchResults += "<ul>"+searchResult+"</ul>";
           resultCnt++;
         }
-        $('.searchResult .blogResult').html("<h2>블로그</h2><br>"+searchResults);
+        $('.searchResult .blogResult').html("<h2>익명게시판</h2><br>"+searchResults);
       }
     }
   });

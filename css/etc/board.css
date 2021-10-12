@@ -47,6 +47,7 @@ a.board_item_info *.post_comments{
   flex:1;
 }
 .board_item_info:nth-child(2){
+  font-weight:bold;
   flex:7;
 }
 a:visited.board_item_info:nth-child(2){
@@ -78,6 +79,7 @@ a:visited.board_item_info:nth-child(2){
 .post .post_title{
   width:100%;
   font-size:1.8rem;
+  font-weight:bold;
   text-align:left;
   margin-bottom:1rem;
 }
@@ -139,6 +141,7 @@ a:visited.board_item_info:nth-child(2){
 .comment_item_info:nth-child(3){
   width:100%;
   white-space:pre-wrap;
+  font-weight:bold;
 }
 .comment_item_info_wrap{
   display:inline-block;
