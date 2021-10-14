@@ -191,6 +191,7 @@ input[type=text], input[type=password]{
 .foods .food{
   transform:scale(1);
   opacity:1;
+  box-shadow:none;
 }
 
 .launch_minecraft{

@@ -21,7 +21,7 @@
   transition:.25s;
 }
 .foods .food{
-  height:350px;
+  min-height:300px;
   transform: scale(.75);
   opacity:.5;
 }
