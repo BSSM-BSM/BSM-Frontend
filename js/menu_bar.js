@@ -1,7 +1,12 @@
 $(document).ready(function(){
-  var header = 75;
+  var header = 0;
+  if($(this).scrollTop()>header){
+    $('header').addClass('on');
+  }else{
+    $('header').removeClass('on');
+  }
   $('main').scroll(function() {
-    if($(this).scrollTop()>=header){
+    if($(this).scrollTop()>header){
       $('header').addClass('on');
     }else{
       $('header').removeClass('on');

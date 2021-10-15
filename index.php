@@ -96,7 +96,7 @@
             <span class="page">생활</span>
             <ul class="dropdown_content">
               <li><a href="/meal">급식</a></li>
-              <li><a href="/song">신청곡</a></li>
+              <li><a href="/songs">기상송 모음</a></li>
               <li><a href="/goodbed">상벌점</a></li>
               <li><a href="/dorm_rule">기숙사 규정</a></li>
             </ul>
@@ -158,7 +158,7 @@
           <li class="page"><a href="/board/board">자유게시판</a></li>
           <li class="page"><a href="/board/anonymous">익명게시판</a></li>
           <li class="page"><a href="/minecraft">마크 서버</a></li>
-          <li class="page"><a href="/song">신청곡</a></li>
+          <li class="page"><a href="/songs">기상송 모음</a></li>
           <li class="page"><a href="/calendar">학사일정</a></li>
           <li class="page"><a href="/goodbed">상벌점</a></li>
         </ul>

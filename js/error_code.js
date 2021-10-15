@@ -20,12 +20,12 @@ function error_code(status){
         16:{type:1, msg:'잘못된 검색 대상입니다.'},
         17:{type:1, msg:'게시글 번호가 없습니다.'},
         18:{type:1, msg:'삭제된 게시글 입니다.'},
-        19:{type:2, msg:'정상적인 접근이 아닙니다 로그인 해주세요.'},
+        19:{type:2, msg:'로그인후 이용 가능 합니다.'},
         20:{type:1, msg:'권한이 없습니다.'},
-        21:{type:2, msg:'로그인후 이용 가능 합니다.'},
+        21:{type:2, msg:'비밀번호 재설정이 필요합니다.'},
         22:{type:1, msg:'파일 업로드에 실패하였습니다.'},
         23:{type:1, msg:'게시글 작성에 실패하였습니다.'},
-        24:{type:2, msg:'비밀번호 재설정이 필요합니다.'},
+        24:{type:1, msg:'게시글 작성자가 아닙니다.'},
     };
     if(error_msg[status].type!=1){
         switch(status){
@@ -33,11 +33,10 @@ function error_code(status){
                 $('.authentication_box').addClass('on');
                 break;
             case 19:
-            case 21:
                 alert("에러코드 "+status+"\n"+error_msg[status].msg);
                 $('.login_box').addClass('on');
                 break;
-            case 24:
+            case 21:
                 $('.pw_reset_box').addClass('on');
                 break;
             default:
