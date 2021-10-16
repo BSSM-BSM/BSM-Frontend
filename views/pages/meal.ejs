@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../common/head') %>
+    <link rel="stylesheet" type="text/css" href="/css/etc/meal.css">
+    <title>급식표 - BSM</title>
+    <meta property="title" content="급식표 - BSM | 부산소마고 지원 서비스">
+    <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <meta property="og:title" content="급식표 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <script>
+        var installed = true;
+        var prompt;
+        window.addEventListener('beforeinstallprompt', function(e){
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            prompt = e;
+            installed = false;
+        });
+    </script>
+</head>
+<body>
+    <%- include('../common/header') %>
+    <main>
+        <div class="container">
+            <div class="title">
+                <h1>급식</h1>
+                <h2 class="food_date">x월x일</h2>
+            </div>
+            <div class="information blur">
+                <div class="foods center">
+                    <div class="food food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+                        <div class="food_time">아침</div>
+                        <div class="food_menu"></div>
+                    </div>
+                    <div class="food food-2 hover-food">
+                        <div class="food_time">점심</div>
+                        <div class="food_menu"></div>
+                    </div>
+                    <div class="food food-3" onclick="today.setDate(today.getDate()+1);food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
+                        <div class="food_time">저녁</div>
+                        <div class="food_menu"></div>
+                    </div>
+                    <script>
+                        var times, today, day, date, month, year, food_date;
+                        var food_table=[];
+                        var day_table=['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                        times=new Date();
+                        today=new Date(times);
+                        food_refresh();
+                        function food_refresh(){
+                        day=day_table[today.getDay()];
+                        date=today.getDate();
+                        month=today.getMonth()+1;
+                        year=today.getFullYear();
+                        $.ajax({
+                            type:'POST',
+                            data:{
+                                command_type:'food',
+                                food_date:year+'-'+month+'-'+date,
+                            },
+                            url:db_url,
+                            cache:false,
+                            success:function(data){
+                                data=JSON.parse(data);
+                                if(data.status!=1){
+                                    error_code(data.status);
+                                }else{
+                                    food_table[data.food_date]={'morning':data.morning, 'lunch':data.lunch, 'dinner':data.dinner};
+                                    food_render();
+                                }
+                            },
+                            error: function(data) {
+                                error_code(0);
+                                }
+                            });
+                        }
+                        function food_render(){
+                            $('.food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
+                            if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
+                                $('.food-1 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']);
+                                $('.food-2 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']);
+                                $('.food-3 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']);
+                            }else{
+                                $('.food-1 .food_menu').html('급식이 없습니다.');
+                                $('.food-2 .food_menu').html('급식이 없습니다.');
+                                $('.food-3 .food_menu').html('급식이 없습니다.');
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="dim menu_close"></div>
+    <%- include('../common/loginBox') %>
+</body>
+</html>

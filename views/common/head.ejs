@@ -1,0 +1,43 @@
+<meta charset="UTF-8">
+<meta name="theme-color" content="#333"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PWA 설정 시작 -->
+<!-- 주소창 등의 웹 브라우저 UI를 표시하지 않기 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- 상태 바의 스타일을 지정 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- 홈 화면에서 표시되는 앱 이름을 지정 -->
+<meta name="apple-mobile-web-app-title" content="Timer">
+<!-- 홈 화면에서 표시되는 앱 아이콘을 지정 -->
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+<!-- 웹 앱 매니페스트를 읽어 들이기 -->
+<link rel="manifest" href="/manifest.json">
+<script src="/sw.js"></script>
+<!-- 서비스 워커를 등록 -->
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+        .then((reg) => {
+            console.log('서비스 워커가 등록됨.', reg);
+        });
+    }
+</script>
+<!-- PWA 설정 끝 -->
+<script>
+    window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+    var refresh = true;
+    var db_url = '/database';
+</script>
+<link rel="stylesheet" type="text/css" href="/css/style.min.css">
+<!--모바일 css-->
+<link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
+<style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/menu_bar.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/error_code.js"></script>

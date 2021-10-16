@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /
+Allow: /$
+Allow: /css/
+Allow: /js/
+Allow: /icons/
+Allow: /resource/
+Allow: /time
+Allow: /food

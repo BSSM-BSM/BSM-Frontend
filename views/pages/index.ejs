@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../common/head') %>
+    <title>BSM - 부산소마고 지원 서비스</title>
+    <meta property="title" content="BSM - 부산소마고 지원 서비스">
+    <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <meta property="og:title" content="BSM - 부산소마고 지원 서비스">
+    <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <style>
+        body{background-image:none;}
+    </style>
+    <script>
+        var installed = true;
+        var prompt;
+        window.addEventListener('beforeinstallprompt', function(e){
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            prompt = e;
+            installed = false;
+        });
+    </script>
+</head>
+<body>
+    <%- include('../common/header') %>
+    <main>
+        <div class="section" id="main">
+            <div class="container vertical_center">
+                <h1 id="main_txt">Welcome to BSM</h1>
+                <br>
+                <h2 id="sub_txt">아주 환상적인 학교 지원 서비스</h2>
+                <br>
+                <a href="#download" id="sub_txt" class="button blue_button">BSM앱 다운로드</a>
+            </div>
+        </div>
+        <div class="section" id="download">
+            <div>
+                <div class="footer">
+                    <div class="container vertical_center">
+                        <h3>다운로드</h3>
+                        <br><br>
+                        <a class="webapp_install_button download_button button" onclick="if(installed){alert('이미 설치되어있습니다.');}else{prompt.prompt();}">
+                            <img src="/resource/common/images/download.png" class="download_image">
+                            <p>Progressive Web App</p>
+                            <br>
+                            <p>Ver. 0.5</p>
+                        </a>
+                        <a href="/resource/bsm/download/bsm_v0.2.1(4).apk" download="bsm_v0.2.1(4).apk" class="download_button button">
+                            <img src="/resource/common/images/download.png" class="download_image">
+                            <p>Android Native App</p>
+                            <br>
+                            <p>Ver. Beta 0.2.1</p>
+                        </a>
+                    </div>
+                </div>
+                <footer>
+                    <p>부산 소프트웨어 마이스터고 학교 지원 서비스</p>
+                    <p>Copyright 2021. BSM TEAM all rights reserved.</p>
+                    <p>2021 BSSM Project</p>
+                </footer>
+            </div>
+        </div>
+    </main>
+    <div class="dim menu_close"></div>
+    <%- include('../common/loginBox') %>
+</body>
+</html>

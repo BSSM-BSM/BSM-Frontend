@@ -1,0 +1,87 @@
+<% const member={islogin:false,level:0,id:null,code:0,} %>
+<% const returnUrl='/' %>
+<div class="overlay-fadein"></div>
+<header>
+    <nav>
+        <div class="top_menu">
+            <span class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
+            <span class="all_menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </span>
+            <span class="dropdown_menu">
+                <span class="page">학교</span>
+                <ul class="dropdown_content">
+                    <li><a href="/timetable">시간표</a></li>
+                    <li><a href="/calendar">학사일정</a></li>
+                </ul>
+            </span>
+            <span class="dropdown_menu">
+                <span class="page">생활</span>
+                <ul class="dropdown_content">
+                    <li><a href="/meal">급식</a></li>
+                    <li><a href="/songs">기상송 모음</a></li>
+                    <li><a href="/goodbed">상벌점</a></li>
+                    <li><a href="/dorm_rule">기숙사 규정</a></li>
+                </ul>
+            </span>
+            <span class="dropdown_menu">
+                <span class="page">커뮤니티</span>
+                <ul class="dropdown_content">
+                    <li><a href="/board/board">자유게시판</a></li>
+                    <li><a href="/board/anonymous">익명게시판</a></li>
+                </ul>
+            </span>
+            <span class="page"><a href="/minecraft">마크 서버</a></span>
+            <% if (member.islogin){ %>
+                <span class="dropdown_menu user_menu">
+                    <span class="page"><% if(member.level==2){ %> <%= "관리자" %> <% }else if(member.level==1){ %> <%= "교사" %> <% } %> <%= member.id %></span>
+                    <ul class="dropdown_content">
+                        <li><a href="/memberinfo/<%= member.code %>">유저 정보</a></li>
+                        <li><a href="/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
+                    </ul>
+                </span>
+            <% }else{ %>
+                <span class="page user_menu"><a onclick="$('.login_box').addClass('on');">로그인</a></span>
+            <% } %>
+            <span class="searchBar">
+                <input type="text" class="searchQuery input_text searchBox" onchange='search();$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
+                <div class="searchResult">
+                    <div class="boardResult"></div>
+                    <br>
+                    <div class="blogResult"></div>
+                </div>
+            </span>
+        </div>
+        <div class="notice_bar">
+            <script>
+                var agent = navigator.userAgent.toLowerCase();
+                if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
+                    document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
+                }
+            </script>
+            <div class="notice warning">Version 0.5 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다</div>
+            <a href="/#download" class="notice">안드로이드 앱 베타버전이 공개되었습니다. 클릭하여 다운로드</a>
+        </div>
+    </nav>
+    <div class="side_menu">
+        <ul>
+            <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
+            <% if (member.islogin){ %>
+            <li class="user_menu"><a href="/memberinfo/<%= member.id %>"><% if(member.level==2) %> 관리자 <%= member.id %></a></li>
+            <li class="logout"><a href="/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
+            <% }else{ %>
+            <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
+            <% } %>
+            <li class="page"><a href="/timetable">시간표</a></li>
+            <li class="page"><a href="/meal">급식</a></li>
+            <li class="page"><a href="/board/board">자유게시판</a></li>
+            <li class="page"><a href="/board/anonymous">익명게시판</a></li>
+            <li class="page"><a href="/minecraft">마크 서버</a></li>
+            <li class="page"><a href="/songs">기상송 모음</a></li>
+            <li class="page"><a href="/calendar">학사일정</a></li>
+            <li class="page"><a href="/goodbed">상벌점</a></li>
+        </ul>
+    </div>
+</header>
