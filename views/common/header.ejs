@@ -1,4 +1,4 @@
-<% const member={islogin:false,level:0,id:null,code:0,} %>
+<% const member={islogin:true,level:2,id:null,code:0,} %>
 <% const returnUrl='/' %>
 <div class="overlay-fadein"></div>
 <header>
@@ -69,7 +69,7 @@
         <ul>
             <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
             <% if (member.islogin){ %>
-            <li class="user_menu"><a href="/memberinfo/<%= member.id %>"><% if(member.level==2) %> 관리자 <%= member.id %></a></li>
+            <li class="user_menu"><a href="/memberinfo/<%= member.id %>"><% if(member.level==2){ %> <%= "관리자" %> <% }else if(member.level==1){ %> <%= "교사" %> <% } %> <%= member.id %></a></li>
             <li class="logout"><a href="/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
             <% }else{ %>
             <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
