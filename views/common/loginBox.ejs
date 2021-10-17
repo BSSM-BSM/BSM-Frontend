@@ -3,12 +3,11 @@
         $.ajax({
             type:'POST',
             data:{
-                command_type:'login',
                 returnUrl:'<?php echo $returnUrl ?>',
                 member_id:$('.login .member_id').val(),
                 member_pw:$('.login .member_pw').val(),
             },
-            url:db_url,
+            url:db_url+'/login',
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
