@@ -40,7 +40,11 @@ $post_no=getParam(3);
                   $('.post_date').text(data.post_date);
                   $('.post_hit').text(data.post_hit);
                   $('.post_comments').text(data.post_comments);
-                  $('.member_nickname').html('<a href="/memberinfo/'+data.member_code+'">'+data.member_nickname+'</a>');
+                  if(data.memberLevel==2){
+                    $('.member_nickname').html('<a href="/memberinfo/'+data.member_code+'"><span class="member_admin">[관리자]</span> '+data.member_nickname+'</a>');
+                  }else{
+                    $('.member_nickname').html('<a href="/memberinfo/'+data.member_code+'">'+data.member_nickname+'</a>');
+                  }
                   $('.post_content div').html(data.post_content);
                   if(data.like>0){
                     $('.like_button').addClass('on');
@@ -140,7 +144,11 @@ $post_no=getParam(3);
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
                     comment += '<div class="comment_item_info_wrap">';
-                    comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
+                    if(data[i].memberLevel==2){
+                      comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '"><span class="member_admin">[관리자]</span> '+data[i].memberNickname+'</a></div>';
+                    }else{
+                      comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
+                    }
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                     comment += '</div>';
@@ -278,7 +286,11 @@ $post_no=getParam(3);
                       board += '</p></span></a>';
                     }
 
-                    board += '<span class="board_item_info"><a href="/memberinfo/' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
+                    if(board_data[i].memberLevel==2){
+                      board += '<span class="board_item_info"><a href="/memberinfo/' +board_data[i].memberCode+ '"><span class="member_admin">[관리자]</span> ' +board_data[i].memberNickname+ '</a></span>';
+                    }else{
+                      board += '<span class="board_item_info"><a href="/memberinfo/' +board_data[i].memberCode+ '">' +board_data[i].memberNickname+ '</a></span>';
+                    }
                     board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
