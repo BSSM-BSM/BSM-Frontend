@@ -242,11 +242,11 @@
                         if(member_code==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
                             $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
                             <input type="hidden" name="command_type" value="post_delete">
-                            <input type="hidden" name="boardType" value="<?php echo $boardType ?>">
-                            <input type="hidden" name="post_no" value=<?php echo $post_no ?>>
+                            <input type="hidden" name="boardType" value="<%= boardType %>">
+                            <input type="hidden" name="post_no" value=<%= postNo %>>
                             <input type="submit" name="" value="글 삭제하기" class="button">
                             </form>`);
-                            $('.post_modify').html('<a class="button" href="/post_write/<?php echo $boardType ?>/<?php echo $post_no ?>">게시글 수정</a>');
+                            $('.post_modify').html('<a class="button" href="/post_write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
                         }
                     }
                 </script>
@@ -268,7 +268,6 @@
                                 $.ajax({
                                     type:'POST',
                                     data:{
-                                        command_type:'board',
                                         boardType:'<%= boardType %>',
                                         <% if(page!=null){ %> page:<%= page %>, <% } %>
                                     },
@@ -316,12 +315,9 @@
                     </div>
                     <div class="page_num"></div>
                     <button onClick="board_refresh();" class="button">글 새로고침</button>
-                    <?php
-                    if(isset($_SESSION['member_code'])){ ?>
-                        <a href="/post_write/<?php echo getParam(2); ?>" class="button">글쓰기</a>
-                    <?php
-                    }
-                    ?>
+                    <% if(member.islogin){ %>
+                        <a href="/post_write/<%= boardType %>" class="button">글쓰기</a>
+                    <% } %>
                 </div>
             </div>
         </main>

@@ -3,7 +3,6 @@
         $.ajax({
             type:'POST',
             data:{
-                returnUrl:'<?php echo $returnUrl ?>',
                 member_id:$('.login .member_id').val(),
                 member_pw:$('.login .member_pw').val(),
             },
@@ -15,7 +14,7 @@
                     error_code(data.status);
                 }else{
                     if(refresh){
-                    window.location.href=data.returnUrl;
+                        window.location.reload()
                     }else{
                     alert("로그인에 성공하였습니다.");
                     $('.login_box').removeClass('on');
