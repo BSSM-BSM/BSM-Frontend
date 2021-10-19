@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../common/head') %>
+    <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+    <% switch(boardType){
+        case 'board': %>
+        <title>자유게시판 - BSM</title> %>
+        <meta property="title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
+        <meta property="og:title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
+        <% break;
+    case 'anonymous': %>
+        <title>익명게시판 - BSM</title> %>
+        <meta property="title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
+        <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
+        <% break;
+    } %>
+</head>
+<body>
+    <%- include('../common/header') %>
+    <main>
+        <div class="container">
+            <div class="title">
+                <% switch(boardType){
+                    case 'board': %>
+                    <h1>자유게시판</h1>
+                    <% break;
+                case 'anonymous': %>
+                    <h1>익명게시판</h1>
+                    <% break;
+                } %>
+            <br>
+            </div>
+            <div class="board blur">
+            <% if(postNo!=null){ %>
+                <div class="post">
+                    <script>
+                        function post_refresh(){
+                            $.ajax({
+                                type:'POST',
+                                data:{
+                                    command_type:'post',
+                                    postNo:'<%= postNo %>',
+                                    boardType:'<%= boardType %>',
+                                },
+                                url:apiUrl+'/post',
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status);
+                                    }else{
+                                        $('.post_title').text(data.postTitle);
+                                        $('.post_date').text(data.postDate);
+                                        $('.post_hit').text(data.postHit);
+                                        $('.post_comments').text(data.postComments);
+                                        $('.member_nickname').html('<a href="/memberinfo/'+data.memberCode+'">'+data.memberNickname+'</a>');
+                                        $('.post_content div').html(data.postContent);
+                                        if(data.like>0){
+                                            $('.like_button').addClass('on');
+                                            $('.dislike_button').removeClass('on');
+                                        }else if(data.like<0){
+                                            $('.like_button').removeClass('on');
+                                            $('.dislike_button').addClass('on');
+                                        }else{
+                                            $('.like_button').removeClass('on');
+                                            $('.dislike_button').removeClass('on');
+                                        }
+                                        $('.post_like').text(data.postLike);
+                                        $('.note-video-clip').each(function(){
+                                            let tmp = $(this).wrap('<p/>').parent().html();
+                                            $(this).parent().html('<div class="video-container">'+tmp+'</div>');
+                                        });
+                                        post_menu(data.memberCode);
+                                        comment_refresh();
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0);
+                                }
+                            });
+                        }
+                        post_refresh();
+                    </script>
+                    <div class="post_title"></div>
+                    <div class="post_date"><p></p></div>
+                    <div class="post_hit"><p></p></div>
+                    <div class="post_comments"><p></p></div>
+                    <div class="member_nickname"></div>
+                    <div class="post_content"><div></div></div>
+                </div>
+                <div class="post_like_wrap">
+                    <button class="button like_button" onclick="like_send(1);">좋아요</button>
+                    <span class="post_like"></span>
+                    <button class="button dislike_button" onclick="like_send(-1);">싫어요</button>
+                </div>
+                <script>
+                    let like;
+                    function like_send(like){
+                        $.ajax({
+                            type:'POST',
+                            data:{
+                                command_type:'like',
+                                postNo:'<%= postNo %>',
+                                boardType:'<%= boardType %>',
+                                like:like,
+                            },
+                            url:apiUrl,
+                            cache:false,
+                            success:function(data){
+                                data=JSON.parse(data);
+                                if(data.status!=1){
+                                    error_code(data.status);
+                                    refresh = false;
+                                }else{
+                                    if(data.like>0){
+                                        $('.like_button').addClass('on');
+                                        $('.dislike_button').removeClass('on');
+                                    }else if(data.like<0){
+                                        $('.like_button').removeClass('on');
+                                        $('.dislike_button').addClass('on');
+                                    }else{
+                                        $('.like_button').removeClass('on');
+                                        $('.dislike_button').removeClass('on');
+                                    }
+                                    $('.post_like').text(data.postLike);
+                                }
+                            },
+                            error: function(data) {
+                                error_code(0);
+                            } 
+                        });
+                    }
+                </script>
+                <div class="comment_list">
+                    <script>
+                        function comment_refresh(){
+                            $.ajax({
+                                type:'POST',
+                                data:{
+                                    command_type:'comment',
+                                    postNo:'<%= postNo %>',
+                                    boardType:'<%= boardType %>'
+                                },
+                                url:apiUrl,
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status);
+                                    }else{
+                                        data=data.arrComment;
+                                        comments = "";
+                                        for(let i=0;i<Object.keys(data).length;i++){
+                                            let comment = "";
+                                            comment += '<div class="comment_item_info_wrap">';
+                                            comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
+                                            comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
+                                            comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
+                                            comment += '</div>';
+                                            if(data[i].memberCode==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
+                                                comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
+                                            }
+                                            if(i%2){
+                                                comments += `<div class="comment_item" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                                            }else{
+                                                comments += `<div class="comment_item odd" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                                            }
+                                        }
+                                        $('.comment_list .comment').html(comments);
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0);
+                                }
+                            });
+                        }
+                        function comment_delete(comment_index){
+                            $.ajax({
+                                type:'POST',
+                                data:{
+                                    command_type:'comment_delete',
+                                    boardType:'<?php echo $boardType ?>',
+                                    post_no:'<?php echo $post_no ?>',
+                                    comment_index:comment_index,
+                                },
+                                url:apiUrl,
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status);
+                                        refresh = false;
+                                    }else{
+                                        comment_refresh();
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0);
+                                }
+                            });
+                        }
+                        function comment_write(){
+                            $.ajax({
+                                type:'POST',
+                                data:{
+                                    command_type:'comment_write',
+                                    boardType:'<?php echo $boardType ?>',
+                                    post_no:'<?php echo $post_no ?>',
+                                    post_comment:$('.post_comment').val(),
+                                },
+                                url:apiUrl,
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status);
+                                        refresh = false;
+                                    }else{
+                                        $('.post_comment').val("");
+                                        comment_refresh();
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0);
+                                }
+                            });
+                        }
+                    </script>
+                    <div class="comment"></div>
+                </div>
+                <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write();return false;">
+                    <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
+                    <br><br>
+                    <div class="button" onclick="comment_refresh();">댓글 새로고침</div>
+                    <input type="submit" name="" value="댓글작성" class="button">
+                </form>
+                <span class="post_delete"></span>
+                <span class="post_modify"></span>
+                <script>
+                    function post_menu(member_code){
+                        if(member_code==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
+                            $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
+                            <input type="hidden" name="command_type" value="post_delete">
+                            <input type="hidden" name="boardType" value="<?php echo $boardType ?>">
+                            <input type="hidden" name="post_no" value=<?php echo $post_no ?>>
+                            <input type="submit" name="" value="글 삭제하기" class="button">
+                            </form>`);
+                            $('.post_modify').html('<a class="button" href="/post_write/<?php echo $boardType ?>/<?php echo $post_no ?>">게시글 수정</a>');
+                        }
+                    }
+                </script>
+            <% } %>
+                <div class=board_list>
+                    <div class="table_header">
+                        <span class="board_item">
+                        <span class="board_item_info">번호</span>
+                        <span class="board_item_info">제목</span>
+                        <span class="board_item_info">작성자</span>
+                        <span class="board_item_info">작성 시간</span>
+                        <span class="board_item_info">조회수</span>
+                        <span class="board_item_info">좋아요</span>
+                        </span>
+                    </div>
+                    <div class="table_main"></div>
+                        <script>
+                            function board_refresh(){
+                                $.ajax({
+                                    type:'POST',
+                                    data:{
+                                        command_type:'board',
+                                        boardType:'<%= boardType %>',
+                                        <% if(page!=null){ %> page:<%= page %>, <% } %>
+                                    },
+                                    url:apiUrl+'/board',
+                                    cache:false,
+                                    success:function(data){
+                                        data=JSON.parse(data);
+                                        if(data.status!=1){
+                                            error_code(data.status);
+                                        }else{
+                                            boardData=data.arrBoard;
+                                            boards = "";
+                                            for(var i=0;i<Object.keys(boardData).length;i++){
+                                                let board = "";
+                                                board += '<span class="board_item_info">'+boardData[i].postNo+'</span>';
+                                                
+                                                board += '<a href="/board/' +boardData[i].boardType+ '/' +boardData[i].postNo+ '"class="board_item_info"><span><p>' +boardData[i].postTitle;
+                                                if(boardData[i].postComments>=1){
+                                                    board += '</p><p class="post_comments">[' +boardData[i].postComments+ ']</p></span></a>';
+                                                }else{
+                                                    board += '</p></span></a>';
+                                                }
+                            
+                                                board += '<span class="board_item_info"><a href="/memberinfo/' +boardData[i].memberCode+ '">' +boardData[i].memberNickname+ '</a></span>';
+                                                board += '<span class="board_item_info">'+boardData[i].postDate+'</span>';
+                                                board += '<span class="board_item_info">'+boardData[i].postHit+'</span>';
+                                                board += '<span class="board_item_info">'+boardData[i].postLike+'</span>';
+                                                if(i%2){
+                                                    boards += '<span class="board_item">'+board+'</span>';
+                                                }else{
+                                                    boards += '<span class="board_item odd">'+board+'</span>';
+                                                }
+                                            }
+                                            $('.board_list .table_main').html(boards);
+                                            //$('.page_num').html(data.pageNum);
+                                        }
+                                    },
+                                    error: function(data) {
+                                        error_code(0);
+                                    }
+                                });
+                            }
+                            board_refresh();
+                        </script>
+                    </div>
+                    <div class="page_num"></div>
+                    <button onClick="board_refresh();" class="button">글 새로고침</button>
+                    <?php
+                    if(isset($_SESSION['member_code'])){ ?>
+                        <a href="/post_write/<?php echo getParam(2); ?>" class="button">글쓰기</a>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </main>
+    <div class="dim menu_close"></div>
+    <%- include('../common/loginBox') %>
+</body>
+</html>

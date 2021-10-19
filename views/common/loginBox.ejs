@@ -7,7 +7,7 @@
                 member_id:$('.login .member_id').val(),
                 member_pw:$('.login .member_pw').val(),
             },
-            url:db_url+'/login',
+            url:apiUrl+'/login',
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
@@ -38,7 +38,7 @@
                 member_nickname:$('.register .member_nickname').val(),
                 code:$('.register .code').val(),
             },
-            url:db_url,
+            url:apiUrl,
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
@@ -62,7 +62,7 @@
                 reset_member_pw:$('.pw_reset .reset_member_pw').val(),
                 reset_member_pw_check:$('.pw_reset .reset_member_pw_check').val(),
             },
-            url:db_url,
+            url:apiUrl,
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
@@ -85,7 +85,7 @@
                 command_type:'authentication',
                 code:$('.authentication .code').val(),
             },
-            url:db_url,
+            url:apiUrl,
             cache:false,
             success:function(data){
                 data=JSON.parse(data);

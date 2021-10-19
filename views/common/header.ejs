@@ -1,4 +1,3 @@
-<% const member={islogin:false,level:0,id:null,code:0,} %>
 <% const returnUrl='/' %>
 <div class="overlay-fadein"></div>
 <header>
@@ -34,12 +33,12 @@
                 </ul>
             </span>
             <span class="page"><a href="/minecraft">마크 서버</a></span>
-            <% if (member.islogin){ %>
+            <% if(member.islogin){ %>
                 <span class="dropdown_menu user_menu">
                     <span class="page"><% if(member.level==2){ %> <%= "관리자" %> <% }else if(member.level==1){ %> <%= "교사" %> <% } %> <%= member.id %></span>
                     <ul class="dropdown_content">
                         <li><a href="/memberinfo/<%= member.code %>">유저 정보</a></li>
-                        <li><a href="/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
+                        <li><a href="/api/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
                     </ul>
                 </span>
             <% }else{ %>
@@ -68,9 +67,9 @@
     <div class="side_menu">
         <ul>
             <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
-            <% if (member.islogin){ %>
-            <li class="user_menu"><a href="/memberinfo/<%= member.id %>"><% if(member.level==2){ %> <%= "관리자" %> <% }else if(member.level==1){ %> <%= "교사" %> <% } %> <%= member.id %></a></li>
-            <li class="logout"><a href="/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
+            <% if(member.islogin){ %>
+            <li class="user_menu"><a href="/memberinfo/<%= member.code %>"><% if(member.level==2){ %> <%= "관리자" %> <% }else if(member.level==1){ %> <%= "교사" %> <% } %> <%= member.id %></a></li>
+            <li class="logout"><a href="/api/logout?returnUrl=<%= returnUrl %>">로그아웃</a></li>
             <% }else{ %>
             <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
             <% } %>

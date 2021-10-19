@@ -8,17 +8,6 @@
     <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
     <meta property="og:title" content="시간표 - BSM | 부산소마고 지원 서비스">
     <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
-    <script>
-        var installed = true;
-        var prompt;
-        window.addEventListener('beforeinstallprompt', function(e){
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault();
-            // Stash the event so it can be triggered later.
-            prompt = e;
-            installed = false;
-        });
-    </script>
 </head>
 <body>
     <%- include('../common/header') %>
