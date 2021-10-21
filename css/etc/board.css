@@ -68,11 +68,6 @@ a:visited.board_item_info:nth-child(2){
 .board_item_info:nth-child(6){
   flex:1;
 }
-.member_admin{
-  font-weight:bold;
-  color:red;
-  display:inline;
-}
 .post{
   width:100%;
   padding:0rem 5rem 10rem 5rem;

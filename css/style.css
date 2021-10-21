@@ -368,7 +368,12 @@ div.side_menu ul li *{
 div.alert{
   text-align:center;
 }
-
+.member_admin{
+  font-weight:bold !important;
+  color:red !important;
+  display:inline !important;
+  padding:0 !important;
+}
 input[type=text], input[type=password], textarea{
   color:#e8eaed; border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);

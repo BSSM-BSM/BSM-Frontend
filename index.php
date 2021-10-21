@@ -72,6 +72,20 @@
       });
       var refresh = true;
       var db_url = '/database';
+      const memberLevel=[
+        '',
+        '<span class="member_admin">[룸메]</span> ',
+        '<span class="member_admin">[교사]</span> ',
+        '<span class="member_admin">[관리자]</span> '
+      ]
+      <?php
+      $memberLevel=[
+        '',
+        '<span class="member_admin">[룸메]</span> ',
+        '<span class="member_admin">[교사]</span> ',
+        '<span class="member_admin">[관리자]</span> '
+      ];
+      ?>
     </script>
   </head>
   <body>
@@ -112,7 +126,7 @@
           <?php
             if (isset($_SESSION['member_id'])){ ?>
               <span class="dropdown_menu user_menu">
-                <span class="page"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></span>
+                <span class="page"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></span>
                 <ul class="dropdown_content">
                   <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
                   <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
@@ -147,7 +161,7 @@
           <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
           <?php
           if (isset($_SESSION['member_id'])){ ?>
-          <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php if($_SESSION['member_level']==2)echo '관리자 '; echo $_SESSION['member_id']?></a></li>
+          <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></a></li>
           <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
           <?php }else{ ?>
           <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
@@ -310,6 +324,33 @@
           }
         });
       }
+      function valid_code(){
+        $.ajax({
+          type:'POST',
+          data:{
+            command_type:'valid_code',
+            student_enrolled:$('.valid_code .studentEnrolled').val(),
+            student_grade:$('.valid_code .studentGrade').val(),
+            student_class:$('.valid_code .studentClass').val(),
+            student_no:$('.valid_code .studentNo').val(),
+            student_name:$('.valid_code .studentName').val(),
+          },
+          url:db_url,
+          cache:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              error_code(data.status);
+            }else{
+              alert("인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.");
+              $('.valid_code_box').removeClass('on');
+            }
+          },
+          error: function(data) {
+            error_code(0);
+          }
+        });
+      }
     </script>
     <div class="login_box popup center">
       <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
@@ -328,7 +369,7 @@
     <div class="register_box popup center">
       <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
       <h2>회원가입</h2>
-      <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
+      <br>
       <form class="register" method="post" autocomplete="off" onsubmit="register();return false;">
         <input type="text" class="member_id" placeholder="아이디" class="input_text" required autofocus>
         <br>
@@ -341,6 +382,7 @@
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
         <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
+        <div class="button" onClick="$('.valid_code_box').addClass('on');$('.login_box').removeClass('on');">인증코드 발급</div>
         <button type="submit" class="button">가입하기</button>
       </form>
     </div>
@@ -362,7 +404,24 @@
       <form class="authentication" method="post" autocomplete="off" onsubmit="authentication();return false;">
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
+        <div class="button" onClick="$('.valid_code_box').addClass('on');$('.login_box').removeClass('on');">인증코드 발급</div>
         <button type="submit" class="button">계정 인증</button>
+      </form>
+    </div>
+    <div class="valid_code_box popup center">
+      <h2>인증코드 발급</h2>
+      <p>인증코드는 학교 이메일계정으로 보내드립니다.</p>
+      <br>
+      <form class="valid_code" method="post" autocomplete="off" onsubmit="return false;">
+        <input type="number" class="studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
+        <input type="number" class="studentGrade" placeholder="학년" min="1" max="3" required>
+        <input type="number" class="studentClass" placeholder="반" min="1" max="4" required>
+        <input type="number" class="studentNo" placeholder="번호" min="1" max="16" required>
+        <br>
+        <input type="text" class="studentName" placeholder="이름" required>
+        <br><br>
+        <div class="button" onClick="$('.valid_code_box').removeClass('on');">닫기</div>
+        <button type="submit" onclick="valid_code();" class="button">인증코드 발급</button>
       </form>
     </div>
   </body>
