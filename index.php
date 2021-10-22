@@ -93,57 +93,63 @@
     <header>
       <nav>
         <div class="top_menu">
-          <span class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
-          <span class="all_menu">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-          </span>
-          <span class="dropdown_menu">
-            <span class="page">학교</span>
-            <ul class="dropdown_content">
-              <li><a href="/timetable">시간표</a></li>
-              <li><a href="/calendar">학사일정</a></li>
-            </ul>
-          </span>
-          <span class="dropdown_menu">
-            <span class="page">생활</span>
-            <ul class="dropdown_content">
-              <li><a href="/meal">급식</a></li>
-              <li><a href="/songs">기상송 모음</a></li>
-              <li><a href="/goodbed">상벌점</a></li>
-              <li><a href="/dorm_rule">기숙사 규정</a></li>
-            </ul>
-          </span>
-          <span class="dropdown_menu">
-            <span class="page">커뮤니티</span>
-            <ul class="dropdown_content">
-              <li><a href="/board/board">자유게시판</a></li>
-              <li><a href="/board/anonymous">익명게시판</a></li>
-            </ul>
-          </span>
-          <span class="page"><a href="/minecraft">마크 서버</a></span>
-          <?php
-            if (isset($_SESSION['member_id'])){ ?>
-              <span class="dropdown_menu user_menu">
-                <span class="page"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></span>
-                <ul class="dropdown_content">
-                  <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
-                  <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
-                </ul>
+          <div class="left_wrap">
+            <span class="top_menu_item home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
+            <span class="top_menu_item all_menu">
+              <span class="line_wrap">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
               </span>
-            <?php }else{ ?>
-              <span class="page user_menu"><a onclick="$('.login_box').addClass('on');">로그인</a></span>
-            <?php }
-          ?>
-          <span class="searchBar">
-            <input type="text" class="searchQuery input_text searchBox" onchange='search();$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
-            <div class="searchResult">
-              <div class="boardResult"></div>
-              <br>
-              <div class="blogResult"></div>
-            </div>
-          </span>
+            </span>
+            <span class="top_menu_item dropdown_menu">
+              <span class="page">학교</span>
+              <ul class="dropdown_content">
+                <li><a href="/timetable">시간표</a></li>
+                <li><a href="/calendar">학사일정</a></li>
+              </ul>
+            </span>
+            <span class="top_menu_item dropdown_menu">
+              <span class="page">생활</span>
+              <ul class="dropdown_content">
+                <li><a href="/meal">급식</a></li>
+                <li><a href="/songs">기상송 모음</a></li>
+                <li><a href="/goodbed">상벌점</a></li>
+                <li><a href="/dorm_rule">기숙사 규정</a></li>
+              </ul>
+            </span>
+            <span class="top_menu_item dropdown_menu">
+              <span class="page">커뮤니티</span>
+              <ul class="dropdown_content">
+                <li><a href="/board/board">자유게시판</a></li>
+                <li><a href="/board/anonymous">익명게시판</a></li>
+              </ul>
+            </span>
+            <span class="top_menu_item"><a href="/minecraft" class="page">마크 서버</a></span>
+          </div>
+          <div class="right_wrap">
+            <span class="searchBar top_menu_item">
+              <input type="text" class="searchQuery input_text searchBox" onchange='search();$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
+              <div class="searchResult">
+                <div class="boardResult"></div>
+                <br>
+                <div class="blogResult"></div>
+              </div>
+            </span>
+            <?php
+              if (isset($_SESSION['member_id'])){ ?>
+                <span class="top_menu_item dropdown_menu user_menu">
+                  <span class="page"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></span>
+                  <ul class="dropdown_content">
+                    <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
+                    <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
+                  </ul>
+                </span>
+              <?php }else{ ?>
+                <span class="top_menu_item user_menu"><a onclick="$('.login_box').addClass('on');" class="page">로그인</a></span>
+              <?php }
+            ?>
+          </div>
         </div>
         <div class="notice_bar">
           <script>

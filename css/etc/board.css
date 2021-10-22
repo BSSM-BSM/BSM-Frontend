@@ -70,7 +70,7 @@ a:visited.board_item_info:nth-child(2){
 }
 .post{
   width:100%;
-  padding:0rem 5rem 10rem 5rem;
+  padding:0rem 5rem;
 }
 .post > div:not(.post_content) > *{
   float:left;
@@ -108,7 +108,7 @@ a:visited.board_item_info:nth-child(2){
 }
 .post .post_content{
   width:100%;
-  margin-top:10rem;
+  margin:10rem 0;
 }
 .post_img{
   width:100%;

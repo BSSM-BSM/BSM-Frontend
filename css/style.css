@@ -232,13 +232,13 @@ header.on nav .top_menu{
   padding:0;
 }
 .all_menu{
-  padding:1.05rem;
+  padding:.9rem;
+  display:inline;
 }
 .all_menu:hover{
   cursor:pointer;
 }
-.all_menu .line{
-  float:none;
+.line_wrap .line{
   width:3rem;
   height:.3rem;
   border-radius:10px;
@@ -256,57 +256,68 @@ header.on nav .top_menu{
 .all_menu.on .line:nth-child(3){
   transform: translateY(-.75rem) rotate(-40deg);
 }
-.top_menu .home{
-  padding:0 2.5rem;
-}
-.top_menu .home a img{
-  height:5rem; padding:1.2rem; float:left;
-}
-.top_menu{
-  margin:0 auto; padding:1.5rem 0; width:1320px;
-}
-.top_menu *{
-  font-size:1.6rem !important; line-height:2rem !important;
-}
-.top_menu > span{
+.top_menu_item{
+  font-size:1.6rem;
   text-align:center; border-radius:.5rem;
   height:auto;
   background:none;
   border:0;
 }
-.top_menu span.home, .top_menu span.all_menu{
-  float:left;
+.top_menu_item.home{
+  display:inline;
 }
-.top_menu .page > *,.top_menu * .page{
+.top_menu_item.home a img{
+  height:5rem; padding:1.2rem 2rem; float:left;
+}
+.top_menu{
+  margin:0 auto; padding:1.5rem 0; width:1320px; display:flex;
+}
+.top_menu .left_wrap{
+  display:flex;
+  justify-content:left;
+}
+.top_menu .right_wrap{
+  display:flex;
+  justify-content: right;
+  flex:auto;
+}
+.top_menu_item .page{
   display:inline-block;
   padding:1.5rem 2.5rem;
 }
-.top_menu .dropdown_menu span{
+.dropdown_menu span{
   border-radius:.5rem .5rem 0 0;
 }
-.top_menu .user_menu{
-  border-radius:.75rem;
+.user_menu .page{
+  border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 128, 255, 0.2);
-  float:right;
 }
-.top_menu span:hover:not(.searchBar){
+.top_menu_item:hover{
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   text-shadow:0 0 .8rem #FFF;
   background-color:rgba(0, 0, 0, .2);
 }
-.top_menu .searchBar{
-  float:right;
+.top_menu_item input:hover{
+  background-color:rgba(0, 0, 0, 0) !important;
 }
-.top_menu .searchBar input{
+.top_menu_item.searchBar{
+  width:20rem;
+}
+.top_menu_item.searchBar input{
+  width:100%;
+  padding:1.7rem 1rem;
   border:0;
   background-color:rgba(0, 0, 0, 0);
+  box-shadow:none;
+  margin:0;
 }
 .dropdown_menu {
   position: relative;
   display: inline-block;
 }
 .dropdown_content {
+  right:0;
   opacity:0;
   pointer-events:none;
   position: absolute;
@@ -383,7 +394,7 @@ input[type=text], input[type=password], textarea{
   transition:.25s;
 }
 input[type=text]::placeholder, input[type=password]::placeholder, textarea::placeholder{
-  color:#AAA;
+  color:#DDD;
 }
 input[type=text]:hover, input[type=password]:hover, textarea:hover{
   background-color:rgba(0, 0, 0, .2);
@@ -418,12 +429,6 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 .red_button{
   background-color:rgba(192, 0, 0, 0.2);
 }
-.like_button.on{
-  background-color:rgba(0, 192, 0, 0.2);
-}
-.dislike_button.on{
-  background-color:rgba(192, 0, 0, 0.2);
-}
 .popup{
   position:absolute;
   z-index:50;
@@ -437,15 +442,10 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   backdrop-filter:blur(20px);
   border-top:1px solid rgba(128, 128, 128, 0.3);
   border-left:1px solid rgba(128, 128, 128, 0.3);
+  z-index:1000;
 }
 .popup:not(.on){
   display:none;
-}
-
-.searchBar .searchBox{
-  margin:0;
-  width:20rem;
-  margin-left:14rem;
 }
 .searchBar .searchResult{
   display:none;

@@ -17,14 +17,11 @@ main,.container{
 main::-webkit-scrollbar{
   width:2px;
 }
-div.top_menu{
+.top_menu{
   width:auto; padding:0rem;
 }
-.top_menu > span:not(.user_menu, .searchBar, .all_menu), .top_menu .home{
+.top_menu_item:not(.user_menu, .searchBar, .all_menu), .top_menu .home{
   display:none;
-}
-.top_menu .searchBar{
-  float:none;
 }
 .section#main h1#main_txt{
   font-size:3.6rem;
@@ -52,6 +49,9 @@ input[type=text], input[type=password]{
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+.top_menu_item.searchBar{
+  flex:auto;
 }
 .searchBar .searchResult{
   left:0;
@@ -158,9 +158,6 @@ input[type=text], input[type=password]{
 }
 .comment_write{
   padding:0 3%;
-}
-.comment_item{
-  padding:1rem 0;
 }
 .comment_item_info_wrap{
   padding:1rem 3%;
