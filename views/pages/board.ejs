@@ -37,13 +37,8 @@
                     <script>
                         function post_refresh(){
                             $.ajax({
-                                type:'POST',
-                                data:{
-                                    command_type:'post',
-                                    postNo:'<%= postNo %>',
-                                    boardType:'<%= boardType %>',
-                                },
-                                url:apiUrl+'/post',
+                                type:'GET',
+                                url:apiUrl+'/post/<%= boardType %>/<%= postNo %>',
                                 cache:false,
                                 success:function(data){
                                     data=JSON.parse(data);
@@ -100,12 +95,9 @@
                         $.ajax({
                             type:'POST',
                             data:{
-                                command_type:'like',
-                                postNo:'<%= postNo %>',
-                                boardType:'<%= boardType %>',
                                 like:like,
                             },
-                            url:apiUrl,
+                            url:apiUrl+'/like/<%= boardType %>/<%= postNo %>',
                             cache:false,
                             success:function(data){
                                 data=JSON.parse(data);
@@ -136,13 +128,8 @@
                     <script>
                         function comment_refresh(){
                             $.ajax({
-                                type:'POST',
-                                data:{
-                                    command_type:'comment',
-                                    postNo:'<%= postNo %>',
-                                    boardType:'<%= boardType %>'
-                                },
-                                url:apiUrl,
+                                type:'GET',
+                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
                                 cache:false,
                                 success:function(data){
                                     data=JSON.parse(data);
@@ -159,12 +146,12 @@
                                             comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                                             comment += '</div>';
                                             if(data[i].memberCode==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
-                                                comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
+                                                comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].idx+`);">댓글 삭제</button></div>`;
                                             }
                                             if(i%2){
-                                                comments += `<div class="comment_item" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                                                comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                                             }else{
-                                                comments += `<div class="comment_item odd" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                                                comments += `<div class="comment_item odd" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                                             }
                                         }
                                         $('.comment_list .comment').html(comments);
@@ -175,16 +162,13 @@
                                 }
                             });
                         }
-                        function comment_delete(comment_index){
+                        function comment_delete(commentIndex){
                             $.ajax({
-                                type:'POST',
+                                type:'DELETE',
                                 data:{
-                                    command_type:'comment_delete',
-                                    boardType:'<?php echo $boardType ?>',
-                                    post_no:'<?php echo $post_no ?>',
-                                    comment_index:comment_index,
+                                    commentIndex:commentIndex,
                                 },
-                                url:apiUrl,
+                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
                                 cache:false,
                                 success:function(data){
                                     data=JSON.parse(data);
@@ -204,12 +188,9 @@
                             $.ajax({
                                 type:'POST',
                                 data:{
-                                    command_type:'comment_write',
-                                    boardType:'<?php echo $boardType ?>',
-                                    post_no:'<?php echo $post_no ?>',
-                                    post_comment:$('.post_comment').val(),
+                                    comment:$('.post_comment').val(),
                                 },
-                                url:apiUrl,
+                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
                                 cache:false,
                                 success:function(data){
                                     data=JSON.parse(data);
@@ -266,12 +247,8 @@
                         <script>
                             function board_refresh(){
                                 $.ajax({
-                                    type:'POST',
-                                    data:{
-                                        boardType:'<%= boardType %>',
-                                        <% if(page!=null){ %> page:<%= page %>, <% } %>
-                                    },
-                                    url:apiUrl+'/board',
+                                    type:'GET',
+                                    url:apiUrl+'/board/<%= boardType %><% if(page!=null) %>?page=<%= page %>',
                                     cache:false,
                                     success:function(data){
                                         data=JSON.parse(data);
@@ -280,7 +257,7 @@
                                         }else{
                                             boardData=data.arrBoard;
                                             boards = "";
-                                            for(var i=0;i<Object.keys(boardData).length;i++){
+                                            for(let i=0;i<Object.keys(boardData).length;i++){
                                                 let board = "";
                                                 board += '<span class="board_item_info">'+boardData[i].postNo+'</span>';
                                                 

@@ -141,7 +141,7 @@ $post_no=getParam(3);
                     var comment = "";
                     comment += '<div class="comment_item_info_wrap">';
                     comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
-                    }
+
                     comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
                     comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
                     comment += '</div>';
@@ -149,9 +149,9 @@ $post_no=getParam(3);
                       comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
                     }
                     if(i%2){
-                      comments += `<div class="comment_item" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                      comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                     }else{
-                      comments += `<div class="comment_item odd" onclick="$('.comment_item .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').addClass('on');">`+comment+`</div>`;
+                      comments += `<div class="comment_item odd" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                     }
                   }
                   $('.comment_list .comment').html(comments);
