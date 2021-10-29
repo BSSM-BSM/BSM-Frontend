@@ -227,7 +227,7 @@
                             <input type="hidden" name="post_no" value=<%= postNo %>>
                             <input type="submit" name="" value="글 삭제하기" class="button">
                             </form>`);
-                            $('.post_modify').html('<a class="button" href="/post_write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
+                            $('.post_modify').html('<a class="button" href="/board/write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
                         }
                     }
                 </script>
@@ -289,15 +289,15 @@
                             }
                             board_refresh();
                         </script>
-                    </div>
-                    <div class="page_num"></div>
-                    <button onClick="board_refresh();" class="button">글 새로고침</button>
-                    <% if(member.islogin){ %>
-                        <a href="/post_write/<%= boardType %>" class="button">글쓰기</a>
-                    <% } %>
                 </div>
+                <div class="page_num"></div>
+                <button onClick="board_refresh();" class="button">글 새로고침</button>
+                <% if(member.islogin){ %>
+                    <a href="/board/write/<%= boardType %>" class="button">글쓰기</a>
+                <% } %>
             </div>
-        </main>
+        </div>
+    </main>
     <div class="dim menu_close"></div>
     <%- include('../common/loginBox') %>
 </body>
