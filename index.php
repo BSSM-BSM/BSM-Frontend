@@ -106,7 +106,7 @@
               <span class="page">학교</span>
               <ul class="dropdown_content">
                 <li><a href="/timetable">시간표</a></li>
-                <li><a href="/calendar">학사일정</a></li>
+                <li><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
               </ul>
             </span>
             <span class="top_menu_item dropdown_menu">
@@ -114,7 +114,6 @@
               <ul class="dropdown_content">
                 <li><a href="/meal">급식</a></li>
                 <li><a href="/songs">기상송 모음</a></li>
-                <li><a href="/goodbed">상벌점</a></li>
                 <li><a href="/dorm_rule">기숙사 규정</a></li>
               </ul>
             </span>
@@ -125,6 +124,7 @@
                 <li><a href="/board/anonymous">익명게시판</a></li>
               </ul>
             </span>
+            <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="page">깃허브</a></span>
             <span class="top_menu_item"><a href="/minecraft" class="page">마크 서버</a></span>
           </div>
           <div class="right_wrap">
@@ -177,10 +177,11 @@
           <li class="page"><a href="/meal">급식</a></li>
           <li class="page"><a href="/board/board">자유게시판</a></li>
           <li class="page"><a href="/board/anonymous">익명게시판</a></li>
-          <li class="page"><a href="/minecraft">마크 서버</a></li>
           <li class="page"><a href="/songs">기상송 모음</a></li>
-          <li class="page"><a href="/calendar">학사일정</a></li>
-          <li class="page"><a href="/goodbed">상벌점</a></li>
+          <li class="page"><a href="/dorm_rule">기숙사 규정</a></li>
+          <li class="page"><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
+          <li class="page"><a href="https://github.com/leehj050211/BSM-Frontend">깃허브</a></li>
+          <li class="page"><a href="/minecraft">마크 서버</a></li>
         </ul>
       </div>
     </header>

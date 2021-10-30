@@ -18,7 +18,7 @@ function search(){
         for(var i=1;i<=Object.keys(data).length;i++){
           var searchResult = "";
           searchResult += "<li>"+data[i].postNo+"</li>";
-          searchResult += '<li><a href="./board?boardType=board&post_no='+data[i].postNo+'"><p>'+data[i].postTitle+'</p></a></li>';
+          searchResult += '<li><a href="/board/board/'+data[i].postNo+'"><p>'+data[i].postTitle+'</p></a></li>';
           searchResult += "<li>"+data[i].memberNickname+"</li>";
           searchResult += "<li>"+data[i].postDate+"</li>";
           searchResults += "<ul>"+searchResult+"</ul>";
@@ -46,7 +46,7 @@ function search(){
         for(var i=1;i<=Object.keys(data).length;i++){
           var searchResult = "";
           searchResult += "<li>"+data[i].postNo+"</li>";
-          searchResult += '<li><a href="./board?boardType=board&post_no='+data[i].postNo+'"><p>'+data[i].postTitle+'</p></a></li>';
+          searchResult += '<li><a href="/board/anonymous/'+data[i].postNo+'"><p>'+data[i].postTitle+'</p></a></li>';
           searchResult += "<li>"+data[i].memberNickname+"</li>";
           searchResult += "<li>"+data[i].postDate+"</li>";
           searchResults += "<ul>"+searchResult+"</ul>";
