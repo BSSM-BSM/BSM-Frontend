@@ -129,7 +129,7 @@
           </div>
           <div class="right_wrap">
             <span class="searchBar top_menu_item">
-              <input type="text" class="searchQuery input_text searchBox" onchange='search();$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
+              <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
               <div class="searchResult">
                 <div class="boardResult"></div>
                 <br>
@@ -369,7 +369,7 @@
         <br><br>
         <div class="button" onClick="$('.login_box').removeClass('on');">닫기</div>
         <div class="button" onClick="$('.register_box').addClass('on');">회원가입</div>
-        <button type="submit" onclick="" class="button">로그인</button>
+        <button type="submit" class="button">로그인</button>
       </form>
     </div>
     <div class="register_box popup center">
@@ -388,19 +388,19 @@
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
         <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
-        <div class="button" onClick="$('.valid_code_box').addClass('on');$('.login_box').removeClass('on');">인증코드 발급</div>
+        <div class="button" onClick="$('.valid_code_box').addClass('on');">인증코드 발급</div>
         <button type="submit" class="button">가입하기</button>
       </form>
     </div>
     <div class="pw_reset_box popup center">
       <h2>비밀번호 재설정이 필요합니다</h2>
       <br>
-      <form class="pw_reset" method="post" autocomplete="off" onsubmit="return false;">
+      <form class="pw_reset" method="post" autocomplete="off" onsubmit="pw_reset();return false;">
         <input type="password" class="reset_member_pw" placeholder="재설정할 비밀번호" required>
         <br>
         <input type="password" class="reset_member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
         <br><br>
-        <button type="submit" onclick="pw_reset();" class="button">비밀번호 재설정</button>
+        <button type="submit" class="button">비밀번호 재설정</button>
       </form>
     </div>
     <div class="authentication_box popup center">
@@ -418,7 +418,7 @@
       <h2>인증코드 발급</h2>
       <p>인증코드는 학교 이메일계정으로 보내드립니다.</p>
       <br>
-      <form class="valid_code" method="post" autocomplete="off" onsubmit="return false;">
+      <form class="valid_code" method="post" autocomplete="off" onsubmit="valid_code();return false;">
         <input type="number" class="studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
         <input type="number" class="studentGrade" placeholder="학년" min="1" max="3" required>
         <input type="number" class="studentClass" placeholder="반" min="1" max="4" required>
@@ -427,7 +427,7 @@
         <input type="text" class="studentName" placeholder="이름" required>
         <br><br>
         <div class="button" onClick="$('.valid_code_box').removeClass('on');">닫기</div>
-        <button type="submit" onclick="valid_code();" class="button">인증코드 발급</button>
+        <button type="submit" class="button">인증코드 발급</button>
       </form>
     </div>
   </body>

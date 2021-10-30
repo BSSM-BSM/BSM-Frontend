@@ -295,7 +295,6 @@ header.on nav .top_menu{
 }
 .top_menu_item:hover{
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  text-shadow:0 0 .8rem #FFF;
   background-color:rgba(0, 0, 0, .2);
 }
 .top_menu_item input:hover{
@@ -303,6 +302,7 @@ header.on nav .top_menu{
 }
 .top_menu_item.searchBar{
   width:20rem;
+  position:relative;
 }
 .top_menu_item.searchBar input{
   width:100%;
@@ -366,10 +366,6 @@ div.side_menu ul li:hover:not(.home){
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 0, 0, .2);
 }
-div.side_menu ul li.active{
-  text-shadow:0 0 .8rem #FFF;
-  background-color:rgba(128, 128, 128, .5);
-}
 div.side_menu ul li:hover + ul{
   padding-left:0%; padding-right:2%;
 }
@@ -429,6 +425,12 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 .red_button{
   background-color:rgba(192, 0, 0, 0.2);
 }
+.like_button.on{
+  background-color:rgba(0, 192, 0, 0.2);
+}
+.dislike_button.on{
+  background-color:rgba(192, 0, 0, 0.2);
+}
 .popup{
   position:absolute;
   z-index:50;
@@ -438,10 +440,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   padding: 3rem 1rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, 0.2);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(128, 128, 128, 0.3);
-  border-left:1px solid rgba(128, 128, 128, 0.3);
+  background-color:#D3D3D3DD;
   z-index:1000;
 }
 .popup:not(.on){
@@ -451,14 +450,14 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   display:none;
   position:absolute;
   padding:1rem;
+  right:0;
+  width:500%;
 }
 .searchResult{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, 0.2);
-  border-top:1px solid rgba(128, 128, 128, 0.3);
-  border-left:1px solid rgba(128, 128, 128, 0.3);
+  background-color:#D3D3D3DD;
 }
 .searchBar .searchResult.on{
   display:block;
