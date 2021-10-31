@@ -106,6 +106,7 @@
               <span class="page">학교</span>
               <ul class="dropdown_content">
                 <li><a href="/timetable">시간표</a></li>
+                <li><a href="/meister">마이스터 상벌점</a></li>
                 <li><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
               </ul>
             </span>
@@ -158,8 +159,8 @@
               document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
             }
           </script>
-          <div class="notice warning">Version 0.5 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다</div>
-          <a href="/#download" class="notice">안드로이드 앱 베타버전이 공개되었습니다. 클릭하여 다운로드</a>
+          <div class="notice warning">Version 0.5 정식버전이 아니므로 언제든지 변경될 수 있습니다</div>
+          <a href="/#download" class="notice">안드로이드 앱 베타 v0.2.2가 공개되었습니다. 클릭하여 다운로드</a>
         </div>
       </nav>
       <div class="side_menu">
@@ -175,6 +176,7 @@
           ?>
           <li class="page"><a href="/timetable">시간표</a></li>
           <li class="page"><a href="/meal">급식</a></li>
+          <li class="page"><a href="/meister">마이스터 상벌점</a></li>
           <li class="page"><a href="/board/board">자유게시판</a></li>
           <li class="page"><a href="/board/anonymous">익명게시판</a></li>
           <li class="page"><a href="/songs">기상송 모음</a></li>
@@ -207,6 +209,9 @@
         break;
       case 'meal':
         require "./pages/meal.html";
+        break;
+      case 'meister':
+        require "./pages/meister.html";
         break;
       case 'remote':
         require "./pages/remote.html";

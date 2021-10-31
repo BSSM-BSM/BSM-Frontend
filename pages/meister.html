@@ -1,0 +1,53 @@
+<main>
+  <div class="container">
+    <div class="title">
+      <h1>마이스터 상벌점 확인</h1>
+    </div>
+    <div class="information blur">
+      <script>
+        function meister(){
+          $.ajax({
+            type:'POST',
+            data:{
+              command_type:'meister',
+              caseBy:'login',
+              pw: $('.meisterInfo .pw').val(),
+              hak: $('.meisterInfo .hak').val(),
+              ban: $('.meisterInfo .ban').val(),
+              bun: $('.meisterInfo .bun').val(),
+            },
+            url:db_url,
+            cache:false,
+            success:function(data){
+              $('.meisterInfo .pw').val("")
+              $('.meister').html(data)
+            },
+            error: function(data) {
+              error_code(0);
+            }
+          });
+        }
+      </script>
+      <div>
+        <p>아직 실험중인 기능입니다.</p>
+        <br>
+        <form class="meisterInfo" method="post" autocomplete="off" onsubmit="meister();return false;">
+          <input type="number" class="hak" placeholder="학년" min="1" max="3" required>
+          <input type="number" class="ban" placeholder="반" min="1" max="4" required>
+          <input type="number" class="bun" placeholder="번호" min="1" max="16" required>
+          <br>
+          <input type="password" class="pw" placeholder="마이스터 인증제 사이트 비밀번호" required>
+          <br><br>
+          <button type="submit" class="button">상벌점 조회</button>
+        </form>
+      </div>
+      <div class="meister"></div>
+    </div>
+  </div>
+</main>
+<div class="dim menu_close"></div>
+<title>급식표 - BSM</title>
+<meta property="title" content="급식표 - BSM | 부산소마고 지원 서비스">
+<meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+<meta property="og:title" content="급식표 - BSM | 부산소마고 지원 서비스">
+<meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
