@@ -382,7 +382,7 @@ div.alert{
   display:inline !important;
   padding:0 !important;
 }
-input[type=text], input[type=password], textarea{
+input[type=text], input[type=password], input[type=number], textarea{
   color:#e8eaed; border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
@@ -390,13 +390,17 @@ input[type=text], input[type=password], textarea{
   border-left:1px solid rgba(128, 128, 128, 0.3);
   transition:.25s;
 }
-input[type=text]::placeholder, input[type=password]::placeholder, textarea::placeholder{
+input[type=number]{
+  width:auto;
+  padding:1rem .5rem;
+}
+input[type=text]::placeholder, input[type=password]::placeholder, input[type=number]::placeholder, textarea::placeholder{
   color:#DDD;
 }
-input[type=text]:hover, input[type=password]:hover, textarea:hover{
+input[type=text]:hover, input[type=password]:hover, input[type=number]:hover, textarea:hover{
   background-color:rgba(0, 0, 0, .2);
 }
-input[type=text]:focus, input[type=password]:focus, textarea:focus{
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, textarea:focus{
   box-shadow:0 0 2rem 0 #0080FF;
 }
 .button{
@@ -441,7 +445,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   padding: 3rem 1rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:#D3D3D3DD;
+  background-color:#202124DD;
   z-index:1000;
 }
 .popup:not(.on){
@@ -458,7 +462,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:#D3D3D3DD;
+  background-color:#202124DD;
 }
 .searchBar .searchResult.on{
   display:block;
