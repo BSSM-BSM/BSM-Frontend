@@ -51,6 +51,10 @@ $member_code=getParam(2);
         }
         member_info();
       </script>
+      <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
+        <input type="file" name="file" required>
+        <button type="submit" class="button">프로필 이미지 업로드</button>
+      </form>
     <?php
       if(isset($_SESSION['member_code'])){
         if($member_code==$_SESSION['member_code']){ ?>
@@ -61,6 +65,31 @@ $member_code=getParam(2);
     ?>
     </div>
     <script>
+      function profile_upload(){
+        var form = $('.profile_upload')[0];
+        var formData = new FormData(form);
+        formData.append("file", $(".profile_upload input[name=file]")[0].files[0]);
+        $.ajax({
+          type:'POST',
+          data:formData,
+          url:'/profile_upload.php',
+          cache:false,
+          processData:false,
+          contentType:false,
+          success:function(data){
+            data=JSON.parse(data);
+            if(data.status!=1){
+              error_code(data.status);
+            }else{
+              alert("업로드에 성공하였습니다.");
+              window.location.reload();
+            }
+          },
+          error: function(data) {
+            error_code(0);
+          }
+        });
+      }
       function pw_modify(){
         $.ajax({
           type:'POST',
@@ -93,7 +122,7 @@ $member_code=getParam(2);
   <div class="pw_modify_box popup center">
     <h2>비밀번호 수정</h2>
     <br>
-    <form class="pw_modify" method="post" autocomplete="off" onsubmit="return false;">
+    <form class="pw_modify" method="post" autocomplete="off" onsubmit="pw_modify();return false;">
       <input type="password" class="member_pw" placeholder="현재 비밀번호" required autofocus>
       <br>
       <input type="password" class="modify_member_pw" placeholder="수정할 비밀번호" required>
@@ -101,7 +130,7 @@ $member_code=getParam(2);
       <input type="password" class="modify_member_pw_check" placeholder="수정할 비밀번호 재입력" required>
       <br><br>
       <div class="button" onClick="$('.pw_modify_box').removeClass('on');">닫기</div>
-      <button type="submit" onclick="pw_modify();" class="button">비밀번호 수정</button>
+      <button type="submit" class="button">비밀번호 수정</button>
     </form>
   </div>
 </main>

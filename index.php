@@ -140,9 +140,9 @@
             <?php
               if (isset($_SESSION['member_id'])){ ?>
                 <span class="top_menu_item dropdown_menu user_menu">
-                  <span class="page"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></span>
+                  <img src="/resource/member/profile_images/profile_<?php echo $_SESSION['member_code']?>.png" alt="" class="user_profile">
                   <ul class="dropdown_content">
-                    <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
+                    <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></a></li>
                     <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
                   </ul>
                 </span>
