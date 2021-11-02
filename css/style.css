@@ -287,19 +287,25 @@ header.on nav .top_menu{
 }
 .dropdown_menu span{
   border-radius:.5rem .5rem 0 0;
+  padding:.5rem;
+}
+.user_profile{
+  border-radius:10rem;
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  height:20px;
+  vertical-align:bottom;
+  display:inline-block;
 }
 .user_menu .user_profile{
-  border-radius:.5rem;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   height:51px;
-  display:inherit;
+  padding:.5rem;
+}
+.top_menu_item.user_menu .page{
+  padding-right:0;
 }
 .top_menu_item:hover{
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 0, 0, .2);
-}
-.top_menu_item input:hover{
-  background-color:rgba(0, 0, 0, 0) !important;
 }
 .top_menu_item.searchBar{
   width:20rem;
@@ -322,10 +328,12 @@ header.on nav .top_menu{
   opacity:0;
   pointer-events:none;
   position: absolute;
+  text-align:center;
+  font-size:1.6rem;
   z-index: 100;
   border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(192, 192, 192, 0.2);
+  background-color:rgba(0, 0, 0, 0.3);
 }
 .dropdown_content li:first-child{
   border-radius:.5rem .5rem 0rem 0rem;
@@ -335,7 +343,7 @@ header.on nav .top_menu{
 }
 .dropdown_content li:hover {
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, .2);
+  background-color:rgba(192, 192, 192, .2);
 }
 .dropdown_content li a{
   display:inline-block;

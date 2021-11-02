@@ -130,7 +130,7 @@
           </div>
           <div class="right_wrap">
             <span class="searchBar top_menu_item">
-              <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="검색할 내용 입력" required>
+              <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="여기에 검색" required>
               <div class="searchResult">
                 <div class="boardResult"></div>
                 <br>
@@ -140,9 +140,12 @@
             <?php
               if (isset($_SESSION['member_id'])){ ?>
                 <span class="top_menu_item dropdown_menu user_menu">
-                  <img src="/resource/member/profile_images/profile_<?php echo $_SESSION['member_code']?>.png" alt="" class="user_profile">
+                  <span class="page">
+                    <?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?>
+                  </span>
+                  <img src="/resource/member/profile_images/profile_<?php echo $_SESSION['member_code']?>.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
                   <ul class="dropdown_content">
-                    <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></a></li>
+                    <li><a href="/memberinfo/<?php echo $_SESSION['member_code']?>">유저 정보</a></li>
                     <li><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
                   </ul>
                 </span>

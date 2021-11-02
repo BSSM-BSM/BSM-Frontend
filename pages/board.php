@@ -279,7 +279,7 @@ $post_no=getParam(3);
                       board += '</p></span></a>';
                     }
 
-                    board += '<span class="board_item_info"><a href="/memberinfo/' +board_data[i].memberCode+ '">' +memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+ '</a></span>';
+                    board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
                     board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';

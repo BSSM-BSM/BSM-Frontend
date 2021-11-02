@@ -43,6 +43,9 @@ a.board_item_info *.post_comments{
 .board_item_info{
   padding:1rem;
 }
+.board_item_info .user_profile{
+  margin-right:.5rem;
+}
 .board_item_info:nth-child(1){
   flex:1;
 }
