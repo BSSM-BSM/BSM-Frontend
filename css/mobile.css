@@ -126,6 +126,10 @@ input[type=text], input[type=password]{
   font-size:1.3rem;
   padding-left:5%;
   width:auto;
+  max-width:40%;
+}
+.board_item_info:nth-child(3) .user_profile{
+  height:17px;
 }
 .board_item_info:nth-child(4){
   font-size:1.3rem;
