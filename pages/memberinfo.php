@@ -51,13 +51,13 @@ $member_code=getParam(2);
         }
         member_info();
       </script>
-      <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
-        <input type="file" name="file" required>
-        <button type="submit" class="button">프로필 이미지 업로드</button>
-      </form>
     <?php
       if(isset($_SESSION['member_code'])){
         if($member_code==$_SESSION['member_code']){ ?>
+          <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
+            <input type="file" name="file" required>
+            <button type="submit" class="button">프로필 이미지 업로드</button>
+          </form>
           <div class="button" onClick="$('.pw_modify_box').addClass('on');">비밀번호 변경</div>
         <?php
         }

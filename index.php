@@ -38,6 +38,8 @@
       }
     </script>
     <!-- PWA 설정 끝 -->
+    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+    <!--모바일 css-->
     <?php
     switch ($page) {
       case 'timetable': ?>
@@ -57,8 +59,6 @@
         <?php break;
       }
     ?>
-    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
-    <!--모바일 css-->
     <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:1319px)" href="/css/mobile.css">
     <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
     <script src="/js/jquery.min.js"></script>
@@ -140,7 +140,7 @@
             <?php
               if (isset($_SESSION['member_id'])){ ?>
                 <span class="top_menu_item dropdown_menu user_menu">
-                  <span class="page">
+                  <span class="page user_profile_name">
                     <?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?>
                   </span>
                   <img src="/resource/member/profile_images/profile_<?php echo $_SESSION['member_code']?>.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -215,6 +215,9 @@
         break;
       case 'meister':
         require "./pages/meister.html";
+        break;
+      case 'dorm_rule':
+        require "./pages/dorm_rule.html";
         break;
       case 'remote':
         require "./pages/remote.html";

@@ -164,7 +164,7 @@ input[type=text], input[type=password]{
 .comment_write{
   padding:0 3%;
 }
-.comment_item_info_wrap{
+.comment_item_wrap{
   padding:1rem 3%;
 }
 .comment_menu{

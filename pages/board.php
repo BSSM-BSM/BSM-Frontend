@@ -139,11 +139,17 @@ $post_no=getParam(3);
                   comments = "";
                   for(var i=0;i<Object.keys(data).length;i++){
                     var comment = "";
-                    comment += '<div class="comment_item_info_wrap">';
-                    comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
-
-                    comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
-                    comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
+                    comment += '<div class="comment_item_wrap">';
+                      comment += '<div class="comment_item_info_wrap">';
+                        comment += '<div class="left_wrap">';
+                          comment += `<img src="/resource/member/profile_images/profile_`+data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`;
+                        comment += '</div>';
+                        comment += '<div class="right_wrap">';
+                          comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
+                          comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
+                        comment += '</div>';
+                      comment += '</div>';
+                      comment += '<div class="comment_item_content">'+data[i].comment+'</div>';
                     comment += '</div>';
                     if(data[i].memberCode==<?php if(isset($_SESSION['member_code'])) echo $_SESSION['member_code']; else echo 0 ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
                       comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
