@@ -36,6 +36,7 @@ $post_no=getParam(3);
                 if(data.status!=1){
                   error_code(data.status);
                 }else{
+                  $('.post .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.member_code+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
                   $('.post_title').text(data.post_title);
                   $('.post_date').text(data.post_date);
                   $('.post_hit').text(data.post_hit);
@@ -68,11 +69,16 @@ $post_no=getParam(3);
           }
           post_refresh();
         </script>
-        <div class="post_title"></div>
-        <div class="post_date"><p></p></div>
-        <div class="post_hit"><p></p></div>
-        <div class="post_comments"><p></p></div>
-        <div class="member_nickname"></div>
+        <div class="post_info_wrap">
+          <div class="left_wrap"></div>
+          <div class="right_wrap">
+            <div class="post_title"></div>
+            <div class="post_date"><p></p></div>
+            <div class="post_hit"><p></p></div>
+            <div class="post_comments"><p></p></div>
+            <div class="member_nickname"></div>
+          </div>
+        </div>
         <div class="post_content"><div></div></div>
       </div>
       <div class="post_like_wrap">
@@ -81,7 +87,7 @@ $post_no=getParam(3);
         <button class="button dislike_button" onclick="like_send(-1);">싫어요</button>
       </div>
       <script>
-        var like;
+        let like;
         function like_send(like){
           $.ajax({
             type:'POST',

@@ -77,38 +77,48 @@ a:visited.board_item_info:nth-child(2){
   width:100%;
   padding:0rem 5rem;
 }
-.post > div:not(.post_content) > *{
+.post_info_wrap{
+  display:flex;
+}
+.post_info_wrap .left_wrap .user_profile{
+  margin-right:2rem;
+  height:54px;
+}
+.post_info_wrap .right_wrap{
+  flex:auto;
+}
+.post_info_wrap > div > *{
   float:left;
   font-size:1.5rem;
 }
-.post .post_title{
+.post_info_wrap .post_title{
   width:100%;
   font-size:1.8rem;
   font-weight:bold;
   text-align:left;
   margin-bottom:1rem;
 }
-.post .post_date{
-  float:right;
-  width:auto;
-  text-align:right;
-  margin-left:2.5rem;
-}
-.post .post_hit{
+.post_info_wrap .post_date{
   float:right;
   width:auto;
   text-align:right;
 }
-.post .post_hit::before{
-  content:"조회 ";
-}
-.post .post_comments{
+.post_info_wrap .post_hit{
   float:right;
   width:auto;
   text-align:right;
   margin-right:2.5rem;
 }
-.post .post_comments::after{
+.post_info_wrap .post_hit::before{
+  content:"조회 ";
+}
+.post_info_wrap .post_comments{
+  float:right;
+  width:auto;
+  text-align:right;
+  margin-right:2.5rem;
+}
+.post_info_wrap .post_comments::after{
   content:" 댓글";
 }
 .post .post_content{

@@ -158,6 +158,15 @@ input[type=text], input[type=password]{
 .post{
   padding:0 3%;
 }
+.post_info_wrap .left_wrap .user_profile{
+  margin-right:1rem;
+}
+.post_info_wrap .post_hit{
+  margin-right:1.5rem;
+}
+.post_info_wrap .post_comments{
+  margin-right:1.5rem;
+}
 .post_content div p img{
   width:100% !important;
 }
