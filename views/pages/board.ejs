@@ -45,6 +45,7 @@
                                     if(data.status!=1){
                                         error_code(data.status);
                                     }else{
+                                        $('.post .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.member_code+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
                                         $('.post_title').text(data.postTitle);
                                         $('.post_date').text(data.postDate);
                                         $('.post_hit').text(data.postHit);
@@ -77,11 +78,16 @@
                         }
                         post_refresh();
                     </script>
-                    <div class="post_title"></div>
-                    <div class="post_date"><p></p></div>
-                    <div class="post_hit"><p></p></div>
-                    <div class="post_comments"><p></p></div>
-                    <div class="member_nickname"></div>
+                    <div class="post_info_wrap">
+                        <div class="left_wrap"></div>
+                        <div class="right_wrap">
+                            <div class="post_title"></div>
+                            <div class="post_date"><p></p></div>
+                            <div class="post_hit"><p></p></div>
+                            <div class="post_comments"><p></p></div>
+                            <div class="member_nickname"></div>
+                            </div>
+                        </div>
                     <div class="post_content"><div></div></div>
                 </div>
                 <div class="post_like_wrap">
@@ -140,12 +146,19 @@
                                         comments = "";
                                         for(let i=0;i<Object.keys(data).length;i++){
                                             let comment = "";
-                                            comment += '<div class="comment_item_info_wrap">';
-                                            comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+data[i].memberNickname+'</a></div>';
-                                            comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
-                                            comment += '<div class="comment_item_info">'+data[i].comment+'</div>';
+                                            comment += '<div class="comment_item_wrap">';
+                                                comment += '<div class="comment_item_info_wrap">';
+                                                    comment += '<div class="left_wrap">';
+                                                        comment += `<img src="/resource/member/profile_images/profile_`+data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`;
+                                                    comment += '</div>';
+                                                    comment += '<div class="right_wrap">';
+                                                        comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
+                                                        comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
+                                                    comment += '</div>';
+                                                comment += '</div>';
+                                                comment += '<div class="comment_item_content">'+data[i].comment+'</div>';
                                             comment += '</div>';
-                                            if(data[i].memberCode==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
+                                            if(data[i].memberCode==member.code||member.level==3){
                                                 comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].idx+`);">댓글 삭제</button></div>`;
                                             }
                                             if(i%2){
@@ -220,7 +233,7 @@
                 <span class="post_modify"></span>
                 <script>
                     function post_menu(member_code){
-                        if(member_code==<% if(member.islogin){ %> <%= member.code %> <% }else{ %> <%= 0 %> <% } %>||<% if(member.level==2){ %> <%= 1 %> <% }else{ %> <%= 0 %> <% } %>){
+                        if(member_code==member.code||member.level==3){
                             $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
                             <input type="hidden" name="command_type" value="post_delete">
                             <input type="hidden" name="boardType" value="<%= boardType %>">
@@ -268,7 +281,7 @@
                                                     board += '</p></span></a>';
                                                 }
                             
-                                                board += '<span class="board_item_info"><a href="/memberinfo/' +boardData[i].memberCode+ '">' +boardData[i].memberNickname+ '</a></span>';
+                                                board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+boardData[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+boardData[i].memberCode+`">`+memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname+`</a></span>`;
                                                 board += '<span class="board_item_info">'+boardData[i].postDate+'</span>';
                                                 board += '<span class="board_item_info">'+boardData[i].postHit+'</span>';
                                                 board += '<span class="board_item_info">'+boardData[i].postLike+'</span>';

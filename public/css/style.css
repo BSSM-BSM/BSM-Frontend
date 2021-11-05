@@ -287,22 +287,30 @@ header.on nav .top_menu{
 }
 .dropdown_menu span{
   border-radius:.5rem .5rem 0 0;
+  padding:.5rem;
 }
-.user_menu .page{
-  border-radius:.5rem;
+.user_profile{
+  border-radius:10rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 128, 255, 0.2);
+  height:20px;
+  vertical-align:bottom;
+  display:inline-block;
+}
+.user_menu .user_profile{
+  height:51px;
+  padding:.5rem;
+}
+.top_menu_item.user_menu .page.user_profile_name{
+  padding-right:0;
+  padding-left:1.5rem;
 }
 .top_menu_item:hover{
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  text-shadow:0 0 .8rem #FFF;
   background-color:rgba(0, 0, 0, .2);
-}
-.top_menu_item input:hover{
-  background-color:rgba(0, 0, 0, 0) !important;
 }
 .top_menu_item.searchBar{
   width:20rem;
+  position:relative;
 }
 .top_menu_item.searchBar input{
   width:100%;
@@ -321,14 +329,12 @@ header.on nav .top_menu{
   opacity:0;
   pointer-events:none;
   position: absolute;
-  min-width: 160px;
+  text-align:center;
+  font-size:1.6rem;
   z-index: 100;
   border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(192, 192, 192, 0.2);
-}
-.dropdown_content li{
-  padding: 12px 16px;
+  background-color:rgba(0, 0, 0, 0.3);
 }
 .dropdown_content li:first-child{
   border-radius:.5rem .5rem 0rem 0rem;
@@ -338,7 +344,12 @@ header.on nav .top_menu{
 }
 .dropdown_content li:hover {
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, .2);
+  background-color:rgba(192, 192, 192, .2);
+}
+.dropdown_content li a{
+  display:inline-block;
+  padding: 12px 16px;
+  width:16rem;
 }
 .dropdown_menu:hover .dropdown_content {opacity:1;pointer-events:unset;}
 
@@ -366,10 +377,6 @@ div.side_menu ul li:hover:not(.home){
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(0, 0, 0, .2);
 }
-div.side_menu ul li.active{
-  text-shadow:0 0 .8rem #FFF;
-  background-color:rgba(128, 128, 128, .5);
-}
 div.side_menu ul li:hover + ul{
   padding-left:0%; padding-right:2%;
 }
@@ -385,7 +392,7 @@ div.alert{
   display:inline !important;
   padding:0 !important;
 }
-input[type=text], input[type=password], textarea{
+input, textarea{
   color:#e8eaed; border:none; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
@@ -393,13 +400,17 @@ input[type=text], input[type=password], textarea{
   border-left:1px solid rgba(128, 128, 128, 0.3);
   transition:.25s;
 }
-input[type=text]::placeholder, input[type=password]::placeholder, textarea::placeholder{
+input[type=number]{
+  width:auto;
+  padding:1rem .5rem;
+}
+input::placeholder, textarea::placeholder{
   color:#DDD;
 }
-input[type=text]:hover, input[type=password]:hover, textarea:hover{
+input:hover, textarea:hover{
   background-color:rgba(0, 0, 0, .2);
 }
-input[type=text]:focus, input[type=password]:focus, textarea:focus{
+input:focus, textarea:focus{
   box-shadow:0 0 2rem 0 #0080FF;
 }
 .button{
@@ -444,10 +455,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   padding: 3rem 1rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, 0.2);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(128, 128, 128, 0.3);
-  border-left:1px solid rgba(128, 128, 128, 0.3);
+  background-color:#202124DD;
   z-index:1000;
 }
 .popup:not(.on){
@@ -457,14 +465,14 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
   display:none;
   position:absolute;
   padding:1rem;
+  right:0;
+  width:500%;
 }
 .searchResult{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgba(0, 0, 0, 0.2);
-  border-top:1px solid rgba(128, 128, 128, 0.3);
-  border-left:1px solid rgba(128, 128, 128, 0.3);
+  background-color:#202124DD;
 }
 .searchBar .searchResult.on{
   display:block;
@@ -523,4 +531,19 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus{
 }
 .pageAlert.on{
   opacity:1;
+}
+
+table{
+  width:100%;
+  border-radius:2rem;
+  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.3);
+  background-color:rgba(128, 128, 128, 0.2);
+}
+tr{
+  display:flex;
+}
+td, th{
+  padding:1rem 2rem 1rem 2rem;
+  font-size:1.6rem;
+  flex:1;
 }

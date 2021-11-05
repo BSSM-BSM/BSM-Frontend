@@ -51,10 +51,11 @@ input[type=text], input[type=password]{
 	height: 100%;
 }
 .top_menu_item.searchBar{
-  flex:auto;
+  flex:1;
+  position:unset;
 }
 .searchBar .searchResult{
-  left:0;
+  width:100%;
 }
 .searchBar .searchBox{
   margin-left:0;
@@ -125,6 +126,10 @@ input[type=text], input[type=password]{
   font-size:1.3rem;
   padding-left:5%;
   width:auto;
+  max-width:40%;
+}
+.board_item_info:nth-child(3) .user_profile{
+  height:17px;
 }
 .board_item_info:nth-child(4){
   font-size:1.3rem;
@@ -153,13 +158,22 @@ input[type=text], input[type=password]{
 .post{
   padding:0 3%;
 }
+.post_info_wrap .left_wrap .user_profile{
+  margin-right:1rem;
+}
+.post_info_wrap .post_hit{
+  margin-right:1.5rem;
+}
+.post_info_wrap .post_comments{
+  margin-right:1.5rem;
+}
 .post_content div p img{
   width:100% !important;
 }
 .comment_write{
   padding:0 3%;
 }
-.comment_item_info_wrap{
+.comment_item_wrap{
   padding:1rem 3%;
 }
 .comment_menu{
