@@ -278,6 +278,16 @@ $post_no=getParam(3);
                 if(data.status!=1){
                   error_code(data.status);
                 }else{
+                  let date = new Date()
+                  let today = ""+date.getFullYear()
+                  if((date.getMonth()+1)<10){
+                    today+='0'
+                  }
+                  today+=(date.getMonth()+1)
+                  if(date.getDate()<10){
+                    today+='0'
+                  }
+                  today+=date.getDate()
                   board_data=data.arr_board;
                   boards = "";
                   for(var i=0;i<Object.keys(board_data).length;i++){
@@ -292,7 +302,11 @@ $post_no=getParam(3);
                     }
 
                     board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
-                    board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
+                    console.log(board_data[i].postDate.split(' ')[0].replaceAll("-",""))
+                    if(board_data[i].postDate.split(' ')[0].replaceAll("-","")==today)
+                      board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[1]+'</span>';
+                    else
+                      board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
                     board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
                     if(i%2){
