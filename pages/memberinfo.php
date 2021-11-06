@@ -2,11 +2,11 @@
 $member_code=getParam(2);
 ?>
 <main>
+  <div class="title">
+    <h1>유저 정보</h1>
+  </div>
   <div class="container">
-    <div class="title">
-      <h1>유저 정보</h1>
-    </div>
-    <div class="information blur">
+    <div class="information">
       <div class="member_code"></div>
       <div class="member_id"></div>
       <div class="member_nickname"></div>

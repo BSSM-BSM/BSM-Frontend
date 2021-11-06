@@ -162,8 +162,7 @@
               document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
             }
           </script>
-          <div class="notice warning">Version 0.5 정식버전이 아니므로 언제든지 변경될 수 있습니다</div>
-          <a href="/#download" class="notice">안드로이드 앱 베타 v0.2.2가 공개되었습니다. 클릭하여 다운로드</a>
+          <div class="notice warning">사이트 디자인 개편 중이므로 서비스 이용이 불안정 할 수 있습니다.</div>
         </div>
       </nav>
       <div class="side_menu">

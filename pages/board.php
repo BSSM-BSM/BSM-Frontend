@@ -3,20 +3,20 @@ $boardType=getParam(2);
 $post_no=getParam(3);
 ?>
 <main>
+  <div class="title">
+      <?php
+      switch ($boardType){
+        case 'board':
+          echo '<h1>자유게시판</h1>';
+          break;
+        case 'anonymous':
+          echo '<h1>익명게시판</h1>';
+      }
+      ?>
+    <br>
+  </div>
   <div class="container">
-    <div class="title">
-        <?php
-        switch ($boardType){
-          case 'board':
-            echo '<h1>자유게시판</h1>';
-            break;
-          case 'anonymous':
-            echo '<h1>익명게시판</h1>';
-        }
-        ?>
-      <br>
-    </div>
-    <div class="board blur">
+    <div class="board">
     <?php
     if(isset($post_no)){ ?>
       <div class="post">
@@ -251,15 +251,7 @@ $post_no=getParam(3);
         </script>
     <?php } ?>
       <div class=board_list>
-        <div class="table_header">
-          <span class="board_item">
-            <span class="board_item_info">번호</span>
-            <span class="board_item_info">제목</span>
-            <span class="board_item_info">작성자</span>
-            <span class="board_item_info">작성 시간</span>
-            <span class="board_item_info">조회수</span>
-            <span class="board_item_info">좋아요</span>
-          </span>
+        <div class="board_type">
         </div>
         <div class="table_main"></div>
         <script>
@@ -292,28 +284,28 @@ $post_no=getParam(3);
                   boards = "";
                   for(var i=0;i<Object.keys(board_data).length;i++){
                     var board = "";
-                    board += '<span class="board_item_info">'+board_data[i].postNo+'</span>';
-                    
-                    board += '<a href="/board/' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="board_item_info"><span><p>' +board_data[i].postTitle;
-                    if(board_data[i].postComments>=1){
-                      board += '</p><p class="post_comments">[' +board_data[i].postComments+ ']</p></span></a>';
-                    }else{
-                      board += '</p></span></a>';
-                    }
-
-                    board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
-                    console.log(board_data[i].postDate.split(' ')[0].replaceAll("-",""))
-                    if(board_data[i].postDate.split(' ')[0].replaceAll("-","")==today)
-                      board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[1]+'</span>';
-                    else
-                      board += '<span class="board_item_info">'+board_data[i].postDate+'</span>';
-                    board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
-                    board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
-                    if(i%2){
-                      boards += '<span class="board_item">'+board+'</span>';
-                    }else{
-                      boards += '<span class="board_item odd">'+board+'</span>';
-                    }
+                    board += '<div class="board_item left_wrap">'
+                      if(board_data[i].postComments>=1){
+                        board += '<span class="post_comments">'+board_data[i].postComments+ '</span>'
+                      }else{
+                        board += '<span class="post_comments">'+board_data[i].postComments+ '</span>'
+                      }
+                    board += '</div>'
+                    board += '<div class="board_item right_wrap">'
+                      board += '<div class="board_item top_wrap">'
+                        board += '<a href="/board/' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="post_title">' +board_data[i].postTitle+'</a>';
+                      board += '</div>'
+                      board += '<div class="board_item bottom_wrap">'
+                        board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
+                        // if(board_data[i].postDate.split(' ')[0].replaceAll("-","")==today)
+                        //   board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[1]+'</span>';
+                        // else
+                        //   board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[0]+'</span>';
+                        //board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
+                        //board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
+                      board += '</div>'
+                    board += '</div>'
+                    boards += '<span class="board_item_wrap">'+board+'</span>';
                   }
                   $('.board_list .table_main').html(boards);
                   $('.page_num').html(data.page_num);
