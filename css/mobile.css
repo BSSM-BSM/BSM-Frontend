@@ -17,6 +17,9 @@ main,.container{
 main::-webkit-scrollbar{
   width:2px;
 }
+.title{
+  padding:12.5rem 0 5rem 0;
+}
 .top_menu{
   width:auto; padding:0rem;
 }
@@ -97,15 +100,25 @@ input[type=text], input[type=password]{
 .searchResult ul li:nth-child(5):before{
   content:"조회 ";
 }
-.board{
-  padding: 5% 0%;
-  border-left:none;
+.board_item_wrap{
+  font-size:1.3rem;
+}
+.board_item .post_comments{
+  width:3rem;
+  font-size:1.5rem;
+}
+.board_item .post_title{
+  font-size:1.7rem;
 }
 .post{
   padding:0 3%;
 }
+.post_info_wrap > div:not(.post_title){
+  font-size:1.3rem;
+}
 .post_info_wrap .left_wrap .user_profile{
   margin-right:1rem;
+  height:40px;
 }
 .post_info_wrap .post_hit{
   margin-right:1.5rem;
@@ -120,7 +133,7 @@ input[type=text], input[type=password]{
   padding:0 3%;
 }
 .comment_item_wrap{
-  padding:1rem 3%;
+  padding:1.5rem 3%;
 }
 .comment_menu{
   padding:0 3%;

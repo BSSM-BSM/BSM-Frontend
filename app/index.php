@@ -32,6 +32,9 @@
       .container{
         padding:0 0 5rem 0;
       }
+      .title{
+        padding:10rem 0;
+      }
     </style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/error_code.js"></script>
@@ -55,6 +58,12 @@
         break;
       case 'timetable':
         require "$root_dir/app/pages/timetable.html";
+        break;
+      case 'meister':
+        require "$root_dir/app/pages/meister.html";
+        break;
+      case 'os-ppt':
+        require "$root_dir/app/pages/os-ppt.html";
         break;
       }
     ?>

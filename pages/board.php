@@ -160,11 +160,7 @@ $post_no=getParam(3);
                     if(data[i].memberCode==<?php if(isset($_SESSION['member_code'])) echo $_SESSION['member_code']; else echo 0 ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
                       comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].comment_idx+`);">댓글 삭제</button></div>`;
                     }
-                    if(i%2){
-                      comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                    }else{
-                      comments += `<div class="comment_item odd" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                    }
+                    comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                   }
                   $('.comment_list .comment').html(comments);
                 }

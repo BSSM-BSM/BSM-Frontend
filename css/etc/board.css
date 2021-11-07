@@ -77,6 +77,11 @@
 .post_info_wrap{
   display:flex;
 }
+.post_info_wrap .left_wrap{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
 .post_info_wrap .left_wrap .user_profile{
   margin-right:2rem;
   height:54px;
@@ -84,9 +89,10 @@
 .post_info_wrap .right_wrap{
   flex:auto;
 }
-.post_info_wrap > div > *{
+.post_info_wrap > div{
   float:left;
   font-size:1.5rem;
+  text-align:left;
 }
 .post_info_wrap .post_title{
   width:100%;
@@ -137,9 +143,6 @@
   border-radius:1rem;
   transition:.25s;
 }
-.comment_item.odd{
-  background-color:rgba(128, 128, 128, .2);
-}
 .comment_item:hover{
   box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
   background-color:rgba(192, 192, 192, 0.2);
@@ -147,7 +150,7 @@
 .comment_item_wrap{
   display:inline-block;
   width:100%;
-  padding:1rem 5rem;
+  padding:1.5rem 5rem;
   text-align:left;
 }
 .comment_item_info_wrap{
