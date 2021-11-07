@@ -141,7 +141,7 @@
               if (isset($_SESSION['member_id'])){ ?>
                 <span class="top_menu_item dropdown_menu user_menu">
                   <span class="page user_profile_name">
-                    <?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?>
+                    <?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_nickname']?>
                   </span>
                   <img src="/resource/member/profile_images/profile_<?php echo $_SESSION['member_code']?>.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
                   <ul class="dropdown_content">
@@ -162,7 +162,7 @@
               document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
             }
           </script>
-          <div class="notice warning">사이트 디자인 개편 중이므로 서비스 이용이 불안정 할 수 있습니다.</div>
+          <div class="notice warning">Version 0.6 정식버전이 아니므로 언제든지 변경될 수 있습니다</div>
         </div>
       </nav>
       <div class="side_menu">
@@ -170,7 +170,7 @@
           <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
           <?php
           if (isset($_SESSION['member_id'])){ ?>
-          <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_id']?></a></li>
+          <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_nickname']?></a></li>
           <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
           <?php }else{ ?>
           <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>

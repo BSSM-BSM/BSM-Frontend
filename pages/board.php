@@ -293,16 +293,20 @@ $post_no=getParam(3);
                     board += '</div>'
                     board += '<div class="board_item right_wrap">'
                       board += '<div class="board_item top_wrap">'
-                        board += '<a href="/board/' +board_data[i].boardType+ '/' +board_data[i].postNo+ '"class="post_title">' +board_data[i].postTitle+'</a>';
+                        board += '<a href="/board/' +board_data[i].boardType+ '/' +board_data[i].postNo+ '<?php if(isset($_GET['page_no']))echo "/?page_no=".$_GET['page_no'] ?>"class="post_title">' +board_data[i].postTitle+'</a>';
                       board += '</div>'
                       board += '<div class="board_item bottom_wrap">'
-                        board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
-                        // if(board_data[i].postDate.split(' ')[0].replaceAll("-","")==today)
-                        //   board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[1]+'</span>';
-                        // else
-                        //   board += '<span class="board_item_info">'+board_data[i].postDate.split(' ')[0]+'</span>';
-                        //board += '<span class="board_item_info">'+board_data[i].postHit+'</span>';
-                        //board += '<span class="board_item_info">'+board_data[i].post_like+'</span>';
+                        board += '<div class="board_item_info left_wrap">'
+                          board += `<span class="member_info"><img src="/resource/member/profile_images/profile_`+board_data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+board_data[i].memberCode+`">`+memberLevel[board_data[i].memberLevel]+board_data[i].memberNickname+`</a></span>`;
+                        board += '</div>'
+                        board += '<div class="board_item_info right_wrap">'
+                        board += '<span class="board_item_post_info hit">'+board_data[i].postHit+'</span>';
+                        board += '<span class="board_item_post_info like">'+board_data[i].post_like+'</span>';
+                        if(board_data[i].postDate.split(' ')[0].replaceAll("-","")==today)
+                          board += '<span class="board_item_post_info date">'+board_data[i].postDate.split(' ')[1]+'</span>';
+                        else
+                          board += '<span class="board_item_post_info date">'+board_data[i].postDate.split(' ')[0]+'</span>';
+                        board += '</div>'
                       board += '</div>'
                     board += '</div>'
                     boards += '<span class="board_item_wrap">'+board+'</span>';
@@ -319,14 +323,17 @@ $post_no=getParam(3);
           board_refresh();
         </script>
       </div>
-      <div class="page_num"></div>
-      <button onClick="board_refresh();" class="button">글 새로고침</button>
-      <?php
-      if(isset($_SESSION['member_code'])){ ?>
-        <a href="/post_write/<?php echo getParam(2); ?>" class="button">글쓰기</a>
-      <?php
-      }
-      ?>
+      <div class="board_bottom_menu">
+        <div class="board_menu_item board_refresh_button">
+          <button onClick="board_refresh();" class="button">글 새로고침</button>
+        </div>
+        <div class="board_menu_item page_num"></div>
+        <div class="board_menu_item post_write_button">
+        <?php if(isset($_SESSION['member_code'])){ ?>
+          <a href="/post_write/<?php echo getParam(2); ?>" class="button blue_button">글쓰기</a>
+          <?php } ?>
+        </div>
+      </div>
     </div>
   </div>
 </main>
