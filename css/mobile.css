@@ -110,6 +110,9 @@ input[type=text], input[type=password]{
 .board_item .post_title{
   font-size:1.7rem;
 }
+.member_info .user_profile{
+  height:17px;
+}
 .post{
   padding:0 3%;
 }

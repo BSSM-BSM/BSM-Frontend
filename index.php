@@ -42,6 +42,9 @@
     <!--모바일 css-->
     <?php
     switch ($page) {
+      case 'index': ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/index.css">
+        <?php break;
       case 'timetable': ?>
         <link rel="stylesheet" type="text/css" href="/css/etc/time.css">
         <?php break;
