@@ -3,17 +3,21 @@ $boardType=getParam(2);
 $post_no=getParam(3);
 ?>
 <main>
-  <div class="title">
+  <div class="title board_title">
+    <div class="container">
       <?php
       switch ($boardType){
         case 'board':
           echo '<h1>자유게시판</h1>';
+          echo '<a href="/board/anonymous">익명게시판</a>';
           break;
         case 'anonymous':
           echo '<h1>익명게시판</h1>';
+          echo '<a href="/board/board">자유게시판</a>';
       }
       ?>
-    <br>
+      <br>
+    </div>
   </div>
   <div class="container">
     <div class="board">
@@ -68,6 +72,30 @@ $post_no=getParam(3);
             });
           }
           post_refresh();
+          function post_delete(){
+            $.ajax({
+              type:'POST',
+              data:{
+                command_type:'post_delete',
+                boardType:'<?php echo $boardType ?>',
+                post_no:'<?php echo $post_no ?>',
+              },
+              url:db_url,
+              cache:false,
+              success:function(data){
+                data=JSON.parse(data);
+                if(data.status!=1){
+                  error_code(data.status);
+                  refresh = false;
+                }else{
+                  window.location.href="/board/<?php echo $boardType ?>";
+                }
+              },
+              error: function(data) {
+                error_code(0);
+              }
+            });
+          }
         </script>
         <div class="post_info_wrap">
           <div class="left_wrap"></div>
@@ -230,18 +258,15 @@ $post_no=getParam(3);
           <div class="button" onclick="comment_refresh();">댓글 새로고침</div>
           <input type="submit" name="" value="댓글작성" class="button">
         </form>
-        <span class="post_delete"></span>
-        <span class="post_modify"></span>
+        <div class="post_menu">
+          <span class="post_delete"></span>
+          <span class="post_modify"></span>
+        </div>
         <script>
           function post_menu(member_code){
             if(member_code==<?php if(isset($_SESSION['member_code'])) echo $_SESSION['member_code']; else echo 0 ?>||<?php if($_SESSION['member_code']==1) echo 1; else echo 0; ?>){
-              $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
-                <input type="hidden" name="command_type" value="post_delete">
-                <input type="hidden" name="boardType" value="<?php echo $boardType ?>">
-                <input type="hidden" name="post_no" value=<?php echo $post_no ?>>
-                <input type="submit" name="" value="글 삭제하기" class="button">
-              </form>`);
-              $('.post_modify').html('<a class="button" href="/post_write/<?php echo $boardType ?>/<?php echo $post_no ?>">게시글 수정</a>');
+              $('.post_delete').html(`<div class="button red_button" onclick="post_delete();">글 삭제</div>`);
+              $('.post_modify').html('<a class="button blue_button" href="/post_write/<?php echo $boardType ?>/<?php echo $post_no ?>">게시글 수정</a>');
             }
           }
         </script>

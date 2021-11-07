@@ -161,8 +161,10 @@ header.on nav .top_menu{
   padding:0;
 }
 .all_menu{
-  padding:.9rem;
-  display:inline;
+  padding:1rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 .all_menu:hover{
   cursor:pointer;

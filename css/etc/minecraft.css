@@ -1,6 +1,42 @@
 @charset "utf-8";
-.launch_minecraft{
-  display:none;
+.section{
+  height:100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow:auto;
+  scroll-snap-align:start;
+}
+@keyframes sizeup {
+  from {transform:scale(.65);}
+  to {transform:scale(1);}
+}
+.section#main #sub_txt{
+  animation:show 3000ms ease-out;
+}
+@keyframes show {
+  0%{opacity:0%;}
+  33%{opacity:0%;}
+  100%{opacity:100%;}
+}
+.section#minecraft-main{
+  background-image: url('/resource/minecraft/images/main.jpg');
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+}
+.section#minecraft-main h1#main_txt{
+  font-size:5rem;
+  animation:sizeup 2000ms ease-out;
+}
+.section#minecraft-main h2#main_txt{
+  animation:show 3000ms ease-out;
+}
+.section#minecraft-about{
+  background-image: url('/resource/minecraft/images/about.jpg');
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
 }
 .minecraft_status h1{
   font-family:minecraftiaregular; font-weight:normal;

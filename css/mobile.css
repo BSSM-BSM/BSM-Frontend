@@ -129,8 +129,8 @@ input[type=text], input[type=password]{
 .post_info_wrap .post_comments{
   margin-right:1.5rem;
 }
-.post_content div p img{
-  width:100% !important;
+.comment{
+  padding:0;
 }
 .comment_write{
   padding:0 3%;
