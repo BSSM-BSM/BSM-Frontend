@@ -29,6 +29,11 @@
 .board_item .post_comments{
   width:5rem;
   font-size:1.7rem;
+  font-weight:bold;
+  color:#AAA;
+}
+.board_item .post_comments.active{
+  color:red;
 }
 .board_item.right_wrap{
   flex-direction:column;
@@ -55,12 +60,16 @@
 }
 .board_item_post_info{
   margin-right:1rem;
+  color:#DDD;
 }
 .board_item_post_info.hit::after{
   content:' 조회';
 }
 .board_item_post_info.like::after{
-  content:' 좋아요';
+  content:' ♥';
+}
+.board_item_post_info.like.active::after{
+  color:red;
 }
 .member_info .user_profile{
   margin-right:.5rem;
