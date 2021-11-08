@@ -6,12 +6,11 @@ $post_no=getParam(4);
   var refresh = false;
 </script>
 <main>
+  <div class="title">
+    <h1>글쓰기</h1>
+    <h2><?php switch($boardType){case 'board': echo '자유게시판'; break; case 'anonymous': echo '익명게시판';break;} ?></h2>
+  </div>
   <div class="container">
-    <div class="title">
-      <h1>글쓰기</h1>
-      <h2><?php switch($boardType){case 'board': echo '자유게시판'; break; case 'anonymous': echo '익명게시판';break;} ?></h2>
-      <br>
-    </div>
     <script>
       $(document).ready(function() {
         $('#summernote').summernote({

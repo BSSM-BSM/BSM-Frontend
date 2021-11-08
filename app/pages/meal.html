@@ -1,16 +1,16 @@
 <main>
+  <div class="title">
+    <h1>급식</h1>
+    <h2 class="food_date">x월x일</h2>
+  </div>
   <div class="container">
-    <div class="title">
-      <h1>급식</h1>
-    </div>
-    <div class="information blur">
+    <div class="information">
       <div class="foods center">
         <div class="food food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
           <div class="food_time">아침</div>
           <div class="food_menu"></div>
         </div>
         <div class="food food-2 hover-food">
-          <div class="food_date">x월x일</div>
           <div class="food_time">점심</div>
           <div class="food_menu"></div>
         </div>
@@ -53,7 +53,7 @@
             });
           }
           function food_render(){
-            $('.food-2 .food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
+            $('.food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
             if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
               $('.food-1 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']);
               $('.food-2 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']);

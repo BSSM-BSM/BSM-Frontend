@@ -381,8 +381,9 @@
         <br>
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
         <br><br>
+        <a onClick="$('.register_box').addClass('on');">계정이 없으신가요? 회원가입</a>
+        <br>
         <div class="button" onClick="$('.login_box').removeClass('on');">닫기</div>
-        <div class="button" onClick="$('.register_box').addClass('on');">회원가입</div>
         <button type="submit" class="button">로그인</button>
       </form>
     </div>
@@ -401,8 +402,9 @@
         <br>
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
+        <a onClick="$('.valid_code_box').addClass('on');">인증코드 발급</a>
+        <br>
         <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
-        <div class="button" onClick="$('.valid_code_box').addClass('on');">인증코드 발급</div>
         <button type="submit" class="button">가입하기</button>
       </form>
     </div>
@@ -419,12 +421,12 @@
     </div>
     <div class="authentication_box popup center">
       <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
-      <h2>인증코드 활성화가 필요합니다</h2>
-      <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
+      <h2>계정 활성화가 필요합니다</h2>
       <form class="authentication" method="post" autocomplete="off" onsubmit="authentication();return false;">
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
-        <div class="button" onClick="$('.valid_code_box').addClass('on');$('.login_box').removeClass('on');">인증코드 발급</div>
+        <a onClick="$('.valid_code_box').addClass('on');">인증코드 발급</a>
+        <br>
         <button type="submit" class="button">계정 인증</button>
       </form>
     </div>

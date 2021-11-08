@@ -32,9 +32,6 @@
       .container{
         padding:0 0 5rem 0;
       }
-      .title{
-        padding:10rem 0;
-      }
     </style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/error_code.js"></script>

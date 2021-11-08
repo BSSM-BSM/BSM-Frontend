@@ -46,7 +46,7 @@ section#main{
 }
 section#download{
   min-height: calc(var(--vh, 1vh) * 50);
-  background-image: url('/resource/home/images/BG_image.webp');
+  background-image: url('/resource/home/images/main1.webp');
   background-position: center center;
   background-repeat:  no-repeat;
   background-attachment: fixed;

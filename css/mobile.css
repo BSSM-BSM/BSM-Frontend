@@ -18,7 +18,7 @@ main::-webkit-scrollbar{
   width:2px;
 }
 .title{
-  padding:12.5rem 0 5rem 0;
+  padding:12.5rem 0 0 0;
 }
 .top_menu{
   width:auto; padding:0rem;
@@ -152,9 +152,6 @@ input[type=text], input[type=password]{
 .class_time tbody tr td:nth-child(1){
   font-size:1.4rem;
 }
-.food_date, .food_time{
-  padding:2rem 1rem;
-}
 .food_menu{
   padding:1rem;
 }
@@ -167,9 +164,6 @@ input[type=text], input[type=password]{
   box-shadow:none;
 }
 
-.launch_minecraft{
-  display:inline-block;
-}
 .status_view{
   flex-direction:column;
   padding:5rem 1rem;

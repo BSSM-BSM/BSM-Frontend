@@ -13,6 +13,21 @@ html{
 }
 body{
   background-color:#202124; font-size:1.5rem; font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
+  /* background-image:linear-gradient(
+    to bottom,
+    #20212400 26%,
+    #20212444 27%,
+    #20212488 28%,
+    #202124BB 29%,
+    #202124 30%,
+    #202124 50%,
+    #202124 100%
+  ), url('/resource/home/images/BG_image_blur.webp'); */
+  background-image:url('/resource/home/images/BG_image_blur.webp');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-size:cover;
 }
 @keyframes fadein {
   from {opacity:1;display:block;}
@@ -46,11 +61,13 @@ footer{
   color:#e8eaed;
   position:relative;
   overflow:hidden;
-  margin-bottom:5rem;
-  padding:20rem 0 7.5rem 0;
+  padding:20rem 0 2.5rem 0;
   text-align:center;
 }
-.title::before{
+.title h1, .title h2, .title a{
+  margin-bottom:2rem;
+}
+/* .title::before{
   left:0;
   top:0;
   width:100%;
@@ -58,12 +75,7 @@ footer{
   content: "";
   position: absolute;
   z-index:-1;
-  background-image: url('/resource/home/images/BG_image_blur.webp');
-  background-position: center;
-  background-repeat:  no-repeat;
-  background-attachment: fixed;
-  background-size:  cover;
-}
+} */
 .bg{
   position:fixed;
   top:50%;
