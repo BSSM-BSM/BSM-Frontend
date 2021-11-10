@@ -6,12 +6,12 @@
                 member_id:$('.login .member_id').val(),
                 member_pw:$('.login .member_pw').val(),
             },
-            url:apiUrl+'/login',
+            url:apiUrl+'/account/login',
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                    error_code(data.status);
+                    error_code(data.status, data.subStatus);
                 }else{
                     if(refresh){
                         window.location.reload()
@@ -22,34 +22,33 @@
                 }
             },
             error: function(data) {
-                error_code(0);
+                error_code(0, 0);
             }
         });
     }
-    function register(){
+    function signUp(){
         $.ajax({
             type:'POST',
             data:{
-                command_type:'register',
-                member_id:$('.register .member_id').val(),
-                member_pw:$('.register .member_pw').val(),
-                member_pw_check:$('.register .member_pw_check').val(),
-                member_nickname:$('.register .member_nickname').val(),
-                code:$('.register .code').val(),
+                member_id:$('.sign_up .member_id').val(),
+                member_pw:$('.sign_up .member_pw').val(),
+                member_pw_check:$('.sign_up .member_pw_check').val(),
+                member_nickname:$('.sign_up .member_nickname').val(),
+                code:$('.sign_up .code').val(),
             },
-            url:apiUrl,
+            url:apiUrl+'/account/signUp',
             cache:false,
             success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                    error_code(data.status);
+                    error_code(data.status, data.subStatus);
                 }else{
                     alert("회원가입이 완료되었습니다.\n다시 로그인 해주세요.");
-                    $('.register_box').removeClass('on');
+                    $('.sign_up_box').removeClass('on');
                 }
             },
             error: function(data) {
-                error_code(0);
+                error_code(0, 0);
             }
         });
     }
@@ -66,37 +65,14 @@
             success:function(data){
                 data=JSON.parse(data);
                 if(data.status!=1){
-                    error_code(data.status);
+                    error_code(data.status, data.subStatus);
                 }else{
                     alert("비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.");
                     $('.pw_reset_box').removeClass('on');
                 }
             },
             error: function(data) {
-                error_code(0);
-            }
-        });
-    }
-    function authentication(){
-        $.ajax({
-            type:'POST',
-            data:{
-                command_type:'authentication',
-                code:$('.authentication .code').val(),
-            },
-            url:apiUrl,
-            cache:false,
-            success:function(data){
-                data=JSON.parse(data);
-                if(data.status!=1){
-                    error_code(data.status);
-                }else{
-                    alert("인증이 완료되었습니다.\n다시 로그인 해주세요.");
-                    $('.authentication_box').removeClass('on');
-                }
-            },
-            error: function(data) {
-                error_code(0);
+                error_code(0, 0);
             }
         });
     }
@@ -111,15 +87,15 @@
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
         <br><br>
         <div class="button" onClick="$('.login_box').removeClass('on');">닫기</div>
-        <div class="button" onClick="$('.register_box').addClass('on');">회원가입</div>
+        <div class="button" onClick="$('.sign_up_box').addClass('on');">회원가입</div>
         <button type="submit" onclick="" class="button">로그인</button>
     </form>
 </div>
-<div class="register_box popup center">
+<div class="sign_up_box popup center">
     <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
     <h2>회원가입</h2>
     <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
-    <form class="register" method="post" autocomplete="off" onsubmit="register();return false;">
+    <form class="sign_up" method="post" autocomplete="off" onsubmit="signUp();return false;">
         <input type="text" class="member_id" placeholder="아이디" class="input_text" required autofocus>
         <br>
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
@@ -130,7 +106,7 @@
         <br>
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
-        <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
+        <div class="button" onClick="$('.sign_up_box').removeClass('on');">닫기</div>
         <button type="submit" class="button">가입하기</button>
     </form>
 </div>
@@ -143,15 +119,5 @@
         <input type="password" class="reset_member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
         <br><br>
         <button type="submit" onclick="pw_reset();" class="button">비밀번호 재설정</button>
-    </form>
-</div>
-<div class="authentication_box popup center">
-    <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
-    <h2>인증코드 활성화가 필요합니다</h2>
-    <p>인증코드는 관리자에게 문의하시면 발급해 드립니다.</p>
-    <form class="authentication" method="post" autocomplete="off" onsubmit="authentication();return false;">
-        <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
-        <br><br>
-        <button type="submit" class="button">계정 인증</button>
     </form>
 </div>

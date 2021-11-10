@@ -15,8 +15,7 @@
         var refresh = false
     </script>
     <main>
-        <div class="container">
-            <div class="title">
+        <div class="title">
             <h1>글쓰기</h1>
             <% switch(boardType){
                 case 'board': %>
@@ -27,7 +26,8 @@
                 <% break
             } %>
             <br>
-            </div>
+        </div>
+        <div class="container">
             <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
@@ -71,13 +71,13 @@
                     success:function(data){
                     data=JSON.parse(data);
                     if(data.status!=1){
-                        error_code(data.status);
+                        error_code(data.status, data.subStatus);
                     }else{
                         $(el).summernote('editor.insertImage', $.trim(data.file_path));
                     }
                     },
                     error: function(data) {
-                    error_code(0);
+                        error_code(0, 0);
                     }
                 });
             }
@@ -93,14 +93,14 @@
                         success:function(data){
                             data=JSON.parse(data);
                             if(data.status!=1){
-                            error_code(data.status);
+                                error_code(data.status, data.subStatus);
                             }else{
-                            $('input[name=post_title]').val(data.post_title);
-                            $('#summernote').summernote('code', data.post_content);
+                            $('input[name=post_title]').val(data.postTitle);
+                            $('#summernote').summernote('code', data.postContent);
                             }
                         },
                         error: function(data) {
-                            error_code(0);
+                            error_code(0, 0);
                         }
                         });
                     }
@@ -113,27 +113,36 @@
                 <a href="/board/<%= boardType %>" class="button"><% switch(boardType){ case 'board': %>자유게시판<% break; case 'anonymous': %>익명게시판<% break; } %></a>
                 <input type="submit" value="글작성" class="button">
             </form>
+            <% if(postNo==null){ %>
+                <script>
+                    postWriteType='POST'
+                </script>
+            <% }else{ %>
+                <script>
+                    postWriteType='PATCH'
+                </script>
+            <% } %>
             <script>
                 function post_write(){
                     $.ajax({
-                    type:'POST',
-                    data:{
-                        post_title:$('input[name=post_title]').val(),
-                        post_content:$('textarea[name=post_content]').val(),
-                    },
-                    url:apiUrl+'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
-                    cache:false,
-                    success:function(data){
-                        data=JSON.parse(data);
-                        if(data.status!=1){
-                        error_code(data.status);
-                        }else{
-                        window.location.href="/board/<%= boardType %>";
+                        type:postWriteType,
+                        data:{
+                            postTitle:$('input[name=post_title]').val(),
+                            postContent:$('textarea[name=post_content]').val(),
+                        },
+                        url:apiUrl+'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
+                        cache:false,
+                        success:function(data){
+                            data=JSON.parse(data);
+                            if(data.status!=1){
+                                error_code(data.status, data.subStatus);
+                            }else{
+                            window.location.href="/board/<%= boardType %>";
+                            }
+                        },
+                        error: function(data) {
+                            error_code(0, 0);
                         }
-                    },
-                    error: function(data) {
-                        error_code(0);
-                    }
                     });
                 }
             </script>

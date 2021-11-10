@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="kr">
 <head>
-    <%- include('../common/head') %>
     <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
+    <%- include('../common/head') %>
     <% switch(boardType){
         case 'board': %>
         <title>자유게시판 - BSM</title> %>
@@ -19,19 +19,23 @@
 <body>
     <%- include('../common/header') %>
     <main>
-        <div class="container">
-            <div class="title">
-                <% switch(boardType){
-                    case 'board': %>
-                    <h1>자유게시판</h1>
-                    <% break;
-                case 'anonymous': %>
-                    <h1>익명게시판</h1>
-                    <% break;
-                } %>
-            <br>
+        <div class="title board_title">
+            <div class="container">
+            <% switch(boardType){
+                case 'board': %>
+                <h1>자유게시판</h1>
+                <a href="/board/anonymous">익명게시판</a>
+                <% break;
+            case 'anonymous': %>
+                <h1>익명게시판</h1>
+                <a href="/board/board">자유게시판</a>
+                <% break;
+            } %>
+                <br>
             </div>
-            <div class="board blur">
+        </div>
+        <div class="container">
+            <div class="board">
             <% if(postNo!=null){ %>
                 <div class="post">
                     <script>
@@ -43,9 +47,9 @@
                                 success:function(data){
                                     data=JSON.parse(data);
                                     if(data.status!=1){
-                                        error_code(data.status);
+                                        error_code(data.status, data.subStatus);
                                     }else{
-                                        $('.post .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.member_code+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
+                                        $('.post .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
                                         $('.post_title').text(data.postTitle);
                                         $('.post_date').text(data.postDate);
                                         $('.post_hit').text(data.postHit);
@@ -72,11 +76,30 @@
                                     }
                                 },
                                 error: function(data) {
-                                    error_code(0);
+                                    error_code(0, 0);
                                 }
                             });
                         }
                         post_refresh();
+                        function post_delete(){
+                            $.ajax({
+                                type:'DELETE',
+                                url:apiUrl+'/post/<%= boardType %>/<%= postNo %>',
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status, data.subStatus);
+                                        refresh = false;
+                                    }else{
+                                        window.location.href="/board/<%= boardType %>";
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0, 0);
+                                }
+                            });
+                        }
                     </script>
                     <div class="post_info_wrap">
                         <div class="left_wrap"></div>
@@ -108,7 +131,7 @@
                             success:function(data){
                                 data=JSON.parse(data);
                                 if(data.status!=1){
-                                    error_code(data.status);
+                                    error_code(data.status, data.subStatus);
                                     refresh = false;
                                 }else{
                                     if(data.like>0){
@@ -125,7 +148,7 @@
                                 }
                             },
                             error: function(data) {
-                                error_code(0);
+                                error_code(0, 0);
                             } 
                         });
                     }
@@ -140,7 +163,7 @@
                                 success:function(data){
                                     data=JSON.parse(data);
                                     if(data.status!=1){
-                                        error_code(data.status);
+                                        error_code(data.status, data.subStatus);
                                     }else{
                                         data=data.arrComment;
                                         comments = "";
@@ -161,17 +184,13 @@
                                             if(data[i].memberCode==member.code||member.level==3){
                                                 comment += `<div class="comment_menu"><button class="button red_button" onclick="comment_delete(`+data[i].idx+`);">댓글 삭제</button></div>`;
                                             }
-                                            if(i%2){
-                                                comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                                            }else{
-                                                comments += `<div class="comment_item odd" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                                            }
+                                            comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
                                         }
                                         $('.comment_list .comment').html(comments);
                                     }
                                 },
                                 error: function(data) {
-                                    error_code(0);
+                                    error_code(0, 0);
                                 }
                             });
                         }
@@ -186,14 +205,14 @@
                                 success:function(data){
                                     data=JSON.parse(data);
                                     if(data.status!=1){
-                                        error_code(data.status);
+                                        error_code(data.status, data.subStatus);
                                         refresh = false;
                                     }else{
                                         comment_refresh();
                                     }
                                 },
                                 error: function(data) {
-                                    error_code(0);
+                                    error_code(0, 0);
                                 }
                             });
                         }
@@ -208,7 +227,7 @@
                                 success:function(data){
                                     data=JSON.parse(data);
                                     if(data.status!=1){
-                                        error_code(data.status);
+                                        error_code(data.status, data.subStatus);
                                         refresh = false;
                                     }else{
                                         $('.post_comment').val("");
@@ -216,7 +235,7 @@
                                     }
                                 },
                                 error: function(data) {
-                                    error_code(0);
+                                    error_code(0, 0);
                                 }
                             });
                         }
@@ -229,85 +248,102 @@
                     <div class="button" onclick="comment_refresh();">댓글 새로고침</div>
                     <input type="submit" name="" value="댓글작성" class="button">
                 </form>
-                <span class="post_delete"></span>
-                <span class="post_modify"></span>
+                <div class="post_menu">
+                    <span class="post_delete"></span>
+                    <span class="post_modify"></span>
+                </div>
                 <script>
                     function post_menu(member_code){
                         if(member_code==member.code||member.level==3){
-                            $('.post_delete').html(`<form action="/database" method="post" autocomplete="off">
-                            <input type="hidden" name="command_type" value="post_delete">
-                            <input type="hidden" name="boardType" value="<%= boardType %>">
-                            <input type="hidden" name="post_no" value=<%= postNo %>>
-                            <input type="submit" name="" value="글 삭제하기" class="button">
-                            </form>`);
-                            $('.post_modify').html('<a class="button" href="/board/write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
+                            $('.post_delete').html(`<div class="button red_button" onclick="post_delete();">글 삭제</div>`);
+                            $('.post_modify').html('<a class="button blue_button" href="/board/write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
                         }
                     }
                 </script>
             <% } %>
                 <div class=board_list>
-                    <div class="table_header">
-                        <span class="board_item">
-                        <span class="board_item_info">번호</span>
-                        <span class="board_item_info">제목</span>
-                        <span class="board_item_info">작성자</span>
-                        <span class="board_item_info">작성 시간</span>
-                        <span class="board_item_info">조회수</span>
-                        <span class="board_item_info">좋아요</span>
-                        </span>
+                    <div class="board_type">
                     </div>
                     <div class="table_main"></div>
-                        <script>
-                            function board_refresh(){
-                                $.ajax({
-                                    type:'GET',
-                                    url:apiUrl+'/board/<%= boardType %><% if(page!=null) %>?page=<%= page %>',
-                                    cache:false,
-                                    success:function(data){
-                                        data=JSON.parse(data);
-                                        if(data.status!=1){
-                                            error_code(data.status);
-                                        }else{
-                                            boardData=data.arrBoard;
-                                            boards = "";
-                                            for(let i=0;i<Object.keys(boardData).length;i++){
-                                                let board = "";
-                                                board += '<span class="board_item_info">'+boardData[i].postNo+'</span>';
-                                                
-                                                board += '<a href="/board/' +boardData[i].boardType+ '/' +boardData[i].postNo+ '"class="board_item_info"><span><p>' +boardData[i].postTitle;
-                                                if(boardData[i].postComments>=1){
-                                                    board += '</p><p class="post_comments">[' +boardData[i].postComments+ ']</p></span></a>';
-                                                }else{
-                                                    board += '</p></span></a>';
-                                                }
-                            
-                                                board += `<span class="board_item_info"><img src="/resource/member/profile_images/profile_`+boardData[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+boardData[i].memberCode+`">`+memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname+`</a></span>`;
-                                                board += '<span class="board_item_info">'+boardData[i].postDate+'</span>';
-                                                board += '<span class="board_item_info">'+boardData[i].postHit+'</span>';
-                                                board += '<span class="board_item_info">'+boardData[i].postLike+'</span>';
-                                                if(i%2){
-                                                    boards += '<span class="board_item">'+board+'</span>';
-                                                }else{
-                                                    boards += '<span class="board_item odd">'+board+'</span>';
-                                                }
-                                            }
-                                            $('.board_list .table_main').html(boards);
-                                            //$('.page_num').html(data.pageNum);
+                    <script>
+                        function board_refresh(){
+                            $.ajax({
+                                type:'GET',
+                                url:apiUrl+'/board/<%= boardType %><% if(page!=null) %>?page=<%= page %>',
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status, data.subStatus);
+                                    }else{
+                                        let date = new Date()
+                                        let today = ""+date.getFullYear()
+                                        if((date.getMonth()+1)<10){
+                                            today+='0'
                                         }
-                                    },
-                                    error: function(data) {
-                                        error_code(0);
+                                        today+=(date.getMonth()+1)
+                                        if(date.getDate()<10){
+                                            today+='0'
+                                        }
+                                        today+=date.getDate()
+                                        boardData=data.arrBoard;
+                                        boards = "";
+                                        for(let i=0;i<Object.keys(boardData).length;i++){
+                                            let board = "";
+                                            board += '<div class="board_item left_wrap">'
+                                                if(boardData[i].postComments>=1){
+                                                    board += '<span class="post_comments active">'+boardData[i].postComments+ '</span>'
+                                                }else{
+                                                    board += '<span class="post_comments">'+boardData[i].postComments+ '</span>'
+                                                }
+                                            board += '</div>'
+                                            board += '<div class="board_item right_wrap">'
+                                                board += '<div class="board_item top_wrap">'
+                                                    board += '<a href="/board/' +boardData[i].boardType+ '/' +boardData[i].postNo+ '<% if(page!=null){ %>?page=<%= page %><%}%>"class="post_title">' +boardData[i].postTitle+'</a>';
+                                                board += '</div>'
+                                                board += '<div class="board_item bottom_wrap">'
+                                                    board += '<div class="board_item_info left_wrap">'
+                                                        board += `<span class="member_info"><img src="/resource/member/profile_images/profile_`+boardData[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+boardData[i].memberCode+`">`+memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname+`</a></span>`;
+                                                    board += '</div>'
+                                                    board += '<div class="board_item_info right_wrap">'
+                                                    if(boardData[i].postLike>=1){
+                                                        board += '<span class="board_item_post_info like active">'+boardData[i].postLike+'</span>';
+                                                    }else if(boardData[i].postLike<0){
+                                                        board += '<span class="board_item_post_info like">'+boardData[i].postLike+'</span>';
+                                                    }
+                                                    board += '<span class="board_item_post_info hit">'+boardData[i].postHit+'</span>';
+                                                    if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
+                                                        board += '<span class="board_item_post_info date">'+boardData[i].postDate.split(' ')[1]+'</span>';
+                                                    else
+                                                        board += '<span class="board_item_post_info date">'+boardData[i].postDate.split(' ')[0]+'</span>';
+                                                    board += '</div>'
+                                                board += '</div>'
+                                            board += '</div>'
+                                            boards += '<span class="board_item_wrap">'+board+'</span>';
+                                        }
+                                        $('.board_list .table_main').html(boards);
+                                        //$('.page_num').html(data.pageNum);
                                     }
-                                });
-                            }
-                            board_refresh();
-                        </script>
+                                },
+                                error: function(data) {
+                                    error_code(0, 0);
+                                }
+                            });
+                        }
+                        board_refresh();
+                    </script>
                 </div>
-                <div class="page_num"></div>
-                <button onClick="board_refresh();" class="button">글 새로고침</button>
-                <% if(member.islogin){ %>
-                    <a href="/board/write/<%= boardType %>" class="button">글쓰기</a>
-                <% } %>
+                <div class="board_bottom_menu">
+                    <div class="board_menu_item board_refresh_button">
+                        <button onClick="board_refresh();" class="button">글 새로고침</button>
+                    </div>
+                    <div class="board_menu_item page_num"></div>
+                    <div class="board_menu_item post_write_button">
+                        <% if(member.islogin){ %>
+                            <a href="/board/write/<%= boardType %>" class="button blue_button">글쓰기</a>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

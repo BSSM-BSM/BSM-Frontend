@@ -12,12 +12,12 @@
 <body>
     <%- include('../common/header') %>
     <main>
+        <div class="title">
+            <h1>급식</h1>
+            <h2 class="food_date">x월x일</h2>
+        </div>
         <div class="container">
-            <div class="title">
-                <h1>급식</h1>
-                <h2 class="food_date">x월x일</h2>
-            </div>
-            <div class="information blur">
+            <div class="information">
                 <div class="foods center">
                     <div class="food food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
                         <div class="food_time">아침</div>
@@ -39,29 +39,29 @@
                         today=new Date(times);
                         food_refresh();
                         function food_refresh(){
-                        day=day_table[today.getDay()];
-                        date=today.getDate();
-                        month=today.getMonth()+1;
-                        year=today.getFullYear();
-                        $.ajax({
-                            type:'POST',
-                            data:{
-                                command_type:'food',
-                                food_date:year+'-'+month+'-'+date,
-                            },
-                            url:db_url,
-                            cache:false,
-                            success:function(data){
-                                data=JSON.parse(data);
-                                if(data.status!=1){
-                                    error_code(data.status);
-                                }else{
-                                    food_table[data.food_date]={'morning':data.morning, 'lunch':data.lunch, 'dinner':data.dinner};
-                                    food_render();
-                                }
-                            },
-                            error: function(data) {
-                                error_code(0);
+                            day=day_table[today.getDay()];
+                            date=today.getDate();
+                            month=today.getMonth()+1;
+                            year=today.getFullYear();
+                            $.ajax({
+                                type:'POST',
+                                data:{
+                                    command_type:'food',
+                                    food_date:year+'-'+month+'-'+date,
+                                },
+                                url:db_url,
+                                cache:false,
+                                success:function(data){
+                                    data=JSON.parse(data);
+                                    if(data.status!=1){
+                                        error_code(data.status, data.subStatus);
+                                    }else{
+                                        food_table[data.food_date]={'morning':data.morning, 'lunch':data.lunch, 'dinner':data.dinner};
+                                        food_render();
+                                    }
+                                },
+                                error: function(data) {
+                                    error_code(0, 0);
                                 }
                             });
                         }
