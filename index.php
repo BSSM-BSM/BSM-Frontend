@@ -216,6 +216,21 @@
         require "./pages/meal.html";
         break;
       case 'meister':
+        if (isset($_SESSION['member_id'])){
+          echo '
+          <script>
+            let hak='.$_SESSION['member_grade'].',
+            ban='.$_SESSION['member_class'].',
+            bun='.$_SESSION['member_studentNo'].'
+          </script>';
+        }else{
+          echo '
+          <script>
+            let hak=null,
+            ban=null,
+            bun=null
+          </script>';
+        }
         require "./pages/meister.html";
         break;
       case 'dorm_rule':
