@@ -264,7 +264,6 @@
 @media screen and (min-width:0px) and (max-width:1319px){
   .board{
     margin-bottom:5rem;
-    padding:0 3%;
   }
   .board_item_wrap{
     font-size:1.3rem;

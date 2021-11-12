@@ -7,16 +7,20 @@ $member_code=getParam(2);
   </div>
   <div class="container">
     <div class="information">
-      <div class="member_code"></div>
-      <div class="member_id"></div>
-      <div class="member_nickname"></div>
-      <div class="member_level"></div>
-      <div class="member_created"></div>
-      <div class="member_enrolled"></div>
-      <span class="member_grade"></span>
-      <span class="member_class"></span>
-      <span class="member_studentNo"></span>
-      <span class="member_name"></span>
+      <div class="member_info_wrap">
+        <div class="left_wrap"></div>
+        <div class="right_wrap">
+        <div class="top_wrap">
+          <span class="member_nickname"></span>
+          <span class="member_created"></span>
+        </div>
+        <div class="bottom_wrap">
+          <span class="student_info"></span>
+          <span class="member_level"></span>
+          <span class="member_enrolled"></span>
+          <span class="member_code"></div>
+        </div>
+      </div>
       <br>
       <script>
         function member_info(){
@@ -33,15 +37,13 @@ $member_code=getParam(2);
               if(data.status!=1){
                 error_code(data.status);
               }else{
+                $('.member_info_wrap .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.member_code+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
+                $('.member_nickname').text(data.member_nickname);
                 $('.member_code').text("멤버 코드: "+data.member_code);
-                $('.member_nickname').text("닉네임: "+data.member_nickname);
                 $('.member_level').text("권한 수준: "+data.member_level);
                 $('.member_created').text(data.member_created.split(' ')[0]+" 가입");
                 $('.member_enrolled').text(data.member_enrolled+"년 입학");
-                $('.member_grade').text(data.member_grade+"학년");
-                $('.member_class').text(data.member_class+"반");
-                $('.member_studentNo').text(data.member_studentNo+"번");
-                $('.member_name').text(data.member_name);
+                $('.student_info').text(data.member_grade+"학년 "+data.member_class+"반 "+data.member_studentNo+"번 "+data.member_name);
               }
             },
             error: function(data) {
