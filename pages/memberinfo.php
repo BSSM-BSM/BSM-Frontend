@@ -60,7 +60,7 @@ $member_code=getParam(2);
             <input type="file" name="file" required>
             <button type="submit" class="button">프로필 이미지 업로드</button>
           </form>
-          <div class="button" onClick="$('.pw_modify_box').addClass('on');">비밀번호 변경</div>
+          <div class="button" onClick="$('.pw_modify_box').trigger('addClass');">비밀번호 변경</div>
         <?php
         }
       }
@@ -131,12 +131,11 @@ $member_code=getParam(2);
       <br>
       <input type="password" class="modify_member_pw_check" placeholder="수정할 비밀번호 재입력" required>
       <br><br>
-      <div class="button" onClick="$('.pw_modify_box').removeClass('on');">닫기</div>
+      <div class="button" onClick="$('.pw_modify_box').trigger('removeClass');">닫기</div>
       <button type="submit" class="button">비밀번호 수정</button>
     </form>
   </div>
 </main>
-<div class="dim menu_close"></div>
 <title>유저정보 - BSM</title>
 <meta property="title" content="유저정보 - BSM | 부산소마고 지원 서비스">
 <meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">

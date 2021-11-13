@@ -26,18 +26,20 @@ function error_code(status){
         22:{type:1, msg:'파일 업로드에 실패하였습니다.'},
         23:{type:1, msg:'게시글 작성에 실패하였습니다.'},
         24:{type:1, msg:'게시글 작성자가 아닙니다.'},
+        25:{type:1, msg:'학생정보가 맞지 않습니다.'},
+        26:{type:1, msg:'인증코드 전송에 실패하였습니다.'},
     };
     if(error_msg[status].type!=1){
         switch(status){
             case 8:
-                $('.authentication_box').addClass('on');
+                $('.authentication_box').trigger('addClass');
                 break;
             case 19:
                 alert("에러코드 "+status+"\n"+error_msg[status].msg);
-                $('.login_box').addClass('on');
+                $('.login_box').trigger('addClass');
                 break;
             case 21:
-                $('.pw_reset_box').addClass('on');
+                $('.pw_reset_box').trigger('addClass');
                 break;
             default:
                 break;

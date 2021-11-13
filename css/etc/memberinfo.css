@@ -1,0 +1,70 @@
+@charset "utf-8";
+.member_info_wrap{
+  display:flex;
+  width:100%;
+  padding:0 5rem;
+}
+.member_info_wrap .left_wrap{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.member_info_wrap .left_wrap .user_profile{
+  margin-right:2rem;
+  height:54px;
+}
+.member_info_wrap .right_wrap{
+  display:flex;
+  flex-direction:column;
+  flex:auto;
+}
+.member_info_wrap > div{
+  font-size:1.5rem;
+  text-align:left;
+}
+.member_info_wrap .right_wrap .top_wrap{
+  display:flex;
+  margin-bottom:.5rem;
+}
+.member_info_wrap .right_wrap .bottom_wrap{
+  display:flex;
+}
+.member_info_wrap .member_nickname{
+  font-size:1.8rem;
+  font-weight:bold;
+  text-align:left;
+}
+.member_info_wrap .student_info{
+  flex:auto;
+  text-align:left;
+}
+.member_info_wrap .member_created{
+  flex:auto;
+  text-align:right;
+}
+.member_info_wrap .member_level{
+  text-align:right;
+  margin-right:2.5rem;
+}
+.member_info_wrap .member_enrolled{
+  text-align:right;
+  margin-right:2.5rem;
+}
+@media screen and (min-width:0px) and (max-width:1319px){
+  .member_info_wrap{
+    padding:0 3%;
+  }
+  .member_info_wrap > div:not(.post_title){
+    font-size:1.3rem;
+  }
+  .member_info_wrap .left_wrap .user_profile{
+    margin-right:1rem;
+    height:40px;
+  }
+  .member_info_wrap .member_level{
+    margin-right:1.5rem;
+  }
+  .member_info_wrap .member_enrolled{
+    margin-right:1.5rem;
+  }
+}

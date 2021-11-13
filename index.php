@@ -136,7 +136,7 @@
           </div>
           <div class="right_wrap">
             <span class="searchBar top_menu_item">
-              <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="여기에 검색" required>
+              <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim.search_close").addClass("on");' placeholder="여기에 검색" required>
               <div class="searchResult">
                 <div class="boardResult"></div>
                 <br>
@@ -156,7 +156,7 @@
                   </ul>
                 </span>
               <?php }else{ ?>
-                <span class="top_menu_item user_menu"><a onclick="$('.login_box').addClass('on');" class="page">로그인</a></span>
+                <span class="top_menu_item user_menu"><a onclick="$('.login_box').trigger('addClass');" class="page">로그인</a></span>
               <?php }
             ?>
           </div>
@@ -179,7 +179,7 @@
           <li class="user_menu"><a href="/memberinfo/<?php echo $_SESSION['member_code']?>"><?php echo $memberLevel[$_SESSION['member_level']].$_SESSION['member_nickname']?></a></li>
           <li class="logout"><a href="/logout?returnUrl=<?php echo $returnUrl ?>">로그아웃</a></li>
           <?php }else{ ?>
-          <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
+          <li class="user_menu"><a onclick="$('.login_box').trigger('addClass');">로그인해 주세요</a></li>
           <?php }
           ?>
           <li class="page"><a href="/timetable">시간표</a></li>
@@ -195,6 +195,9 @@
         </ul>
       </div>
     </header>
+    <div class="dim menu_close"></div>
+    <div class="dim popup_close"></div>
+    <div class="dim search_close"></div>
     <?php
     switch ($page) {
       case '403':
@@ -279,7 +282,7 @@
                 window.location.href=data.returnUrl;
               }else{
                 alert("로그인에 성공하였습니다.");
-                $('.login_box').removeClass('on');
+                $('.login_box').trigger('removeClass');
               }
             }
           },
@@ -307,7 +310,7 @@
               error_code(data.status);
             }else{
               alert("회원가입이 완료되었습니다.\n다시 로그인 해주세요.");
-              $('.register_box').removeClass('on');
+              $('.register_box').trigger('removeClass');
             }
           },
           error: function(data) {
@@ -331,7 +334,7 @@
               error_code(data.status);
             }else{
               alert("비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.");
-              $('.pw_reset_box').removeClass('on');
+              $('.pw_reset_box').trigger('removeClass');
             }
           },
           error: function(data) {
@@ -354,7 +357,7 @@
               error_code(data.status);
             }else{
               alert("인증이 완료되었습니다.\n다시 로그인 해주세요.");
-              $('.authentication_box').removeClass('on');
+              $('.authentication_box').trigger('removeClass');
             }
           },
           error: function(data) {
@@ -381,7 +384,7 @@
               error_code(data.status);
             }else{
               alert("인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.");
-              $('.valid_code_box').removeClass('on');
+              $('.valid_code_box').trigger('removeClass');
             }
           },
           error: function(data) {
@@ -399,9 +402,9 @@
         <br>
         <input type="password" class="member_pw" placeholder="비밀번호" class="input_text" required>
         <br><br>
-        <a onClick="$('.register_box').addClass('on');">계정이 없으신가요? 회원가입</a>
-        <br>
-        <div class="button" onClick="$('.login_box').removeClass('on');">닫기</div>
+        <a onClick="$('.register_box').trigger('addClass');">계정이 없으신가요? 회원가입</a>
+        <br><br>
+        <div class="button" onClick="$('.login_box').trigger('removeClass');">닫기</div>
         <button type="submit" class="button">로그인</button>
       </form>
     </div>
@@ -420,9 +423,9 @@
         <br>
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
-        <a onClick="$('.valid_code_box').addClass('on');">인증코드 발급</a>
-        <br>
-        <div class="button" onClick="$('.register_box').removeClass('on');">닫기</div>
+        <a onClick="$('.valid_code_box').trigger('addClass');">인증코드 발급</a>
+        <br><br>
+        <div class="button" onClick="$('.register_box').trigger('removeClass');">닫기</div>
         <button type="submit" class="button">가입하기</button>
       </form>
     </div>
@@ -443,8 +446,8 @@
       <form class="authentication" method="post" autocomplete="off" onsubmit="authentication();return false;">
         <input type="text" class="code" placeholder="인증코드" class="input_text" required autofocus>
         <br><br>
-        <a onClick="$('.valid_code_box').addClass('on');">인증코드 발급</a>
-        <br>
+        <a onClick="$('.valid_code_box').trigger('addClass');">인증코드 발급</a>
+        <br><br>
         <button type="submit" class="button">계정 인증</button>
       </form>
     </div>
@@ -460,7 +463,7 @@
         <br>
         <input type="text" class="studentName" placeholder="이름" required>
         <br><br>
-        <div class="button" onClick="$('.valid_code_box').removeClass('on');">닫기</div>
+        <div class="button" onClick="$('.valid_code_box').trigger('removeClass');">닫기</div>
         <button type="submit" class="button">인증코드 발급</button>
       </form>
     </div>
