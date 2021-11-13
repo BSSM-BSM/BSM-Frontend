@@ -60,6 +60,9 @@
       case 'memberinfo' ?>
         <link rel="stylesheet" type="text/css" href="/css/etc/memberinfo.css">
         <?php break;
+      case 'meister' ?>
+        <link rel="stylesheet" type="text/css" href="/css/etc/meister.css">
+        <?php break;
       case 'post_write' ?>
         <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
         <?php break;
