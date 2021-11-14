@@ -109,6 +109,7 @@ span{
   opacity:0;
 }
 main{
+  scroll-behavior:smooth;
   height: calc(var(--vh, 1vh) * 100);
   overflow:auto;
   scroll-snap-type:y proximity;

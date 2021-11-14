@@ -6,8 +6,20 @@ body{
   background-attachment: fixed;
   background-size:  cover;
 }
+.container{
+  animation:show 1000ms ease-out;
+}
+@keyframes show {
+  0% {transform:translateY(70px);opacity:.25;}
+  30% {transform:translateY(30px);opacity:.7;}
+  100% {transform:translateY(0);opacity:1;}
+}
+.main_logo{
+  height:128px;
+}
 h1.main{
-  font-size:5rem;
+  font-size:4.2rem;
+  padding:0 5rem;
 }
 h2.main{
   font-size:2rem;
@@ -20,9 +32,10 @@ h4{
   color:#AAA;
 }
 h5{
-  font-size:2.5rem;
+  font-size:3rem;
 }
 .service p{
+  font-size:2rem;
   color:#AAA;
 }
 .container{
@@ -37,7 +50,7 @@ section{
   padding: 5rem 0;
 }
 section#main{
-  min-height: calc(var(--vh, 1vh) * 50);
+  min-height: calc(var(--vh, 1vh) * 40);
   background-image: url('/resource/home/images/main2.webp');
   background-position: center center;
   background-repeat:  no-repeat;
@@ -45,7 +58,7 @@ section#main{
   background-size:  cover;
 }
 section#download{
-  min-height: calc(var(--vh, 1vh) * 50);
+  min-height: calc(var(--vh, 1vh) * 40);
   background-image: url('/resource/home/images/main1.webp');
   background-position: center center;
   background-repeat:  no-repeat;
@@ -54,23 +67,72 @@ section#download{
 }
 .service_wrap{
   display:flex;
+  flex-direction:column;
   padding:5rem;
 }
 .service_wrap .service{
+  display:flex;
   flex:1;
 }
+.service_wrap .service .left_wrap{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  flex:50%;
+  min-height:25rem;
+}
+.service_wrap .service .right_wrap{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  flex:50%;
+  min-height:25rem;
+}
+.service_wrap .service .image{
+  padding:1rem 10rem;
+}
+.service_wrap .service .image div{
+  min-height:25rem;
+  width:100%;
+  height:100%;
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-size:  cover;
+  border-radius:1rem;
+}
+.service_wrap .service:nth-child(1) .image div{
+  background-image: url('/resource/index/images/meal.png');
+}
+.service_wrap .service:nth-child(2) .image div{
+  background-image: url('/resource/index/images/timetable.png');
+}
+.service_wrap .service:nth-child(3) .image div{
+  background-image: url('/resource/index/images/meister.png');
+}
+.service_wrap .service:nth-child(4) .image div{
+  background-image: url('/resource/index/images/community.png');
+}
 @media screen and (min-width:0px) and (max-width:1319px){
+  .main_logo{
+    height:96px;
+  }
   h1.main{
-    font-size:4.8rem;
+    font-size:3.2rem;
   }
   section#main, section#download{
     min-height:28rem;
   }
   .service_wrap{
-    flex-direction:column;
     padding:3%;
   }
   .service_wrap .service{
     padding:5rem 0;
+    flex-direction:column;
+  }
+  .service_wrap .service:nth-child(even){
+    flex-direction:column-reverse;
+  }
+  .service_wrap .service .image{
+    padding:0;
   }
 }

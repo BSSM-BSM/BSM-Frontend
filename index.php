@@ -135,7 +135,7 @@
               </ul>
             </span>
             <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="page">깃허브</a></span>
-            <span class="top_menu_item"><a href="/minecraft" class="page">마크 서버</a></span>
+            <!-- <span class="top_menu_item"><a href="/minecraft" class="page">마크 서버</a></span> -->
           </div>
           <div class="right_wrap">
             <span class="searchBar top_menu_item">
@@ -194,7 +194,7 @@
           <li class="page"><a href="/dorm_rule">기숙사 규정</a></li>
           <li class="page"><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
           <li class="page"><a href="https://github.com/leehj050211/BSM-Frontend">깃허브</a></li>
-          <li class="page"><a href="/minecraft">마크 서버</a></li>
+          <!-- <li class="page"><a href="/minecraft">마크 서버</a></li> -->
         </ul>
       </div>
     </header>
