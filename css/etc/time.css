@@ -16,6 +16,15 @@
 .class_time tbody tr td:first-child, .class_time tbody tr th:first-child{
   flex:10%;
 }
+.class_time tbody tr:nth-child(2) td.active_day{
+  border-radius:1rem 1rem 0rem 0rem;
+}
+.class_time tbody tr:last-child td.active_day{
+  border-radius:0rem 0rem 1rem 1rem;
+}
+.active_day{
+  background-color:rgba(128, 128, 128, .5);
+}
 .active_time{
   background-color:rgba(32, 32, 32, .65);
   animation:effect-active 1000ms infinite;
@@ -24,9 +33,6 @@
   0% {opacity:1;}
   50% {opacity:.5;}
   100% {opacity:1;}
-}
-.active_day{
-  background-color:rgba(128, 128, 128, .5);
 }
 .time{
   font-size:2.4rem;
