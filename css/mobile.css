@@ -38,6 +38,9 @@ input[type=text], input[type=password]{
 .video, .video div{
   width:auto;
 }
+.video-wrap{
+  padding:0 3%;
+}
 .video-container {
 	position: relative;
 	padding-bottom: 56.25%;
