@@ -6,15 +6,15 @@
     <span class="information">
       <div class="timetable_select">
         <ul class="select_grade">
-          <li class="active">1학년</li>
-          <li>2학년</li>
-          <li>3학년</li>
+          <li onclick="changeSelect(1, 0)">1학년</li>
+          <li onclick="changeSelect(2, 0)">2학년</li>
+          <li onclick="changeSelect(3, 0)">3학년</li>
         </ul>
         <ul class="select_class">
-          <li>1반</li>
-          <li class="active">2반</li>
-          <li>3반</li>
-          <li>4반</li>
+          <li onclick="changeSelect(0, 1)">1반</li>
+          <li onclick="changeSelect(0, 2)">2반</li>
+          <li onclick="changeSelect(0, 3)">3반</li>
+          <li onclick="changeSelect(0, 4)">4반</li>
         </ul>
       </div>
       <table class="class_time center"><tbody>
@@ -29,18 +29,58 @@
       <p class="time"></p>
       <p class="clock"></p>
       <script>
-        var i, j, times, day, hour, min, sec, time, last_day=0,last_time=0, classTimeStr, classTime;
-        var classTimes=[[8, 40, 9, 30], [9, 40, 10, 30], [10, 40, 11, 30], [11, 40, 12, 30], [12, 30, 13, 20], [13, 20, 14, 10], [14, 20, 15, 10], [15, 20, 16, 10], [16, 20, 18, 00], [18, 00, 18, 50], [19, 0, 20, 40]];
-        var classTimeTable=[
-          ['영어', 'OS', 'OS', '체육', '점심식사', '과학', '국어', '자율', '객체지향', '저녁식사', '전공동아리'],
-          ['알고리즘', '알고리즘', '알고리즘', '사회', '점심식사', '직업', '수학', '회화', '피지컬 컴퓨팅', '저녁식사', '전공동아리'],
-          ['사회', '수학', '과학', '음악', '점심식사', '파이썬', '파이썬', '파이썬', '토익', '저녁식사', '전공동아리'],
-          ['수학', '과학', '컴구', '컴구', '점심식사', '음악', '국어', '진로', '웹 프로그래밍', '저녁식사', '전공동아리'],
-          ['사회', '자료구조', '자료구조', '자료구조', '점심식사', '창체', '창체', '', '', '', ''],
-        ];
-        for(i=0;i<classTimes.length;i++){
-          $('tbody').append('<tr><td>' + classTimes[i][0] + ':' + classTimes[i][1] + '~' + classTimes[i][2] + ':' + classTimes[i][3] + '</td><td></td><td></td><td></td><td></td><td></td></tr>')
+        const changeSelect = (paramGrade, paramClassNo) => {
+          if(paramGrade)
+            grade=paramGrade;
+          if(paramClassNo)
+            classNo=paramClassNo;
+          $('.timetable_select ul li').removeClass('active')
+          $('.select_grade li:nth-child('+(grade)+')').addClass('active')
+          $('.select_class li:nth-child('+(classNo)+')').addClass('active')
+          timetableRefresh(grade, classNo)
         }
+        let classTimeTable=[];
+        let i, j, times, day, hour, min, sec, time, last_day=0,last_time=0, classTimeStr, classTime, grade=1, classNo=2;
+        const classTimes=[[8, 40, 9, 30], [9, 40, 10, 30], [10, 40, 11, 30], [11, 40, 12, 30], [12, 30, 13, 20], [13, 20, 14, 10], [14, 20, 15, 10], [15, 20, 16, 10], [16, 20, 18, 00], [18, 00, 18, 50], [19, 0, 20, 40]];
+        const timetableRefresh = (grade, classNo) => {
+          $.ajax({
+            type:'POST',
+            data:{
+              command_type:'timetable',
+              grade:grade,
+              classNo:classNo
+            },
+            url:db_url,
+            cache:false,
+            success:function(data){
+              data=JSON.parse(data);
+              if(data.status!=1){
+                error_code(data.status);
+              }else{
+                if(data.arrTimetable==null){
+                  alert("시간표를 지원하지않는 반 입니다.")
+                  classTimeTable=[]
+                }else{
+                  classTimeTable = data.arrTimetable
+                }
+                timetableInit()
+                updateTimeTable()
+              }
+            },
+            error: function(data) {
+              error_code(0);
+            }
+          });
+        }
+        timetableRefresh(grade, classNo)
+        const timetableInit = () => {
+          $('tbody').html('<tr><th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th></tr>')
+          for(i=0;i<classTimes.length;i++){
+            $('tbody').append('<tr><td>' + classTimes[i][0] + ':' + classTimes[i][1] + '~' + classTimes[i][2] + ':' + classTimes[i][3] + '</td><td></td><td></td><td></td><td></td><td></td></tr>')
+          }
+        }
+        $('.select_grade li:nth-child('+(grade)+')').addClass('active')
+        $('.select_class li:nth-child('+(classNo)+')').addClass('active')
         times=new Date();
         day=times.getDay();
         hour=times.getHours();
@@ -66,7 +106,6 @@
         });
         function updateTimeTable(){
           classTime=null;
-          classTimeStr='<tr><th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th></tr>';
           $('td').removeClass('active_day');
           $('td').removeClass('active_time');
           for (i=0;i<classTimeTable.length;i++){
