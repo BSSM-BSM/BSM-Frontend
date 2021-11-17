@@ -38,6 +38,9 @@
               test=data
               data=$.parseHTML(data)
               $('.meister').html(data)
+              $$('.fas.fa-sad-cry').forEach(item =>{
+                  item.parentElement.parentElement.parentElement.parentElement.classList.add('bed')
+              })
             },
             error: function(data) {
               error_code(0);

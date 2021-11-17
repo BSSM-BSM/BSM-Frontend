@@ -95,6 +95,7 @@
         '<span class="member_admin">[관리자]</span> '
       ];
       ?>
+      const $$ = document.querySelectorAll.bind(document)
     </script>
   </head>
   <body>
@@ -218,6 +219,19 @@
         require "./pages/memberinfo.php";
         break;
       case 'timetable':
+        if (isset($_SESSION['member_id'])){
+          echo '
+          <script>
+            let grade='.$_SESSION['member_grade'].',
+            classNo='.$_SESSION['member_class'].'
+          </script>';
+        }else{
+          echo '
+          <script>
+            let grade=1,
+            classNo=1
+          </script>';
+        }
         require "./pages/timetable.html";
         break;
       case 'meal':
