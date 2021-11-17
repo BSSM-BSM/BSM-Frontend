@@ -55,9 +55,21 @@
           function food_render(){
             $('.food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
             if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
-              $('.food-1 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning']);
-              $('.food-2 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch']);
-              $('.food-3 .food_menu').html(food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner']);
+              let morning = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning'];
+              let lunch = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch'];
+              let dinner = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner'];
+              if(morning!="")
+                $('.food-1 .food_menu').html(morning);
+              else
+                $('.food-1 .food_menu').html('급식이 없습니다.');
+              if(lunch!="")
+                $('.food-2 .food_menu').html(lunch);
+              else
+                $('.food-2 .food_menu').html('급식이 없습니다.');
+              if(dinner!="")
+                $('.food-3 .food_menu').html(dinner);
+              else
+                $('.food-3 .food_menu').html('급식이 없습니다.');
             }else{
               $('.food-1 .food_menu').html('급식이 없습니다.');
               $('.food-2 .food_menu').html('급식이 없습니다.');

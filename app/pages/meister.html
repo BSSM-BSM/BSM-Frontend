@@ -4,7 +4,22 @@
   </div>
   <div class="container">
     <div class="information">
+      <div>
+        <p>로그인시 정보가 자동으로 입력됩니다.</p>
+        <br>
+        <form class="meisterInfo" method="post" autocomplete="off" onsubmit="meister();return false;">
+          <input type="number" class="hak" placeholder="학년" min="1" max="3" required>
+          <input type="number" class="ban" placeholder="반" min="1" max="4" required>
+          <input type="number" class="bun" placeholder="번호" min="1" max="16" required>
+          <br>
+          <input type="password" class="pw" placeholder="마이스터 인증제 사이트 비밀번호" required>
+          <br><br>
+          <button type="submit" class="button">상벌점 조회</button>
+        </form>
+      </div>
+      <div class="meister"></div>
       <script>
+        var test
         function meister(){
           $.ajax({
             type:'POST',
@@ -20,34 +35,28 @@
             cache:false,
             success:function(data){
               $('.meisterInfo .pw').val("")
+              test=data
+              data=$.parseHTML(data)
               $('.meister').html(data)
+              $$('.fas.fa-sad-cry').forEach(item =>{
+                  item.parentElement.parentElement.parentElement.parentElement.classList.add('bed')
+              })
             },
             error: function(data) {
               error_code(0);
             }
           });
         }
+        $('.meisterInfo .hak').val(hak)
+        $('.meisterInfo .ban').val(ban)
+        $('.meisterInfo .bun').val(bun)
       </script>
-      <div>
-        <p>아직 실험중인 기능입니다.</p>
-        <br>
-        <form class="meisterInfo" method="post" autocomplete="off" onsubmit="meister();return false;">
-          <input type="number" class="hak" placeholder="학년" min="1" max="3" required>
-          <input type="number" class="ban" placeholder="반" min="1" max="4" required>
-          <input type="number" class="bun" placeholder="번호" min="1" max="16" required>
-          <br>
-          <input type="password" class="pw" placeholder="마이스터 인증제 사이트 비밀번호" required>
-          <br><br>
-          <button type="submit" class="button">상벌점 조회</button>
-        </form>
-      </div>
-      <div class="meister"></div>
     </div>
   </div>
 </main>
 <div class="dim menu_close"></div>
-<title>급식표 - BSM</title>
-<meta property="title" content="급식표 - BSM | 부산소마고 지원 서비스">
+<title>마이스터 상벌점 확인 - BSM</title>
+<meta property="title" content="마이스터 상벌점 확인 - BSM | 부산소마고 지원 서비스">
 <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
-<meta property="og:title" content="급식표 - BSM | 부산소마고 지원 서비스">
+<meta property="og:title" content="마이스터 상벌점 확인 - BSM | 부산소마고 지원 서비스">
 <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
