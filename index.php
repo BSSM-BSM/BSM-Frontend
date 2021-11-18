@@ -166,12 +166,12 @@
         </div>
         <div class="notice_bar">
           <script>
-            var agent = navigator.userAgent.toLowerCase();
+            const agent = navigator.userAgent.toLowerCase();
             if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
               document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
             }
           </script>
-          <div class="notice warning">Version 0.6 정식버전이 아니므로 언제든지 변경될 수 있습니다</div>
+          <div class="notice alert">2021년11월21일 일요일에 서버를 NodeJS로 변경할 예정입니다.<br>이 작업이 진행되는 동안 모든 서비스가 중단됩니다.</div>
         </div>
       </nav>
       <div class="side_menu">

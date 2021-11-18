@@ -43,6 +43,11 @@
     </script>
   </head>
   <body>
+    <header>
+      <div class="notice_bar">
+        <div class="notice alert">2021년11월21일 일요일에 서버를 NodeJS로 변경할 예정입니다.<br>이 작업이 진행되는 동안 모든 서비스가 중단됩니다.</div>
+      </div>
+    </header>
     <?php
     switch ($page) {
       case 'post_write':
