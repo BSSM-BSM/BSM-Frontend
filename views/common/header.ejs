@@ -1,0 +1,99 @@
+<% const memberLevel=[
+    '',
+    '<span class="member_admin">[룸메]</span> ',
+    '<span class="member_admin">[교사]</span> ',
+    '<span class="member_admin">[관리자]</span> '
+]; %>
+<div class="overlay-fadein"></div>
+<header>
+    <nav>
+        <div class="top_menu">
+            <div class="left_wrap">
+                <span class="top_menu_item home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
+                <span class="top_menu_item all_menu">
+                    <span class="line_wrap">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </span>
+                </span>
+                <span class="top_menu_item dropdown_menu">
+                    <span class="page">학교</span>
+                    <ul class="dropdown_content">
+                        <li><a href="/timetable">시간표</a></li>
+                        <li><a href="/meister">마이스터 상벌점</a></li>
+                        <li><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
+                    </ul>
+                </span>
+                <span class="top_menu_item dropdown_menu">
+                    <span class="page">생활</span>
+                    <ul class="dropdown_content">
+                        <li><a href="/meal">급식</a></li>
+                        <li><a href="/songs">기상송 모음</a></li>
+                        <li><a href="/dorm_rule">기숙사 규정</a></li>
+                    </ul>
+                </span>
+                <span class="top_menu_item dropdown_menu">
+                    <span class="page">커뮤니티</span>
+                    <ul class="dropdown_content">
+                        <li><a href="/board/board">자유게시판</a></li>
+                        <li><a href="/board/anonymous">익명게시판</a></li>
+                    </ul>
+                </span>
+                <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="page">깃허브</a></span>
+            </div>
+            <div class="right_wrap">
+                <span class="searchBar top_menu_item">
+                    <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="여기에 검색" required>
+                    <div class="searchResult">
+                        <div class="boardResult"></div>
+                        <br>
+                        <div class="anonymousResult"></div>
+                    </div>
+                </span>
+                <% if(member.isLogin){ %>
+                    <span class="top_menu_item dropdown_menu user_menu">
+                        <span class="page user_profile_name"><%- memberLevel[member.level]+member.id %></span>
+                        <img src="/resource/member/profile_images/profile_<%- member.code %>.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                        <ul class="dropdown_content">
+                            <li><a href="/memberinfo/<%= member.code %>">유저 정보</a></li>
+                            <li><a href="/logout">로그아웃</a></li>
+                        </ul>
+                    </span>
+                <% }else{ %>
+                    <span class="top_menu_item user_menu"><a onclick="$('.login_box').addClass('on');" class="page">로그인</a></span>
+                <% } %>
+            </div>
+        </div>
+        <div class="notice_bar">
+            <script>
+                var agent = navigator.userAgent.toLowerCase();
+                if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
+                    document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
+                }
+            </script>
+            <div class="notice warning">Version 0.6 정식 공개버전이 아니므로 언제든지 변경될 수 있습니다</div>
+        </div>
+    </nav>
+    <div class="side_menu">
+        <ul>
+            <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
+            <% if(member.isLogin){ %>
+            <li class="user_menu"><a href="/memberinfo/<%= member.code %>"><%- memberLevel[member.level]+member.id %></a></li>
+            <li class="logout"><a href="/logout">로그아웃</a></li>
+            <% }else{ %>
+            <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
+            <% } %>
+            <li class="page"><a href="/timetable">시간표</a></li>
+            <li class="page"><a href="/meal">급식</a></li>
+            <li class="page"><a href="/meister">마이스터 상벌점</a></li>
+            <li class="page"><a href="/board/board">자유게시판</a></li>
+            <li class="page"><a href="/board/anonymous">익명게시판</a></li>
+            <li class="page"><a href="/songs">기상송 모음</a></li>
+            <li class="page"><a href="/dorm_rule">기숙사 규정</a></li>
+            <li class="page"><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
+            <li class="page"><a href="https://github.com/leehj050211/BSM-Frontend">깃허브</a></li>
+            <li class="page"><a href="/minecraft">마크 서버</a></li>
+        </ul>
+    </div>
+</header>
