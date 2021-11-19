@@ -44,7 +44,7 @@
             </div>
             <div class="right_wrap">
                 <span class="searchBar top_menu_item">
-                    <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange='$(".searchResult").addClass("on");$(".dim").addClass("on");' placeholder="여기에 검색" required>
+                    <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange="$('.searchResult').addClass('on');$('.dim.search_close').addClass('on');" placeholder="여기에 검색" required>
                     <div class="searchResult">
                         <div class="boardResult"></div>
                         <br>
@@ -61,7 +61,7 @@
                         </ul>
                     </span>
                 <% }else{ %>
-                    <span class="top_menu_item user_menu"><a onclick="$('.login_box').addClass('on');" class="page">로그인</a></span>
+                    <span class="top_menu_item user_menu"><a onclick="$('.login_box').trigger('addClass');" class="page">로그인</a></span>
                 <% } %>
             </div>
         </div>
@@ -82,7 +82,7 @@
             <li class="user_menu"><a href="/memberinfo/<%= member.code %>"><%- memberLevel[member.level]+member.id %></a></li>
             <li class="logout"><a href="/logout">로그아웃</a></li>
             <% }else{ %>
-            <li class="user_menu"><a onclick="$('.login_box').addClass('on');">로그인해 주세요</a></li>
+            <li class="user_menu"><a onclick="$('.login_box').trigger('addClass');">로그인해 주세요</a></li>
             <% } %>
             <li class="page"><a href="/timetable">시간표</a></li>
             <li class="page"><a href="/meal">급식</a></li>
@@ -97,3 +97,6 @@
         </ul>
     </div>
 </header>
+<div class="dim menu_close"></div>
+<div class="dim popup_close"></div>
+<div class="dim search_close"></div>
