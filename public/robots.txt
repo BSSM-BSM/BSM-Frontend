@@ -4,6 +4,6 @@ Allow: /$
 Allow: /css/
 Allow: /js/
 Allow: /icons/
-Allow: /resource/
-Allow: /time
-Allow: /food
+Allow: /timetable
+Allow: /meal
+Allow: /meister

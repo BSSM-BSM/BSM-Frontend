@@ -16,14 +16,14 @@
 <link rel="manifest" href="/manifest.json">
 <script src="/sw.js"></script>
 <!-- 서비스 워커를 등록 -->
-<!-- <script>
+<script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
         .then((reg) => {
             console.log('서비스 워커가 등록됨.', reg);
         });
     }
-</script> -->
+</script>
 <!-- PWA 설정 끝 -->
 <script>
     window.addEventListener('resize', () => {

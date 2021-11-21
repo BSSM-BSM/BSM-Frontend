@@ -1,18 +1,29 @@
-var cacheName = '0.5';
-var cacheFiles = [
+const cacheName = '1.0.0';
+let cacheFiles = [
+    '/',
+    '/meal',
+    '/timetable',
+    '/meister',
+    '/board/board',
+    '/board/anonymous',
     '/js/jquery.min.js',
-    '/css/video-js.min.css',
-    '/js/video-7.8.4.min.js',
-    '/css/summernote-lite.min.css',
     '/js/summernote-lite.min.js',
     '/js/lang/summernote-ko-KR.js',
     '/js/menu_bar.js',
     '/js/search.js',
-    '/js/ajax_error.js',
-    '/resource/home/images/BG_image.webp',
-    '/resource/home/images/BG_image_blur.webp',
-    '/resource/home/images/main.webp',
-    '/resource/font/minecraftia-webfont.woff',
+    '/js/error_code.js',
+    '/css/style.min.css',
+    '/css/etc/board.css',
+    '/css/etc/index.css',
+    '/css/etc/meal.css',
+    '/css/etc/meister.css',
+    '/css/etc/memberinfo.css',
+    '/css/etc/timetable.css',
+    '/css/summernote-lite.min.css',
+    '/icons/logo.png',
+    '/resource/common/BG_images/BG_image_blur.webp',
+    '/resource/index/images/main.webp',
+    '/resource/member/profile_images/profile_default.png'
 ];
 self.addEventListener('install', (event) => {
     event.waitUntil(

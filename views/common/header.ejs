@@ -67,9 +67,20 @@
         </div>
         <div class="notice_bar">
             <script>
-                var agent = navigator.userAgent.toLowerCase();
+                const agent = navigator.userAgent.toLowerCase();
                 if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
                     document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
+                }
+                window.addEventListener('online', ()=>{
+                    if($$('.notice_bar .offline').length){
+                        $$('.notice_bar .offline')[0].remove()
+                    }
+                })
+                window.addEventListener('offline', ()=>{
+                    $$('.notice_bar')[0].innerHTML+='<div class="notice alert offline">인터넷에 연결되어있지 않습니다.</div>'
+                })
+                if(!window.navigator.onLine){
+                    $$('.notice_bar')[0].innerHTML+='<div class="notice alert offline">인터넷에 연결되어있지 않습니다.</div>'
                 }
             </script>
             <div class="notice">서버 NodeJS변경 작업이 완료되었습니다</div>
