@@ -86,7 +86,7 @@
                 student_no:$('.valid_code .studentNo').val(),
                 student_name:$('.valid_code .studentName').val(),
             },
-            url:apiUrl+'/account/valid_code',
+            url:apiUrl+'/account/validCode',
             cache:false,
             success:function(data){
                 data=JSON.parse(data);

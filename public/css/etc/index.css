@@ -113,6 +113,9 @@ section#download{
   background-image: url('/resource/index/images/community.png');
 }
 @media screen and (min-width:0px) and (max-width:1319px){
+  main,.container{
+    width:auto;
+  }
   .main_logo{
     height:96px;
   }
