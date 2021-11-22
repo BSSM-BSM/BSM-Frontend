@@ -7,9 +7,9 @@ body{
   background-size:  cover;
 }
 .container{
-  animation:show 1000ms ease-out;
+  animation:index-show 1000ms ease-out;
 }
-@keyframes show {
+@keyframes index-show {
   0% {transform:translateY(70px);opacity:.25;}
   30% {transform:translateY(30px);opacity:.7;}
   100% {transform:translateY(0);opacity:1;}
@@ -117,7 +117,7 @@ section#download{
     width:auto;
   }
   .main_logo{
-    height:96px;
+    height:105px;
   }
   h1.main{
     font-size:3.2rem;

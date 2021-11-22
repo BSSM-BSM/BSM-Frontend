@@ -1,5 +1,5 @@
 function error_code(status, subStatus){
-    window.navigator.vibrate(100);
+    //window.navigator.vibrate(100);
     error_msg={
         0:{msg:'연결오류',
             0:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
@@ -46,11 +46,11 @@ function error_code(status, subStatus){
             case 4:
                 switch(subStatus){
                     case 1:
-                        alert("에러코드 "+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg);
-                        $('.login_box').addClass('on');
+                        toast('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+                        $('.login_box').trigger('addClass');
                         break;
                     case 2:
-                        $('.pw_reset_box').addClass('on');
+                        $('.pw_reset_box').trigger('addClass');
                         break;
                     default:
                         break;
@@ -59,6 +59,6 @@ function error_code(status, subStatus){
                 break;
         }
     }else{
-        alert("에러코드 "+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg);
+        toast('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
     }
 }

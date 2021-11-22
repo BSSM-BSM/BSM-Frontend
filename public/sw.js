@@ -1,4 +1,4 @@
-const cacheName = '1.0.0';
+const cacheName = '1.0.0.1';
 let cacheFiles = [
     '/',
     '/meal',
@@ -12,6 +12,7 @@ let cacheFiles = [
     '/js/menu_bar.js',
     '/js/search.js',
     '/js/error_code.js',
+    '/js/toast.js',
     '/css/style.min.css',
     '/css/etc/board.css',
     '/css/etc/index.css',
