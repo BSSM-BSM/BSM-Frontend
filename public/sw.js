@@ -1,4 +1,4 @@
-const cacheName = '1.0.0.1';
+const cacheName = '1.0.0.5';
 let cacheFiles = [
     '/',
     '/meal',
@@ -22,8 +22,6 @@ let cacheFiles = [
     '/css/etc/timetable.css',
     '/css/summernote-lite.min.css',
     '/icons/logo.png',
-    '/resource/common/BG_images/BG_image_blur.webp',
-    '/resource/index/images/main.webp',
     '/resource/member/profile_images/profile_default.png'
 ];
 self.addEventListener('install', (event) => {

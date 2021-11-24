@@ -15,6 +15,10 @@
         <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
         <% break;
     } %>
+    <script>
+        const boardType = window.location.pathname.split('/')[2];
+        const postNo = window.location.pathname.split('/')[3];
+    </script>
 </head>
 <body>
     <%- include('../common/header') %>
@@ -38,208 +42,24 @@
             <div class="board">
             <% if(postNo!=null){ %>
                 <div class="post">
-                    <script>
-                        const postRefresh = () => {
-                            $.ajax({
-                                type:'GET',
-                                url:apiUrl+'/post/<%= boardType %>/<%= postNo %>',
-                                cache:false,
-                                success:data => {
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                    }else{
-                                        $('.post .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
-                                        $('.post_info.post_title').text(data.postTitle);
-                                        $('.post_info.post_date').text(data.postDate);
-                                        $('.post_info.post_hit').text(data.postHit);
-                                        $('.post_info.post_comments').text(data.postComments);
-                                        $('.post_info.member_nickname').html('<a href="/memberinfo/'+data.memberCode+'">'+data.memberNickname+'</a>');
-                                        $('.post_info.post_content div').html(data.postContent);
-                                        if(data.like>0){
-                                            $('.like_button').addClass('on');
-                                            $('.dislike_button').removeClass('on');
-                                        }else if(data.like<0){
-                                            $('.like_button').removeClass('on');
-                                            $('.dislike_button').addClass('on');
-                                        }else{
-                                            $('.like_button').removeClass('on');
-                                            $('.dislike_button').removeClass('on');
-                                        }
-                                        $('.post_like').text(data.postLike);
-                                        $('.note-video-clip').each(function(){
-                                            let tmp = $(this).wrap('<p/>').parent().html();
-                                            $(this).parent().html('<div class="video-container">'+tmp+'</div>');
-                                        });
-                                        postMenu(data.permission);
-                                        commentRefresh();
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                        postRefresh();
-                        const postDelete = () => {
-                            $.ajax({
-                                type:'DELETE',
-                                url:apiUrl+'/post/<%= boardType %>/<%= postNo %>',
-                                cache:false,
-                                success:data => {
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                        refresh = false;
-                                    }else{
-                                        window.location.href="/board/<%= boardType %>";
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                    </script>
                     <div class="post_info_wrap">
-                        <div class="left_wrap"></div>
+                        <div class="left_wrap"><img src="/resource/member/profile_images/profile_{{memberCode}}.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
                         <div class="right_wrap">
-                            <div class="post_info post_title"></div>
-                            <div class="post_info post_date"><p></p></div>
-                            <div class="post_info post_hit"><p></p></div>
-                            <div class="post_info post_comments"><p></p></div>
-                            <div class="post_info member_nickname"></div>
+                            <div class="post_title">{{postTitle}}</div>
+                            <div class="post_date">{{postDate}}</div>
+                            <div class="post_hit">{{postHit}}</div>
+                            <div class="post_comments">{{postComments}}</div>
+                            <div class="member_nickname"><a href="/memberinfo/{{memberCode}}">{{memberNickname}}</a></div>
                             </div>
                         </div>
-                    <div class="post_info post_content"><div></div></div>
+                    <div class="post_content"><div v-html="postContent"></div></div>
+                    <div class="post_like_wrap post_like">
+                        <button class="button like_button" onclick="likeSend(1);" v-bind:class="{on:like>0}">좋아요</button>
+                        <span class="post_like_cnt">{{postLike}}</span>
+                        <button class="button dislike_button" onclick="likeSend(-1);" v-bind:class="{on:like<0}">싫어요</button>
+                    </div>
                 </div>
-                <div class="post_like_wrap">
-                    <button class="button like_button" onclick="likeSend(1);">좋아요</button>
-                    <span class="post_like"></span>
-                    <button class="button dislike_button" onclick="likeSend(-1);">싫어요</button>
-                </div>
-                <script>
-                    let like;
-                    const likeSend = like => {
-                        $.ajax({
-                            type:'POST',
-                            data:{
-                                like:like,
-                            },
-                            url:apiUrl+'/like/<%= boardType %>/<%= postNo %>',
-                            cache:false,
-                            success:data => {
-                                data=JSON.parse(data);
-                                if(data.status!=1){
-                                    error_code(data.status, data.subStatus);
-                                    refresh = false;
-                                }else{
-                                    if(data.like>0){
-                                        $('.like_button').addClass('on');
-                                        $('.dislike_button').removeClass('on');
-                                    }else if(data.like<0){
-                                        $('.like_button').removeClass('on');
-                                        $('.dislike_button').addClass('on');
-                                    }else{
-                                        $('.like_button').removeClass('on');
-                                        $('.dislike_button').removeClass('on');
-                                    }
-                                    $('.post_like').text(data.postLike);
-                                }
-                            },
-                            error:data => {
-                                error_code(0, 0);
-                            } 
-                        });
-                    }
-                </script>
                 <div class="comment_list">
-                    <script>
-                        const commentRefresh = () => {
-                            $.ajax({
-                                type:'GET',
-                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
-                                cache:false,
-                                success:data => {
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                    }else{
-                                        data=data.arrComment;
-                                        comments = "";
-                                        for(let i=0;i<Object.keys(data).length;i++){
-                                            let comment = "";
-                                            comment += '<div class="comment_item_wrap">';
-                                                comment += '<div class="comment_item_info_wrap">';
-                                                    comment += '<div class="left_wrap">';
-                                                        comment += `<img src="/resource/member/profile_images/profile_`+data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`;
-                                                    comment += '</div>';
-                                                    comment += '<div class="right_wrap">';
-                                                        comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
-                                                        comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
-                                                    comment += '</div>';
-                                                comment += '</div>';
-                                                comment += '<div class="comment_item_content">'+data[i].comment+'</div>';
-                                            comment += '</div>';
-                                            if(data[i].permission){
-                                                comment += `<div class="comment_menu"><button class="button red_button" onclick="commentDelete(`+data[i].idx+`);">댓글 삭제</button></div>`;
-                                            }
-                                            comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                                        }
-                                        $('.comment_list .comment').html(comments);
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                        const commentDelete = commentIndex => {
-                            $.ajax({
-                                type:'DELETE',
-                                data:{
-                                    commentIndex:commentIndex,
-                                },
-                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
-                                cache:false,
-                                success:data => {
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                        refresh = false;
-                                    }else{
-                                        commentRefresh();
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                        const comment_write = () => {
-                            $.ajax({
-                                type:'POST',
-                                data:{
-                                    comment:$('.post_comment').val(),
-                                },
-                                url:apiUrl+'/comment/<%= boardType %>/<%= postNo %>',
-                                cache:false,
-                                success:data => {
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                        refresh = false;
-                                    }else{
-                                        $('.post_comment').val("");
-                                        commentRefresh();
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                    </script>
                     <div class="comment"></div>
                 </div>
                 <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write();return false;">
@@ -252,13 +72,9 @@
                     <span class="post_delete"></span>
                     <span class="post_modify"></span>
                 </div>
+                <script src="/js/board/post.js"></script>
                 <script>
-                    const postMenu = permission => {
-                        if(permission){
-                            $('.post_delete').html(`<div class="button red_button" onclick="postDelete();">글 삭제</div>`);
-                            $('.post_modify').html('<a class="button blue_button" href="/board/write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
-                        }
-                    }
+                    postRefresh();
                 </script>
             <% } %>
                 <div class=board_list>
