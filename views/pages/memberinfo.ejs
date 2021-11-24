@@ -32,7 +32,6 @@
                         </div>
                     </div>
                 </div>
-                <br>
                 <script>
                     const member_info = () =>{
                         $.ajax({
@@ -65,7 +64,7 @@
                     <input type="file" name="file" required>
                     <button type="submit" class="button">프로필 이미지 업로드</button>
                 </form>
-                <div class="button" onClick="$('.pw_modify_box').trigger('addClass');">비밀번호 변경</div>
+                <div class="button" onClick="$('.pw_reset_box').trigger('addClass');">비밀번호 재설정</div>
                 <% } %>
             </div>
             <script>
@@ -94,47 +93,7 @@
                         }
                     });
                 }
-                const pw_modify = () =>{
-                    $.ajax({
-                        type:'POST',
-                        data:{
-                            command_type:'modify',
-                            modify_type:'pw',
-                            member_pw:$('.pw_modify .member_pw').val(),
-                            modify_member_pw:$('.pw_modify .modify_member_pw').val(),
-                            modify_member_pw_check:$('.pw_modify .modify_member_pw_check').val(),
-                        },
-                        url:db_url,
-                        cache:false,
-                        success:function(data){
-                            data=JSON.parse(data);
-                            if(data.status!=1){
-                                error_code(data.status, data.subStatus);
-                            }else{
-                                alert("비밀번호 수정이 완료되었습니다.\n다시 로그인 해주세요.");
-                                window.location.href=data.returnUrl;
-                            }
-                        },
-                        error: function(data) {
-                            error_code(0, 0);
-                        }
-                    });
-                }
             </script>
-        </div>
-        <div class="pw_modify_box popup center">
-            <h2>비밀번호 수정</h2>
-            <br>
-            <form class="pw_modify" method="post" autocomplete="off" onsubmit="pw_modify();return false;">
-                <input type="password" class="member_pw" placeholder="현재 비밀번호" required autofocus>
-                <br>
-                <input type="password" class="modify_member_pw" placeholder="수정할 비밀번호" required>
-                <br>
-                <input type="password" class="modify_member_pw_check" placeholder="수정할 비밀번호 재입력" required>
-                <br><br>
-                <div class="button" onClick="$('.pw_modify_box').trigger('removeClass');">닫기</div>
-                <button type="submit" class="button">비밀번호 수정</button>
-            </form>
         </div>
     </main>
     <%- include('../common/loginBox') %>

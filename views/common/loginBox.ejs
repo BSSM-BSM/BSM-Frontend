@@ -52,16 +52,16 @@
             }
         });
     }
-    function pw_reset(){
+    const pwEdit = () => {
         $.ajax({
             type:'POST',
             data:{
                 member_pw:$('.pw_reset .member_pw').val(),
                 member_pw_check:$('.pw_reset .member_pw_check').val(),
             },
-            url:apiUrl+'/account/pwReset',
+            url:apiUrl+'/account/pwEdit',
             cache:false,
-            success:function(data){
+            success:data => {
                 data=JSON.parse(data);
                 if(data.status!=1){
                     error_code(data.status, data.subStatus);
@@ -70,7 +70,7 @@
                     $('.pw_reset_box').trigger('removeClass');
                 }
             },
-            error:function(data) {
+            error:data => {
                 error_code(0, 0);
             }
         });
@@ -139,9 +139,9 @@
     </form>
 </div>
 <div class="pw_reset_box popup center">
-    <h2>비밀번호 재설정이 필요합니다</h2>
+    <h2>비밀번호 재설정</h2>
     <br>
-    <form class="pw_reset" method="post" autocomplete="off" onsubmit="pw_reset();return false;">
+    <form class="pw_reset" method="post" autocomplete="off" onsubmit="pwEdit();return false;">
         <input type="password" class="member_pw" placeholder="재설정할 비밀번호" required>
         <br>
         <input type="password" class="member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
@@ -164,4 +164,4 @@
         <div class="button" onClick="$('.valid_code_box').trigger('removeClass');">닫기</div>
         <button type="submit" class="button">인증코드 발급</button>
     </form>
-  </div>
+</div>
