@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video
 {
   margin:0;padding:0;
@@ -8,11 +7,28 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   -moz-box-sizing: border-box;
   border-collapse: collapse;
 }
+:root{
+  --black: #000;
+  --gray: #C0C0C0;
+  --white: #FFF;
+
+  --main: #6495ED;
+  --text: #202124;
+  --background: #FFF;
+
+  --input: rgba(192, 192, 192, .2);
+
+  --menu-background: rgba(255, 255, 255, .5);
+
+  --dim: rgba(0, 0, 0, .5);
+  --shadow: rgba(0, 0, 0, .5);
+  --hover: rgba(0, 0, 0, .2);
+}
 html{
   font-size:10px; height:100%;
 }
 body{
-  background-color:#fff; color:#202124; font-size:1.5rem; font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
+  background-color:var(--background); color:var(--text); font-size:1.5rem; font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
   background-position:center;
   background-repeat:no-repeat;
   background-attachment:fixed;
@@ -24,7 +40,7 @@ body{
 }
 footer{
   padding:15px 0; bottom:0; width:100%; font-size:15px; text-align:center; font-weight:bold;
-  background-color:#C0C0C0;
+  background-color:var(--gray);
 }
 .container{
   width:1200px;
@@ -46,7 +62,7 @@ footer{
   text-align:left;
 }
 .title{
-  color:#202124;
+  color:var(--text);
   position:relative;
   overflow:hidden;
   padding:20rem 0 2.5rem 0;
@@ -82,7 +98,7 @@ p{
   font-size:1.5rem;
 }
 a{
-  text-decoration:none; color:#202124; cursor:pointer;
+  text-decoration:none; color:var(--text); cursor:pointer;
 }
 img{
   width:auto;
@@ -94,7 +110,7 @@ span{
   height:5rem; padding:1.2rem; filter:brightness(20%);
 }
 .overlay-fadein{
-  pointer-events:none;position:fixed; left:0; top:0; z-index:999; width:100%; height:100%; background:#000;
+  pointer-events:none;position:fixed; left:0; top:0; z-index:999; width:100%; height:100%; background:var(--black);
   animation:fadein 500ms ease-out;
   opacity:0;
 }
@@ -121,15 +137,11 @@ main::-webkit-scrollbar-track{
   position:fixed; left:0; top:0; z-index:99; width:100%; height:100%; transition:.15s;
 }
 .dim.search_close.on{
-  background-color:rgba(0, 0, 0, .25);
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  background-color:var(--dim)
 }
 .dim.popup_close.on{
   z-index:100;
-  background-color:rgba(0, 0, 0, .25);
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  background-color:var(--dim)
 }
 .dim:not(.on){
   pointer-events:none;
@@ -153,11 +165,11 @@ header{
   position:fixed; z-index:100; top:0; width:100%;
 }
 header *{
-  color:#202124; font-weight: bold;
+  color:var(--text); font-weight: bold;
 }
 header nav{
-  box-shadow:10px 10px 50px rgba(0, 0, 0, .5);
-  background-color:rgba(255, 255, 255, 0.4);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--menu-background);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
 }
@@ -180,7 +192,7 @@ header.on nav .top_menu{
   width:3rem;
   height:.3rem;
   border-radius:10px;
-  background-color:#202124;
+  background-color:var(--black);
   display:block;
   margin:.5rem;
   transition:all 0.4s ease-in-out;
@@ -242,15 +254,14 @@ header.on nav .top_menu{
   padding-left:1.5rem;
 }
 .top_menu_item:hover{
-  box-shadow:10px 10px 50px rgba(0, 0, 0, .5);
-  background-color:rgba(0, 0, 0, .2);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--hover);
 }
 .top_menu_item.searchBar{
-  width:20rem;
   position:relative;
 }
 .top_menu_item.searchBar input{
-  width:100%;
+  width:20rem;
   padding:1.7rem 1rem;
   border:0;
   background-color:rgba(0, 0, 0, 0);
@@ -270,8 +281,8 @@ header.on nav .top_menu{
   font-size:1.6rem;
   z-index: 100;
   border-radius:.5rem;
-  box-shadow:10px 10px 50px rgba(0, 0, 0, .5);
-  background-color:rgba(255, 255, 255, 0.5);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--menu-background);
 }
 .dropdown_content li:first-child{
   border-radius:.5rem .5rem 0rem 0rem;
@@ -280,7 +291,7 @@ header.on nav .top_menu{
   border-radius:0rem 0rem .5rem .5rem;
 }
 .dropdown_content li:hover {
-  background-color:rgba(192, 192, 192, .5);
+  background-color:var(--hover);
 }
 .dropdown_content li a{
   display:inline-block;
@@ -290,9 +301,7 @@ header.on nav .top_menu{
 .dropdown_menu:hover .dropdown_content {opacity:1;pointer-events:unset;}
 
 div.side_menu{
-  background-color:rgba(255, 255, 255, 0.5); position:fixed; z-index:100; left:-120%; top:0; padding:0 1.5rem; width:30rem; height:100%;
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  background-color:var(--background); position:fixed; z-index:100; left:-120%; top:0; padding:0 1.5rem; width:30rem; height:100%;
   transition:left .4s;
 }
 div.side_menu.on{
@@ -309,8 +318,8 @@ div.side_menu ul li.home a img{
   margin-left:auto; margin-right:auto; height:3.2rem; padding:0;
 }
 div.side_menu ul li:hover:not(.home){
-  box-shadow:10px 10px 50px rgba(0, 0, 0, .5);
-  background-color:rgba(0, 0, 0, .2);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--hover);
 }
 div.side_menu ul li *{
   display:block; padding:1.2rem;
@@ -325,8 +334,8 @@ div.alert{
   padding:0 !important;
 }
 input, textarea{
-  border:none; color:#202124; width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
-  background-color:rgba(192, 192, 192, 0.2);
+  border:none; color:var(--text); width:400px; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
+  background-color:var(--input);
   transition:.25s;
 }
 input[type=number]{
@@ -334,16 +343,17 @@ input[type=number]{
   padding:1rem .5rem;
 }
 input::placeholder, textarea::placeholder{
-  color:#202124;
+  color:var(--text);
 }
 input:hover, textarea:hover{
-  background-color:rgba(0, 0, 0, .2);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--hover);
 }
 input:focus, textarea:focus{
   box-shadow:0 0 2rem 0 #6495ED;
 }
 .button{
-  position:relative; width:auto; color:#FFF; border:none; margin:0 .5rem; padding:1.5rem 2.5rem; text-align:center; text-decoration:none; display:inline-block; font-size:1.5rem; font-weight:bold; cursor:pointer; border-radius:7px;
+  position:relative; width:auto; color:var(--white); border:none; margin:0 .5rem; padding:1.5rem 2.5rem; text-align:center; text-decoration:none; display:inline-block; font-size:1.5rem; font-weight:bold; cursor:pointer; border-radius:7px;
   background-color:#6495ED;
   transition:.25s;
 }
@@ -360,11 +370,11 @@ input:focus, textarea:focus{
   background-color:#FF7F50;
 }
 .button:hover{
-  box-shadow:10px 10px 50px rgba(0, 0, 0, .5);
-  background-color:rgba(0, 0, 0, .2);
+  box-shadow:10px 10px 50px var(--shadow);
+  background-color:var(--hover);
 }
 .none_active{
-  background-color:#C0C0C0;
+  background-color:var(--gray);
   cursor:not-allowed;
 }
 .download_button_wrap{
@@ -398,8 +408,8 @@ input:focus, textarea:focus{
   transform:translate(-50%,-50%);
   padding: 3rem 1rem;
   border-radius:2rem;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgb(255, 255, 255);
+  box-shadow:20px 20px 50px var(--shadow);
+  background-color:var(--background);
   z-index:1000;
 }
 .popup:not(.on){
@@ -412,8 +422,8 @@ input:focus, textarea:focus{
   z-index:1001;
   display:flex;
   flex-direction:column-reverse;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgb(255, 255, 255);
+  box-shadow:20px 20px 50px var(--shadow);
+  background-color:var(--background);
   border-radius:1rem;
   overflow:hidden;
 }
@@ -448,7 +458,7 @@ input:focus, textarea:focus{
   animation:toast_hide 250ms ease-out;
 }
 .toast:hover{
-  background-color:rgba(192,192,192,.2);
+  background-color:var(--hover);
 }
 .searchBar .searchResult{
   display:none;
@@ -460,8 +470,8 @@ input:focus, textarea:focus{
 .searchResult{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
-  background-color:rgb(255, 255, 255);
+  box-shadow:20px 20px 50px var(--shadow);
+  background-color:var(--background);
 }
 .searchBar .searchResult.on{
   display:block;
@@ -577,7 +587,9 @@ td, th{
   }
   .top_menu_item.searchBar{
     flex:1;
-    position:unset;
+  }
+  .top_menu_item.searchBar input{
+    width:100%;
   }
   .searchBar .searchResult{
     width:100%;
