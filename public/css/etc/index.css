@@ -48,7 +48,7 @@ h5{
   box-shadow:0 0 25px rgba(0, 0, 0, 0.5);
 }
 section{
-  background-color:#FFF;
+  background-color:var(--background);
   padding: 5rem 0;
 }
 section#main{
@@ -119,7 +119,7 @@ section#download{
     width:auto;
   }
   .main_logo{
-    height:105px;
+    height:96px;
   }
   h1.main{
     font-size:3.2rem;

@@ -18,11 +18,32 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
   --input: rgba(192, 192, 192, .2);
 
-  --menu-background: rgba(255, 255, 255, .5);
+  --menu-background: #FFFFFF88;
 
   --dim: rgba(0, 0, 0, .5);
   --shadow: rgba(0, 0, 0, .5);
   --hover: rgba(0, 0, 0, .2);
+  --bright: brightness(0);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --black: #000;
+    --gray: #525252;
+    --white: #FFF;
+
+    --main: #4682B4;
+    --text: #e8eaed;
+    --background: #202124;
+
+    --input: rgba(192, 192, 192, .2);
+
+    --menu-background: #20212488;
+
+    --dim: rgba(0, 0, 0, .5);
+    --shadow: rgba(0, 0, 0, .5);
+    --hover: #80808066;
+    --bright: brightness(20);
+  }
 }
 html{
   font-size:10px; height:100%;
@@ -101,13 +122,13 @@ a{
   text-decoration:none; color:var(--text); cursor:pointer;
 }
 img{
-  width:auto;
+  width:auto; filter:brightness(1);
 }
 span{
   display:inline-block;
 }
 .logo img{
-  height:5rem; padding:1.2rem; filter:brightness(20%);
+  height:5rem; padding:1.2rem;
 }
 .overlay-fadein{
   pointer-events:none;position:fixed; left:0; top:0; z-index:999; width:100%; height:100%; background:var(--black);
@@ -192,9 +213,10 @@ header.on nav .top_menu{
   width:3rem;
   height:.3rem;
   border-radius:10px;
-  background-color:var(--black);
+  background-color:var(--text);
   display:block;
   margin:.5rem;
+  filter:var(--bright);
   transition:all 0.4s ease-in-out;
 }
 .all_menu.on .line:nth-child(1){
@@ -218,6 +240,7 @@ header.on nav .top_menu{
 }
 .top_menu_item.home a img{
   height:5rem; padding:1.2rem 2rem; float:left;
+  filter:var(--bright);
 }
 .top_menu{
   margin:0 auto; padding:1.5rem 0; width:1320px; display:flex;
@@ -350,11 +373,11 @@ input:hover, textarea:hover{
   background-color:var(--hover);
 }
 input:focus, textarea:focus{
-  box-shadow:0 0 2rem 0 #6495ED;
+  box-shadow:0 0 2rem 0 var(--main);
 }
 .button{
   position:relative; width:auto; color:var(--white); border:none; margin:0 .5rem; padding:1.5rem 2.5rem; text-align:center; text-decoration:none; display:inline-block; font-size:1.5rem; font-weight:bold; cursor:pointer; border-radius:7px;
-  background-color:#6495ED;
+  background-color:var(--main);
   transition:.25s;
 }
 .green_button{
