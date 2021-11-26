@@ -1,7 +1,9 @@
 const postView = new Vue({
     el:'.post',
     data:{
+        memberProfileUrl:'',
         memberProfile:'',
+        memberInfoUrl:'',
         postTitle:'',
         postDate:'',
         postHit:'',
@@ -23,6 +25,8 @@ const postRefresh = () => {
                 error_code(data.status, data.subStatus);
             }else{
                 postView.memberCode=data.memberCode;
+                postView.memberProfileUrl=`/resource/member/profile_images/profile_${data.memberCode}.png`;
+                postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
                 postView.postTitle=data.postTitle;
                 postView.postDate=data.postDate;
                 postView.postHit=data.postHit;
@@ -67,7 +71,7 @@ const postDelete = () => {
 const postMenu = permission => {
     if(permission){
         $('.post_delete').html(`<div class="button red_button" onclick="postDelete();">글 삭제</div>`);
-        $('.post_modify').html('<a class="button blue_button" href="/board/write/<%= boardType %>/<%= postNo %>">게시글 수정</a>');
+        $('.post_modify').html(`<a class="button blue_button" href="/board/write/${boardType}/${postNo}">게시글 수정</a>`);
     }
 }
 const likeSend = like => {
