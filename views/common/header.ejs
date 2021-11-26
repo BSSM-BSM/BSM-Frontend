@@ -9,7 +9,7 @@
     <nav>
         <div class="top_menu">
             <div class="left_wrap">
-                <span class="top_menu_item home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></span>
+                <span class="top_menu_item home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></span>
                 <span class="top_menu_item all_menu">
                     <span class="line_wrap">
                         <span class="line"></span>
@@ -87,7 +87,7 @@
     </nav>
     <div class="side_menu">
         <ul>
-            <li class="home"><a href="/"><img src="/icons/logo.png" alt="로고"></a></li>
+            <li class="home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></li>
             <% if(member.isLogin){ %>
             <li class="user_menu"><a href="/memberinfo/<%= member.code %>"><%- memberLevel[member.level]+member.nickname %></a></li>
             <li class="logout"><a href="/logout">로그아웃</a></li>
