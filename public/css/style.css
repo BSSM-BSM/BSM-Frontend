@@ -11,6 +11,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --black: #000;
   --gray: #C0C0C0;
   --white: #FFF;
+  --green: #90EE90;
+  --red: #FF7F50;
 
   --main: #6495ED;
   --text: #202124;
@@ -30,6 +32,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     --black: #000;
     --gray: #525252;
     --white: #FFF;
+    --green: #72c472;
+    --red: #db6d45;
 
     --main: #4682B4;
     --text: #e8eaed;
@@ -128,7 +132,7 @@ span{
   display:inline-block;
 }
 .logo img{
-  height:5rem; padding:1.2rem;
+  height:5rem; padding:1.2rem; filter:var(--bright);
 }
 .overlay-fadein{
   pointer-events:none;position:fixed; left:0; top:0; z-index:999; width:100%; height:100%; background:var(--black);
@@ -162,6 +166,10 @@ main::-webkit-scrollbar-track{
 }
 .dim.popup_close.on{
   z-index:100;
+  background-color:var(--dim)
+}
+.dim.menu_close.on{
+  z-index:99;
   background-color:var(--dim)
 }
 .dim:not(.on){
@@ -240,7 +248,6 @@ header.on nav .top_menu{
 }
 .top_menu_item.home a img{
   height:5rem; padding:1.2rem 2rem; float:left;
-  filter:var(--bright);
 }
 .top_menu{
   margin:0 auto; padding:1.5rem 0; width:1320px; display:flex;
@@ -381,16 +388,16 @@ input:focus, textarea:focus{
   transition:.25s;
 }
 .green_button{
-  background-color:#90EE90;
+  background-color:var(--green);
 }
 .red_button{
-  background-color:#FF7F50;
+  background-color:var(--red);
 }
 .like_button.on{
-  background-color:#90EE90;
+  background-color:var(--green);
 }
 .dislike_button.on{
-  background-color:#FF7F50;
+  background-color:var(--red);
 }
 .button:hover{
   box-shadow:10px 10px 50px var(--shadow);

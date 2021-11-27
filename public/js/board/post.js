@@ -1,7 +1,6 @@
 const postView = new Vue({
     el:'.post',
     data:{
-        memberProfileUrl:'',
         memberProfile:'',
         memberInfoUrl:'',
         postTitle:'',
@@ -25,7 +24,7 @@ const postRefresh = () => {
                 error_code(data.status, data.subStatus);
             }else{
                 postView.memberCode=data.memberCode;
-                postView.memberProfileUrl=`/resource/member/profile_images/profile_${data.memberCode}.png`;
+                postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
                 postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
                 postView.postTitle=data.postTitle;
                 postView.postDate=data.postDate;

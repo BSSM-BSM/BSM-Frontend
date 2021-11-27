@@ -18,6 +18,7 @@
     <script>
         const boardType = window.location.pathname.split('/')[2];
         const postNo = window.location.pathname.split('/')[3];
+        const page = window.location.pathname.split('/')[4];
     </script>
 </head>
 <body>
@@ -43,7 +44,7 @@
             <% if(postNo!=null){ %>
                 <div class="post">
                     <div class="post_info_wrap">
-                        <div class="left_wrap"><img :src="memberProfileUrl" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
+                        <div class="left_wrap"><img :src="memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
                         <div class="right_wrap">
                             <div class="post_title">{{postTitle}}</div>
                             <div class="post_date">{{postDate}}</div>
@@ -78,76 +79,28 @@
                 </script>
             <% } %>
                 <div class=board_list>
-                    <div class="board_type">
-                    </div>
-                    <div class="table_main"></div>
-                    <script>
-                        const boardRefresh = () => {
-                            $.ajax({
-                                type:'GET',
-                                url:apiUrl+'/board/<%= boardType %><% if(page!=null) %>?page=<%= page %>',
-                                cache:false,
-                                success:(data)=>{
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                    }else{
-                                        let date = new Date()
-                                        let today = ""+date.getFullYear()
-                                        if((date.getMonth()+1)<10){
-                                            today+='0'
-                                        }
-                                        today+=(date.getMonth()+1)
-                                        if(date.getDate()<10){
-                                            today+='0'
-                                        }
-                                        today+=date.getDate()
-                                        boardData=data.arrBoard;
-                                        boards = "";
-                                        for(let i=0;i<Object.keys(boardData).length;i++){
-                                            let board = "";
-                                            board += '<div class="board_item left_wrap">'
-                                                if(boardData[i].postComments>=1){
-                                                    board += '<span class="post_comments active">'+boardData[i].postComments+ '</span>'
-                                                }else{
-                                                    board += '<span class="post_comments">'+boardData[i].postComments+ '</span>'
-                                                }
-                                            board += '</div>'
-                                            board += '<div class="board_item right_wrap">'
-                                                board += '<div class="board_item top_wrap">'
-                                                    board += '<a href="/board/' +boardData[i].boardType+ '/' +boardData[i].postNo+ '<% if(page!=null){ %>?page=<%= page %><%}%>"class="post_title">' +boardData[i].postTitle+'</a>';
-                                                board += '</div>'
-                                                board += '<div class="board_item bottom_wrap">'
-                                                    board += '<div class="board_item_info left_wrap">'
-                                                        board += `<span class="member_info"><img src="/resource/member/profile_images/profile_`+boardData[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"><a href="/memberinfo/`+boardData[i].memberCode+`">`+memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname+`</a></span>`;
-                                                    board += '</div>'
-                                                    board += '<div class="board_item_info right_wrap">'
-                                                    if(boardData[i].postLike>=1){
-                                                        board += '<span class="board_item_post_info like active">'+boardData[i].postLike+'</span>';
-                                                    }else if(boardData[i].postLike<0){
-                                                        board += '<span class="board_item_post_info like">'+boardData[i].postLike+'</span>';
-                                                    }
-                                                    board += '<span class="board_item_post_info hit">'+boardData[i].postHit+'</span>';
-                                                    if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
-                                                        board += '<span class="board_item_post_info date">'+boardData[i].postDate.split(' ')[1]+'</span>';
-                                                    else
-                                                        board += '<span class="board_item_post_info date">'+boardData[i].postDate.split(' ')[0]+'</span>';
-                                                    board += '</div>'
-                                                board += '</div>'
-                                            board += '</div>'
-                                            boards += '<span class="board_item_wrap">'+board+'</span>';
-                                        }
-                                        $('.board_list .table_main').html(boards);
-                                        //$('.page_num').html(data.pageNum);
-                                    }
-                                },
-                                error:data => {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                        boardRefresh();
-                    </script>
+                    <span class="board_item_wrap" v-for="post in posts">
+                        <div class="board_item left_wrap">
+                            <span class="post_comments">{{post.postComments}}</span>
+                        </div>
+                        <div class="board_item right_wrap">
+                            <div class="board_item top_wrap">
+                                <a :href="post.postUrl" class="post_title">{{post.postTitle}}</a>
+                            </div>
+                            <div class="board_item bottom_wrap">
+                                <div class="board_item_info left_wrap">
+                                    <span class="member_info">
+                                        <img :src="post.memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                                        <a :href="post.memberProfileUrl" v-html="post.memberNickname"></a>
+                                    </span>
+                                </div>
+                                <div class="board_item_info right_wrap">
+                                    <span class="board_item_post_info hit">{{post.postHit}}</span>
+                                    <span class="board_item_post_info date">{{post.postDate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
                 </div>
                 <div class="board_bottom_menu">
                     <div class="board_menu_item board_refresh_button">
@@ -155,11 +108,13 @@
                     </div>
                     <div class="board_menu_item page_num"></div>
                     <div class="board_menu_item post_write_button">
-                        <% if(member.isLogin){ %>
-                            <a href="/board/write/<%= boardType %>" class="button blue_button">글쓰기</a>
-                        <% } %>
+                        <a :href="writeUrl" class="button blue_button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
                     </div>
                 </div>
+                <script src="/js/board/board.js"></script>
+                <script>
+                    boardRefresh();
+                </script>
             </div>
         </div>
     </main>
