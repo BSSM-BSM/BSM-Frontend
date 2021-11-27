@@ -81,7 +81,7 @@
                 <div class=board_list>
                     <span class="board_item_wrap" v-for="post in posts">
                         <div class="board_item left_wrap">
-                            <span class="post_comments">{{post.postComments}}</span>
+                            <span class="post_comments" v-bind:class="{active:post.postComments>0}">{{post.postComments}}</span>
                         </div>
                         <div class="board_item right_wrap">
                             <div class="board_item top_wrap">
@@ -95,6 +95,7 @@
                                     </span>
                                 </div>
                                 <div class="board_item_info right_wrap">
+                                    <span class="board_item_post_info like" v-bind:class="{active:post.postLike>0}" v-show="post.postLike!=0">{{post.postLike}}</span>
                                     <span class="board_item_post_info hit">{{post.postHit}}</span>
                                     <span class="board_item_post_info date">{{post.postDate}}</span>
                                 </div>
@@ -108,7 +109,7 @@
                     </div>
                     <div class="board_menu_item page_num"></div>
                     <div class="board_menu_item post_write_button">
-                        <a :href="writeUrl" class="button blue_button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
+                        <a :href="writeUrl" class="button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
                     </div>
                 </div>
                 <script src="/js/board/board.js"></script>
