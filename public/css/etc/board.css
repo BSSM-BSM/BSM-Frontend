@@ -80,7 +80,7 @@
 }
 .board_item_post_info{
   margin-right:1rem;
-  color:#DDD;
+  color:#AAA;
 }
 .board_item_post_info.hit::after{
   content:' 조회';

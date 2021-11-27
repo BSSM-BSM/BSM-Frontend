@@ -69,7 +69,7 @@
             <script>
                 const agent = navigator.userAgent.toLowerCase();
                 if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
-                    document.write('<div class="notice warning">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
+                    document.write('<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>');
                 }
                 window.addEventListener('online', ()=>{
                     if($$('.notice_bar .offline').length){
@@ -77,10 +77,10 @@
                     }
                 })
                 window.addEventListener('offline', ()=>{
-                    $$('.notice_bar')[0].innerHTML+='<div class="notice alert offline">인터넷에 연결되어있지 않습니다.</div>'
+                    $$('.notice_bar')[0].innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
                 })
                 if(!window.navigator.onLine){
-                    $$('.notice_bar')[0].innerHTML+='<div class="notice alert offline">인터넷에 연결되어있지 않습니다.</div>'
+                    $$('.notice_bar')[0].innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
                 }
             </script>
         </div>
@@ -109,4 +109,5 @@
 <div class="dim menu_close"></div>
 <div class="dim popup_close"></div>
 <div class="dim search_close"></div>
+<div class="alert_wrap"></div>
 <div class="toast_wrap"></div>

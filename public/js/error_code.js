@@ -46,7 +46,7 @@ function error_code(status, subStatus){
             case 4:
                 switch(subStatus){
                     case 1:
-                        toast('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
                         $('.login_box').trigger('addClass');
                         break;
                     case 2:
@@ -59,6 +59,6 @@ function error_code(status, subStatus){
                 break;
         }
     }else{
-        toast('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
     }
 }

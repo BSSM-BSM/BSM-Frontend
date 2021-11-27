@@ -55,7 +55,7 @@ const boardMenu = new Vue({
     el:'.board_bottom_menu',
     data:{
         isLogin:false,
-        writeUrl:'#'
+        writeUrl:'javascript:error_code(4, 1);'
     }
 })
 if(member.isLogin){
