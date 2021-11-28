@@ -103,6 +103,10 @@
     }
 </script>
 <div class="login_box popup center">
+    <div class="popup_close_button x_button" onClick="$('.login_box').trigger('removeClass');">
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
     <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
     <h2>로그인</h2>
     <br><br>
@@ -113,11 +117,14 @@
         <br><br>
         <a onClick="$('.sign_up_box').trigger('addClass');">계정이 없으신가요? 회원가입</a>
         <br><br>
-        <div class="button" onClick="$('.login_box').trigger('removeClass');">닫기</div>
-        <button type="submit" class="button">로그인</button>
+        <button type="submit" class="main_button button">로그인</button>
     </form>
 </div>
 <div class="sign_up_box popup center">
+    <div class="popup_close_button x_button" onClick="$('.sign_up_box').trigger('removeClass');">
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
     <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
     <h2>회원가입</h2>
     <br>
@@ -134,11 +141,14 @@
         <br><br>
         <a onClick="$('.valid_code_box').trigger('addClass');">인증코드 발급</a>
         <br><br>
-        <div class="button" onClick="$('.sign_up_box').trigger('removeClass');">닫기</div>
-        <button type="submit" class="button">가입하기</button>
+        <button type="submit" class="main_button button">가입하기</button>
     </form>
 </div>
 <div class="pw_reset_box popup center">
+    <div class="popup_close_button x_button" onClick="$('.pw_reset_box').trigger('removeClass');">
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
     <h2>비밀번호 재설정</h2>
     <br>
     <form class="pw_reset" method="post" autocomplete="off" onsubmit="pwEdit();return false;">
@@ -146,10 +156,14 @@
         <br>
         <input type="password" class="member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
         <br><br>
-        <button type="submit" class="button">비밀번호 재설정</button>
+        <button type="submit" class="main_button button">비밀번호 재설정</button>
     </form>
 </div>
 <div class="valid_code_box popup center">
+    <div class="popup_close_button x_button" onClick="$('.valid_code_box').trigger('removeClass');">
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
     <h2>인증코드 발급</h2>
     <p>인증코드는 학교 이메일계정으로 보내드립니다.</p>
     <br>
@@ -161,7 +175,6 @@
         <br>
         <input type="text" class="studentName" placeholder="이름" required>
         <br><br>
-        <div class="button" onClick="$('.valid_code_box').trigger('removeClass');">닫기</div>
-        <button type="submit" class="button">인증코드 발급</button>
+        <button type="submit" class="main_button button">인증코드 발급</button>
     </form>
 </div>
