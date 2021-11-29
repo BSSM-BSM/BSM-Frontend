@@ -139,7 +139,7 @@
                             if(data.status!=1){
                                 error_code(data.status, data.subStatus);
                             }else{
-                            window.location.href="/board/<%= boardType %>";
+                                window.close();
                             }
                         },
                         error: function(data) {

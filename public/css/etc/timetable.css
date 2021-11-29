@@ -5,7 +5,7 @@
 .class_time{
   width:100%;
   border-radius:2rem;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.3);
+  box-shadow:var(--shadow);
   background-color:rgba(128, 128, 128, 0.2);
 }
 .class_time tbody tr{
@@ -58,14 +58,14 @@
   cursor:pointer;
 }
 .timetable_select ul li.active{
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
   background-color:rgba(128, 128, 128, .2);
 }
 .timetable_select li:hover{
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
   background-color:rgba(0, 0, 0, .2);
 }
-@media screen and (min-width:0px) and (max-width:1319px){
+@media screen and (min-width:0px) and (max-width:1023px){
   .information{
     width:auto;
   }

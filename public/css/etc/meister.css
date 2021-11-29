@@ -23,7 +23,7 @@
     transition:.25s !important;
 }
 .meister > li:hover{
-    box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5) !important;
+    box-shadow:var(--shadow) !important;
     background-color:rgba(192, 192, 192, 0.2) !important;
 }
 .meister > li.bed{
@@ -38,7 +38,7 @@
     font-size:1.8rem !important;
     font-weight:bold !important;
 }
-@media screen and (min-width:0px) and (max-width:1319px){
+@media screen and (min-width:0px) and (max-width:1023px){
     .meister > li{
         width:100% !important;
         height:15rem !important;

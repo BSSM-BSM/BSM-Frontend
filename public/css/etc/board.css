@@ -43,7 +43,7 @@
   justify-content:center;
 }
 .board_item_wrap:hover{
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
   background-color:rgba(192, 192, 192, 0.2);
 }
 .board_item .post_comments{
@@ -166,7 +166,7 @@
 .post_menu{
   display:flex;
   justify-content:space-between;
-  padding:0 5rem;
+  padding:5rem;
 }
 .comment{
   margin:5rem 0;
@@ -179,7 +179,7 @@
   transition:.25s;
 }
 .comment_item:hover{
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
   background-color:rgba(192, 192, 192, 0.2);
 }
 .comment_item_wrap{
@@ -233,7 +233,7 @@
   padding:0rem 5rem;
 }
 .page_num{
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
 }
 .page_num *{
   width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
@@ -253,7 +253,7 @@
 .page_num *:hover{
   text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
   background-color:rgba(32, 32, 32, .5);
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow:var(--shadow);
 }
 .note-editable{
   background-color:rgba(255, 255, 255, .5);
@@ -261,7 +261,7 @@
 .note-editing-area{
   text-align:start;
 }
-@media screen and (min-width:0px) and (max-width:1319px){
+@media screen and (min-width:0px) and (max-width:1023px){
   .board{
     margin-bottom:5rem;
   }
@@ -293,6 +293,9 @@
   }
   .post_info_wrap .post_comments{
     margin-right:1.5rem;
+  }
+  .post_menu{
+    padding:5rem 3%;
   }
   .comment{
     padding:0;

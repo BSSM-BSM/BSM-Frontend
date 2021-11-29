@@ -1,5 +1,5 @@
 @charset "utf-8";
-a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, tt, u, ul, var, video
 {
   margin:0;padding:0;
   box-sizing: border-box;
@@ -23,7 +23,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --menu-background: #FFFFFF88;
 
   --dim: rgba(0, 0, 0, .5);
-  --shadow: rgba(0, 0, 0, .5);
+  --shadow: 1px 1px 10px rgba(0, 0, 0, .2);
   --hover: rgba(0, 0, 0, .2);
   --bright: brightness(0);
 }
@@ -44,7 +44,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     --menu-background: #20212488;
 
     --dim: rgba(0, 0, 0, .5);
-    --shadow: rgba(0, 0, 0, .5);
+    --shadow: 1px 1px 10px rgba(0, 0, 0, .2);
     --hover: #80808066;
     --bright: brightness(20);
   }
@@ -217,7 +217,7 @@ header *{
   color:var(--text); font-weight: bold;
 }
 header nav{
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--menu-background);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
@@ -304,7 +304,7 @@ header.on nav .top_menu{
   padding-left:1.5rem;
 }
 .top_menu_item:hover{
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--hover);
 }
 .top_menu_item.searchBar{
@@ -331,7 +331,7 @@ header.on nav .top_menu{
   font-size:1.6rem;
   z-index: 100;
   border-radius:.5rem;
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--menu-background);
 }
 .dropdown_content li:first-child{
@@ -368,7 +368,7 @@ header.on nav .top_menu{
   margin-left:auto; margin-right:auto; height:3.2rem; padding:0;
 }
 .side_menu ul li:hover:not(.home){
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--hover);
 }
 .side_menu ul li *{
@@ -396,7 +396,7 @@ input::placeholder, textarea::placeholder{
   color:var(--text);
 }
 input:hover, textarea:hover{
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--hover);
 }
 input:focus, textarea:focus{
@@ -423,7 +423,7 @@ input:focus, textarea:focus{
   background-color:var(--red);
 }
 .button:hover{
-  box-shadow:10px 10px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--hover);
 }
 .none_active{
@@ -462,7 +462,7 @@ input:focus, textarea:focus{
   font-weight:bold;
   padding:3rem 1rem;
   border-radius:2rem;
-  box-shadow:20px 20px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--background);
   z-index:1000;
 }
@@ -476,7 +476,7 @@ input:focus, textarea:focus{
   z-index:1001;
   display:flex;
   flex-direction:column-reverse;
-  box-shadow:20px 20px 50px var(--shadow);
+  box-shadow:var(--shadow);
   border-radius:1rem;
   overflow:hidden;
 }
@@ -569,7 +569,7 @@ input:focus, textarea:focus{
 .searchResult{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
-  box-shadow:20px 20px 50px var(--shadow);
+  box-shadow:var(--shadow);
   background-color:var(--background);
 }
 .searchBar .searchResult.on{
