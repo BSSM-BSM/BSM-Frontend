@@ -24,7 +24,7 @@
 }
 .meister > li:hover{
     box-shadow:var(--shadow) !important;
-    background-color:rgba(192, 192, 192, 0.2) !important;
+    background-color:var(--hover) !important;
 }
 .meister > li.bed{
     background-color:rgba(192, 0, 0, 0.4) !important;

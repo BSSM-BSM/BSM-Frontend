@@ -92,7 +92,16 @@
                     <h4>다운로드</h4>
                     <br><br><br><br>
                     <div class="download_button_wrap">
-                        <a class="webapp_install_button download_button button" onclick="if(installed){alert('이미 설치되어있거나 설치할 수 없습니다.');}else{prompt.prompt();if(isIos()&&!isInStandaloneMode()){this.setState({showInstallMessage:true});}}">
+                        <a class="webapp_install_button download_button button" onclick="
+                            if('serviceWorker' in navigator){
+                                if(installed){
+                                    showAlert('이미 설치되어 있습니다.');
+                                }else{
+                                    prompt.prompt();
+                                }
+                            }else{
+                                showAlert('설치할 수 없는 브라우저입니다.');
+                            }">
                             <div class="left_wrap">
                                 <img src="/resource/common/images/download.png" class="download_image">
                             </div>

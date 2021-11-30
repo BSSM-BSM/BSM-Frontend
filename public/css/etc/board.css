@@ -44,7 +44,7 @@
 }
 .board_item_wrap:hover{
   box-shadow:var(--shadow);
-  background-color:rgba(192, 192, 192, 0.2);
+  background-color:var(--hover);
 }
 .board_item .post_comments{
   width:5rem;
@@ -180,7 +180,7 @@
 }
 .comment_item:hover{
   box-shadow:var(--shadow);
-  background-color:rgba(192, 192, 192, 0.2);
+  background-color:var(--hover);
 }
 .comment_item_wrap{
   display:inline-block;
@@ -252,7 +252,7 @@
 }
 .page_num *:hover{
   text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
-  background-color:rgba(32, 32, 32, .5);
+  background-color:var(--hover);
   box-shadow:var(--shadow);
 }
 .note-editable{
