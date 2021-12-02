@@ -50,6 +50,15 @@
                                     $('.member_created').text(data.member.memberCreated.split(' ')[0]+" 가입");
                                     $('.member_enrolled').text(data.member.memberEnrolled+"년 입학");
                                     $('.student_info').text(data.member.memberGrade+"학년 "+data.member.memberClass+"반 "+data.member.memberStudentNo+"번 "+data.member.memberName);
+                                    if(data.member.permission){
+                                        $('.user_profile_menu').html(`
+                                            <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
+                                                <input type="file" name="file" required>
+                                                <button type="submit" class="button">프로필 이미지 업로드</button>
+                                            </form>
+                                            <div class="button" onClick="$('.pw_reset_box').trigger('addClass');">비밀번호 재설정</div>
+                                        `);
+                                    }
                                 }
                             },
                             error:data=>{
@@ -59,13 +68,7 @@
                     }
                     member_info();
                 </script>
-                <% if(member.isLogin){ %>
-                <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
-                    <input type="file" name="file" required>
-                    <button type="submit" class="button">프로필 이미지 업로드</button>
-                </form>
-                <div class="button" onClick="$('.pw_reset_box').trigger('addClass');">비밀번호 재설정</div>
-                <% } %>
+                <div class="user_profile_menu"></div>
             </div>
             <script>
                 const profile_upload = () =>{
