@@ -19,6 +19,10 @@
         let boardType = window.location.pathname.split('/')[2];
         let postNo = window.location.pathname.split('/')[3];
         let page = new URLSearchParams(location.search).get("page");
+        let limit = new URLSearchParams(location.search).get("limit");
+        if(limit==null){
+            limit=15;
+        }
     </script>
 </head>
 <body>
@@ -36,7 +40,6 @@
                 <a href="/board/board">자유게시판</a>
                 <% break;
             } %>
-                <br>
             </div>
         </div>
         <div class="container">
@@ -78,6 +81,16 @@
                     postRefresh();
                 </script>
             <% } %>
+                <div class="board_top_menu">
+                    <span class="dropdown_menu board_limit">
+                        <span class="select button">15개</span>
+                        <ul class="dropdown_content">
+                            <li class="option" onclick="$$('.board_limit .select')[0].innerText=this.innerText;boardLimitChange(parseInt(this.innerText))">10개</li>
+                            <li class="option" onclick="$$('.board_limit .select')[0].innerText=this.innerText;boardLimitChange(parseInt(this.innerText))">15개</li>
+                            <li class="option" onclick="$$('.board_limit .select')[0].innerText=this.innerText;boardLimitChange(parseInt(this.innerText))">20개</li>
+                        </ul>
+                    </span>
+                </div>
                 <div class=board_list>
                     <span class="board_item_wrap" v-for="post in posts">
                         <div class="board_item left_wrap">

@@ -1,7 +1,15 @@
+$$('.board_limit .select')[0].innerText=limit+"개";
 const boardPageChange = (changePage) => {
     page=changePage;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
+    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString())
+    boardRefresh();
+}
+const boardLimitChange = (changeLimit) => {
+    limit=changeLimit;
+    const urlSearch = new URLSearchParams(location.search);
+    urlSearch.set('limit', String(changeLimit));
     history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString())
     boardRefresh();
 }
@@ -22,7 +30,7 @@ const boardView = new Vue({
 const boardRefresh = () => {
     $.ajax({
         type:'GET',
-        url:apiUrl+'/board/'+boardType+'?page='+page,
+        url:apiUrl+'/board/'+boardType+'?page='+page+'&limit='+limit,
         cache:false,
         success:(data)=>{
             data=JSON.parse(data);
