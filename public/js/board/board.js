@@ -1,3 +1,10 @@
+const boardPageChange = (changePage) => {
+    page=changePage;
+    const urlSearch = new URLSearchParams(location.search);
+    urlSearch.set('page', String(changePage));
+    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString())
+    boardRefresh();
+}
 const boardMenu = new Vue({
     el:'.board_bottom_menu',
     data:{
