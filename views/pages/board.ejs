@@ -18,7 +18,7 @@
     <script>
         const boardType = window.location.pathname.split('/')[2];
         const postNo = window.location.pathname.split('/')[3];
-        const page = window.location.pathname.split('/')[4];
+        const page = new URLSearchParams(location.search).get("page");
     </script>
 </head>
 <body>
@@ -107,7 +107,9 @@
                     <div class="board_menu_item board_refresh_button">
                         <button onClick="boardRefresh();" class="button">글 새로고침</button>
                     </div>
-                    <div class="board_menu_item page_num"></div>
+                    <div class="board_menu_item pages">
+                        <a :href="'?page='+page" v-for="page in pages">{{page}}</a>
+                    </div>
                     <div class="board_menu_item post_write_button">
                         <a :href="writeUrl" class="button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
                     </div>

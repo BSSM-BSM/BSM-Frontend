@@ -232,25 +232,21 @@
 .comment_write{
   padding:0rem 5rem;
 }
-.page_num{
+.pages{
   box-shadow:var(--shadow);
+  border-radius:1rem;
+  overflow:hidden;
 }
-.page_num *{
+.pages *{
   width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
   background-color:rgba(192, 192, 192, 0.2);
   transition:.25s;
 }
-.page_num *.active{
+.pages *.active{
   text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
   background-color:rgba(128, 128, 128, .5);
 }
-.page_num *:first-child{
-  border-radius:1rem 0rem 0rem 1rem;
-}
-.page_num *:last-child{
-  border-radius:0rem 1rem 1rem 0rem;
-}
-.page_num *:hover{
+.pages *:hover{
   text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
   background-color:var(--hover);
   box-shadow:var(--shadow);

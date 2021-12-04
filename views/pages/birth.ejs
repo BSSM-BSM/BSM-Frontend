@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../common/head') %>
+    <link rel="stylesheet" type="text/css" href="/css/etc/birth.css">
+    <title>생일 - BSM</title>
+    <meta property="title" content="생일 - BSM | 부산소마고 지원 서비스">
+    <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <meta property="og:title" content="생일 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+</head>
+<body>
+    <%- include('../common/header') %>
+    <main>
+        <div class="title">
+            <h1>생일 축하합니다</h1>
+            <h2>
+                <% switch(name){
+                    case 'wjdehdrua':
+                        %><%= "정동겸" %><%
+                        break;
+                } %>
+            </h2>
+        </div>
+        <div class="container">
+            <img src="/resource/birth/2021/<%= name %>.jpg" alt="" style="width:100%">
+        </div>
+    </main>
+    <%- include('../common/loginBox') %>
+</body>
+</html>

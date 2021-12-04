@@ -1,3 +1,11 @@
+const boardMenu = new Vue({
+    el:'.board_bottom_menu',
+    data:{
+        isLogin:false,
+        writeUrl:'javascript:error_code(4, 1);',
+        pages:0
+    }
+})
 const boardView = new Vue({
     el:'.board_list',
     data:{
@@ -14,6 +22,11 @@ const boardRefresh = () => {
             if(data.status!=1){
                 error_code(data.status, data.subStatus);
             }else{
+                if(member.isLogin){
+                    boardMenu.isLogin=true
+                    boardMenu.writeUrl='/board/write/'+boardType
+                }
+                boardMenu.pages=data.pages
                 let date = new Date()
                 let today = ""+date.getFullYear()
                 if((date.getMonth()+1)<10){
@@ -43,22 +56,10 @@ const boardRefresh = () => {
                         postLike: boardData[i].postLike,
                     })
                 }
-                //$('.page_num').html(data.pageNum);
             }
         },
         error:() => {
             error_code(0, 0);
         }
     });
-}
-const boardMenu = new Vue({
-    el:'.board_bottom_menu',
-    data:{
-        isLogin:false,
-        writeUrl:'javascript:error_code(4, 1);'
-    }
-})
-if(member.isLogin){
-    boardMenu.isLogin=true
-    boardMenu.writeUrl='/board/write/'+boardType
 }
