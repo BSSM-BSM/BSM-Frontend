@@ -15,15 +15,6 @@
         <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
         <% break;
     } %>
-    <script>
-        let boardType = window.location.pathname.split('/')[2];
-        let postNo = window.location.pathname.split('/')[3];
-        let page = new URLSearchParams(location.search).get("page");
-        let limit = new URLSearchParams(location.search).get("limit");
-        if(limit==null){
-            limit=15;
-        }
-    </script>
 </head>
 <body>
     <%- include('../common/header') %>
@@ -44,43 +35,43 @@
         </div>
         <div class="container">
             <div class="board">
-            <% if(postNo!=null){ %>
-                <div class="post">
-                    <div class="post_info_wrap">
-                        <div class="left_wrap"><img :src="memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
-                        <div class="right_wrap">
-                            <div class="post_title">{{postTitle}}</div>
-                            <div class="post_date">{{postDate}}</div>
-                            <div class="post_hit">{{postHit}}</div>
-                            <div class="post_comments">{{postComments}}</div>
-                            <div class="member_nickname"><a :href="memberInfoUrl">{{memberNickname}}</a></div>
+                <div class="post" v-if="postTitle">
+                    <div class="post_wrap">
+                        <div class="post_info_wrap">
+                            <div class="left_wrap"><img :src="memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
+                            <div class="right_wrap">
+                                <div class="post_title">{{postTitle}}</div>
+                                <div class="post_date">{{postDate}}</div>
+                                <div class="post_hit">{{postHit}}</div>
+                                <div class="post_comments">{{postComments}}</div>
+                                <div class="member_nickname"><a :href="memberInfoUrl">{{memberNickname}}</a></div>
+                                </div>
                             </div>
+                        <div class="post_content"><div v-html="postContent"></div></div>
+                        <div class="post_like_wrap post_like">
+                            <button class="button like_button" onclick="likeSend(1);" v-bind:class="{on:like>0}">좋아요</button>
+                            <span class="post_like_cnt">{{postLike}}</span>
+                            <button class="button dislike_button" onclick="likeSend(-1);" v-bind:class="{on:like<0}">싫어요</button>
                         </div>
-                    <div class="post_content"><div v-html="postContent"></div></div>
-                    <div class="post_like_wrap post_like">
-                        <button class="button like_button" onclick="likeSend(1);" v-bind:class="{on:like>0}">좋아요</button>
-                        <span class="post_like_cnt">{{postLike}}</span>
-                        <button class="button dislike_button" onclick="likeSend(-1);" v-bind:class="{on:like<0}">싫어요</button>
+                    </div>
+                    <div class="comment_list">
+                        <div class="comment"></div>
+                    </div>
+                    <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write();return false;">
+                        <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
+                        <br><br>
+                        <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
+                        <input type="submit" name="" value="댓글작성" class="button">
+                    </form>
+                    <div class="post_menu">
+                        <span class="post_delete">
+                            <div class="button red_button" onclick="postDelete();" v-if="permission">글 삭제</div>
+                        </span>
+                        <span class="post_modify">
+                            <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="permission">게시글 수정</a>
+                        </span>
                     </div>
                 </div>
-                <div class="comment_list">
-                    <div class="comment"></div>
-                </div>
-                <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write();return false;">
-                    <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
-                    <br><br>
-                    <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
-                    <input type="submit" name="" value="댓글작성" class="button">
-                </form>
-                <div class="post_menu">
-                    <span class="post_delete"></span>
-                    <span class="post_modify"></span>
-                </div>
-                <script src="/js/board/post.js"></script>
-                <script>
-                    postRefresh();
-                </script>
-            <% } %>
                 <div class="board_top_menu">
                     <span class="dropdown_menu board_limit">
                         <span class="select button">15개</span>
@@ -98,7 +89,7 @@
                         </div>
                         <div class="board_item right_wrap">
                             <div class="board_item top_wrap">
-                                <a :href="post.postUrl" class="post_title">{{post.postTitle}}</a>
+                                <a :href="`/board/${post.boardType}/${post.postNo}`" class="post_title" :onclick="`boardPostChange(${post.postNo});return false;`">{{post.postTitle}}</a>
                             </div>
                             <div class="board_item bottom_wrap">
                                 <div class="board_item_info left_wrap">
@@ -128,9 +119,7 @@
                     </div>
                 </div>
                 <script src="/js/board/board.js"></script>
-                <script>
-                    boardRefresh();
-                </script>
+                <script src="/js/board/post.js"></script>
             </div>
         </div>
     </main>

@@ -103,6 +103,8 @@
 
 .post{
   width:100%;
+}
+.post_wrap{
   padding:5rem 5rem 0 5rem;
 }
 .post_info_wrap{
@@ -276,7 +278,7 @@
   .member_info .user_profile{
     height:17px;
   }
-  .post{
+  .post_wrap{
     padding:5rem 3% 0 3%;
   }
   .post_info_wrap > div:not(.post_title){

@@ -1,3 +1,9 @@
+let boardType = window.location.pathname.split('/')[2];
+let page = new URLSearchParams(location.search).get("page");
+let limit = new URLSearchParams(location.search).get("limit");
+if(limit==null){
+    limit=15;
+}
 $$('.board_limit .select')[0].innerText=limit+"개";
 const boardPageChange = (changePage) => {
     page=changePage;
@@ -60,15 +66,16 @@ const boardRefresh = () => {
                     else
                         boardData[i].postDate = boardData[i].postDate.split(' ')[0];
                     boardView.posts.push({
-                        memberNickname: memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
+                        memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
                         memberProfileUrl:`/memberinfo/${boardData[i].memberCode}`,
                         memberProfile:`/resource/member/profile_images/profile_${boardData[i].memberCode}.png`,
-                        postUrl: '/board/' +boardData[i].boardType+ '/' +boardData[i].postNo,
-                        postTitle: boardData[i].postTitle,
-                        postDate: boardData[i].postDate,
-                        postHit: boardData[i].postHit,
-                        postComments: boardData[i].postComments,
-                        postLike: boardData[i].postLike,
+                        boardType:boardData[i].boardType,
+                        postNo:boardData[i].postNo,
+                        postTitle:boardData[i].postTitle,
+                        postDate:boardData[i].postDate,
+                        postHit:boardData[i].postHit,
+                        postComments:boardData[i].postComments,
+                        postLike:boardData[i].postLike,
                     })
                 }
             }
@@ -78,3 +85,5 @@ const boardRefresh = () => {
         }
     });
 }
+
+boardRefresh();

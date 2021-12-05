@@ -1,6 +1,14 @@
+let postNo = window.location.pathname.split('/')[3];
+const boardPostChange = (changePostMo) => {
+    postNo=changePostMo;
+    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`)
+    postRefresh();
+    $$('main')[0].scrollTop=0;
+}
 const postView = new Vue({
     el:'.post',
     data:{
+        permission:false,
         memberProfile:'',
         memberInfoUrl:'',
         postTitle:'',
@@ -23,6 +31,7 @@ const postRefresh = () => {
             if(data.status!=1){
                 error_code(data.status, data.subStatus);
             }else{
+                postView.permission=data.permission;
                 postView.memberCode=data.memberCode;
                 postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
                 postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
@@ -34,11 +43,10 @@ const postRefresh = () => {
                 postView.postContent=data.postContent;
                 postView.like=data.like;
                 postView.postLike=data.postLike;
-                $('.note-video-clip').each(function(){
+                $('.note-video-clip').each(() => {
                     let tmp = $(this).wrap('<p/>').parent().html();
                     $(this).parent().html('<div class="video-container">'+tmp+'</div>');
                 });
-                postMenu(data.permission);
                 commentRefresh();
             }
         },
@@ -65,13 +73,6 @@ const postDelete = () => {
             error_code(0, 0);
         }
     });
-}
-
-const postMenu = permission => {
-    if(permission){
-        $('.post_delete').html(`<div class="button red_button" onclick="postDelete();">글 삭제</div>`);
-        $('.post_modify').html(`<a class="button blue_button" href="/board/write/${boardType}/${postNo}">게시글 수정</a>`);
-    }
 }
 const likeSend = like => {
     $.ajax({
@@ -182,4 +183,8 @@ const comment_write = () => {
             error_code(0, 0);
         }
     });
+}
+
+if(postNo!=null){
+    postRefresh();
 }
