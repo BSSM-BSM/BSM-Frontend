@@ -8,11 +8,11 @@
 .title.board_title .container a{
   margin-left:1rem;
   font-size:3.2rem;
-  color:#AAA;
+  color:var(--light_gray);
   transition:.25s;
 }
 .title.board_title .container a:hover{
-  color:#e8eaed;
+  color:var(--text);
 }
 @media screen and (min-width:0px) and (max-width:1319px){
   .title.board_title .container a{
@@ -44,10 +44,10 @@
   width:5rem;
   font-size:1.7rem;
   font-weight:bold;
-  color:#AAA;
+  color:var(--light_gray);
 }
 .board_item .post_comments.active{
-  color:red;
+  color:var(--red);
 }
 .board_item.right_wrap{
   flex-direction:column;
@@ -74,7 +74,7 @@
 }
 .board_item_post_info{
   margin-right:1rem;
-  color:#AAA;
+  color:var(--light_gray);
 }
 .board_item_post_info.hit::after{
   content:' 조회';
@@ -83,7 +83,7 @@
   content:' ♥';
 }
 .board_item_post_info.like.active::after{
-  color:red;
+  color:var(--red);
 }
 .member_info .user_profile{
   margin-right:.5rem;
@@ -217,7 +217,6 @@
   position:absolute;
   opacity:0;
   cursor:pointer;
-  background-color:rgba(0, 0, 0, 0.2);
   transition:.25s;
 }
 .comment_menu *{
@@ -242,21 +241,16 @@
   overflow:hidden;
 }
 .pages *{
-  width:auto; color:#D8D8D8; border:none; padding:1.5rem 2rem; text-align:center; text-decoration:none; display: inline-block; font-size:1.5rem; cursor:pointer;
-  background-color:rgba(192, 192, 192, 0.2);
+  width:auto; color:var(--white); font-weight:bold; padding:1.5rem 2rem; text-align:center; display: inline-block; font-size:1.5rem; cursor:pointer;
+  background-color:var(--main);
   transition:.25s;
 }
 .pages *.active{
-  text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
-  background-color:rgba(128, 128, 128, .5);
+  background-color:var(--hover);
 }
 .pages *:hover{
-  text-shadow:0 0 .2rem #FFF; text-shadow:0 0 .4rem #FFF; text-shadow:0 0 .8rem #FFF;
   background-color:var(--hover);
   box-shadow:var(--shadow);
-}
-.note-editable{
-  background-color:rgba(255, 255, 255, .5);
 }
 .note-editing-area{
   text-align:start;

@@ -10,9 +10,11 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 :root{
   --black: #000;
   --gray: #C0C0C0;
+  --light_gray:#AAAAAA;
   --white: #FFF;
-  --green: #90EE90;
   --red: #FA8072;
+  --yellow:#FFA500;
+  --green: #90EE90;
 
   --main: #77a3f5;
   --text: #202124;
@@ -31,9 +33,11 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   :root{
     --black: #000;
     --gray: #525252;
+    --light_gray:#AAAAAA;
     --white: #FFF;
-    --green: #72c472;
     --red: #e46b5d;
+    --yellow:#FF8C00;
+    --green: #72c472;
 
     --main: #4682B4;
     --text: #e8eaed;
@@ -196,13 +200,13 @@ main::-webkit-scrollbar-track{
   transform:rotate(-45deg);
 }
 .notice_bar .notice{
-  display:block; width:100%; background-color:rgba(144, 238, 144, .5); padding:.75rem 0; opacity:1; text-align:center;
+  display:block; width:100%; background-color:var(--green); padding:.75rem 0; opacity:1; text-align:center; color:var(--white); font-weight:bold;
 }
 .notice_bar .notice.yellow{
-  background-color:rgba(255, 165, 0, .5);
+  background-color:var(--yellow);
 }
 .notice_bar .notice.red{
-  background-color:rgba(255, 0, 0, .5);
+  background-color:var(--red);
 }
 header.on nav .notice_bar{
   animation:fadein 500ms ease;
