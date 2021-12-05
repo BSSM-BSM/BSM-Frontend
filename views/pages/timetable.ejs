@@ -18,17 +18,23 @@
         <div class="container">
             <span class="information">
                 <div class="timetable_select">
-                    <ul class="select_grade">
-                        <li onclick="changeSelect(1, 0)">1학년</li>
-                        <li onclick="changeSelect(2, 0)">2학년</li>
-                        <li onclick="changeSelect(3, 0)">3학년</li>
-                    </ul>
-                    <ul class="select_class">
-                        <li onclick="changeSelect(0, 1)">1반</li>
-                        <li onclick="changeSelect(0, 2)">2반</li>
-                        <li onclick="changeSelect(0, 3)">3반</li>
-                        <li onclick="changeSelect(0, 4)">4반</li>
-                    </ul>
+                    <span class="dropdown_menu select_grade">
+                        <span class="select button">학년</span>
+                        <ul class="dropdown_content">
+                            <li class="option" onclick="$$('.select_grade .select')[0].innerText=this.innerText;changeSelect(1, 0)">1학년</li>
+                            <li class="option" onclick="$$('.select_grade .select')[0].innerText=this.innerText;changeSelect(2, 0)">2학년</li>
+                            <li class="option" onclick="$$('.select_grade .select')[0].innerText=this.innerText;changeSelect(3, 0)">3학년</li>
+                        </ul>
+                    </span>
+                    <span class="dropdown_menu select_class">
+                        <span class="select button">반</span>
+                        <ul class="dropdown_content">
+                            <li class="option" onclick="$$('.select_class .select')[0].innerText=this.innerText;changeSelect(0, 1)">1반</li>
+                            <li class="option" onclick="$$('.select_class .select')[0].innerText=this.innerText;changeSelect(0, 2)">2반</li>
+                            <li class="option" onclick="$$('.select_class .select')[0].innerText=this.innerText;changeSelect(0, 3)">3반</li>
+                            <li class="option" onclick="$$('.select_class .select')[0].innerText=this.innerText;changeSelect(0, 4)">4반</li>
+                        </ul>
+                    </span>
                 </div>
                 <table class="class_time center"><tbody>
                     <th></th>
@@ -92,7 +98,9 @@
                             }
                         });
                     }
-                    timetableRefresh(grade, classNo)
+                    timetableRefresh(grade, classNo);
+                    $$('.select_grade .select')[0].innerText=`${grade}학년`;
+                    $$('.select_class .select')[0].innerText=`${classNo}반`;
                     const timetableInit = () => {
                         $('tbody').html('<tr><th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th></tr>')
                         for(i=0;i<classTimes.length;i++){

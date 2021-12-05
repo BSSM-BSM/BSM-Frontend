@@ -45,10 +45,9 @@
 }
 .timetable_select{
   display:flex;
-  flex-direction:column;
-}
-.select_grade, .select_class{
-  display:flex;
+  justify-content:right;
+  gap:1rem;
+  margin-bottom:1rem;
 }
 .timetable_select ul li{
   padding:1rem;

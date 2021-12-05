@@ -252,6 +252,9 @@
   background-color:var(--hover);
   box-shadow:var(--shadow);
 }
+.note-editable{
+  background-color:rgba(255, 255, 255, .5);
+}
 .note-editing-area{
   text-align:start;
 }
