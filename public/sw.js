@@ -1,4 +1,4 @@
-const cacheName = '1.0.1.2';
+const cacheName = '1.1.0.0';
 let cacheFiles = [
     '/',
     '/meal',
@@ -13,6 +13,9 @@ let cacheFiles = [
     '/js/search.js',
     '/js/error_code.js',
     '/js/alert.js',
+    '/js/vue.js',
+    '/js/board/board.js',
+    '/js/board/post.js',
     '/css/style.css',
     '/css/etc/board.css',
     '/css/etc/index.css',
@@ -26,9 +29,10 @@ let cacheFiles = [
 ];
 self.addEventListener('install', (event) => {
     event.waitUntil(
-    	// 캐쉬할 페이지들을 전부 캐쉬합니다.
+        // 캐쉬할 페이지들을 전부 캐쉬합니다.
         caches.open(cacheName).then((cache) => cache.addAll(cacheFiles))
     );
+    self.skipWaiting();
 });
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') { // GET 요청만 캐싱 지원 처리
@@ -47,4 +51,18 @@ self.addEventListener('fetch', (event) => {
                     .then(cache => {return cache;}) // 네트워크 요청 실패시 캐싱된 요청으로 응답.
             })
     );
+});
+self.addEventListener("push", event => { //푸시알림을 받았을 때
+    const payload = JSON.parse(event.data.text());
+    event.waitUntil(
+        registration.showNotification(payload.title, {
+            body:payload.body,
+            data:{
+                link:payload.link
+            },
+        })
+    );
+});
+self.addEventListener("notificationclick", event => { //알림을 클릭할 때
+    clients.openWindow(event.notification.data.link);
 });
