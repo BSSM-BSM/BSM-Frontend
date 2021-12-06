@@ -108,14 +108,18 @@
                     </span>
                 </div>
                 <div class="board_bottom_menu">
-                    <div class="board_menu_item board_refresh_button">
-                        <button onClick="boardRefresh();" class="button">글 새로고침</button>
+                    <div class="top">
+                        <div class="board_menu_item pages">
+                            <div :onClick="'boardPageChange('+page+');'" v-for="page in pages">{{page}}</div>
+                        </div>
                     </div>
-                    <div class="board_menu_item pages">
-                        <div :onClick="'boardPageChange('+page+');'" v-for="page in pages">{{page}}</div>
-                    </div>
-                    <div class="board_menu_item post_write_button">
-                        <a :href="writeUrl" class="button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
+                    <div class="bottom">
+                        <div class="board_menu_item board_refresh_button">
+                            <button onClick="boardRefresh();" class="button">글 새로고침</button>
+                        </div>
+                        <div class="board_menu_item post_write_button">
+                            <a :href="writeUrl" class="button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
+                        </div>
                     </div>
                 </div>
                 <script src="/js/board/board.js"></script>

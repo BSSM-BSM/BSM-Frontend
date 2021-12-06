@@ -96,9 +96,18 @@
 }
 .board_bottom_menu{
   display:flex;
-  justify-content:space-between;
+  flex-direction:column;
+  gap:1rem;
   padding:0 1rem;
   margin:5rem 0;
+}
+.board_bottom_menu .top{
+  display:flex;
+  justify-content:center;
+}
+.board_bottom_menu .bottom{
+  display:flex;
+  justify-content:space-between;
 }
 
 .post{

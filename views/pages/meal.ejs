@@ -15,6 +15,22 @@
         <div class="title">
             <h1>급식</h1>
             <h2 class="food_date">x월x일</h2>
+            <button class="button" onclick="mealSubscribe();">급식 알림받기</button>
+            <script>
+                const mealSubscribe = () => {
+                    navigator.serviceWorker.ready.then(
+                        serviceWorkerRegistration => {
+                            serviceWorkerRegistration.pushManager.subscribe({
+                                userVisibleOnly:true,
+                                applicationServerKey:'BCeveCXwornm1DNHuNAYDpy8MadIa2-i9ykSG2AORLNbGDPo5QALgEiln_pDX71Pnq4O7UM0EJq_8KeMv_rolAU'
+                            }).then(sub => {
+                                console.log('endpoint:', sub.endpoint);
+                                showAlert("급식 알림등록이 완료되었습니다.");
+                            });
+                        }
+                    );
+                }
+            </script>
         </div>
         <div class="container">
             <div class="information">
@@ -32,9 +48,9 @@
                         <div class="food_menu"></div>
                     </div>
                     <script>
-                        var times, today, day, date, month, year, food_date;
-                        var food_table=[];
-                        var day_table=['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                        let times, today, day, date, month, year, food_date;
+                        let food_table=[];
+                        const day_table=['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
                         times=new Date();
                         today=new Date(times);
                         food_refresh();

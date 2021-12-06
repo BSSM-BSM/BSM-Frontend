@@ -388,7 +388,7 @@ header.on nav .top_menu{
 .dropdown_menu:hover .dropdown_content, 
 .dropdown_menu input:focus + .dropdown_content {opacity:1;pointer-events:unset;}
 
-input, textarea{
+.input_text, textarea{
   border:none; color:var(--text); width:400px; font-weight:bold; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   background-color:var(--input);
   transition:.25s;
@@ -400,14 +400,14 @@ input[type=number]{
   width:auto;
   padding:1rem .5rem;
 }
-input::placeholder, textarea::placeholder{
+.input_text::placeholder, input[type=number], textarea::placeholder{
   color:var(--text);
 }
-input:hover, textarea:hover{
+.input_text:hover, input[type=number], textarea:hover{
   box-shadow:var(--shadow);
   background-color:var(--hover);
 }
-input:focus, textarea:focus{
+.input_text:focus, input[type=number], textarea:focus{
   box-shadow:0 0 2rem 0 var(--main);
 }
 .button{
@@ -664,7 +664,7 @@ td, th{
   .top_menu_item:not(.user_menu, .searchBar, .all_menu), .top_menu .home{
     display:none;
   }
-  input[type=text], input[type=password]{
+  .input_text{
     width:325px;
   }
   .main_button{
