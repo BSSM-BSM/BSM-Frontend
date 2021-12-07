@@ -16,6 +16,8 @@
             <h1>급식</h1>
             <h2 class="food_date">x월x일</h2>
             <button class="button" onclick="mealSubscribe();">급식 알림받기</button>
+            <br><br>
+            <p>알림은 급식 1시간 전에 도착합니다.</p>
             <script>
                 const mealSubscribe = () => {
                     navigator.serviceWorker.ready.then(
@@ -33,9 +35,19 @@
                                         auth:sub.keys.auth,
                                         p256dh:sub.keys.p256dh,
                                     },
-                                    cache:false
+                                    cache:false,
+                                    success:data => {
+                                        data=JSON.parse(data);
+                                        if(data.status!=1){
+                                            error_code(data.status, data.subStatus);
+                                        }else{
+                                            showAlert("급식 알림등록이 완료되었습니다.");
+                                        }
+                                    },
+                                    error:() => {
+                                        error_code(0, 0);
+                                    }
                                 });
-                                showAlert("급식 알림등록이 완료되었습니다.");
                             });
                         }
                     );

@@ -400,14 +400,14 @@ input[type=number]{
   width:auto;
   padding:1rem .5rem;
 }
-.input_text::placeholder, input[type=number], textarea::placeholder{
+.input_text::placeholder, input[type=number]::placeholder, textarea::placeholder{
   color:var(--text);
 }
-.input_text:hover, input[type=number], textarea:hover{
+.input_text:hover, input[type=number]:hover, textarea:hover{
   box-shadow:var(--shadow);
   background-color:var(--hover);
 }
-.input_text:focus, input[type=number], textarea:focus{
+.input_text:focus, input[type=number]:focus, textarea:focus{
   box-shadow:0 0 2rem 0 var(--main);
 }
 .button{
