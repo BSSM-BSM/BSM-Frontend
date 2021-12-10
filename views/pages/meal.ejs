@@ -18,41 +18,7 @@
             <button class="button" onclick="mealSubscribe();">급식 알림받기</button>
             <br><br>
             <p>알림은 급식 1시간 전에 도착합니다.</p>
-            <script>
-                const mealSubscribe = () => {
-                    navigator.serviceWorker.ready.then(
-                        serviceWorkerRegistration => {
-                            serviceWorkerRegistration.pushManager.subscribe({
-                                userVisibleOnly:true,
-                                applicationServerKey:'BCeveCXwornm1DNHuNAYDpy8MadIa2-i9ykSG2AORLNbGDPo5QALgEiln_pDX71Pnq4O7UM0EJq_8KeMv_rolAU'
-                            }).then(sub => {
-                                sub = JSON.parse(JSON.stringify(sub));
-                                $.ajax({
-                                    type:'post',
-                                    url:apiUrl+'/meal/register',
-                                    data:{
-                                        endpoint:sub.endpoint,
-                                        auth:sub.keys.auth,
-                                        p256dh:sub.keys.p256dh,
-                                    },
-                                    cache:false,
-                                    success:data => {
-                                        data=JSON.parse(data);
-                                        if(data.status!=1){
-                                            error_code(data.status, data.subStatus);
-                                        }else{
-                                            showAlert("급식 알림등록이 완료되었습니다.");
-                                        }
-                                    },
-                                    error:() => {
-                                        error_code(0, 0);
-                                    }
-                                });
-                            });
-                        }
-                    );
-                }
-            </script>
+            <script src="/js/subscribe.js"></script>
         </div>
         <div class="container">
             <div class="information">
@@ -69,64 +35,7 @@
                         <div class="food_time">저녁</div>
                         <div class="food_menu"></div>
                     </div>
-                    <script>
-                        let times, today, day, date, month, year, food_date;
-                        let food_table=[];
-                        const day_table=['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-                        times=new Date();
-                        today=new Date(times);
-                        food_refresh();
-                        function food_refresh(){
-                            day=day_table[today.getDay()];
-                            date=today.getDate();
-                            month=today.getMonth()+1;
-                            year=today.getFullYear();
-                            $.ajax({
-                                type:'GET',
-                                url:apiUrl+'/meal/'+year+'-'+month+'-'+date,
-                                cache:false,
-                                success:function(data){
-                                    data=JSON.parse(data);
-                                    if(data.status!=1){
-                                        error_code(data.status, data.subStatus);
-                                    }else{
-                                        if(data.arrMeal!=null){
-                                            let arrMeal=data.arrMeal;
-                                            food_table[year+'-'+month+'-'+date]={'morning':arrMeal.morning, 'lunch':arrMeal.lunch, 'dinner':arrMeal.dinner};
-                                        }
-                                        food_render();
-                                    }
-                                },
-                                error: function(data) {
-                                    error_code(0, 0);
-                                }
-                            });
-                        }
-                        function food_render(){
-                            $('.food_date').text((today.getMonth()+1)+'월'+today.getDate()+'일 '+day);
-                            if(food_table.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
-                                let morning = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning'];
-                                let lunch = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch'];
-                                let dinner = food_table[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner'];
-                                if(morning!="")
-                                    $('.food-1 .food_menu').html(morning);
-                                else
-                                    $('.food-1 .food_menu').html('급식이 없습니다.');
-                                if(lunch!="")
-                                    $('.food-2 .food_menu').html(lunch);
-                                else
-                                    $('.food-2 .food_menu').html('급식이 없습니다.');
-                                if(dinner!="")
-                                    $('.food-3 .food_menu').html(dinner);
-                                else
-                                    $('.food-3 .food_menu').html('급식이 없습니다.');
-                            }else{
-                                $('.food-1 .food_menu').html('급식이 없습니다.');
-                                $('.food-2 .food_menu').html('급식이 없습니다.');
-                                $('.food-3 .food_menu').html('급식이 없습니다.');
-                            }
-                        }
-                    </script>
+                    <script src="/js/etc/meal.js"></script>
                 </div>
             </div>
         </div>

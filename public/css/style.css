@@ -690,6 +690,7 @@ td, th{
   }
   .top_menu_item.searchBar{
     flex:1;
+    position:unset;
   }
   .top_menu_item.searchBar input{
     width:100%;
