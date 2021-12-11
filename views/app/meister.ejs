@@ -39,19 +39,16 @@
                   data:{
                     pw: $('.meisterInfo .pw').val(),
                   },
-                  url:apiUrl+'/meister/'+
-                  $('.meisterInfo .hak').val()+'/'+
-                  $('.meisterInfo .ban').val()+'/'+
-                  $('.meisterInfo .bun').val(),
+                  url:apiUrl+`/meister/${$('.meisterInfo .hak').val()}/${$('.meisterInfo .ban').val()}/${$('.meisterInfo .bun').val()}`,
                   cache:false,
-                  success:function(data){
+                  success:data => {
                     $('.meisterInfo .pw').val("")
                     $('.meister').html(data)
                     $$('.fas.fa-sad-cry').forEach(item =>{
                         item.parentElement.parentElement.parentElement.parentElement.classList.add('bed')
                     })
                   },
-                  error: function(data) {
+                  error:data => {
                     error_code(0, 0);
                   }
                 });

@@ -14,6 +14,11 @@
         <meta property="title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
         <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
         <% break;
+    case 'notice': %>
+        <title>공지사항 - BSM</title> %>
+        <meta property="title" content="공지사항 - BSM | 부산소마고 지원 서비스">
+        <meta property="og:title" content="공지사항 - BSM | 부산소마고 지원 서비스">
+        <% break;
     } %>
 </head>
 <body>
@@ -29,6 +34,9 @@
             case 'anonymous': %>
                 <h1>익명게시판</h1>
                 <a href="/board/board">자유게시판</a>
+                <% break;
+            case 'notice': %>
+                <h1>공지사항</h1>
                 <% break;
             } %>
             </div>
