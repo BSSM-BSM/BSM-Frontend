@@ -118,7 +118,7 @@
                 <div class="board_bottom_menu">
                     <div class="top">
                         <div class="board_menu_item pages">
-                            <div :onClick="'boardPageChange('+page+');'" v-for="page in pages">{{page}}</div>
+                            <div :onClick="'boardPageChange('+page+');'" v-for="page in pages" :class="{active:page==activePage}">{{page}}</div>
                         </div>
                     </div>
                     <div class="bottom">

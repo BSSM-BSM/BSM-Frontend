@@ -7,16 +7,17 @@ if(limit==null){
 $$('.board_limit .select')[0].innerText=limit+"개";
 const boardPageChange = (changePage) => {
     page=changePage;
+    boardMenu.activePage=page;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
-    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString())
+    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
     boardRefresh();
 }
 const boardLimitChange = (changeLimit) => {
     limit=changeLimit;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('limit', String(changeLimit));
-    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString())
+    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
     boardRefresh();
 }
 const boardMenu = new Vue({
@@ -24,7 +25,8 @@ const boardMenu = new Vue({
     data:{
         isLogin:false,
         writeUrl:'javascript:error_code(4, 1);',
-        pages:0
+        pages:0,
+        activePage:0
     }
 })
 const boardView = new Vue({
@@ -36,7 +38,7 @@ const boardView = new Vue({
 const boardRefresh = () => {
     $.ajax({
         type:'GET',
-        url:apiUrl+'/board/'+boardType+'?page='+page+'&limit='+limit,
+        url:apiUrl+`/board/${boardType}?page=${page}&limit=${limit}`,
         cache:false,
         success:(data)=>{
             data=JSON.parse(data);
@@ -47,6 +49,7 @@ const boardRefresh = () => {
                     boardMenu.isLogin=true
                     boardMenu.writeUrl='/board/write/'+boardType
                 }
+                boardMenu.activePage=page;
                 boardMenu.pages=data.pages
                 let date = new Date()
                 let today = ""+date.getFullYear()
@@ -60,7 +63,7 @@ const boardRefresh = () => {
                 today+=date.getDate()
                 boardData=data.arrBoard;
                 boardView.posts.splice(0)
-                for(let i=0;i<Object.keys(boardData).length;i++){
+                for(let i=0;i<boardData.length;i++){
                     if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
                         boardData[i].postDate = boardData[i].postDate.split(' ')[1];
                     else

@@ -93,21 +93,25 @@
                     <br><br><br><br>
                     <div class="download_button_wrap">
                         <a class="webapp_install_button download_button button" onclick="
-                            if('serviceWorker' in navigator){
-                                if(installed){
-                                    showAlert('이미 설치되어 있습니다.');
-                                }else{
-                                    prompt.prompt();
-                                }
-                            }else{
+                            if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
                                 showAlert('설치할 수 없는 브라우저입니다.');
+                            }else{
+                                if('serviceWorker' in navigator){
+                                    if(installed){
+                                        showAlert('이미 설치되어 있습니다.');
+                                    }else{
+                                        prompt.prompt();
+                                    }
+                                }else{
+                                    showAlert('설치할 수 없는 브라우저입니다.');
+                                }
                             }">
                             <div class="left_wrap">
                                 <img src="/resource/common/images/download.png" class="download_image">
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.0.1</p>
+                                <p>Ver. 1.1.0</p>
                             </div>
                         </a>
                         <a href="/resource/bsm/download/bsm_v1.0.0(7).apk" download="bsm_v1.0.0(7).apk" class="download_button button">
