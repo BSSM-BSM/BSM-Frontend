@@ -1,19 +1,19 @@
 @charset "utf-8";
-.meister{
+.result.point{
     margin-top:5rem;
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
 }
-.meister *{
+.result.point *{
     all:unset !important;
 }
-.meister > div{
+.result.point > div{
     flex:100% !important;
     font-size:2.2rem !important;
     font-weight:bold !important;
 }
-.meister > li{
+.result.point > li{
     display:flex !important;
     flex-direction:column !important;
     justify-content:center !important;
@@ -22,28 +22,28 @@
     border-radius:1rem !important;
     transition:.25s !important;
 }
-.meister > li:hover{
+.result.point > li:hover{
     box-shadow:var(--shadow) !important;
     background-color:var(--hover) !important;
 }
-.meister > .bad{
+.result.point > .bad{
     background-color:var(--red) !important;
 }
-.meister > li > div{
+.result.point > li > div{
     display:flex !important;
     flex-direction:column !important;
     padding:2.5rem !important;
 }
-.meister > li > div > div:first-child{
+.result.point > li > div > div:first-child{
     font-size:1.8rem !important;
     font-weight:bold !important;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
-    .meister > li{
+    .result.point > li{
         width:100% !important;
         height:15rem !important;
     }
-    .meister > li > div{
+    .result.point > li > div{
         padding:1rem !important;
     }
 }
