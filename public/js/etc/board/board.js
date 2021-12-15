@@ -36,6 +36,7 @@ const boardView = new Vue({
     }
 })
 const boardRefresh = () => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
         url:apiUrl+`/board/${boardType}?page=${page}&limit=${limit}`,
@@ -85,6 +86,9 @@ const boardRefresh = () => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }

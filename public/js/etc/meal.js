@@ -4,6 +4,7 @@ const day_table=['일요일', '월요일', '화요일', '수요일', '목요일'
 times=new Date();
 today=new Date(times);
 const food_refresh = () => {
+    $$('.loading')[0].classList.add("on");
     day=day_table[today.getDay()];
     date=today.getDate();
     month=today.getMonth()+1;
@@ -26,6 +27,9 @@ const food_refresh = () => {
         },
         error:data => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }

@@ -22,6 +22,7 @@ const postView = new Vue({
     }
 })
 const postRefresh = () => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
         url:apiUrl+'/post/'+boardType+'/'+postNo,
@@ -52,10 +53,14 @@ const postRefresh = () => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }
 const postDelete = () => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'DELETE',
         url:apiUrl+'/post/'+boardType+'/'+postNo,
@@ -71,10 +76,14 @@ const postDelete = () => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }
 const likeSend = like => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'POST',
         data:{
@@ -94,11 +103,15 @@ const likeSend = like => {
         },
         error:() => {
             error_code(0, 0);
-        } 
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
+        }
     });
 }
 
 const commentRefresh = () => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
         url:apiUrl+'/comment/'+boardType+'/'+postNo,
@@ -134,11 +147,15 @@ const commentRefresh = () => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }
 
 const commentDelete = commentIndex => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'DELETE',
         data:{
@@ -157,11 +174,15 @@ const commentDelete = commentIndex => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }
 
 const comment_write = () => {
+    $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'POST',
         data:{
@@ -181,6 +202,9 @@ const comment_write = () => {
         },
         error:() => {
             error_code(0, 0);
+        },
+        complete:() => {
+            $$('.loading')[0].classList.remove("on");
         }
     });
 }
