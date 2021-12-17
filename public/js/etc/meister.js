@@ -29,7 +29,7 @@ const meisterPoint = () => {
         cache:false,
         success:data => {
             $('.meisterInfo .pw').val("")
-            $('.meister .result').html(data)
+            $('.meister .result.point').html(data)
             $$('.fas.fa-sad-cry').forEach(item =>{
                 item.parentElement.parentElement.parentElement.parentElement.classList.add('bad')
             })
@@ -60,7 +60,7 @@ const meisterScore = () => {
                     error_code(data.status, data.subStatus);
                 }
             }else{
-                $('.meister .result').html(data.result)
+                $('.meister .result.score').html(data.result)
             }
         },
         error:() => {
