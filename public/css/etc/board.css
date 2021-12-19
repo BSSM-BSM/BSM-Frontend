@@ -196,6 +196,7 @@
   text-align:left;
   transition:.25s;
   border-radius:1rem;
+  cursor:pointer;
 }
 .comment_item_wrap:hover{
   box-shadow:var(--shadow);
@@ -291,7 +292,7 @@
   .post_menu{
     padding:5rem 3%;
   }
-  .comment{
+  .comment_list{
     padding:0;
   }
   .comment_write{
@@ -301,9 +302,6 @@
     padding:1.5rem 3%;
   }
   .comment_child{
-    margin-left:1.5rem;
-  }
-  .comment_menu{
-    padding:0 3%;
+    padding-left:2rem;
   }
 }

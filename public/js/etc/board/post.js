@@ -179,6 +179,7 @@ const commentDelete = commentIndex => {
 
 const comment_write = (depth, parentIdx) => {
     $$('.loading')[0].classList.add("on");
+    depth = parseInt(depth)+1;
     $.ajax({
         type:'POST',
         data:{
