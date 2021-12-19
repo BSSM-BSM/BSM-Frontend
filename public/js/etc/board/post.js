@@ -19,13 +19,20 @@ const postView = new Vue({
         postContent:'',
         postLike:0,
         like:0,
+        commentTree:[],
+        commentFocus:0
+    },
+    methods:{
+        isParent:function(){
+            return this.item.child && this.item.child.length
+        }
     }
 })
 const postRefresh = () => {
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
-        url:apiUrl+'/post/'+boardType+'/'+postNo,
+        url:`${apiUrl}/post/${boardType}/${postNo}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
@@ -63,7 +70,7 @@ const postDelete = () => {
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'DELETE',
-        url:apiUrl+'/post/'+boardType+'/'+postNo,
+        url:`${apiUrl}/post/${boardType}/${postNo}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
@@ -71,7 +78,7 @@ const postDelete = () => {
                 error_code(data.status, data.subStatus);
                 refresh = false;
             }else{
-                window.location.href='/board/'+boardType;
+                window.location.href=`/board/${boardType}`;
             }
         },
         error:() => {
@@ -89,7 +96,7 @@ const likeSend = like => {
         data:{
             like:like,
         },
-        url:apiUrl+'/like/'+boardType+'/'+postNo,
+        url:`${apiUrl}/like/${boardType}/${postNo}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
@@ -110,39 +117,31 @@ const likeSend = like => {
     });
 }
 
+Vue.component('tree-item', {
+    template:'#comment_item_template',
+    props:{
+        item: Object
+    },
+    computed:{
+        isParent:function(){
+            return this.item.child && this.item.child.length
+        }
+    }
+})
+
 const commentRefresh = () => {
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
-        url:apiUrl+'/comment/'+boardType+'/'+postNo,
+        url:`${apiUrl}/comment/${boardType}/${postNo}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
             if(data.status!=1){
                 error_code(data.status, data.subStatus);
             }else{
-                data=data.arrComment;
-                comments = "";
-                for(let i=0;i<Object.keys(data).length;i++){
-                    let comment = "";
-                    comment += '<div class="comment_item_wrap">';
-                        comment += '<div class="comment_item_info_wrap">';
-                            comment += '<div class="left_wrap">';
-                                comment += `<img src="/resource/member/profile_images/profile_`+data[i].memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`;
-                            comment += '</div>';
-                            comment += '<div class="right_wrap">';
-                                comment += '<div class="comment_item_info"><a href="/memberinfo/' +data[i].memberCode+ '">'+memberLevel[data[i].memberLevel]+data[i].memberNickname+'</a></div>';
-                                comment += '<div class="comment_item_info">'+data[i].commentDate+'</div>';
-                            comment += '</div>';
-                        comment += '</div>';
-                        comment += '<div class="comment_item_content">'+data[i].comment+'</div>';
-                    comment += '</div>';
-                    if(data[i].permission){
-                        comment += `<div class="comment_menu"><button class="button red_button" onclick="commentDelete(`+data[i].idx+`);">댓글 삭제</button></div>`;
-                    }
-                    comments += `<div class="comment_item" onclick="$('.comment_item:not(:nth-child(`+(i+1)+`)) .comment_menu').removeClass('on');$('.comment_item:nth-child(`+(i+1)+`) .comment_menu').toggleClass('on');">`+comment+`</div>`;
-                }
-                $('.comment_list .comment').html(comments);
+                postView.commentTree = data.arrComment;
+                postView.commentFocus = 0;
             }
         },
         error:() => {
@@ -158,10 +157,7 @@ const commentDelete = commentIndex => {
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'DELETE',
-        data:{
-            commentIndex:commentIndex,
-        },
-        url:apiUrl+'/comment/'+boardType+'/'+postNo,
+        url:`${apiUrl}/comment/${boardType}/${postNo}/${commentIndex}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
@@ -181,14 +177,14 @@ const commentDelete = commentIndex => {
     });
 }
 
-const comment_write = () => {
+const comment_write = (depth, parentIdx) => {
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'POST',
         data:{
             comment:$('.post_comment').val(),
         },
-        url:apiUrl+'/comment/'+boardType+'/'+postNo,
+        url:`${apiUrl}/comment/${boardType}/${postNo}/${depth}/${parentIdx}`,
         cache:false,
         success:data => {
             data=JSON.parse(data);
