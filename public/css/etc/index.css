@@ -24,9 +24,8 @@ h1.main{
   padding:0 5rem;
   color:#FFF;
 }
-h2.main{
-  font-size:2rem;
-  color:#FFF;
+h2{
+  font-size:3.6rem;
 }
 h3{
   font-size:3rem;
@@ -40,7 +39,7 @@ h5{
 }
 .service p{
   font-size:2rem;
-  color:var(--gray);
+  color:var(--light_gray);
 }
 .section_wrap{
   box-shadow:0 0 25px rgba(0, 0, 0, 0.5);
@@ -100,17 +99,29 @@ section#download{
   background-size:cover;
   border-radius:1rem;
 }
-.service_wrap .service:nth-child(1) .image div{
+.service_wrap.info .service:nth-child(1) .image div{
   background-image:url('/resource/index/images/meal.png');
 }
-.service_wrap .service:nth-child(2) .image div{
+.service_wrap.info .service:nth-child(2) .image div{
   background-image:url('/resource/index/images/timetable.png');
 }
-.service_wrap .service:nth-child(3) .image div{
+.service_wrap.info .service:nth-child(3) .image div{
   background-image:url('/resource/index/images/meister.png');
 }
-.service_wrap .service:nth-child(4) .image div{
+.service_wrap.info .service:nth-child(4) .image div{
   background-image:url('/resource/index/images/community.png');
+}
+.service_wrap.update .service:nth-child(1) .image div{
+  background-image:url('/resource/index/images/update/1.2.0/update1.png');
+}
+.service_wrap.update .service:nth-child(2) .image div{
+  background-image:url('/resource/index/images/update/1.2.0/update2.png');
+}
+.service_wrap.update .service:nth-child(3) .image div{
+  background-image:url('/resource/index/images/update/1.2.0/update3.png');
+}
+.service_wrap.update .service:nth-child(4) .image div{
+  background-image:url('/resource/index/images/update/1.2.0/update4.webp');
 }
 @media screen and (min-width:0px) and (max-width:1023px){
   main,.container{

@@ -18,17 +18,6 @@
             prompt = e;
             installed = false;
         });
-        // // Detects if device is on iOS 
-        // const isIos = () => {
-        //     const userAgent = window.navigator.userAgent.toLowerCase();
-        //     return /iphone|ipad|ipod/.test( userAgent );
-        // }
-        // // Detects if device is in standalone mode
-        // const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-
-        // if(isIos() && !isInStandaloneMode()){
-        //     installed = false;
-        // }
     </script>
 </head>
 <body>
@@ -41,6 +30,43 @@
             <a href="#download" class="button blue_button">BSM앱 다운로드</a>
             <br><br><br><br>
             <div class="section_wrap">
+                <section>
+                    <h2>v1.2.0 Update!</h2>
+                    <br>
+                    <h3>What's new?</h3>
+                    <br><br>
+                    <br><br>
+                    <div class="service_wrap update">
+                        <div class="service">
+                            <div class="left_wrap">
+                                <h5>마이스터 역량인증제 점수</h5>
+                                <p>이제 역량인증제 점수를 볼 수 있습니다</p>
+                            </div>
+                            <a href="/meister" class="right_wrap image"><div></div></a>
+                        </div>
+                        <div class="service">
+                            <a href="/board/notice/3" class="left_wrap image"><div></div></a>
+                            <div class="right_wrap">
+                                <h5>커뮤니티 대댓글 기능</h5>
+                                <p>이제 더이상 답글을 달기위해 ㄴ을 달지 않아도 됩니다</p>
+                            </div>
+                        </div>
+                        <div class="service">
+                            <div class="left_wrap">
+                                <h5>공지사항</h5>
+                                <p>이제 중요한 내용은 공지사항에 올라옵니다</p>
+                            </div>
+                            <a href="/board/notice" class="right_wrap image"><div></div></a>
+                        </div>
+                        <div class="service">
+                            <div class="left_wrap image"><div></div></div>
+                            <div class="right_wrap">
+                                <h5>로딩스크린</h5>
+                                <p>이제 서버와 통신할때는 로딩스크린이 뜹니다</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <section id="main">
                 </section>
                 <section>
@@ -48,11 +74,11 @@
                     <br>
                     <h4>이 학교에서 살아남기 위해 필요한 서비스들</h4>
                     <br><br>
-                    <div class="service_wrap">
+                    <div class="service_wrap info">
                         <div class="service">
                             <div class="left_wrap">
                                 <h5>급식</h5>
-                                <p>밥은 먹고 다녀야지</p>
+                                <p>알림을 통해서도 급식정보를 받을 수 있습니다</p>
                             </div>
                             <a href="/meal" class="right_wrap image"><div></div></a>
                         </div>
@@ -60,13 +86,13 @@
                             <a href="/timetable" class="left_wrap image"><div></div></a>
                             <div class="right_wrap">
                                 <h5>시간표</h5>
-                                <p>이번 시간 뭐임?</p>
+                                <p>지금이 무슨시간인지 알아보세요</p>
                             </div>
                         </div>
                         <div class="service">
                             <div class="left_wrap">
-                                <h5>상벌점</h5>
-                                <p>벌점이 얼마나 쌓였을까요?</p>
+                                <h5>마이스터 역량인증제</h5>
+                                <p>역량인증제 점수와 상벌점을 볼 수 있습니다</p>
                             </div>
                             <a href="/meister" class="right_wrap image"><div></div></a>
                         </div>
@@ -111,7 +137,7 @@
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.1.0</p>
+                                <p>Ver. 1.2.0</p>
                             </div>
                         </a>
                         <a href="/resource/bsm/download/bsm_v1.0.0(7).apk" download="bsm_v1.0.0(7).apk" class="download_button button">

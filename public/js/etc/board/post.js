@@ -180,12 +180,18 @@ const commentDelete = commentIndex => {
 const comment_write = (depth, parentIdx) => {
     $$('.loading')[0].classList.add("on");
     depth = parseInt(depth)+1;
+    let url;
+    if(parentIdx==null){
+        url = `${apiUrl}/comment/${boardType}/${postNo}`;
+    }else{
+        url = `${apiUrl}/comment/${boardType}/${postNo}/${depth}/${parentIdx}`;
+    }
     $.ajax({
         type:'POST',
         data:{
             comment:$('.post_comment').val(),
         },
-        url:`${apiUrl}/comment/${boardType}/${postNo}/${depth}/${parentIdx}`,
+        url:url,
         cache:false,
         success:data => {
             data=JSON.parse(data);
