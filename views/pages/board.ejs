@@ -77,20 +77,14 @@
                                         <div class="comment_item_info">{{item.commentDate}}</div>
                                     </div>
                                 </div>
-                                <div class="comment_item_content">{{item.comment}}</div>
+                                <div class="comment_item_content" v-html="item.comment"></div>
                             </div>
                             <form v-if="commentFocus==item.idx" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
-                                <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
+                                <textarea placeholder="답글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
                                 <br><br>
-                                <input type="submit" name="" value="댓글작성" class="button">
+                                <input type="submit" name="" value="답글작성" class="button">
                             </form>
-                            <tree-item
-                                v-if="isParent"
-                                class="comment_child"
-                                v-for="(child, index) in item.child"
-                                :key="index"
-                                :item="child"
-                            ></tree-item>
+                            <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                         </div>
                     </div>
                     <form class="comment_write" method="post" autocomplete="off" onsubmit="comment_write(0, null);return false;">
@@ -174,20 +168,14 @@
                                     <div class="comment_item_info">{{item.commentDate}}</div>
                                 </div>
                             </div>
-                            <div class="comment_item_content">{{item.comment}}</div>
+                            <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
                         <form v-if="`${postView.commentFocus}`==item.idx" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
-                            <textarea placeholder="댓글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
+                            <textarea placeholder="답글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
                             <br><br>
-                            <input type="submit" name="" value="댓글작성" class="button">
+                            <input type="submit" name="" value="답글작성" class="button">
                         </form>
-                        <tree-item
-                            v-if="isParent"
-                            class="comment_child"
-                            v-for="(child, index) in item.child"
-                            :key="index"
-                            :item="child"
-                        ></tree-item>
+                        <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                     </div>
                 </script>
                 <script src="/js/etc/board/post.js"></script>

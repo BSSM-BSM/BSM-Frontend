@@ -12,16 +12,6 @@ $(document).ready(function(){
       $('header').removeClass('on');
     }
   });
-  $(".all_menu").on("click",function(){
-    $(".all_menu").toggleClass("on");
-    $(".side_menu").toggleClass("on");
-    $(".dim.menu_close").toggleClass("on");
-  });
-  $(".menu_close").on("click",function(){
-    $(".all_menu").removeClass("on");
-    $(".side_menu").removeClass("on");
-    $(".dim.menu_close").removeClass("on");
-  });
   $(".search_close").on("click",function(){
     $(".searchResult").removeClass("on");
     $(".dim.search_close").removeClass("on");

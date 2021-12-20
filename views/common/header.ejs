@@ -10,7 +10,7 @@
         <div class="top_menu">
             <div class="left_wrap">
                 <span class="top_menu_item home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></span>
-                <span class="top_menu_item all_menu">
+                <span class="top_menu_item all_menu" onclick="$$('.side_menu')[0].classList.add('on')">
                     <span class="line_wrap">
                         <span class="line"></span>
                         <span class="line"></span>
@@ -70,14 +70,9 @@
         </div>
     </nav>
     <div class="side_menu">
+        <div class="popup_close_button x_button" onClick="$$('.side_menu')[0].classList.remove('on')"></div>
         <ul>
             <li class="home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></li>
-            <% if(member.isLogin){ %>
-            <li class="user_menu"><a href="/memberinfo/<%= member.code %>"><%- memberLevel[member.level]+member.nickname %></a></li>
-            <li class="logout"><a href="/logout">로그아웃</a></li>
-            <% }else{ %>
-            <li class="user_menu"><a onclick="$('.login_box').trigger('addClass');">로그인해 주세요</a></li>
-            <% } %>
             <li class="page"><a href="/timetable">시간표</a></li>
             <li class="page"><a href="/meal">급식</a></li>
             <li class="page"><a href="/meister">마이스터 인증제</a></li>
