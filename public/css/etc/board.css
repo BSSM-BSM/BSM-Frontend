@@ -228,7 +228,9 @@
   font-weight:bold;
 }
 .comment_child{
-  padding-left:5rem;
+  border-left:2px solid var(--gray);
+  width:95%;
+  float:right;
 }
 .comment_write{
   padding:0rem 5rem;
@@ -300,8 +302,5 @@
   }
   .comment_item_wrap{
     padding:1.5rem 3%;
-  }
-  .comment_child{
-    padding-left:2rem;
   }
 }
