@@ -41,6 +41,11 @@
 
 .titleBarA{
     font-size:2.4rem;
+    margin:1rem 0;
+}
+.tableGray_type{
+    background-color:rgba(128, 128, 128, 0.2);
+    border-radius:2rem;
 }
 .result.score > table tbody tr td{
     background:none !important;
@@ -52,6 +57,18 @@
 .result.score > table:not(:nth-child(3)) tbody tr:first-child,
 .result.score > table:not(:nth-child(3)) tbody tr:not(:first-child) td:not(:nth-child(4)){
     display:none !important;
+}
+.result.score > table:not(:nth-child(3)) tbody tr td{
+    padding:2rem !important;
+}
+.result.score > table:nth-child(3) tbody tr td:first-child{
+    width:10%;
+}
+.result.score > table:nth-child(3) tbody tr:first-child td{
+    padding-top:2rem !important;
+}
+.result.score > table:nth-child(3) tbody tr:last-child td{
+    padding-bottom:2rem !important;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
     .result.point > li{

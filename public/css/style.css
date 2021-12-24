@@ -707,10 +707,10 @@ input[type=number]{
 table{
   width:100%;
 }
-tr{
+.table tr{
   display:flex;
 }
-td, th{
+.table td,.table th{
   padding:1rem 2rem 1rem 2rem;
   font-size:1.6rem;
   flex:1;
