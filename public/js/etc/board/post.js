@@ -3,7 +3,6 @@ const boardPostChange = (changePostMo) => {
     postNo=changePostMo;
     history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`)
     postRefresh();
-    $$('main')[0].scrollTop=0;
 }
 const postView = new Vue({
     el:'.post',
@@ -39,6 +38,8 @@ const postRefresh = () => {
             if(data.status!=1){
                 error_code(data.status, data.subStatus);
             }else{
+                $$('.post')[0].classList.remove('hide')
+                $$('main')[0].scrollTop=0;
                 postView.permission=data.permission;
                 postView.memberCode=data.memberCode;
                 postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;

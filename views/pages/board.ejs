@@ -3,47 +3,22 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/css/etc/board.css">
     <%- include('../common/head') %>
-    <% switch(boardType){
-        case 'board': %>
-        <title>자유게시판 - BSM</title> %>
-        <meta property="title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
-        <meta property="og:title" content="자유게시판 - BSM | 부산소마고 지원 서비스">
-        <% break;
-    case 'anonymous': %>
-        <title>익명게시판 - BSM</title> %>
-        <meta property="title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
-        <meta property="og:title" content="익명게시판 - BSM | 부산소마고 지원 서비스">
-        <% break;
-    case 'notice': %>
-        <title>공지사항 - BSM</title> %>
-        <meta property="title" content="공지사항 - BSM | 부산소마고 지원 서비스">
-        <meta property="og:title" content="공지사항 - BSM | 부산소마고 지원 서비스">
-        <% break;
-    } %>
+    <title>커뮤니티 - BSM</title>
+    <meta property="title" content="커뮤니티 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:title" content="커뮤니티 - BSM | 부산소마고 지원 서비스">
 </head>
 <body>
     <%- include('../common/header') %>
     <main>
         <div class="title board_title">
             <div class="container">
-            <% switch(boardType){
-                case 'board': %>
-                <h1>자유게시판</h1>
-                <a href="/board/anonymous">익명게시판</a>
-                <% break;
-            case 'anonymous': %>
-                <h1>익명게시판</h1>
-                <a href="/board/board">자유게시판</a>
-                <% break;
-            case 'notice': %>
-                <h1>공지사항</h1>
-                <% break;
-            } %>
+                <a :href="`/board/${boardType}`" class="main" :onclick="`boardChange('${boardType}');return false;`">{{boardName}}</a>
+                <a :href="`/board/${subBoardType}`" class="sub" v-if="boardType!='notice'" :onclick="`boardChange('${subBoardType}');return false;`">{{subBoardName}}</a>
             </div>
         </div>
         <div class="container">
             <div class="board">
-                <div class="post" v-show="postTitle">
+                <div class="post hide" v-show="postTitle">
                     <div class="post_wrap">
                         <div class="post_info_wrap">
                             <div class="left_wrap"><img :src="memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
@@ -155,8 +130,8 @@
                 <script src="/js/etc/board/board.js"></script>
                 <script type="text/x-template" id="comment_item_template">
                     <div class="comment_item">
-                        <div class="comment_item_wrap">
-                            <div class="comment_item_info_wrap" :onClick="`postView.commentFocus=${item.idx};`">
+                        <div class="comment_item_wrap" :onClick="`postView.commentFocus=${item.idx};`">
+                            <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
                                     <img :src="`/resource/member/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
                                 </div>

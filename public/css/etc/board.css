@@ -5,7 +5,12 @@
   font-weight:bold;
   padding-left:5%;
 }
-.title.board_title .container a{
+.title.board_title .container a.main{
+  font-size:3.6rem;
+  color:var(--text);
+  transition:.25s;
+}
+.title.board_title .container a.sub{
   margin-left:1rem;
   font-size:3.2rem;
   color:var(--light_gray);
@@ -15,7 +20,10 @@
   color:var(--text);
 }
 @media screen and (min-width:0px) and (max-width:1319px){
-  .title.board_title .container a{
+  .title.board_title .container a.main{
+    font-size:3rem;
+  }
+  .title.board_title .container a.sub{
     font-size:2.8rem;
   }
 }
@@ -112,6 +120,9 @@
 
 .post{
   width:100%;
+}
+.post.hide{
+  display:none;
 }
 .post_wrap{
   padding:5rem 5rem 0 5rem;

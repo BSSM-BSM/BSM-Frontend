@@ -5,6 +5,45 @@ if(limit==null){
     limit=15;
 }
 $$('.board_limit .select')[0].innerText=limit+"개";
+const boardTitle = new Vue({
+    el:'.board_title',
+    data:{
+        boardName:'',
+        boardType:'',
+        subBoardName:'',
+        subBoardType:''
+    }
+})
+const boardChange = (changeBoard) => {
+    switch(changeBoard){
+        case 'board':
+            boardType='board';
+            boardTitle.boardType='board';
+            boardTitle.boardName='자유게시판';
+            boardTitle.subBoardType='anonymous';
+            boardTitle.subBoardName='익명게시판';
+            break;
+        case 'anonymous':
+            boardType='anonymous';
+            boardTitle.boardType='anonymous';
+            boardTitle.boardName='익명게시판';
+            boardTitle.subBoardType='board';
+            boardTitle.subBoardName='자유게시판';
+            break;
+        case 'notice':
+            boardType='notice';
+            boardTitle.boardType='notice';
+            boardTitle.boardName='공지사항';
+            boardTitle.subBoardType='';
+            boardTitle.subBoardName='';
+            break;
+    }
+    history.pushState(null, null, `/board/${boardType}${window.location.search}`)
+    if(page>1) boardPageChange(1)
+    $$('.post')[0].classList.add('hide')
+    boardRefresh();
+}
+
 const boardPageChange = (changePage) => {
     page=changePage;
     boardMenu.activePage=page;
@@ -94,5 +133,27 @@ const boardRefresh = () => {
         }
     });
 }
-
+switch(boardType){
+    case 'board':
+        boardType='board';
+        boardTitle.boardType='board';
+        boardTitle.boardName='자유게시판';
+        boardTitle.subBoardType='anonymous';
+        boardTitle.subBoardName='익명게시판';
+        break;
+    case 'anonymous':
+        boardType='anonymous';
+        boardTitle.boardType='anonymous';
+        boardTitle.boardName='익명게시판';
+        boardTitle.subBoardType='board';
+        boardTitle.subBoardName='자유게시판';
+        break;
+    case 'notice':
+        boardType='notice';
+        boardTitle.boardType='notice';
+        boardTitle.boardName='공지사항';
+        boardTitle.subBoardType='';
+        boardTitle.subBoardName='';
+        break;
+}
 boardRefresh();

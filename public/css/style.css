@@ -97,8 +97,8 @@ footer{
   padding:20rem 0 2.5rem 0;
   text-align:center;
 }
-.title h1, .title h2, .title a{
-  margin-bottom:2rem;
+.title h2{
+  margin:2rem 0;
 }
 .bg{
   position:fixed;
