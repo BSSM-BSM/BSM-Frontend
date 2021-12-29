@@ -18,60 +18,93 @@
         <div class="container">
             <div class="information">
                 <div class="member_info_wrap">
-                    <div class="left_wrap"></div>
-                    <div class="right_wrap">
-                        <div class="top_wrap">
-                            <span class="member_nickname"></span>
-                            <span class="member_created"></span>
+                    <div class="member_info" v-show="memberType!='deleted'">
+                        <div class="left_wrap">
+                            <img :src="`/resource/member/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
                         </div>
-                        <div class="bottom_wrap">
-                            <span class="student_info"></span>
-                            <span class="member_level"></span>
-                            <span class="member_enrolled"></span>
-                            <span class="member_code"></span>
+                        <div class="right_wrap">
+                            <div class="top_wrap">
+                                <span class="member_nickname">{{memberNickname}}</span>
+                                <span class="member_created" v-show="memberType=='active'">{{memberCreated}} 가입</span>
+                            </div>
+                            <div class="bottom_wrap">
+                                <span class="student_info" v-show="memberType=='active'">{{memberGrade}}학년 {{memberClass}}반 {{memberStudentNo}}번 {{memberName}}</span>
+                                <span class="member_level">권한 수준: {{memberLevel}}</span>
+                                <span class="member_enrolled" v-show="memberType=='active'">{{memberEnrolled}}년 입학</span>
+                                <span class="member_code">멤버 코드: {{memberCode}}</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="user_profile_menu" v-if="permission">
+                        <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profileUpload();return false;">
+                            <input type="file" name="file" required>
+                            <button type="submit" class="button">프로필 이미지 업로드</button>
+                        </form>
+                        <div class="button" onClick="$('.pw_reset_box').trigger('addClass');">비밀번호 재설정</div>
                     </div>
                 </div>
                 <script>
-                    const member_info = () =>{
+                    const memberInfoView = new Vue({
+                        el:'.member_info_wrap',
+                        data:{
+                            memberType:"",
+                            memberCode:0,
+                            memberNickname:"",
+                            memberLevel:0,
+                            memberCreated:0,
+                            memberEnrolled:0,
+                            memberGrade:0,
+                            memberClass:0,
+                            memberStudentNo:0,
+                            memberName:"",
+                            permission:false
+                        }
+                    })
+                    const memberInfo = () => {
                         $.ajax({
                             type:'GET',
                             url:apiUrl+'/account/<%- memberCode %>',
                             cache:false,
-                            success:data=>{
+                            success:data => {
                                 data=JSON.parse(data);
                                 if(data.status!=1){
                                     error_code(data.status, data.subStatus);
                                 }else{
-                                    $('.member_info_wrap .left_wrap').html(`<img src="/resource/member/profile_images/profile_`+data.member.memberCode+`.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">`);
-                                    $('.member_nickname').text(data.member.memberNickname);
-                                    $('.member_code').text("멤버 코드: "+data.member.memberCode);
-                                    $('.member_level').text("권한 수준: "+data.member.memberLevel);
-                                    $('.member_created').text(data.member.memberCreated.split(' ')[0]+" 가입");
-                                    $('.member_enrolled').text(data.member.memberEnrolled+"년 입학");
-                                    $('.student_info').text(data.member.memberGrade+"학년 "+data.member.memberClass+"반 "+data.member.memberStudentNo+"번 "+data.member.memberName);
-                                    if(data.member.permission){
-                                        $('.user_profile_menu').html(`
-                                            <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profile_upload();return false;">
-                                                <input type="file" name="file" required>
-                                                <button type="submit" class="button">프로필 이미지 업로드</button>
-                                            </form>
-                                            <div class="button" onClick="$('.pw_reset_box').trigger('addClass');">비밀번호 재설정</div>
-                                        `);
+                                    memberInfoView.memberType=data.member.memberType;
+                                    if(data.member.memberType=="active"){
+                                        memberInfoView.memberCode=data.member.memberCode;
+                                        memberInfoView.memberNickname=data.member.memberNickname;
+                                        memberInfoView.memberLevel=data.member.memberLevel;
+                                        memberInfoView.memberCreated=data.member.memberCreated.split(' ')[0];
+                                        memberInfoView.memberEnrolled=data.member.memberEnrolled;
+                                        memberInfoView.memberGrade=data.member.memberGrade;
+                                        memberInfoView.memberClass=data.member.memberClass;
+                                        memberInfoView.memberStudentNo=data.member.memberStudentNo;
+                                        memberInfoView.memberName=data.member.memberName;
+                                        memberInfoView.permission=data.member.permission;
+                                    }else if(data.member.memberType=="anonymous"){
+                                        memberInfoView.memberCode=-1;
+                                        memberInfoView.memberNickname="Anonymous";
+                                        memberInfoView.memberLevel=0;
+                                        memberInfoView.permission=data.member.permission;
+                                        showAlert("익명 프로필입니다");
+                                    }else if(data.member.memberType=="deleted"){
+                                        memberInfoView.memberCode=data.member.memberCode;
+                                        memberInfoView.permission=data.member.permission;
+                                        showAlert("삭제된 계정입니다");
                                     }
                                 }
                             },
-                            error:data=>{
+                            error:data => {
                                 error_code(0, 0);
                             }
                         });
                     }
-                    member_info();
+                    memberInfo();
                 </script>
-                <div class="user_profile_menu"></div>
             </div>
             <script>
-                const profile_upload = () =>{
+                const profileUpload = () => {
                     let form = $('.profile_upload')[0];
                     let formData = new FormData(form);
                     $.ajax({
@@ -82,7 +115,7 @@
                         cache:false,
                         processData:false,
                         contentType:false,
-                        success:function(data){
+                        success:data => {
                             data=JSON.parse(data);
                             if(data.status!=1){
                                 error_code(data.status, data.subStatus);
@@ -91,7 +124,7 @@
                                 window.location.reload();
                             }
                         },
-                        error: function(data) {
+                        error:data => {
                             error_code(0, 0);
                         }
                     });
