@@ -17,6 +17,7 @@ const meister = () => {
 }
 const meisterPoint = () => {
     $$('.loading')[0].classList.add("on");
+    progress(20)
     $.ajax({
         type:'POST',
         data:{
@@ -39,11 +40,13 @@ const meisterPoint = () => {
         },
         complete:() => {
             $$('.loading')[0].classList.remove("on");
+            progress(100)
         }
     });
 }
 const meisterScore = () => {
     $$('.loading')[0].classList.add("on");
+    progress(20)
     $.ajax({
         type:'GET',
         url:apiUrl+'/meister/score/'+
@@ -68,6 +71,7 @@ const meisterScore = () => {
         },
         complete:() => {
             $$('.loading')[0].classList.remove("on");
+            progress(100)
         }
     });
 }

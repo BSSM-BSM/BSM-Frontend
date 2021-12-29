@@ -39,9 +39,9 @@ const boardChange = (changeBoard) => {
             break;
     }
     history.pushState(null, null, `/board/${boardType}${window.location.search}`)
-    if(page>1) boardPageChange(1)
     $$('.post')[0].classList.add('hide')
-    boardRefresh();
+    if(page>1) boardPageChange(1)
+    else boardRefresh();
 }
 
 const boardPageChange = (changePage) => {
@@ -76,6 +76,7 @@ const boardView = new Vue({
 })
 const boardRefresh = () => {
     $$('.loading')[0].classList.add("on");
+    progress(20);
     $.ajax({
         type:'GET',
         url:apiUrl+`/board/${boardType}?page=${page}&limit=${limit}`,
@@ -130,6 +131,7 @@ const boardRefresh = () => {
         },
         complete:() => {
             $$('.loading')[0].classList.remove("on");
+            progress(100);
         }
     });
 }
@@ -156,4 +158,8 @@ switch(boardType){
         boardTitle.subBoardName='';
         break;
 }
-boardRefresh();
+window.addEventListener('DOMContentLoaded', () => {
+    if(postNo!=null)
+        postRefresh();
+    boardRefresh();
+})

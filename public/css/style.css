@@ -604,6 +604,29 @@ input[type=number]{
 .alert.remove{
   animation:alert_hide 250ms ease-out;
 }
+.progress{
+  position:fixed;
+  width:100%;
+  height:5px;
+  background-color:var(--green);
+  z-index:10000;
+  display:none;
+  transition:.5s;
+}
+.progress.on{
+  display:block;
+}
+.progress.remove{
+  animation:progress_hide 500ms ease-out;
+}
+@keyframes progress_hide {
+  from {
+    opacity:1;
+  }
+  to {
+    opacity:0;
+  }
+}
 @keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }

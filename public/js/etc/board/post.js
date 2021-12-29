@@ -28,6 +28,7 @@ const postView = new Vue({
     }
 })
 const postRefresh = () => {
+    progress(20)
     $$('.loading')[0].classList.add("on");
     $.ajax({
         type:'GET',
@@ -56,6 +57,7 @@ const postRefresh = () => {
                     let tmp = $(this).wrap('<p/>').parent().html();
                     $(this).parent().html('<div class="video-container">'+tmp+'</div>');
                 });
+                progress(50)
                 commentRefresh();
             }
         },
@@ -132,6 +134,7 @@ Vue.component('tree-item', {
 
 const commentRefresh = () => {
     $$('.loading')[0].classList.add("on");
+    progress(50)
     $.ajax({
         type:'GET',
         url:`${apiUrl}/comment/${boardType}/${postNo}`,
@@ -150,6 +153,7 @@ const commentRefresh = () => {
         },
         complete:() => {
             $$('.loading')[0].classList.remove("on");
+            progress(100)
         }
     });
 }
@@ -211,8 +215,4 @@ const comment_write = (depth, parentIdx) => {
             $$('.loading')[0].classList.remove("on");
         }
     });
-}
-
-if(postNo!=null){
-    postRefresh();
 }
