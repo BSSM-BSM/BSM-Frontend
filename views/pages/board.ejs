@@ -39,7 +39,8 @@
                     </div>
                     <div class="comment_list">
                         <div class="comment_item" v-for="item in commentTree">
-                            <div class="comment_item_wrap" :onClick="`postView.commentFocus=${item.idx};`">
+                            <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
+                            <div class="comment_item_wrap" :onClick="`postView.commentFocus=${item.idx};`" v-if="!item.deleted">
                                 <div class="comment_item_info_wrap">
                                     <div class="left_wrap">
                                         <img :src="`/resource/member/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -54,7 +55,7 @@
                                 </div>
                                 <div class="comment_item_content" v-html="item.comment"></div>
                             </div>
-                            <form v-if="commentFocus==item.idx" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
+                            <form v-if="commentFocus==item.idx && !item.deleted" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
                                 <textarea placeholder="답글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
                                 <br><br>
                                 <input type="submit" name="" value="답글작성" class="button">
@@ -130,7 +131,8 @@
                 <script src="/js/etc/board/board.js"></script>
                 <script type="text/x-template" id="comment_item_template">
                     <div class="comment_item">
-                        <div class="comment_item_wrap" :onClick="`postView.commentFocus=${item.idx};`">
+                        <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
+                        <div class="comment_item_wrap" :onClick="`postView.commentFocus=${item.idx};`" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
                                     <img :src="`/resource/member/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -145,7 +147,7 @@
                             </div>
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
-                        <form v-if="`${postView.commentFocus}`==item.idx" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
+                        <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
                             <textarea placeholder="답글" class="post_comment" style="width:100%;height:10rem;" required></textarea>
                             <br><br>
                             <input type="submit" name="" value="답글작성" class="button">

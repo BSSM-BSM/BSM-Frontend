@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.5';
+const cacheName = '1.2.0.6';
 let cacheFiles = [
     '/',
     '/meal',

@@ -209,6 +209,10 @@
   border-radius:1rem;
   cursor:pointer;
 }
+.comment_item_wrap.deleted{
+  cursor:unset;
+  color:gray;
+}
 .comment_item_wrap:hover{
   box-shadow:var(--shadow);
   background-color:var(--hover);
