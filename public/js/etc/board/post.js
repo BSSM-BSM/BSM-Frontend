@@ -25,6 +25,14 @@ const postView = new Vue({
         isParent:function(){
             return this.item.child && this.item.child.length
         }
+    },
+    updated(){
+        this.$nextTick(function () {
+            $$('.comment_item_content img[emoticon]').forEach(e => {
+                e.src=`/resource/board/emoticon/${e.getAttribute('emoticon')}.png`;
+                e.classList.add('emoticon');
+            });
+        })
     }
 })
 const postRefresh = () => {
@@ -53,10 +61,13 @@ const postRefresh = () => {
                 postView.postContent=data.postContent;
                 postView.like=data.like;
                 postView.postLike=data.postLike;
-                $('.note-video-clip').each(() => {
-                    let tmp = $(this).wrap('<p/>').parent().html();
-                    $(this).parent().html('<div class="video-container">'+tmp+'</div>');
-                });
+                window.setTimeout(()=>{
+                    // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
+                    // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
+                    $('.note-video-clip').each((i, e) => {
+                        $(e).wrap('<div class="video-container"></div>');
+                    });
+                },1);
                 progress(50)
                 commentRefresh();
             }
@@ -123,7 +134,7 @@ const likeSend = like => {
 Vue.component('tree-item', {
     template:'#comment_item_template',
     props:{
-        item: Object
+        item:Object
     },
     computed:{
         isParent:function(){
