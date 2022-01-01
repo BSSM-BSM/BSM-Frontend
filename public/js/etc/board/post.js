@@ -205,7 +205,7 @@ const comment_write = (depth, parentIdx) => {
     $.ajax({
         type:'POST',
         data:{
-            comment:$('.post_comment').val(),
+            comment:$('.post_comment').html(),
         },
         url:url,
         cache:false,
@@ -215,7 +215,7 @@ const comment_write = (depth, parentIdx) => {
                 error_code(data.status, data.subStatus);
                 refresh = false;
             }else{
-                $('.post_comment').val("");
+                $('.post_comment').html("");
                 commentRefresh();
             }
         },
@@ -226,4 +226,7 @@ const comment_write = (depth, parentIdx) => {
             $$('.loading')[0].classList.remove("on");
         }
     });
+}
+const insertEmoticon = (id) => {
+    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}.png" emoticon="${id}">`)
 }
