@@ -402,26 +402,28 @@ header.on nav .top_menu{
 .dropdown_menu:hover .dropdown_content, 
 .dropdown_menu input:focus + .dropdown_content {opacity:1;pointer-events:unset;}
 
-.input_text, textarea{
+.input_text, textarea, .textarea{
   border:none; color:var(--text); width:375px; font-weight:bold; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem 1rem; border-radius:.5rem;
   background-color:var(--input);
   transition:.25s;
 }
-textarea{
+textarea, .textarea{
   font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
+  text-align:left;
+  display:inline-block;
 }
 input[type=number]{
   width:auto;
   padding:1rem .5rem;
 }
-.input_text::placeholder, input[type=number]::placeholder, textarea::placeholder{
+.input_text::placeholder, input[type=number]::placeholder, textarea::placeholder, .textarea::placeholder{
   color:var(--text);
 }
-.input_text:hover, input[type=number]:hover, textarea:hover{
+.input_text:hover, input[type=number]:hover, textarea:hover, .textarea:hover{
   box-shadow:var(--shadow);
   background-color:var(--hover);
 }
-.input_text:focus, input[type=number]:focus, textarea:focus{
+.input_text:focus, input[type=number]:focus, textarea:focus, .textarea:focus{
   box-shadow:0 0 2rem 0 var(--main);
 }
 .button{

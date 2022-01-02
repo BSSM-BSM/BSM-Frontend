@@ -19,17 +19,49 @@ const postView = new Vue({
         postLike:0,
         like:0,
         commentTree:[],
-        commentFocus:0
+        commentFocus:0,
+        emoticon:[
+            {
+                id:1,
+                alt:'소리알이콘',
+                e:[
+                    {idx:1,type:'png'},
+                    {idx:2,type:'png'},
+                    {idx:3,type:'png'},
+                    {idx:4,type:'png'},
+                ]
+            },
+            {
+                id:2,
+                alt:'숫자콘',
+                e:[
+                    {idx:1,type:'png'},
+                    {idx:2,type:'png'},
+                    {idx:3,type:'png'},
+                    {idx:4,type:'png'},
+                    {idx:5,type:'png'},
+                    {idx:6,type:'png'},
+                    {idx:7,type:'png'},
+                    {idx:8,type:'png'},
+                    {idx:9,type:'png'},
+                    {idx:10,type:'png'},
+                ]
+            }
+        ],
+        emoticonIdx:0
     },
     methods:{
         isParent:function(){
             return this.item.child && this.item.child.length
+        },
+        selectEmoticon:function(select){
+            this.emoticonIdx=select;
         }
     },
     updated(){
         this.$nextTick(function () {
-            $$('.comment_item_content img[emoticon]').forEach(e => {
-                e.src=`/resource/board/emoticon/${e.getAttribute('emoticon')}.png`;
+            $$('.comment_item_content img[e_id]').forEach(e => {
+                e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
                 e.classList.add('emoticon');
             });
         })
@@ -227,6 +259,6 @@ const comment_write = (depth, parentIdx) => {
         }
     });
 }
-const insertEmoticon = (id) => {
-    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}.png" emoticon="${id}">`)
+const insertEmoticon = (id, idx, type) => {
+    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}">`)
 }
