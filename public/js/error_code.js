@@ -1,5 +1,4 @@
-function error_code(status, subStatus){
-    //window.navigator.vibrate(100);
+function error_code(status, subStatus, msg){
     error_msg={
         0:{msg:'연결오류',
             0:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
@@ -41,24 +40,32 @@ function error_code(status, subStatus){
             4:{type:1, msg:'수정할 비밀번호 재입력이 맞지 않습니다.'},
         },
     };
-    if(error_msg[status][subStatus].type!=1){
-        switch(status){
-            case 4:
-                switch(subStatus){
-                    case 1:
-                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
-                        $('.login_box').trigger('addClass');
-                        break;
-                    case 2:
-                        $('.pw_reset_box').trigger('addClass');
-                        break;
+    if(error_msg[status]){
+        if(error_msg[status][subStatus]){
+            if(error_msg[status][subStatus].type!=1){
+                switch(status){
+                    case 4:
+                        switch(subStatus){
+                            case 1:
+                                showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+                                $('.login_box').trigger('addClass');
+                                break;
+                            case 2:
+                                $('.pw_reset_box').trigger('addClass');
+                                break;
+                            default:
+                                break;
+                        }
                     default:
                         break;
                 }
-            default:
-                break;
+            }else{
+                showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+            }
+        }else{
+            showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
         }
     }else{
-        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+        showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
     }
 }

@@ -162,7 +162,7 @@
                         <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" class="comment_write" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
                             <pre class="textarea post_comment" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                             <br>
-                            <button class="button" onclick="insertEmoticon(1);return false;">이모티콘 넣기(테스트)</button>
+                            <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
                             <input type="submit" name="" value="답글작성" class="button">
                         </form>
                         <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>

@@ -28,6 +28,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --shadow: 1px 1px 10px rgba(0, 0, 0, .2);
   --hover: rgba(0, 0, 0, .2);
   --bright: brightness(0);
+  --visited: #800080;
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -51,6 +52,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     --shadow: 1px 1px 10px rgba(0, 0, 0, .2);
     --hover: #80808066;
     --bright: brightness(20);
+    --visited: #f4a4ff;
   }
 }
 html{
@@ -189,6 +191,7 @@ main::-webkit-scrollbar-track{
   background-repeat:no-repeat;
   background-size:4rem;
   background-position:center;
+  filter:var(--bright);
   transition:.25s;
 }
 .x_button:hover{
@@ -212,11 +215,10 @@ header.on nav .notice_bar{
 }
 header{
   position:fixed; z-index:100; top:0; width:100%;
-}
-header *{
-  color:var(--text); font-weight: bold;
+  font-weight: bold;
 }
 header nav{
+  color:var(--text);
   box-shadow:var(--shadow);
   background-color:var(--menu-background);
   backdrop-filter:blur(20px);
@@ -351,14 +353,14 @@ header.on nav .top_menu{
   margin:1rem 0 3rem 0;
 }
 .side_menu ul li.home a img{
-  margin-left:auto; margin-right:auto; height:3.2rem; padding:0;
+  margin-left:auto; margin-right:auto; height:3.2rem; padding:0; filter:none;
 }
 .side_menu ul li:hover:not(.home){
   box-shadow:var(--shadow);
   background-color:var(--hover);
 }
 .side_menu ul li *{
-  display:block; padding:1.2rem;
+  display:block; padding:1.2rem; color:var(--white);
 }
 .member_admin{
   font-weight:bold !important;
@@ -531,7 +533,7 @@ input[type=number]{
 .popup_close_button{
   position:absolute;
   top:10px;
-  left:10px;
+  right:10px;
 }
 @keyframes toast_show {
   from {

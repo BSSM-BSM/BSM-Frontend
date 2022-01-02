@@ -29,6 +29,16 @@ const postView = new Vue({
                     {idx:2,type:'png'},
                     {idx:3,type:'png'},
                     {idx:4,type:'png'},
+                    {idx:5,type:'png'},
+                    {idx:6,type:'png'},
+                    {idx:7,type:'png'},
+                    {idx:8,type:'png'},
+                    {idx:9,type:'png'},
+                    {idx:10,type:'png'},
+                    {idx:11,type:'png'},
+                    {idx:12,type:'png'},
+                    {idx:13,type:'png'},
+                    {idx:14,type:'png'},
                 ]
             },
             {

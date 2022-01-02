@@ -72,7 +72,7 @@
   width:100%;
 }
 .board_item a:visited.post_title{
-  color:#f4a4ff;
+  color:var(--visited);
 }
 
 .board_item_info.right_wrap{
