@@ -64,16 +64,24 @@ const postView = new Vue({
         isParent:function(){
             return this.item.child && this.item.child.length
         },
+        focusComment:function(focus){
+            this.commentFocus=focus;
+        },
         selectEmoticon:function(select){
             this.emoticonIdx=select;
         }
     },
     updated(){
         this.$nextTick(function () {
-            $$('.comment_item_content img[e_id]').forEach(e => {
+            $$('.post_content img[e_id]:not(.emoticon)').forEach(e => {
                 e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
                 e.classList.add('emoticon');
             });
+            $$('.comment_item_content img[e_id]:not(.emoticon)').forEach(e => {
+                e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
+                e.classList.add('emoticon');
+            });
+            editor = $$(`.comment_write.write_${this.commentFocus} .write`)[0];
         })
     }
 })
@@ -247,7 +255,7 @@ const comment_write = (depth, parentIdx) => {
     $.ajax({
         type:'POST',
         data:{
-            comment:$('.post_comment').html(),
+            comment:$(`.comment_write.write_${parentIdx} .write`).html(),
         },
         url:url,
         cache:false,
@@ -269,6 +277,13 @@ const comment_write = (depth, parentIdx) => {
         }
     });
 }
+let editor = null;
+const focusEditor = () => {
+    if(editor){
+        editor.focus({preventScroll: true});
+    }
+}
 const insertEmoticon = (id, idx, type) => {
-    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}">`)
+    focusEditor();
+    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`)
 }
