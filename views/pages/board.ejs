@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="comment_item_content" v-html="item.comment"></div>
                             </div>
-                            <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
+                            <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                                 <br>
                                 <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
@@ -64,7 +64,7 @@
                             <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                         </div>
                     </div>
-                    <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="comment_write(0, null);return false;">
+                    <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
                         <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                         <br>
                         <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
@@ -159,7 +159,7 @@
                             </div>
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
-                        <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`comment_write(${item.depth}, ${item.idx});return false;`">
+                        <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                             <br>
                             <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>

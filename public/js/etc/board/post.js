@@ -186,6 +186,11 @@ Vue.component('tree-item', {
     props:{
         item:Object
     },
+    methods:{
+        focusComment:function(focus){
+            postView.commentFocus=focus;
+        }
+    },
     computed:{
         isParent:function(){
             return this.item.child && this.item.child.length
@@ -243,11 +248,11 @@ const commentDelete = commentIndex => {
     });
 }
 
-const comment_write = (depth, parentIdx) => {
+const commentWrite = (depth, parentIdx) => {
     $$('.loading')[0].classList.add("on");
     depth = parseInt(depth)+1;
     let url;
-    if(parentIdx==null){
+    if(parentIdx<1){
         url = `${apiUrl}/comment/${boardType}/${postNo}`;
     }else{
         url = `${apiUrl}/comment/${boardType}/${postNo}/${depth}/${parentIdx}`;

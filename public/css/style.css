@@ -471,6 +471,7 @@ input[type=number]{
   display:flex;
   flex-direction:column;
   justify-content:center;
+  margin-right:1rem;
 }
 .download_button .left_wrap img{
   display:flex;
@@ -845,11 +846,5 @@ table{
     display:block;
     border-left:none;
     padding:3rem 0;
-  }
-  .download_button_wrap{
-    flex-direction:column;
-  }
-  .download_button{
-    width:auto;
   }
 }
