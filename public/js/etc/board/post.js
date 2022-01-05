@@ -20,44 +20,7 @@ const postView = new Vue({
         like:0,
         commentTree:[],
         commentFocus:0,
-        emoticon:[
-            {
-                id:1,
-                alt:'소리알이콘',
-                e:[
-                    {idx:1,type:'png'},
-                    {idx:2,type:'png'},
-                    {idx:3,type:'png'},
-                    {idx:4,type:'png'},
-                    {idx:5,type:'png'},
-                    {idx:6,type:'png'},
-                    {idx:7,type:'png'},
-                    {idx:8,type:'png'},
-                    {idx:9,type:'png'},
-                    {idx:10,type:'png'},
-                    {idx:11,type:'png'},
-                    {idx:12,type:'png'},
-                    {idx:13,type:'png'},
-                    {idx:14,type:'png'},
-                ]
-            },
-            {
-                id:2,
-                alt:'숫자콘',
-                e:[
-                    {idx:1,type:'png'},
-                    {idx:2,type:'png'},
-                    {idx:3,type:'png'},
-                    {idx:4,type:'png'},
-                    {idx:5,type:'png'},
-                    {idx:6,type:'png'},
-                    {idx:7,type:'png'},
-                    {idx:8,type:'png'},
-                    {idx:9,type:'png'},
-                    {idx:10,type:'png'},
-                ]
-            }
-        ],
+        emoticon:[],
         emoticonIdx:0
     },
     methods:{
@@ -291,4 +254,23 @@ const focusEditor = () => {
 const insertEmoticon = (id, idx, type) => {
     focusEditor();
     document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`)
+}
+const loadEmoticon = () => {
+    $$('.insert_emoticon_box')[0].classList.add('on');
+    $.ajax({
+        type:'GET',
+        url:`${apiUrl}/emoticon`,
+        cache:false,
+        success:data => {
+            data=JSON.parse(data);
+            if(data.status!=1){
+                error_code(data.status, data.subStatus);
+            }else{
+                postView.emoticon=data.emoticon;
+            }
+        },
+        error:() => {
+            error_code(0, 0);
+        },
+    });
 }

@@ -58,7 +58,7 @@
                             <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                                 <br>
-                                <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
+                                <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
                                 <input type="submit" name="" value="답글작성" class="button">
                             </form>
                             <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
@@ -67,7 +67,7 @@
                     <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
                         <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                         <br>
-                        <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
+                        <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
                         <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
                         <input type="submit" name="" value="댓글작성" class="button">
                     </form>
@@ -162,7 +162,7 @@
                         <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                             <br>
-                            <button class="button" onclick="$$('.insert_emoticon_box')[0].classList.add('on');return false;">이모티콘 넣기(테스트)</button>
+                            <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
                             <input type="submit" name="" value="답글작성" class="button">
                         </form>
                         <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
