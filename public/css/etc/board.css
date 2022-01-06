@@ -273,7 +273,7 @@
 .note-editing-area{
   text-align:start;
 }
-.insert_emoticon_box{
+.insert_emoticon_box, .emoticon_info_box{
   max-width:530px;
   width:100%;
 }

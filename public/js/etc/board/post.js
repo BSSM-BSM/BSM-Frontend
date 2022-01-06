@@ -20,8 +20,6 @@ const postView = new Vue({
         like:0,
         commentTree:[],
         commentFocus:0,
-        emoticon:[],
-        emoticonIdx:0
     },
     methods:{
         isParent:function(){
@@ -30,19 +28,18 @@ const postView = new Vue({
         focusComment:function(focus){
             this.commentFocus=focus;
         },
-        selectEmoticon:function(select){
-            this.emoticonIdx=select;
-        }
     },
     updated(){
         this.$nextTick(function () {
             $$('.post_content img[e_id]:not(.emoticon)').forEach(e => {
                 e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
                 e.classList.add('emoticon');
+                e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
             });
             $$('.comment_item_content img[e_id]:not(.emoticon)').forEach(e => {
                 e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
                 e.classList.add('emoticon');
+                e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
             });
             editor = $$(`.comment_write.write_${this.commentFocus} .write`)[0];
         })
@@ -233,7 +230,7 @@ const commentWrite = (depth, parentIdx) => {
                 error_code(data.status, data.subStatus);
                 refresh = false;
             }else{
-                $('.post_comment').html("");
+                $(`.comment_write.write_${parentIdx} .write`).html('');
                 commentRefresh();
             }
         },
@@ -251,6 +248,19 @@ const focusEditor = () => {
         editor.focus({preventScroll: true});
     }
 }
+const emoticonView = new Vue({
+    el:'.emoticon_popup',
+    data:{
+        emoticon:[],
+        emoticonIdx:0,
+        emoticonInfo:{}
+    },
+    methods:{
+        selectEmoticon:function(select){
+            this.emoticonIdx=select;
+        }
+    },
+})
 const insertEmoticon = (id, idx, type) => {
     focusEditor();
     document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`)
@@ -266,7 +276,31 @@ const loadEmoticon = () => {
             if(data.status!=1){
                 error_code(data.status, data.subStatus);
             }else{
-                postView.emoticon=data.emoticon;
+                emoticonView.emoticon=data.emoticon;
+            }
+        },
+        error:() => {
+            error_code(0, 0);
+        },
+    });
+}
+const loadEmoticonInfo = (id) => {
+    $$('.emoticon_info_box')[0].classList.add('on');
+    $.ajax({
+        type:'GET',
+        url:`${apiUrl}/emoticon/${id}`,
+        cache:false,
+        success:data => {
+            data=JSON.parse(data);
+            if(data.status!=1){
+                error_code(data.status, data.subStatus);
+            }else{
+                if(data.emoticon){
+                    data.emoticon.created=data.emoticon.created.split(' ')[0];
+                    emoticonView.emoticonInfo=data.emoticon;
+                }else{
+                    showAlert('이모티콘 정보를 불러올 수 없습니다');
+                }
             }
         },
         error:() => {

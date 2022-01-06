@@ -10,7 +10,7 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "start_url": "/",
+  "start_url": "/meal",
   "display": "standalone",
   "background_color": "#202124",
   "theme_color": "#202124",

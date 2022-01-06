@@ -71,6 +71,16 @@
                         <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
                         <input type="submit" name="" value="댓글작성" class="button">
                     </form>
+                    <div class="post_menu">
+                        <span class="post_delete">
+                            <div class="button red_button" onclick="postDelete();" v-if="permission">글 삭제</div>
+                        </span>
+                        <span class="post_modify">
+                            <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="permission">게시글 수정</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="emoticon_popup">
                     <div class="insert_emoticon_box popup center">
                         <div class="popup_close_button x_button" onClick="$$('.insert_emoticon_box')[0].classList.remove('on');"></div>
                         <p>아직 테스트중인 기능입니다</p>
@@ -81,13 +91,13 @@
                             <img :src="`/resource/board/emoticon/${emoticon[emoticonIdx].id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" :onclick="`insertEmoticon('${emoticon[emoticonIdx].id}', '${e.idx}', '${e.type}')`" v-for="e in emoticon[emoticonIdx].e">
                         </div>
                     </div>
-                    <div class="post_menu">
-                        <span class="post_delete">
-                            <div class="button red_button" onclick="postDelete();" v-if="permission">글 삭제</div>
-                        </span>
-                        <span class="post_modify">
-                            <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="permission">게시글 수정</a>
-                        </span>
+                    <div class="emoticon_info_box popup center">
+                        <div class="popup_close_button x_button" onClick="$$('.emoticon_info_box')[0].classList.remove('on');"></div>
+                        <h2>{{emoticonInfo.alt}}</h2>
+                        <p>{{emoticonInfo.created}}</p>
+                        <div class="emoticon_box" v-if="emoticonInfo">
+                            <img :src="`/resource/board/emoticon/${emoticonInfo.id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" v-for="e in emoticonInfo.e">
+                        </div>
                     </div>
                 </div>
                 <div class="board_top_menu">
