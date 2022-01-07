@@ -6,7 +6,7 @@
   width:100%;
   border-radius:2rem;
   box-shadow:var(--shadow);
-  background-color:rgba(128, 128, 128, 0.2);
+  background-color:var(--level-1);
 }
 .class_time tbody tr{
   display:flex;
@@ -26,7 +26,7 @@
   border-radius:0rem 0rem 1rem 1rem;
 }
 .active_day{
-  background-color:rgba(128, 128, 128, .5);
+  background-color:var(--level-2);
 }
 .active_time{
   background-color:rgba(32, 32, 32, .65);
@@ -58,7 +58,7 @@
 }
 .timetable_select ul li.active{
   box-shadow:var(--shadow);
-  background-color:rgba(128, 128, 128, .2);
+  background-color:var(--level-1);
 }
 .timetable_select li:hover{
   box-shadow:var(--shadow);

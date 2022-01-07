@@ -20,6 +20,9 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --text: #202124;
   --background: #FFF;
 
+  --level-1: #FFF;
+  --level-2: #DDD;
+
   --input: rgba(192, 192, 192, .2);
 
   --menu-background: #FFFFFF88;
@@ -43,6 +46,9 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --text: #e8eaed;
   --background: #202124;
 
+  --level-1: #303134;
+  --level-2: #404144;
+
   --input: rgba(192, 192, 192, .2);
 
   --menu-background: #20212488;
@@ -62,6 +68,7 @@ body{
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-size:cover;
+  transition:background-color .5s;
 }
 @keyframes fadein {
   from {opacity:1;display:block;}
@@ -222,11 +229,14 @@ header nav{
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
 }
-header nav , header nav *{
+header nav, header nav *{
   transition:.25s;
 }
 header.on nav .top_menu{
   padding:0;
+}
+.top_menu span{
+  color:var(--text);
 }
 .all_menu{
   padding:1rem;
@@ -342,6 +352,7 @@ header.on nav .top_menu{
   top:10px !important;
   right:10px !important;
   left:auto !important;
+  filter:none !important;
   z-index:1;
 }
 .side_menu ul{
@@ -496,7 +507,7 @@ input[type=number]{
   padding:15px;
   border-radius:2rem;
   box-shadow:var(--shadow);
-  background-color:var(--background);
+  background-color:var(--level-1);
   z-index:1000;
   display:none;
 }
@@ -565,7 +576,7 @@ input[type=number]{
 .toast{
   min-width:200px;
   padding:2rem 1rem;
-  background-color:var(--background);
+  background-color:var(--level-1);
   transition:.25s;
   text-align:center;
   font-weight:bold;
@@ -691,7 +702,7 @@ input[type=number]{
   padding: 5rem 0rem 5rem 0rem;
   border-radius:2rem;
   box-shadow:var(--shadow);
-  background-color:var(--background);
+  background-color:var(--level-1);
 }
 .searchBar .searchResult.on{
   display:block;

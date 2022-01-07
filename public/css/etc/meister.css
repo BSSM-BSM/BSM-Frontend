@@ -44,7 +44,8 @@
     margin:1rem 0;
 }
 .tableGray_type{
-    background-color:rgba(128, 128, 128, 0.2);
+    background-color:var(--level-1);
+    box-shadow:var(--shadow);
     border-radius:2rem;
 }
 .result.score > table tbody tr td{
