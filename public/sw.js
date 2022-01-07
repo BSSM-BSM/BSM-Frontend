@@ -1,19 +1,15 @@
-const cacheName = '1.2.0.13';
-let cacheFiles = [
+const cacheName = '1.2.0.14';
+const cacheFiles = [
     '/',
     '/meal',
     '/timetable',
     '/meister',
     '/board/board',
     '/board/anonymous',
-    '/js/jquery.min.js',
-    '/js/summernote-lite.min.js',
-    '/js/lang/summernote-ko-KR.js',
     '/js/menu_bar.js',
     '/js/search.js',
     '/js/error_code.js',
     '/js/alert.js',
-    '/js/vue.js',
     '/js/etc/meal.js',
     '/js/etc/board/board.js',
     '/js/etc/board/post.js',
@@ -24,19 +20,43 @@ let cacheFiles = [
     '/css/etc/meister.css',
     '/css/etc/memberinfo.css',
     '/css/etc/timetable.css',
-    '/css/summernote-lite.min.css',
     '/icons/logo.png',
     '/resource/member/profile_images/profile_default.png'
 ];
+const libCacheName = 'lib-1.2.0';
+const libCacheFiles = [
+    '/js/jquery.min.js',
+    '/js/summernote-lite.min.js',
+    '/js/lang/summernote-ko-KR.js',
+    '/js/vue.js',
+    '/css/summernote-lite.min.css',
+];
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        // 캐쉬할 페이지들을 전부 캐쉬합니다.
-        caches.open(cacheName).then((cache) => cache.addAll(cacheFiles))
+        // 캐시할 파일들 캐시
+        caches.open(cacheName).then((cache) => cache.addAll(cacheFiles)),
+        caches.open(libCacheName).then((cache) => cache.addAll(libCacheFiles))
     );
     self.skipWaiting();
 });
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(
+                keys.filter(key => {
+                    return key != cacheName && key != libCacheName;
+                }).map((key) => {
+                    return caches.delete(key);
+                })
+            );
+        })
+    );
+});
 self.addEventListener('fetch', (event) => {
-    if (event.request.method !== 'GET') { // GET 요청만 캐싱 지원 처리
+    if(event.request.method !== 'GET') { // GET 요청만 캐싱
+        return;
+    }
+    if(cacheFiles.indexOf(event.request.url.split('bssm.kro.kr')[1])==-1){ // 캐싱된 요청만
         return;
     }
     const fetchRequest = event.request.clone();
@@ -49,7 +69,7 @@ self.addEventListener('fetch', (event) => {
             })
             .catch(() => {
                 return caches.match(event.request.url)
-                    .then(cache => {return cache;}) // 네트워크 요청 실패시 캐싱된 요청으로 응답.
+                    .then(cache => {return cache;}) // 네트워크 요청 실패시 캐시 반환
             })
     );
 });
