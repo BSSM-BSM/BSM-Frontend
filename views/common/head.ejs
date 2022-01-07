@@ -39,6 +39,40 @@
         '<span class="member_admin">[관리자]</span> '
     ]
     const $$ = document.querySelectorAll.bind(document)
+    const themeInit = () => {
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const theme = localStorage.getItem('theme');
+        if(theme=='light' || theme=='dark'){
+            if(theme=='dark'){
+                $$(':root')[0].classList.add('dark');
+            }else{
+                $$(':root')[0].classList.remove('dark');
+            }
+        }else{
+            if(prefersDarkScheme.matches){
+                localStorage.setItem('theme', 'dark');
+                $$(':root')[0].classList.add('dark');
+            }else{
+                localStorage.setItem('theme', 'light');
+                $$(':root')[0].classList.remove('dark');
+            }
+        }
+    }
+    const toggleTheme = () => {
+        const theme = localStorage.getItem('theme');
+        if(!(theme=='light' || theme=='dark')){
+            themeInit()
+            return;
+        }
+        if(theme=='dark'){
+            $$(':root')[0].classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }else{
+            $$(':root')[0].classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    themeInit()
 </script>
 <%-'<script>'%>
 <% if(!member.isLogin){ %>

@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.14';
+const cacheName = '1.2.0.15';
 const cacheFiles = [
     '/',
     '/meal',
@@ -6,11 +6,13 @@ const cacheFiles = [
     '/meister',
     '/board/board',
     '/board/anonymous',
+    '/board/notice',
     '/js/menu_bar.js',
     '/js/search.js',
     '/js/error_code.js',
     '/js/alert.js',
     '/js/etc/meal.js',
+    '/js/etc/meister.js',
     '/js/etc/board/board.js',
     '/js/etc/board/post.js',
     '/css/style.css',
@@ -20,8 +22,6 @@ const cacheFiles = [
     '/css/etc/meister.css',
     '/css/etc/memberinfo.css',
     '/css/etc/timetable.css',
-    '/icons/logo.png',
-    '/resource/member/profile_images/profile_default.png'
 ];
 const libCacheName = 'lib-1.2.0';
 const libCacheFiles = [
@@ -31,11 +31,27 @@ const libCacheFiles = [
     '/js/vue.js',
     '/css/summernote-lite.min.css',
 ];
+const imgCacheName = 'img-1.2.0';
+const imgCacheFiles = [
+    '/icons/logo.png',
+    '/resource/common/images/x.svg',
+    '/resource/common/images/theme.svg',
+    'https://bssm.kro.kr/resource/common/images/download.png',
+    'https://bssm.kro.kr/resource/index/images/main.webp',
+    'https://bssm.kro.kr/resource/index/images/main2.webp',
+    '/resource/member/profile_images/profile_default.png'
+];
+const allCacheFiles = [
+    ...cacheFiles,
+    ...libCacheFiles,
+    ...imgCacheFiles
+]
 self.addEventListener('install', (event) => {
     event.waitUntil(
         // 캐시할 파일들 캐시
         caches.open(cacheName).then((cache) => cache.addAll(cacheFiles)),
-        caches.open(libCacheName).then((cache) => cache.addAll(libCacheFiles))
+        caches.open(libCacheName).then((cache) => cache.addAll(libCacheFiles)),
+        caches.open(imgCacheName).then((cache) => cache.addAll(imgCacheFiles))
     );
     self.skipWaiting();
 });
@@ -44,7 +60,7 @@ self.addEventListener("activate", event => {
         caches.keys().then((keys) => {
             return Promise.all(
                 keys.filter(key => {
-                    return key != cacheName && key != libCacheName;
+                    return key != cacheName && key != libCacheName && key != imgCacheName;
                 }).map((key) => {
                     return caches.delete(key);
                 })
@@ -56,7 +72,7 @@ self.addEventListener('fetch', (event) => {
     if(event.request.method !== 'GET') { // GET 요청만 캐싱
         return;
     }
-    if(cacheFiles.indexOf(event.request.url.split('bssm.kro.kr')[1])==-1){ // 캐싱된 요청만
+    if(allCacheFiles.indexOf(event.request.url.split('bssm.kro.kr')[1])==-1){ // 캐싱된 요청만
         return;
     }
     const fetchRequest = event.request.clone();
