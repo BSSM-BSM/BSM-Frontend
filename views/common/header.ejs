@@ -49,9 +49,27 @@
                 <span class="searchBar top_menu_item">
                     <input type="text" class="searchQuery input_text searchBox" oninput="search()" onchange="$('.searchResult').addClass('on');$('.dim.search_close').addClass('on');" placeholder="여기에 검색" required>
                     <div class="searchResult">
-                        <div class="boardResult"></div>
+                        <div class="boardResult">
+                            <h2>자유게시판</h2><br>
+                            <p v-if="!boardResult.length">검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요</p>
+                            <ul v-for="item in boardResult">
+                                <li>{{item.postNo}}</li>
+                                <li><a :href="`/board/board/${item.postNo}`">{{item.postTitle}}</a></li>
+                                <li>{{item.memberNickname}}</li>
+                                <li>{{item.postDate}}</li>
+                            </ul>
+                        </div>
                         <br>
-                        <div class="anonymousResult"></div>
+                        <div class="anonymousResult">
+                            <h2>익명게시판</h2><br>
+                            <p v-if="!anonymousResult.length">검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요</p>
+                            <ul v-for="item in anonymousResult">
+                                <li>{{item.postNo}}</li>
+                                <li><a :href="`/board/board/${item.postNo}`">{{item.postTitle}}</a></li>
+                                <li>{{item.memberNickname}}</li>
+                                <li>{{item.postDate}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </span>
                 <% if(member.isLogin){ %>

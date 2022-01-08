@@ -14,13 +14,13 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --white: #FFF;
   --red: #FA8072;
   --yellow:#FFA500;
-  --green: #90EE90;
+  --green: #7ee27e;
 
   --main: #77a3f5;
   --text: #202124;
-  --background: #FFF;
+  --background: #f9f9f9;
 
-  --level-1: #FFF;
+  --level-1: #f9f9f9;
   --level-2: #DDD;
 
   --input: rgba(192, 192, 192, .2);

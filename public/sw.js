@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.16';
+const cacheName = '1.2.0.17';
 const cacheFiles = [
     '/',
     '/meal',
@@ -8,7 +8,6 @@ const cacheFiles = [
     '/board/anonymous',
     '/board/notice',
     '/js/menu_bar.js',
-    '/js/search.js',
     '/js/error_code.js',
     '/js/alert.js',
     '/js/etc/meal.js',
@@ -31,14 +30,15 @@ const libCacheFiles = [
     '/js/vue.js',
     '/css/summernote-lite.min.css',
 ];
-const imgCacheName = 'img-1.2.0';
+const imgCacheName = 'img-1.2.0.1';
 const imgCacheFiles = [
+    '/favicon.ico',
     '/icons/logo.png',
     '/resource/common/images/x.svg',
     '/resource/common/images/theme.svg',
-    'https://bssm.kro.kr/resource/common/images/download.png',
-    'https://bssm.kro.kr/resource/index/images/main.webp',
-    'https://bssm.kro.kr/resource/index/images/main2.webp',
+    '/resource/common/images/download.png',
+    '/resource/index/images/main.webp',
+    '/resource/index/images/main2.webp',
     '/resource/member/profile_images/profile_default.png'
 ];
 const allCacheFiles = [

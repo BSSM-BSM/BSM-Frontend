@@ -48,3 +48,38 @@ const progress = per => {
         progressBar.style.left=`${per-100}%`;
     }
 }
+const searchView = new Vue({
+    el:'.searchResult',
+    data:{
+        boardResult:[],
+        anonymousResult:[]
+    }
+})
+const search = ()=>{
+    $.ajax({
+        type:'GET',
+        url:apiUrl+'/search/board/'+$('.searchQuery').val(),
+        cache:false,
+        success:data=>{
+            data=JSON.parse(data);
+            if(data.status!=1){
+                error_code(data.status, data.subStatus);
+            }else{
+                searchView.boardResult = data.arrSearchResult;
+            }
+        }
+    });
+    $.ajax({
+        type:'GET',
+        url:apiUrl+'/search/anonymous/'+$('.searchQuery').val(),
+        cache:false,
+        success:data=>{
+            data=JSON.parse(data);
+            if(data.status!=1){
+                error_code(data.status, data.subStatus);
+            }else{
+                searchView.anonymousResult = data.arrSearchResult;
+            }
+        }
+    });
+}
