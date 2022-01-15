@@ -1,4 +1,4 @@
-function error_code(status, subStatus, msg){
+const error_code = (status, subStatus) => {
     error_msg={
         0:{msg:'연결오류',
             0:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
@@ -25,6 +25,7 @@ function error_code(status, subStatus, msg){
             7:{type:1, msg:'작성자가 아닙니다.'},
             8:{type:1, msg:'학생정보가 맞지 않습니다.'},
             9:{type:1, msg:'인증코드 전송에 실패하였습니다.'},
+            10:{type:1, msg:'토큰 유효기간이 만료되었습니다'},
         },
         4:{msg:'알림',
             0:{type:1, msg:'계정이 정지되었습니다.'},
@@ -40,32 +41,24 @@ function error_code(status, subStatus, msg){
             4:{type:1, msg:'수정할 비밀번호 재입력이 맞지 않습니다.'},
         },
     };
-    if(error_msg[status]){
-        if(error_msg[status][subStatus]){
-            if(error_msg[status][subStatus].type!=1){
-                switch(status){
-                    case 4:
-                        switch(subStatus){
-                            case 1:
-                                showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
-                                $('.login_box').trigger('addClass');
-                                break;
-                            case 2:
-                                $('.pw_reset_box').trigger('addClass');
-                                break;
-                            default:
-                                break;
-                        }
+    if(error_msg[status][subStatus].type!=1){
+        switch(status){
+            case 4:
+                switch(subStatus){
+                    case 1:
+                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+                        showLoginBox()
+                        break;
+                    case 2:
+                        popupOpen($$('.pw_reset_box')[0])
+                        break;
                     default:
                         break;
                 }
-            }else{
-                showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
-            }
-        }else{
-            showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
+            default:
+                break;
         }
     }else{
-        showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
+        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
     }
 }

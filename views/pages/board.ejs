@@ -82,7 +82,7 @@
                 </div>
                 <div class="emoticon_popup">
                     <div class="insert_emoticon_box popup center">
-                        <div class="popup_close_button x_button" onClick="$$('.insert_emoticon_box')[0].classList.remove('on');"></div>
+                        <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
                         <p>아직 테스트중인 기능입니다</p>
                         <div class="select_emoticon">
                             <img :src="`/resource/board/emoticon/${e.id}.png`" :alt="e.alt" class="emoticon_icon" v-on:click="selectEmoticon(i)" v-for="(e, i) in emoticon">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="emoticon_info_box popup center">
-                        <div class="popup_close_button x_button" onClick="$$('.emoticon_info_box')[0].classList.remove('on');"></div>
+                        <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
                         <h2>{{emoticonInfo.alt}}</h2>
                         <p>{{emoticonInfo.created}}</p>
                         <div class="emoticon_box" v-if="emoticonInfo">

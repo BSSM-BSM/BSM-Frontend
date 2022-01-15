@@ -20,21 +20,4 @@ $(document).ready(function(){
     $(".searchResult").toggleClass("on");
     $(".dim.search_close").toggleClass("on");
   });
-  $(".popup_close").on("click",function(){
-    $(".popup").trigger('removeClass');
-    $(".dim.popup_close").removeClass("on");
-  });
-  $(".popup").on('addClass', function() {
-    $(this).addClass("on").trigger('classChange');
-  });
-  $(".popup").on('removeClass', function() {
-    $(this).removeClass("on").trigger('classChange');
-  });
-  $(".popup").on('classChange', function() {
-    if($(".popup").hasClass("on")===true){
-      $(".dim.popup_close").addClass("on")
-    }else{
-      $(".dim.popup_close").removeClass("on")
-    } 
-  });
 });

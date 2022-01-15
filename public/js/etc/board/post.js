@@ -266,7 +266,7 @@ const insertEmoticon = (id, idx, type) => {
     document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`)
 }
 const loadEmoticon = () => {
-    $$('.insert_emoticon_box')[0].classList.add('on');
+    popupOpen($$('.insert_emoticon_box')[0])
     $.ajax({
         type:'GET',
         url:`${apiUrl}/emoticon`,
@@ -285,7 +285,7 @@ const loadEmoticon = () => {
     });
 }
 const loadEmoticonInfo = (id) => {
-    $$('.emoticon_info_box')[0].classList.add('on');
+    popupOpen($$('.emoticon_info_box')[0])
     $.ajax({
         type:'GET',
         url:`${apiUrl}/emoticon/${id}`,

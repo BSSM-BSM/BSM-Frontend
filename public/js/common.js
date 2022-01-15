@@ -48,6 +48,23 @@ const progress = per => {
         progressBar.style.left=`${per-100}%`;
     }
 }
+const popupOpen = (element) => {
+    if($$('.popup.on').length<1){
+        $$('.dim.popup_close')[0].classList.add('on')
+    }
+    element.classList.add('on')
+}
+const popupClose = (element) => {
+    element.classList.remove('on')
+    if($$('.popup.on').length<1){
+        $$('.dim.popup_close')[0].classList.remove('on')
+    }
+}
+$$('.dim.popup_close')[0].addEventListener('click', ()=>{
+    $$('.popup').forEach(e => {
+        popupClose(e);
+    });
+})
 const searchView = new Vue({
     el:'.searchResult',
     data:{
