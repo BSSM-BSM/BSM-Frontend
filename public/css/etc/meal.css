@@ -6,9 +6,9 @@
   padding:2rem 2rem;
   border-radius:2rem;
   flex:1;
-  box-shadow:20px 20px 50px rgba(0, 0, 0, 0.3);
+  box-shadow:2rem 2rem 5rem rgba(0, 0, 0, 0.3);
   background-color:rgba(128, 128, 128, 0.2);
-  min-height:300px;
+  min-height:30rem;
   transform: scale(.75);
   opacity:.5;
 }
@@ -31,7 +31,7 @@
 .foods .food *{
   user-select:none;
 }
-@media screen and (min-width:0px) and (max-width:1319px){
+@media screen and (min-width:0px) and (max-width:1023px){
   .food_menu{
     padding:1rem;
   }

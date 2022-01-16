@@ -137,7 +137,7 @@
 }
 .post_info_wrap .left_wrap .user_profile{
   margin-right:2rem;
-  height:54px;
+  height:5.4rem;
 }
 .post_info_wrap .right_wrap{
   flex:auto;
@@ -223,7 +223,7 @@
 }
 .comment_item_info_wrap .left_wrap .user_profile{
   margin-right:1rem;
-  height:40px;
+  height:4rem;
 }
 .comment_item_info_wrap .right_wrap{
   display:flex;
@@ -243,7 +243,7 @@
   font-weight:bold;
 }
 .comment_child{
-  border-left:2px solid var(--gray);
+  border-left:.2rem solid var(--gray);
   width:95%;
   float:right;
 }
@@ -274,7 +274,7 @@
   text-align:start;
 }
 .insert_emoticon_box, .emoticon_info_box{
-  max-width:530px;
+  max-width:53rem;
   width:100%;
 }
 .select_emoticon{
@@ -286,12 +286,12 @@
   justify-content:center;
 }
 .emoticon{
-  width:100px !important;
-  height:100px !important;
+  width:10rem !important;
+  height:10rem !important;
 }
 .emoticon_icon{
-  width:100px !important;
-  height:50px !important;
+  width:10rem !important;
+  height:5rem !important;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
   .board{
@@ -308,7 +308,7 @@
     font-size:1.7rem;
   }
   .member_info .user_profile{
-    height:17px;
+    height:1.7rem;
   }
   .post_wrap{
     padding:5rem 3% 0 3%;
@@ -318,7 +318,7 @@
   }
   .post_info_wrap .left_wrap .user_profile{
     margin-right:1rem;
-    height:40px;
+    height:4rem;
   }
   .post_info_wrap .post_hit{
     margin-right:1.5rem;
