@@ -14,7 +14,7 @@
     <main>
         <div class="title">
             <h1>급식</h1>
-            <h2 class="food_date">x월x일</h2>
+            <h2 class="meal_date">x월x일</h2>
             <button class="button" onclick="mealSubscribe();">급식 알림받기</button>
             <br><br>
             <p>알림은 급식 1시간 전에 도착합니다.</p>
@@ -22,18 +22,21 @@
         </div>
         <div class="container">
             <div class="information">
-                <div class="foods center">
-                    <div class="food food-1" onclick="today.setDate(today.getDate()-1);food_refresh();" onmouseover="$('.food-1').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-1').removeClass('hover-food');$('.food-2').addClass('hover-food');">
-                        <div class="food_time">아침</div>
-                        <div class="food_menu"></div>
+                <div class="meals center">
+                    <div class="meal meal-1" onclick="today.setDate(today.getDate()-1);mealRefresh();" onmouseover="$('.meal-1').addClass('hover-meal');$('.meal-2').removeClass('hover-meal');" onmouseout="$('.meal-1').removeClass('hover-meal');$('.meal-2').addClass('hover-meal');">
+                        <div class="meal_time">아침</div>
+                        <div class="meal_menu" v-if="!morning">급식이 없습니다.</div>
+                        <div class="meal_menu" v-if="morning" v-html="morning"></div>
                     </div>
-                    <div class="food food-2 hover-food">
-                        <div class="food_time">점심</div>
-                        <div class="food_menu"></div>
+                    <div class="meal meal-2 hover-meal">
+                        <div class="meal_time">점심</div>
+                        <div class="meal_menu" v-if="!lunch">급식이 없습니다.</div>
+                        <div class="meal_menu" v-if="lunch" v-html="lunch"></div>
                     </div>
-                    <div class="food food-3" onclick="today.setDate(today.getDate()+1);food_refresh();" onmouseover="$('.food-3').addClass('hover-food');$('.food-2').removeClass('hover-food');" onmouseout="$('.food-3').removeClass('hover-food');$('.food-2').addClass('hover-food');">
-                        <div class="food_time">저녁</div>
-                        <div class="food_menu"></div>
+                    <div class="meal meal-3" onclick="today.setDate(today.getDate()+1);mealRefresh();" onmouseover="$('.meal-3').addClass('hover-meal');$('.meal-2').removeClass('hover-meal');" onmouseout="$('.meal-3').removeClass('hover-meal');$('.meal-2').addClass('hover-meal');">
+                        <div class="meal_time">저녁</div>
+                        <div class="meal_menu" v-if="!dinner">급식이 없습니다.</div>
+                        <div class="meal_menu" v-if="dinner" v-html="dinner"></div>
                     </div>
                     <script src="/js/etc/meal.js"></script>
                 </div>

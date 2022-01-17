@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.19';
+const cacheName = '1.2.0.20';
 const cacheFiles = [
     '/',
     '/meal',
@@ -9,7 +9,6 @@ const cacheFiles = [
     '/board/notice',
     '/js/common.js',
     '/js/account.js',
-    '/js/menu_bar.js',
     '/js/error_code.js',
     '/js/alert.js',
     '/js/etc/meal.js',

@@ -60,11 +60,11 @@ const signUp = () => {
     $.ajax({
         type:'POST',
         data:{
-            member_id:$$('.sign_up .member_id').value,
-            member_pw:$$('.sign_up .member_pw').value,
-            member_pw_check:$$('.sign_up .member_pw_check').value,
-            member_nickname:$$('.sign_up .member_nickname').value,
-            code:$$('.sign_up .code').value,
+            member_id:$$('.sign_up .member_id')[0].value,
+            member_pw:$$('.sign_up .member_pw')[0].value,
+            member_pw_check:$$('.sign_up .member_pw_check')[0].value,
+            member_nickname:$$('.sign_up .member_nickname')[0].value,
+            code:$$('.sign_up .code')[0].value,
         },
         url:apiUrl+'/account/signUp',
         cache:false,
@@ -86,8 +86,8 @@ const pwEdit = () => {
     $.ajax({
         type:'POST',
         data:{
-            member_pw:$$('.pw_reset .member_pw').value,
-            member_pw_check:$$('.pw_reset .member_pw_check').value,
+            member_pw:$$('.pw_reset .member_pw')[0].value,
+            member_pw_check:$$('.pw_reset .member_pw_check')[0].value,
         },
         url:apiUrl+'/account/pwEdit',
         cache:false,
@@ -110,11 +110,11 @@ const validCode = () => {
     $.ajax({
         type:'POST',
         data:{
-            student_enrolled:$$('.valid_code .studentEnrolled').value,
-            student_grade:$$('.valid_code .studentGrade').value,
-            student_class:$$('.valid_code .studentClass').value,
-            student_no:$$('.valid_code .studentNo').value,
-            student_name:$$('.valid_code .studentName').value,
+            student_enrolled:$$('.valid_code .studentEnrolled')[0].value,
+            student_grade:$$('.valid_code .studentGrade')[0].value,
+            student_class:$$('.valid_code .studentClass')[0].value,
+            student_no:$$('.valid_code .studentNo')[0].value,
+            student_name:$$('.valid_code .studentName')[0].value,
         },
         url:apiUrl+'/account/validCode',
         cache:false,

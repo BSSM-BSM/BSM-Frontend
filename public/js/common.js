@@ -1,6 +1,5 @@
-const agent = navigator.userAgent.toLowerCase();
-if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)){
-    $$('.notice_bar')[0].innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
+if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (navigator.userAgent.toLowerCase().indexOf("msie") != -1)){
+    document.getElementsByClassName('notice_bar')[0].innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
 }
 if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
     $$('.notice_bar')[0].innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
@@ -18,6 +17,15 @@ if(!window.navigator.onLine){
 }
 let progressBar, progressBarFlag=0;
 window.addEventListener('DOMContentLoaded', () => {
+    const header = $$('.top_menu')[0]
+    // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
+    window.addEventListener('scroll', () => {
+        if(window.scrollY >= 51){
+            header.classList.add('on')
+        }else{
+            header.classList.remove('on')
+        }
+    })
     progressBar = $$('.progress')[0];
 })
 const progress = per => {
@@ -64,6 +72,16 @@ $$('.dim.popup_close')[0].addEventListener('click', ()=>{
     $$('.popup').forEach(e => {
         popupClose(e);
     });
+})
+
+
+$$('.searchBox')[0].addEventListener('click', () => {
+    $$('.searchResult')[0].classList.add('on')
+    $$('.search_close')[0].classList.add('on')
+})
+$$('.search_close')[0].addEventListener('click', () => {
+    $$('.searchResult')[0].classList.remove('on')
+    $$('.search_close')[0].classList.remove('on')
 })
 const searchView = new Vue({
     el:'.searchResult',
