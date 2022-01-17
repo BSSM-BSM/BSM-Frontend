@@ -17,7 +17,7 @@ if(!window.navigator.onLine){
 }
 let progressBar, progressBarFlag=0;
 window.addEventListener('DOMContentLoaded', () => {
-    const header = $$('.top_menu')[0]
+    const header = $$('header')[0]
     // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
     window.addEventListener('scroll', () => {
         if(window.scrollY >= 51){
