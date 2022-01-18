@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.21';
+const cacheName = '1.2.0.22';
 const cacheFiles = [
     '/',
     '/meal',
@@ -23,13 +23,16 @@ const cacheFiles = [
     '/css/etc/memberinfo.css',
     '/css/etc/timetable.css',
 ];
-const libCacheName = 'lib-1.2.0';
+const libCacheName = 'lib-1.2.0.1';
 const libCacheFiles = [
-    '/js/jquery.min.js',
-    '/js/summernote-lite.min.js',
-    '/js/lang/summernote-ko-KR.js',
-    '/js/vue.js',
-    '/css/summernote-lite.min.css',
+    '/js/lib/jquery.min.js',
+    '/js/lib/summernote-lite.min.js',
+    '/js/lib/lang/summernote-ko-KR.js',
+    '/js/lib/vue.js',
+    '/css/lib/summernote-lite.min.css',
+    '/css/lib/font/summernote.woff',
+    '/css/lib/font/summernote.woff2',
+    '/css/lib/font/summernote.ttf'
 ];
 const imgCacheName = 'img-1.2.0.1';
 const imgCacheFiles = [

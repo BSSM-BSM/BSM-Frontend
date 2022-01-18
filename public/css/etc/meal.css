@@ -1,8 +1,8 @@
 @charset "utf-8";
-.foods{
+.meals{
   display:flex;
 }
-.foods .food{
+.meals .meal{
   padding:2rem 2rem;
   border-radius:2rem;
   flex:1;
@@ -12,42 +12,42 @@
   transform: scale(.75);
   opacity:.5;
 }
-.food_time{
+.meal_time{
   font-size:2.5rem;
   font-weight:bold;
 }
-.foods .food .food_menu{
+.meals .meal .meal_menu{
   margin-top:2rem;
   font-size:1.8rem;
 }
-.foods *{
+.meals *{
   cursor: pointer;
   transition:.25s;
 }
-.foods .hover-food{
+.meals .hover-meal{
   transform: scale(1);
   opacity:1;
 }
-.foods .food *{
+.meals .meal *{
   user-select:none;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
-  .food_menu{
+  .meal_menu{
     padding:1rem;
   }
-  .foods{
+  .meals{
     display:block;
   }
-  .foods .food{
+  .meals .meal{
     transform:scale(1);
     opacity:1;
     box-shadow:none;
     border-radius:0;
   }
-  .foods .food-1{
+  .meals .meal-1{
     border-radius:2rem 2rem 0 0;
   }
-  .foods .food-3{
+  .meals .meal-3{
     border-radius:0 0 2rem 2rem;
   }
 }

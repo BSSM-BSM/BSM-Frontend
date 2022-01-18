@@ -118,3 +118,41 @@ const search = ()=>{
         }
     });
 }
+
+const instance = axios.create({
+    baseURL:'https://bssm.kro.kr/api/',
+    timeout:3000,
+})
+const ajax = async ({method, url, payload, callBack, statusCallBack}) => {
+    $$('.loading')[0].classList.add("on");
+    let res
+    try{
+        const get = async () => {
+            switch (method){
+                case 'get':
+                    return await instance.get(url, payload)
+                case 'post':
+                    return await instance.post(url, payload)
+                case 'put':
+                    return await instance.put(url, payload)
+                case 'delete':
+                    return await instance.delete(url, payload)
+            }
+        }
+        res = await get(method)
+        res = res.data
+        if(res.status!=1){
+            if(statusCallBack && statusCallBack(res.status, res.subStatus)){
+                return;
+            }
+            error_code(res.status, res.subStatus);
+        }
+    }catch(err){
+        $$('.loading')[0].classList.remove("on");
+        error_code(0, 0)
+        return;
+    }
+    const data = res
+    callBack(data)
+    $$('.loading')[0].classList.remove("on");
+}

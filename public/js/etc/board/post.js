@@ -47,48 +47,35 @@ const postView = new Vue({
 })
 const postRefresh = () => {
     progress(20)
-    $$('.loading')[0].classList.add("on");
-    $.ajax({
-        type:'GET',
-        url:`${apiUrl}/post/${boardType}/${postNo}`,
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                $$('.post')[0].classList.remove('hide')
-                $$('main')[0].scrollTop=0;
-                postView.permission=data.permission;
-                postView.memberCode=data.memberCode;
-                postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
-                postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
-                postView.postTitle=data.postTitle;
-                postView.postDate=data.postDate;
-                postView.postHit=data.postHit;
-                postView.postComments=data.postComments;
-                postView.memberNickname=data.memberNickname;
-                postView.postContent=data.postContent;
-                postView.like=data.like;
-                postView.postLike=data.postLike;
-                window.setTimeout(()=>{
-                    // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
-                    // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
-                    $('.note-video-clip').each((i, e) => {
-                        $(e).wrap('<div class="video-container"></div>');
-                    });
-                },1);
-                progress(50)
-                commentRefresh();
-            }
-        },
-        error:() => {
-            error_code(0, 0);
-        },
-        complete:() => {
-            $$('.loading')[0].classList.remove("on");
+    ajax({
+        method:'get',
+        url:`/post/${boardType}/${postNo}`,
+        callBack:data=>{
+            $$('.post')[0].classList.remove('hide')
+            $$('html')[0].scrollTop=0;
+            postView.permission=data.permission;
+            postView.memberCode=data.memberCode;
+            postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
+            postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
+            postView.postTitle=data.postTitle;
+            postView.postDate=data.postDate;
+            postView.postHit=data.postHit;
+            postView.postComments=data.postComments;
+            postView.memberNickname=data.memberNickname;
+            postView.postContent=data.postContent;
+            postView.like=data.like;
+            postView.postLike=data.postLike;
+            window.setTimeout(()=>{
+                // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
+                // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
+                $('.note-video-clip').each((i, e) => {
+                    $(e).wrap('<div class="video-container"></div>');
+                });
+            },1);
+            progress(50)
+            commentRefresh();
         }
-    });
+    })
 }
 const postDelete = () => {
     $$('.loading')[0].classList.add("on");
