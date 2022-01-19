@@ -24,7 +24,7 @@
   cursor: pointer;
   transition:.25s;
 }
-.meals .hover-meal{
+.meals .hover{
   transform: scale(1);
   opacity:1;
 }

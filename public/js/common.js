@@ -30,12 +30,14 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 const progress = per => {
     if(progressBar.style.left=="0%"){
-        progressBarFlag+=1;
-        progressBar.style.left='-100%';
-        progressBar.classList.add('on');
-        window.setTimeout(()=>{
-            progressBar.style.left=`${per-100}%`;
-        }, 1)
+        if(per<100){
+            progressBarFlag+=1;
+            progressBar.style.left='-100%';
+            progressBar.classList.add('on');
+            window.setTimeout(()=>{
+                progressBar.style.left=`${per-100}%`;
+            }, 1)
+        }
     }else{
         if(per>=100){
             window.setTimeout(()=>{
@@ -91,39 +93,27 @@ const searchView = new Vue({
     }
 })
 const search = ()=>{
-    $.ajax({
-        type:'GET',
-        url:apiUrl+'/search/board/'+$('.searchQuery').val(),
-        cache:false,
-        success:data=>{
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                searchView.boardResult = data.arrSearchResult;
-            }
+    ajax({
+        method:'get',
+        url:`/search/board/${$$('.searchQuery')[0].value}`,
+        callBack:data=>{
+            searchView.boardResult = data.arrSearchResult;
         }
-    });
-    $.ajax({
-        type:'GET',
-        url:apiUrl+'/search/anonymous/'+$('.searchQuery').val(),
-        cache:false,
-        success:data=>{
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                searchView.anonymousResult = data.arrSearchResult;
-            }
+    })
+    ajax({
+        method:'get',
+        url:`/search/anonymous/${$$('.searchQuery')[0].value}`,
+        callBack:data=>{
+            searchView.anonymousResult = data.arrSearchResult;
         }
-    });
+    })
 }
 
 const instance = axios.create({
     baseURL:'https://bssm.kro.kr/api/',
     timeout:3000,
 })
-const ajax = async ({method, url, payload, callBack, statusCallBack}) => {
+const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
     $$('.loading')[0].classList.add("on");
     let res
     try{
@@ -142,17 +132,21 @@ const ajax = async ({method, url, payload, callBack, statusCallBack}) => {
         res = await get(method)
         res = res.data
         if(res.status!=1){
-            if(statusCallBack && statusCallBack(res.status, res.subStatus)){
+            if(errorCallBack && errorCallBack(res.status, res.subStatus)){
                 return;
             }
-            error_code(res.status, res.subStatus);
+            $$('.loading')[0].classList.remove("on");
+            progress(100)
+            statusCode(res.status, res.subStatus);
+            return;
         }
     }catch(err){
         $$('.loading')[0].classList.remove("on");
-        error_code(0, 0)
+        progress(100)
+        statusCode(0, 0)
         return;
     }
-    const data = res
-    callBack(data)
+    callBack(res)
     $$('.loading')[0].classList.remove("on");
+    progress(100)
 }

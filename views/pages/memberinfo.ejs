@@ -61,73 +61,52 @@
                         }
                     })
                     const memberInfo = () => {
-                        $.ajax({
-                            type:'GET',
-                            url:apiUrl+'/account/<%- memberCode %>',
-                            cache:false,
-                            success:data => {
-                                data=JSON.parse(data);
-                                if(data.status!=1){
-                                    error_code(data.status, data.subStatus);
-                                }else{
-                                    memberInfoView.memberType=data.member.memberType;
-                                    if(data.member.memberType=="active"){
-                                        memberInfoView.memberCode=data.member.memberCode;
-                                        memberInfoView.memberNickname=data.member.memberNickname;
-                                        memberInfoView.memberLevel=data.member.memberLevel;
-                                        memberInfoView.memberCreated=data.member.memberCreated.split(' ')[0];
-                                        memberInfoView.memberEnrolled=data.member.memberEnrolled;
-                                        memberInfoView.memberGrade=data.member.memberGrade;
-                                        memberInfoView.memberClass=data.member.memberClass;
-                                        memberInfoView.memberStudentNo=data.member.memberStudentNo;
-                                        memberInfoView.memberName=data.member.memberName;
-                                        memberInfoView.permission=data.member.permission;
-                                    }else if(data.member.memberType=="anonymous"){
-                                        memberInfoView.memberCode=-1;
-                                        memberInfoView.memberNickname="Anonymous";
-                                        memberInfoView.memberLevel=0;
-                                        memberInfoView.permission=data.member.permission;
-                                        showAlert("익명 프로필입니다");
-                                    }else if(data.member.memberType=="deleted"){
-                                        memberInfoView.memberCode=data.member.memberCode;
-                                        memberInfoView.permission=data.member.permission;
-                                        showAlert("삭제된 계정입니다");
-                                    }
+                        ajax({
+                            method:'get',
+                            url:`/account/<%- memberCode %>`,
+                            callBack:data=>{
+                                memberInfoView.memberType=data.member.memberType;
+                                if(data.member.memberType=="active"){
+                                    memberInfoView.memberCode=data.member.memberCode;
+                                    memberInfoView.memberNickname=data.member.memberNickname;
+                                    memberInfoView.memberLevel=data.member.memberLevel;
+                                    memberInfoView.memberCreated=data.member.memberCreated.split(' ')[0];
+                                    memberInfoView.memberEnrolled=data.member.memberEnrolled;
+                                    memberInfoView.memberGrade=data.member.memberGrade;
+                                    memberInfoView.memberClass=data.member.memberClass;
+                                    memberInfoView.memberStudentNo=data.member.memberStudentNo;
+                                    memberInfoView.memberName=data.member.memberName;
+                                    memberInfoView.permission=data.member.permission;
+                                }else if(data.member.memberType=="anonymous"){
+                                    memberInfoView.memberCode=-1;
+                                    memberInfoView.memberNickname="Anonymous";
+                                    memberInfoView.memberLevel=0;
+                                    memberInfoView.permission=data.member.permission;
+                                    showAlert("익명 프로필입니다");
+                                }else if(data.member.memberType=="deleted"){
+                                    memberInfoView.memberCode=data.member.memberCode;
+                                    memberInfoView.permission=data.member.permission;
+                                    showAlert("삭제된 계정입니다");
                                 }
-                            },
-                            error:data => {
-                                error_code(0, 0);
                             }
-                        });
+                        })
                     }
                     memberInfo();
                 </script>
             </div>
             <script>
                 const profileUpload = () => {
-                    let form = $('.profile_upload')[0];
-                    let formData = new FormData(form);
-                    $.ajax({
-                        type:'POST',
-                        url:apiUrl+'/account/profileUpload',
-                        data:formData,
-                        enctype:'multipart/form-data',
-                        cache:false,
-                        processData:false,
-                        contentType:false,
-                        success:data => {
-                            data=JSON.parse(data);
-                            if(data.status!=1){
-                                error_code(data.status, data.subStatus);
-                            }else{
-                                alert("업로드에 성공하였습니다.");
-                                window.location.reload();
-                            }
-                        },
-                        error:data => {
-                            error_code(0, 0);
+                    const form = $$('.profile_upload')[0];
+                    const formData = new FormData(form);
+                    ajax({
+                        method:'post',
+                        payload:formData,
+                        url:'/account/profileUpload',
+                        callBack:data=>{
+                            alert("업로드에 성공하였습니다.");
+                            window.location.reload();
                         }
-                    });
+                    })
                 }
             </script>
         </div>

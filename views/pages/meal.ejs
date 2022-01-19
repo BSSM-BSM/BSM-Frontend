@@ -23,17 +23,17 @@
         <div class="container">
             <div class="information">
                 <div class="meals center">
-                    <div class="meal meal-1" onclick="today.setDate(today.getDate()-1);mealRefresh();" onmouseover="$('.meal-1').addClass('hover-meal');$('.meal-2').removeClass('hover-meal');" onmouseout="$('.meal-1').removeClass('hover-meal');$('.meal-2').addClass('hover-meal');">
+                    <div class="meal meal-1" :class="{hover:hover==1}" onclick="today.setDate(today.getDate()-1);mealRefresh();" onmouseover="mealView.setHover(1)" onmouseout="mealView.setHover(2)">
                         <div class="meal_time">아침</div>
                         <div class="meal_menu" v-if="!morning">급식이 없습니다.</div>
                         <div class="meal_menu" v-if="morning" v-html="morning"></div>
                     </div>
-                    <div class="meal meal-2 hover-meal">
+                    <div class="meal meal-2" :class="{hover:hover==2}">
                         <div class="meal_time">점심</div>
                         <div class="meal_menu" v-if="!lunch">급식이 없습니다.</div>
                         <div class="meal_menu" v-if="lunch" v-html="lunch"></div>
                     </div>
-                    <div class="meal meal-3" onclick="today.setDate(today.getDate()+1);mealRefresh();" onmouseover="$('.meal-3').addClass('hover-meal');$('.meal-2').removeClass('hover-meal');" onmouseout="$('.meal-3').removeClass('hover-meal');$('.meal-2').addClass('hover-meal');">
+                    <div class="meal meal-3" :class="{hover:hover==3}" onclick="today.setDate(today.getDate()+1);mealRefresh();" onmouseover="mealView.setHover(3)" onmouseout="mealView.setHover(2)">
                         <div class="meal_time">저녁</div>
                         <div class="meal_menu" v-if="!dinner">급식이 없습니다.</div>
                         <div class="meal_menu" v-if="dinner" v-html="dinner"></div>

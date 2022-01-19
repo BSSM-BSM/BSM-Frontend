@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.22';
+const cacheName = '1.2.0.23';
 const cacheFiles = [
     '/',
     '/meal',
@@ -23,9 +23,10 @@ const cacheFiles = [
     '/css/etc/memberinfo.css',
     '/css/etc/timetable.css',
 ];
-const libCacheName = 'lib-1.2.0.1';
+const libCacheName = 'lib-1.2.0.2';
 const libCacheFiles = [
     '/js/lib/jquery.min.js',
+    '/js/lib/axios.js',
     '/js/lib/summernote-lite.min.js',
     '/js/lib/lang/summernote-ko-KR.js',
     '/js/lib/vue.js',

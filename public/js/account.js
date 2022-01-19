@@ -26,109 +26,76 @@ const loginBoxView = new Vue({
     },
 })
 const login = (id, pw) => {
-    $.ajax({
-        type:'POST',
-        data:{
+    ajax({
+        method:'post',
+        url:`/account/login`,
+        payload:{
             member_id:id,
-            member_pw:pw,
+            member_pw:pw
         },
-        url:apiUrl+'/account/login',
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-                if(data.status==5&&data.subStatus==0){
-                    loginBoxView.init()
-                }
-            }else{
-                if(refresh){
-                    window.location.reload()
-                }else{
-                    alert("로그인에 성공하였습니다.");
-                    popupClose($$('.login_box')[0]);
-                    loginBoxView.init()
-                }
+        errorCallBack:(status, subStatus)=>{
+            if(status==5&&subStatus==0){
+                loginBoxView.init()
             }
+            return false;
         },
-        error:() => {
-            error_code(0, 0);
+        callBack:()=>{
+            if(refresh){
+                window.location.reload()
+            }else{
+                showToast('로그인에 성공하였습니다.');
+                popupClose($$('.login_box')[0]);
+                loginBoxView.init()
+            }
         }
-    });
+    })
 }
 const signUp = () => {
-    $.ajax({
-        type:'POST',
-        data:{
+    ajax({
+        method:'post',
+        url:`/account/signUp`,
+        payload:{
             member_id:$$('.sign_up .member_id')[0].value,
             member_pw:$$('.sign_up .member_pw')[0].value,
             member_pw_check:$$('.sign_up .member_pw_check')[0].value,
             member_nickname:$$('.sign_up .member_nickname')[0].value,
             code:$$('.sign_up .code')[0].value,
         },
-        url:apiUrl+'/account/signUp',
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                alert("회원가입이 완료되었습니다.\n다시 로그인 해주세요.");
-                popupClose($$('.sign_up_box')[0]);
-            }
-        },
-        error:() => {
-            error_code(0, 0);
+        callBack:()=>{
+            showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
+            popupClose($$('.sign_up_box')[0]);
         }
-    });
+    })
 }
 const pwEdit = () => {
-    $.ajax({
-        type:'POST',
-        data:{
+    ajax({
+        method:'post',
+        url:'/account/pwEdit',
+        payload:{
             member_pw:$$('.pw_reset .member_pw')[0].value,
             member_pw_check:$$('.pw_reset .member_pw_check')[0].value,
         },
-        url:apiUrl+'/account/pwEdit',
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                alert("비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.");
-                popupClose($$('.pw_reset_box')[0])
-                popupOpen($$('.login_box')[0])
-            }
-        },
-        error:() => {
-            error_code(0, 0);
+        callBack:()=>{
+            showToast('비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.');
+            popupClose($$('.pw_reset_box')[0])
+            popupOpen($$('.login_box')[0])
         }
-    });
+    })
 }
 const validCode = () => {
-    $.ajax({
-        type:'POST',
-        data:{
+    ajax({
+        method:'post',
+        url:`/account/signUp`,
+        payload:{
             student_enrolled:$$('.valid_code .studentEnrolled')[0].value,
             student_grade:$$('.valid_code .studentGrade')[0].value,
             student_class:$$('.valid_code .studentClass')[0].value,
             student_no:$$('.valid_code .studentNo')[0].value,
             student_name:$$('.valid_code .studentName')[0].value,
-        },
-        url:apiUrl+'/account/validCode',
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                alert("인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.");
-                popupClose($$('.valid_code_box')[0])
-            }
-        },
-        error:() => {
-            error_code(0, 0);
+            },
+        callBack:()=>{
+            showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
+            popupClose($$('.valid_code_box')[0])
         }
-    });
+    })
 }

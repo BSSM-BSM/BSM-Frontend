@@ -1,5 +1,5 @@
-const error_code = (status, subStatus) => {
-    error_msg={
+const statusCode = (status, subStatus) => {
+    errorMsg={
         0:{msg:'연결오류',
             0:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
         },
@@ -41,12 +41,12 @@ const error_code = (status, subStatus) => {
             4:{type:1, msg:'수정할 비밀번호 재입력이 맞지 않습니다.'},
         },
     };
-    if(error_msg[status][subStatus].type!=1){
+    if(errorMsg[status][subStatus].type!=1){
         switch(status){
             case 4:
                 switch(subStatus){
                     case 1:
-                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
                         showLoginBox()
                         break;
                     case 2:
@@ -59,6 +59,6 @@ const error_code = (status, subStatus) => {
                 break;
         }
     }else{
-        showAlert('에러코드 '+status+"_"+subStatus+"\n"+error_msg[status][subStatus].msg)
+        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
     }
 }

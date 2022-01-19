@@ -74,29 +74,20 @@
                         timetableRefresh(grade, classNo)
                     }
                     const timetableRefresh = (grade, classNo) => {
-                        $.ajax({
-                            type:'GET',
-                            url:apiUrl+'/timetable/'+grade+'/'+classNo,
-                            cache:false,
-                            success:data => {
-                                data=JSON.parse(data);
-                                if(data.status!=1){
-                                    error_code(data.status);
+                        ajax({
+                            method:'get',
+                            url:`/timetable/${grade}/${classNo}`,
+                            callBack:data=>{
+                                if(data.arrTimetable==null){
+                                    showAlert("시간표 데이터가 없는 반 입니다.")
+                                    classTimeTable=[]
                                 }else{
-                                    if(data.arrTimetable==null){
-                                        showAlert("시간표 데이터가 없는 반 입니다.")
-                                        classTimeTable=[]
-                                    }else{
-                                        classTimeTable = data.arrTimetable
-                                    }
-                                    timetableInit()
-                                    updateTimeTable()
+                                    classTimeTable = data.arrTimetable
                                 }
-                            },
-                            error:() => {
-                                error_code(0, 0);
+                                timetableInit()
+                                updateTimeTable()
                             }
-                        });
+                        })
                     }
                     timetableRefresh(grade, classNo);
                     $$('.select_grade .select')[0].innerText=`${grade}학년`;

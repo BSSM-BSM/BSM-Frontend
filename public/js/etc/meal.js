@@ -3,7 +3,13 @@ const mealView = new Vue({
     data:{
         morning:'',
         lunch:'',
-        dinner:''
+        dinner:'',
+        hover:2
+    },
+    methods:{
+        setHover:function(hover){
+            this.hover=hover;
+        }
     }
 })
 let times, today, day, date, month, year, mealDate;

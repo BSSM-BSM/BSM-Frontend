@@ -16,65 +16,39 @@ const meister = () => {
     }
 }
 const meisterPoint = () => {
-    $$('.loading')[0].classList.add("on");
     progress(20)
-    $.ajax({
-        type:'POST',
-        data:{
-            pw: $('.meisterInfo .pw').val(),
+    ajax({
+        method:'post',
+        url:`/meister/point/${$$('.meisterInfo .hak')[0].value}/${$$('.meisterInfo .ban')[0].value}/${$$('.meisterInfo .bun')[0].value}`,
+        payload:{
+            pw:$$('.meisterInfo .pw')[0].value,
         },
-        url:apiUrl+'/meister/point/'+
-        $('.meisterInfo .hak').val()+'/'+
-        $('.meisterInfo .ban').val()+'/'+
-        $('.meisterInfo .bun').val(),
-        cache:false,
-        success:data => {
-            $('.meisterInfo .pw').val("")
-            $('.meister .result.point').html(data)
+        callBack:data=>{
+            $$('.meisterInfo .pw')[0].value = ''
+            $$('.meister .result.point')[0].innerHTML = data.result
             $$('.fas.fa-sad-cry').forEach(item =>{
                 item.parentElement.parentElement.parentElement.parentElement.classList.add('bad')
             })
-        },
-        error:() => {
-            error_code(0, 0);
-        },
-        complete:() => {
-            $$('.loading')[0].classList.remove("on");
-            progress(100)
         }
-    });
+    })
 }
 const meisterScore = () => {
-    $$('.loading')[0].classList.add("on");
     progress(20)
-    $.ajax({
-        type:'GET',
-        url:apiUrl+'/meister/score/'+
-        $('.meisterInfo .hak').val()+'/'+
-        $('.meisterInfo .ban').val()+'/'+
-        $('.meisterInfo .bun').val(),
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                if(data.status==3&&data.subStatus==8){
-                    showAlert('에러코드 3_8 학생정보가 맞지 않거나 불러올 수 없는 학생입니다.')
-                }else{
-                    error_code(data.status, data.subStatus);
-                }
-            }else{
-                $('.meister .result.score').html(data.result)
+    ajax({
+        method:'get',
+        url:`/meister/score/${$$('.meisterInfo .hak')[0].value}/${$$('.meisterInfo .ban')[0].value}/${$$('.meisterInfo .bun')[0].value}`,
+        errorCallBack:(status, subStatus)=>{
+            if(status==3&&subStatus==8){
+                showAlert('에러코드 3_8 학생정보가 맞지 않거나 불러올 수 없는 학생입니다.')
+                return true;
             }
+            return false;
         },
-        error:() => {
-            error_code(0, 0);
-        },
-        complete:() => {
-            $$('.loading')[0].classList.remove("on");
-            progress(100)
+        callBack:data=>{
+            $$('.meister .result.score')[0].innerHTML = data.result
         }
-    });
+    })
 }
-$('.meisterInfo .hak').val(hak)
-$('.meisterInfo .ban').val(ban)
-$('.meisterInfo .bun').val(bun)
+$$('.meisterInfo .hak')[0].value= hak
+$$('.meisterInfo .ban')[0].value= ban
+$$('.meisterInfo .bun')[0].value= bun

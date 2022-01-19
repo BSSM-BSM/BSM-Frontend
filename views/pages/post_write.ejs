@@ -6,6 +6,8 @@
     <title>글쓰기 - BSM</title>
     <meta property="title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
     <meta property="og:title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
+    <!-- summernote 라이브러리가 Jquery를 사용해서 어쩔 수 없이 사용함 -->
+    <script src="/js/lib/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/lib/summernote-lite.min.css">
     <script src="/js/lib/summernote-lite.min.js"></script>
     <script src="/js/lib/lang/summernote-ko-KR.js"></script>
@@ -30,83 +32,62 @@
         </div>
         <div class="container">
             <script>
-            $(document).ready(function() {
-                $('#summernote').summernote({
-                height : 480,
-                maxHeight : null,
-                minHeight : 480,
-                lang : 'ko-KR',
-                callbacks: {
-                    onImageUpload:function(files, editor, welEditable){
-                        for(var i = files.length - 1;i>=0;i--){
-                            sendFile(files[i], this);
+                window.addEventListener('DOMContentLoaded', () => {
+                    jQuery('#summernote').summernote({
+                        height : 480,
+                        maxHeight : null,
+                        minHeight : 480,
+                        lang : 'ko-KR',
+                        callbacks: {
+                            onImageUpload:function(files, editor, welEditable){
+                                for(let i = files.length - 1;i>=0;i--){
+                                    sendFile(files[i], this);
+                                }
+                            }
+                        },
+                        disableResizeEditor: true,
+                        toolbar: [
+                            ['fontname', ['fontname']],
+                            ['fontsize', ['fontsize']],
+                            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                            ['color', ['forecolor','color']],
+                            ['table', ['table']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['height', ['height']],
+                            ['insert',['picture','link','video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                            ],
+                        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+                        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+                    });
+                })
+                function sendFile(file, el, welEditable){
+                    let files = new FormData();
+                    files.append('file', file);
+                    ajax({
+                        method:'post',
+                        payload:files,
+                        url:'/imageUpload',
+                        callBack:data=>{
+                            jQuery(el).summernote('editor.insertImage', data.filePath);
                         }
-                    }
-                },
-                disableResizeEditor: true,
-                toolbar: [
-                    ['fontname', ['fontname']],
-                    ['fontsize', ['fontsize']],
-                    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-                    ['color', ['forecolor','color']],
-                    ['table', ['table']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert',['picture','link','video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                    ],
-                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-                fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-                });
-            });
-            function sendFile(file, el, welEditable){
-                var form_data = new FormData();
-                form_data.append('file', file);
-                $.ajax({
-                    type:"POST",
-                    url:apiUrl+'/imageUpload',
-                    data:form_data,
-                    enctype:'multipart/form-data',
-                    cache:false,
-                    contentType:false,
-                    processData:false,
-                    success:function(data){
-                    data=JSON.parse(data);
-                        if(data.status!=1){
-                            error_code(data.status, data.subStatus);
-                        }else{
-                            $(el).summernote('editor.insertImage', $.trim(data.filePath));
-                        }
-                    },
-                    error: function(data) {
-                        error_code(0, 0);
-                    }
-                });
-            }
+                    })
+                }
             </script>
             <form class="post_write" method="post" autocomplete="off" onsubmit="post_write();return false;">
                 <% if(postNo!=null){ %>
                     <script>
-                    function post_refresh(){
-                        $.ajax({
-                        type:'GET',
-                        url:apiUrl+'/post/<%= boardType %>/<%= postNo %>',
-                        cache:false,
-                        success:function(data){
-                            data=JSON.parse(data);
-                            if(data.status!=1){
-                                error_code(data.status, data.subStatus);
-                            }else{
-                            $('input[name=post_title]').val(data.postTitle);
-                            $('#summernote').summernote('code', data.postContent);
+                    const loadPost = () => {
+                        ajax({
+                            method:'get',
+                            url:'/post/<%= boardType %>/<%= postNo %>',
+                            callBack:data=>{
+                                $$('input[name=post_title]')[0].value = data.postTitle;
+                                jQuery('#summernote').summernote('code', data.postContent);
                             }
-                        },
-                        error: function(data) {
-                            error_code(0, 0);
-                        }
-                        });
+                        })
                     }
-                    post_refresh();
+                    loadPost();
                     </script>
                 <% } %>
                 <input type="text" name="post_title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
@@ -117,35 +98,26 @@
             </form>
             <% if(postNo==null){ %>
                 <script>
-                    postWriteType='POST'
+                    const writeType='POST'
                 </script>
             <% }else{ %>
                 <script>
-                    postWriteType='PATCH'
+                    const writeType='PATCH'
                 </script>
             <% } %>
             <script>
-                function post_write(){
-                    $.ajax({
-                        type:postWriteType,
-                        data:{
-                            postTitle:$('input[name=post_title]').val(),
-                            postContent:$('textarea[name=post_content]').val(),
+                const writePost = () => {
+                    ajax({
+                        method:writeType,
+                        url:'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
+                        payload:{
+                            postTitle:$$('input[name=post_title]')[0].value,
+                            postContent:$$('textarea[name=post_content]')[0].value,
                         },
-                        url:apiUrl+'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
-                        cache:false,
-                        success:function(data){
-                            data=JSON.parse(data);
-                            if(data.status!=1){
-                                error_code(data.status, data.subStatus);
-                            }else{
+                        callBack:()=>{
                             window.location.href="/board/<%= boardType %>";
-                            }
-                        },
-                        error: function(data) {
-                            error_code(0, 0);
                         }
-                    });
+                    })
                 }
             </script>
             <br>
