@@ -74,7 +74,7 @@
                     })
                 }
             </script>
-            <form class="post_write" method="post" autocomplete="off" onsubmit="post_write();return false;">
+            <form class="post_write" method="post" autocomplete="off" onsubmit="writePost();return false;">
                 <% if(postNo!=null){ %>
                     <script>
                     const loadPost = () => {
@@ -98,11 +98,11 @@
             </form>
             <% if(postNo==null){ %>
                 <script>
-                    const writeType='POST'
+                    const writeType='post'
                 </script>
             <% }else{ %>
                 <script>
-                    const writeType='PATCH'
+                    const writeType='put'
                 </script>
             <% } %>
             <script>

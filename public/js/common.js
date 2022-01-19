@@ -111,6 +111,7 @@ const search = ()=>{
 
 const instance = axios.create({
     baseURL:'https://bssm.kro.kr/api/',
+    headers:{'Pragma':'no-cache'},
     timeout:3000,
 })
 const ajax = async ({method, url, payload, callBack, errorCallBack}) => {

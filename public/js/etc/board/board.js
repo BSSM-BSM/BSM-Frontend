@@ -111,19 +111,19 @@ const boardRefresh = () => {
                         boardData[i].postDate = boardData[i].postDate.split(' ')[1];
                     else{
                         boardData[i].postDate = boardData[i].postDate.split(' ')[0];
-                        boardView.posts.push({
-                            memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
-                            memberProfileUrl:`/memberinfo/${boardData[i].memberCode}`,
-                            memberProfile:`/resource/member/profile_images/profile_${boardData[i].memberCode}.png`,
-                            boardType:boardData[i].boardType,
-                            postNo:boardData[i].postNo,
-                            postTitle:boardData[i].postTitle,
-                            postDate:boardData[i].postDate,
-                            postHit:boardData[i].postHit,
-                            postComments:boardData[i].postComments,
-                            postLike:boardData[i].postLike,
-                        })
                     }
+                    boardView.posts.push({
+                        memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
+                        memberProfileUrl:`/memberinfo/${boardData[i].memberCode}`,
+                        memberProfile:`/resource/member/profile_images/profile_${boardData[i].memberCode}.png`,
+                        boardType:boardData[i].boardType,
+                        postNo:boardData[i].postNo,
+                        postTitle:boardData[i].postTitle,
+                        postDate:boardData[i].postDate,
+                        postHit:boardData[i].postHit,
+                        postComments:boardData[i].postComments,
+                        postLike:boardData[i].postLike,
+                    })
                 }
             }
         }

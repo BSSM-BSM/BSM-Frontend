@@ -23,29 +23,17 @@ const mealRefresh = () => {
     date=today.getDate();
     month=today.getMonth()+1;
     year=today.getFullYear();
-    $.ajax({
-        type:'GET',
-        url:apiUrl+'/meal/'+year+'-'+month+'-'+date,
-        cache:false,
-        success:data => {
-            data=JSON.parse(data);
-            if(data.status!=1){
-                error_code(data.status, data.subStatus);
-            }else{
-                if(data.arrMeal!=null){
-                    let arrMeal=data.arrMeal;
-                    mealTable[year+'-'+month+'-'+date]={'morning':arrMeal.morning, 'lunch':arrMeal.lunch, 'dinner':arrMeal.dinner};
-                }
-                mealRender();
+    ajax({
+        method:'get',
+        url:`/meal/${year}-${month}-${date}`,
+        callBack:data=>{
+            if(data.arrMeal!=null){
+                let arrMeal=data.arrMeal;
+                mealTable[year+'-'+month+'-'+date]={'morning':arrMeal.morning, 'lunch':arrMeal.lunch, 'dinner':arrMeal.dinner};
             }
-        },
-        error:data => {
-            error_code(0, 0);
-        },
-        complete:() => {
-            $$('.loading')[0].classList.remove("on");
+            mealRender();
         }
-    });
+    })
 }
 const mealRender = () => {
     $$('.meal_date')[0].innerHTML=(today.getMonth()+1)+'월'+today.getDate()+'일 '+day;
