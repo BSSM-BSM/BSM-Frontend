@@ -1,7 +1,8 @@
 const statusCode = (status, subStatus) => {
     errorMsg={
-        0:{msg:'연결오류',
-            0:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
+        0:{msg:'오류',
+            0:{type:1, msg:'알 수 없는 에러가 발생하였습니다'},
+            1:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
         },
         1:{msg:'정상',
             0:{type:1, msg:'정상 처리되었습니다.'}
@@ -50,7 +51,7 @@ const statusCode = (status, subStatus) => {
                         showLoginBox()
                         break;
                     case 2:
-                        popupOpen($$('.pw_reset_box')[0])
+                        popupOpen($('.pw_reset_box'))
                         break;
                     default:
                         break;

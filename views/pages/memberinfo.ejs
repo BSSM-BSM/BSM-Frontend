@@ -40,7 +40,7 @@
                             <input type="file" name="file" required>
                             <button type="submit" class="button">프로필 이미지 업로드</button>
                         </form>
-                        <div class="button" onClick="popupOpen($$('.pw_reset_box')[0])">비밀번호 재설정</div>
+                        <div class="button" onClick="popupOpen($('.pw_reset_box'))">비밀번호 재설정</div>
                     </div>
                 </div>
                 <script>
@@ -96,14 +96,14 @@
             </div>
             <script>
                 const profileUpload = () => {
-                    const form = $$('.profile_upload')[0];
+                    const form = $('.profile_upload');
                     const formData = new FormData(form);
                     ajax({
                         method:'post',
                         payload:formData,
                         url:'/account/profileUpload',
                         callBack:data=>{
-                            alert("업로드에 성공하였습니다.");
+                            alert("업로드에 성공하였습니다.\n캐시때문에 사진이 변경되지 않을 수 있으니\n기다리거나 캐시 삭제를 해주시면 됩니다");
                             window.location.reload();
                         }
                     })

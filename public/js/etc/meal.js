@@ -18,7 +18,7 @@ const dayTable=['일요일', '월요일', '화요일', '수요일', '목요일',
 times=new Date();
 today=new Date(times);
 const mealRefresh = () => {
-    $$('.loading')[0].classList.add("on");
+    $('.loading').classList.add("on");
     day=dayTable[today.getDay()];
     date=today.getDate();
     month=today.getMonth()+1;
@@ -36,7 +36,7 @@ const mealRefresh = () => {
     })
 }
 const mealRender = () => {
-    $$('.meal_date')[0].innerHTML=(today.getMonth()+1)+'월'+today.getDate()+'일 '+day;
+    $('.meal_date').innerHTML=(today.getMonth()+1)+'월'+today.getDate()+'일 '+day;
     if(mealTable.hasOwnProperty(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate())){
         mealView.morning = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning'];
         mealView.lunch = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch'];

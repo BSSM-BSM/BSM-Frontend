@@ -4,12 +4,12 @@
     <h2>{{msg}}</h2>
     <form v-if="step==0" class="login" method="post" autocomplete="off" onsubmit="loginBoxView.step1();return false;">
         <input type="text" class="input_text member_id" placeholder="아이디" required autofocus v-model="id">
-        <a onClick="popupOpen($$('.sign_up_box')[0])">계정이 없으신가요? 회원가입</a>
+        <a onClick="popupOpen($('.sign_up_box'))">계정이 없으신가요? 회원가입</a>
         <button type="submit" class="main_button button">다음</button>
     </form>
     <form v-if="step==1" class="login" method="post" autocomplete="off" onsubmit="loginBoxView.step2();return false;">
         <input type="password" class="input_text member_pw" placeholder="비밀번호" required autofocus>
-        <a onClick="popupOpen($$('.sign_up_box')[0]);">계정이 없으신가요? 회원가입</a>
+        <a onClick="popupOpen($('.sign_up_box'));">계정이 없으신가요? 회원가입</a>
         <button type="submit" class="main_button button">로그인</button>
     </form>
 </div>
@@ -23,7 +23,7 @@
         <input type="password" class="input_text member_pw_check" placeholder="비밀번호 재입력" required>
         <input type="text" class="input_text member_nickname" placeholder="닉네임" required>
         <input type="text" class="input_text code" placeholder="인증코드" required autofocus>
-        <a onClick="popupOpen($$('.valid_code_box')[0])">인증코드 발급</a>
+        <a onClick="popupOpen($('.valid_code_box'))">인증코드 발급</a>
         <button type="submit" class="main_button button">가입하기</button>
     </form>
 </div>

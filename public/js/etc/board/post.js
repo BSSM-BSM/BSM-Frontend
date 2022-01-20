@@ -31,17 +31,15 @@ const postView = new Vue({
     },
     updated(){
         this.$nextTick(function () {
-            $$('.post_content img[e_id]:not(.emoticon)').forEach(e => {
+            [
+                ...$$('.post_content img[e_id]:not(.emoticon)'),
+                ...$$('.comment_item_content img[e_id]:not(.emoticon)')
+            ].forEach(e => {
                 e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
                 e.classList.add('emoticon');
                 e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
             });
-            $$('.comment_item_content img[e_id]:not(.emoticon)').forEach(e => {
-                e.src=`/resource/board/emoticon/${e.getAttribute('e_id')}/${e.getAttribute('e_idx')}.${e.getAttribute('e_type')}`;
-                e.classList.add('emoticon');
-                e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
-            });
-            editor = $$(`.comment_write.write_${this.commentFocus} .write`)[0];
+            editor = $(`.comment_write.write_${this.commentFocus} .write`);
         })
     }
 })
@@ -51,8 +49,8 @@ const postRefresh = () => {
         method:'get',
         url:`/post/${boardType}/${postNo}`,
         callBack:data=>{
-            $$('.post')[0].classList.remove('hide')
-            $$('html')[0].scrollTop=0;
+            $('.post').classList.remove('hide')
+            $('html').scrollTop=0;
             postView.permission=data.permission;
             postView.memberCode=data.memberCode;
             postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
@@ -163,14 +161,14 @@ const commentWrite = (depth, parentIdx) => {
         method:'post',
         url:url,
         payload:{
-            comment:$$(`.comment_write.write_${parentIdx} .write`)[0].innerHTML,
+            comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
         },
         errorCallBack:()=>{
             refresh = false;
             return false;
         },
         callBack:()=>{
-            $$(`.comment_write.write_${parentIdx} .write`)[0].innerHTML='';
+            $(`.comment_write.write_${parentIdx} .write`).innerHTML='';
             commentRefresh();
         }
     })
@@ -206,7 +204,7 @@ const loadEmoticon = () => {
             emoticonView.emoticon=data.emoticon;
         }
     })
-    popupOpen($$('.insert_emoticon_box')[0])
+    popupOpen($('.insert_emoticon_box'))
 }
 const loadEmoticonInfo = (id) => {
     ajax({
@@ -221,5 +219,5 @@ const loadEmoticonInfo = (id) => {
             }
         }
     })
-    popupOpen($$('.emoticon_info_box')[0])
+    popupOpen($('.emoticon_info_box'))
 }

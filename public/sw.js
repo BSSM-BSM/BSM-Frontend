@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.24';
+const cacheName = '1.2.0.25';
 const cacheFiles = [
     '/',
     '/meal',
@@ -9,7 +9,7 @@ const cacheFiles = [
     '/board/notice',
     '/js/common.js',
     '/js/account.js',
-    '/js/error_code.js',
+    '/js/statusCode.js',
     '/js/alert.js',
     '/js/etc/meal.js',
     '/js/etc/meister.js',
@@ -35,7 +35,7 @@ const libCacheFiles = [
     '/css/lib/font/summernote.woff2',
     '/css/lib/font/summernote.ttf'
 ];
-const imgCacheName = 'img-1.2.0.1';
+const imgCacheName = 'img-1.2.0.2';
 const imgCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
@@ -44,7 +44,8 @@ const imgCacheFiles = [
     '/resource/common/images/download.png',
     '/resource/index/images/main.webp',
     '/resource/index/images/main2.webp',
-    '/resource/member/profile_images/profile_default.png'
+    '/resource/member/profile_images/profile_default.png',
+    '/resource/member/profile_images/profile_-1.png'
 ];
 const allCacheFiles = [
     ...cacheFiles,

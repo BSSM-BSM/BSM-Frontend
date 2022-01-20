@@ -1,23 +1,23 @@
 if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (navigator.userAgent.toLowerCase().indexOf("msie") != -1)){
-    document.getElementsByClassName('notice_bar')[0].innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
+    document.getElementsByClassName('notice_bar').innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
 }
 if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
-    $$('.notice_bar')[0].innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
+    $('.notice_bar').innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
 }
 window.addEventListener('online', ()=>{
     if($$('.notice_bar .offline').length){
-        $$('.notice_bar .offline')[0].remove()
+        $('.notice_bar .offline').remove()
     }
 })
 window.addEventListener('offline', ()=>{
-    $$('.notice_bar')[0].innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
+    $('.notice_bar').innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
 })
 if(!window.navigator.onLine){
-    $$('.notice_bar')[0].innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
+    $('.notice_bar').innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
 }
 let progressBar, progressBarFlag=0;
 window.addEventListener('DOMContentLoaded', () => {
-    const header = $$('header')[0]
+    const header = $('header')
     // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
     window.addEventListener('scroll', () => {
         if(window.scrollY >= 51){
@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('on')
         }
     })
-    progressBar = $$('.progress')[0];
+    progressBar = $('.progress');
 })
 const progress = per => {
     if(progressBar.style.left=="0%"){
@@ -60,30 +60,30 @@ const progress = per => {
 }
 const popupOpen = (element) => {
     if($$('.popup.on').length<1){
-        $$('.dim.popup_close')[0].classList.add('on')
+        $('.dim.popup_close').classList.add('on')
     }
     element.classList.add('on')
 }
 const popupClose = (element) => {
     element.classList.remove('on')
     if($$('.popup.on').length<1){
-        $$('.dim.popup_close')[0].classList.remove('on')
+        $('.dim.popup_close').classList.remove('on')
     }
 }
-$$('.dim.popup_close')[0].addEventListener('click', ()=>{
+$('.dim.popup_close').addEventListener('click', ()=>{
     $$('.popup').forEach(e => {
         popupClose(e);
     });
 })
 
 
-$$('.searchBox')[0].addEventListener('click', () => {
-    $$('.searchResult')[0].classList.add('on')
-    $$('.search_close')[0].classList.add('on')
+$('.searchBox').addEventListener('click', () => {
+    $('.searchResult').classList.add('on')
+    $('.search_close').classList.add('on')
 })
-$$('.search_close')[0].addEventListener('click', () => {
-    $$('.searchResult')[0].classList.remove('on')
-    $$('.search_close')[0].classList.remove('on')
+$('.search_close').addEventListener('click', () => {
+    $('.searchResult').classList.remove('on')
+    $('.search_close').classList.remove('on')
 })
 const searchView = new Vue({
     el:'.searchResult',
@@ -95,14 +95,14 @@ const searchView = new Vue({
 const search = ()=>{
     ajax({
         method:'get',
-        url:`/search/board/${$$('.searchQuery')[0].value}`,
+        url:`/search/board/${$('.searchQuery').value}`,
         callBack:data=>{
             searchView.boardResult = data.arrSearchResult;
         }
     })
     ajax({
         method:'get',
-        url:`/search/anonymous/${$$('.searchQuery')[0].value}`,
+        url:`/search/anonymous/${$('.searchQuery').value}`,
         callBack:data=>{
             searchView.anonymousResult = data.arrSearchResult;
         }
@@ -115,7 +115,7 @@ const instance = axios.create({
     timeout:3000,
 })
 const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
-    $$('.loading')[0].classList.add("on");
+    $('.loading').classList.add("on");
     let res
     try{
         const get = async () => {
@@ -136,18 +136,27 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
             if(errorCallBack && errorCallBack(res.status, res.subStatus)){
                 return;
             }
-            $$('.loading')[0].classList.remove("on");
+            $('.loading').classList.remove("on");
             progress(100)
             statusCode(res.status, res.subStatus);
             return;
         }
     }catch(err){
-        $$('.loading')[0].classList.remove("on");
+        console.log(err)
+        $('.loading').classList.remove("on");
+        progress(100)
+        statusCode(0, 1)
+        return;
+    }
+    try{
+        callBack(res)
+    }catch(err) {
+        console.log(err)
+        $('.loading').classList.remove("on");
         progress(100)
         statusCode(0, 0)
         return;
     }
-    callBack(res)
-    $$('.loading')[0].classList.remove("on");
+    $('.loading').classList.remove("on");
     progress(100)
 }

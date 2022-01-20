@@ -82,7 +82,7 @@
                             method:'get',
                             url:'/post/<%= boardType %>/<%= postNo %>',
                             callBack:data=>{
-                                $$('input[name=post_title]')[0].value = data.postTitle;
+                                $('input[name=post_title]').value = data.postTitle;
                                 jQuery('#summernote').summernote('code', data.postContent);
                             }
                         })
@@ -111,8 +111,8 @@
                         method:writeType,
                         url:'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
                         payload:{
-                            postTitle:$$('input[name=post_title]')[0].value,
-                            postContent:$$('textarea[name=post_content]')[0].value,
+                            postTitle:$('input[name=post_title]').value,
+                            postContent:$('textarea[name=post_content]').value,
                         },
                         callBack:()=>{
                             window.location.href="/board/<%= boardType %>";

@@ -10,7 +10,7 @@
         <div class="top_menu">
             <div class="left_wrap">
                 <span class="top_menu_item home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></span>
-                <span class="top_menu_item all_menu" onclick="$$('.side_menu')[0].classList.add('on');">
+                <span class="top_menu_item all_menu" onclick="$('.side_menu').classList.add('on');">
                     <span class="line_wrap">
                         <span class="line"></span>
                         <span class="line"></span>
@@ -87,12 +87,12 @@
             </div>
         </div>
         <div class="notice_bar">
-            <a href="/board/notice/6" class="notice">Jquery관련 레거시 코드들을 전부 제거하였습니다</div>
+            <a href="/board/notice/6" class="notice">Jquery관련 레거시 코드들을 전부 제거하였습니다</a>
         </div>
     </nav>
     <div class="side_menu">
-        <div class="popup_close_button x_button" onClick="$$('.side_menu')[0].classList.remove('on')"></div>
-        <div class="background" onClick="$$('.side_menu')[0].classList.remove('on')"></div>
+        <div class="popup_close_button x_button" onClick="$('.side_menu').classList.remove('on')"></div>
+        <div class="background" onClick="$('.side_menu').classList.remove('on')"></div>
         <ul>
             <li class="home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></li>
             <li class="page"><a href="/timetable">시간표</a></li>

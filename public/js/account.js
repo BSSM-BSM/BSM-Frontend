@@ -1,6 +1,6 @@
 const showLoginBox = () => {
     loginBoxView.init()
-    popupOpen($$('.login_box')[0])
+    popupOpen($('.login_box'))
 }
 const loginBoxView = new Vue({
     el:'.login_box',
@@ -21,7 +21,7 @@ const loginBoxView = new Vue({
         },
         step2:function(){
             this.msg=`인증 중...`
-            login(this.id, $$('.login_box .member_pw')[0].value);
+            login(this.id, $('.login_box .member_pw').value);
         }
     },
 })
@@ -44,7 +44,7 @@ const login = (id, pw) => {
                 window.location.reload()
             }else{
                 showToast('로그인에 성공하였습니다.');
-                popupClose($$('.login_box')[0]);
+                popupClose($('.login_box'));
                 loginBoxView.init()
             }
         }
@@ -55,15 +55,15 @@ const signUp = () => {
         method:'post',
         url:`/account/signUp`,
         payload:{
-            member_id:$$('.sign_up .member_id')[0].value,
-            member_pw:$$('.sign_up .member_pw')[0].value,
-            member_pw_check:$$('.sign_up .member_pw_check')[0].value,
-            member_nickname:$$('.sign_up .member_nickname')[0].value,
-            code:$$('.sign_up .code')[0].value,
+            member_id:$('.sign_up .member_id').value,
+            member_pw:$('.sign_up .member_pw').value,
+            member_pw_check:$('.sign_up .member_pw_check').value,
+            member_nickname:$('.sign_up .member_nickname').value,
+            code:$('.sign_up .code').value,
         },
         callBack:()=>{
             showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
-            popupClose($$('.sign_up_box')[0]);
+            popupClose($('.sign_up_box'));
         }
     })
 }
@@ -72,13 +72,13 @@ const pwEdit = () => {
         method:'post',
         url:'/account/pwEdit',
         payload:{
-            member_pw:$$('.pw_reset .member_pw')[0].value,
-            member_pw_check:$$('.pw_reset .member_pw_check')[0].value,
+            member_pw:$('.pw_reset .member_pw').value,
+            member_pw_check:$('.pw_reset .member_pw_check').value,
         },
         callBack:()=>{
             showToast('비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.');
-            popupClose($$('.pw_reset_box')[0])
-            popupOpen($$('.login_box')[0])
+            popupClose($('.pw_reset_box'))
+            popupOpen($('.login_box'))
         }
     })
 }
@@ -87,15 +87,15 @@ const validCode = () => {
         method:'post',
         url:`/account/signUp`,
         payload:{
-            student_enrolled:$$('.valid_code .studentEnrolled')[0].value,
-            student_grade:$$('.valid_code .studentGrade')[0].value,
-            student_class:$$('.valid_code .studentClass')[0].value,
-            student_no:$$('.valid_code .studentNo')[0].value,
-            student_name:$$('.valid_code .studentName')[0].value,
+            student_enrolled:$('.valid_code .studentEnrolled').value,
+            student_grade:$('.valid_code .studentGrade').value,
+            student_class:$('.valid_code .studentClass').value,
+            student_no:$('.valid_code .studentNo').value,
+            student_name:$('.valid_code .studentName').value,
             },
         callBack:()=>{
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($$('.valid_code_box')[0])
+            popupClose($('.valid_code_box'))
         }
     })
 }
