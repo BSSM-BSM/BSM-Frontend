@@ -1,113 +1,80 @@
-if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (navigator.userAgent.toLowerCase().indexOf("msie") != -1)){
-    document.getElementsByClassName('notice_bar').innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
 }
-if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
-    $('.notice_bar').innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
-}
-window.addEventListener('online', ()=>{
-    if($$('.notice_bar .offline').length){
-        $('.notice_bar .offline').remove()
-    }
-})
-window.addEventListener('offline', ()=>{
-    $('.notice_bar').innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
-})
-if(!window.navigator.onLine){
-    $('.notice_bar').innerHTML+='<div class="notice red offline">인터넷에 연결되어있지 않습니다.</div>'
-}
-let progressBar, progressBarFlag=0;
-window.addEventListener('DOMContentLoaded', () => {
-    const header = $('header')
-    // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
-    window.addEventListener('scroll', () => {
-        if(window.scrollY >= 51){
-            header.classList.add('on')
+window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+let refresh = true;
+const apiUrl = '/api';
+const memberLevel=[
+    '',
+    '<span class="member_admin">[룸메]</span> ',
+    '<span class="member_admin">[교사]</span> ',
+    '<span class="member_admin">[관리자]</span> '
+]
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
+const themeInit = () => {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const theme = localStorage.getItem('theme');
+    if(theme=='light' || theme=='dark'){
+        if(theme=='dark'){
+            $$(':root')[0].classList.add('dark');
         }else{
-            header.classList.remove('on')
-        }
-    })
-    progressBar = $('.progress');
-})
-const progress = per => {
-    if(progressBar.style.left=="0%"){
-        if(per<100){
-            progressBarFlag+=1;
-            progressBar.style.left='-100%';
-            progressBar.classList.add('on');
-            window.setTimeout(()=>{
-                progressBar.style.left=`${per-100}%`;
-            }, 1)
+            $$(':root')[0].classList.remove('dark');
         }
     }else{
-        if(per>=100){
-            window.setTimeout(()=>{
-                if(progressBarFlag-1==0){
-                    progressBar.classList.add('remove');
-                }
-                window.setTimeout(()=>{
-                    progressBarFlag-=1;
-                    if(progressBarFlag==0){
-                        progressBar.classList.remove('on');
-                        progressBar.classList.remove('remove');
-                    }
-                }, 450)
-            }, 1000);
+        if(prefersDarkScheme.matches){
+            localStorage.setItem('theme', 'dark');
+            $$(':root')[0].classList.add('dark');
         }else{
-            progressBar.classList.add('on');
+            localStorage.setItem('theme', 'light');
+            $$(':root')[0].classList.remove('dark');
         }
-        progressBar.style.left=`${per-100}%`;
     }
 }
+const toggleTheme = () => {
+    const theme = localStorage.getItem('theme');
+    if(!(theme=='light' || theme=='dark')){
+        themeInit()
+        return;
+    }
+    if(theme=='dark'){
+        $$(':root')[0].classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }else{
+        $$(':root')[0].classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+themeInit()
+
 const popupOpen = (element) => {
-    if($$('.popup.on').length<1){
-        $('.dim.popup_close').classList.add('on')
+    if($('.dim.popup_close')){
+        if($$('.popup.on').length<1){
+            $('.dim.popup_close').classList.add('on')
+        }
     }
     element.classList.add('on')
 }
 const popupClose = (element) => {
     element.classList.remove('on')
-    if($$('.popup.on').length<1){
-        $('.dim.popup_close').classList.remove('on')
+    if($('.dim.popup_close')){
+        if($$('.popup.on').length<1){
+            $('.dim.popup_close').classList.remove('on')
+        }
     }
 }
-$('.dim.popup_close').addEventListener('click', ()=>{
-    $$('.popup').forEach(e => {
-        popupClose(e);
-    });
-})
-
-
-$('.searchBox').addEventListener('click', () => {
-    $('.searchResult').classList.add('on')
-    $('.search_close').classList.add('on')
-})
-$('.search_close').addEventListener('click', () => {
-    $('.searchResult').classList.remove('on')
-    $('.search_close').classList.remove('on')
-})
-const searchView = new Vue({
-    el:'.searchResult',
-    data:{
-        boardResult:[],
-        anonymousResult:[]
+window.addEventListener('DOMContentLoaded', () => {
+    if($('.dim.popup_close')){
+        $('.dim.popup_close').addEventListener('click', ()=>{
+            $$('.popup').forEach(e => {
+                popupClose(e);
+            });
+        })
     }
 })
-const search = ()=>{
-    ajax({
-        method:'get',
-        url:`/search/board/${$('.searchQuery').value}`,
-        callBack:data=>{
-            searchView.boardResult = data.arrSearchResult;
-        }
-    })
-    ajax({
-        method:'get',
-        url:`/search/anonymous/${$('.searchQuery').value}`,
-        callBack:data=>{
-            searchView.anonymousResult = data.arrSearchResult;
-        }
-    })
-}
 
 const instance = axios.create({
     baseURL:'https://bssm.kro.kr/api/',

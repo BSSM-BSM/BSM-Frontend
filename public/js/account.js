@@ -82,6 +82,20 @@ const pwEdit = () => {
         }
     })
 }
+const pwResetMail = () => {
+    ajax({
+        method:'post',
+        url:'/account/pwResetMail',
+        payload:{
+            member_id:$('.pw_reset_mail .member_id').value,
+        },
+        callBack:()=>{
+            showToast('비밀번호 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
+            popupClose($('.pw_reset_mail_box'))
+            popupOpen($('.login_box'))
+        }
+    })
+}
 const validCode = () => {
     ajax({
         method:'post',

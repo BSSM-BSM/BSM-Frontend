@@ -15,66 +15,6 @@
 <!-- 웹 앱 매니페스트를 읽어 들이기 -->
 <link rel="manifest" href="/manifest.json">
 <script src="/sw.js"></script>
-<!-- 서비스 워커를 등록 -->
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-        .then(reg => {
-            console.log('서비스 워커가 등록됨.', reg);
-        });
-    }
-</script>
-<!-- PWA 설정 끝 -->
-<script>
-    window.addEventListener('resize', () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
-    let refresh = true;
-    const apiUrl = '/api';
-    const memberLevel=[
-        '',
-        '<span class="member_admin">[룸메]</span> ',
-        '<span class="member_admin">[교사]</span> ',
-        '<span class="member_admin">[관리자]</span> '
-    ]
-    const $ = document.querySelector.bind(document)
-    const $$ = document.querySelectorAll.bind(document)
-    const themeInit = () => {
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        const theme = localStorage.getItem('theme');
-        if(theme=='light' || theme=='dark'){
-            if(theme=='dark'){
-                $$(':root')[0].classList.add('dark');
-            }else{
-                $$(':root')[0].classList.remove('dark');
-            }
-        }else{
-            if(prefersDarkScheme.matches){
-                localStorage.setItem('theme', 'dark');
-                $$(':root')[0].classList.add('dark');
-            }else{
-                localStorage.setItem('theme', 'light');
-                $$(':root')[0].classList.remove('dark');
-            }
-        }
-    }
-    const toggleTheme = () => {
-        const theme = localStorage.getItem('theme');
-        if(!(theme=='light' || theme=='dark')){
-            themeInit()
-            return;
-        }
-        if(theme=='dark'){
-            $$(':root')[0].classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }else{
-            $$(':root')[0].classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    }
-    themeInit()
-</script>
 <%-'<script>'%>
 <% if(!member.isLogin){ %>
     const member={
@@ -106,3 +46,9 @@
 <script src="/js/lib/axios.js"></script>
 <script src="/js/alert.js"></script>
 <script src="/js/statusCode.js"></script>
+<script src="/js/common.js"></script>
+<div class="loading">
+    <div>
+        <span></span>
+    </div>
+</div>

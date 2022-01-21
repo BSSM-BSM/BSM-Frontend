@@ -4,12 +4,14 @@
     <h2>{{msg}}</h2>
     <form v-if="step==0" class="login" method="post" autocomplete="off" onsubmit="loginBoxView.step1();return false;">
         <input type="text" class="input_text member_id" placeholder="아이디" required autofocus v-model="id">
-        <a onClick="popupOpen($('.sign_up_box'))">계정이 없으신가요? 회원가입</a>
+        <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
+        <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
         <button type="submit" class="main_button button">다음</button>
     </form>
     <form v-if="step==1" class="login" method="post" autocomplete="off" onsubmit="loginBoxView.step2();return false;">
         <input type="password" class="input_text member_pw" placeholder="비밀번호" required autofocus>
-        <a onClick="popupOpen($('.sign_up_box'));">계정이 없으신가요? 회원가입</a>
+        <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
+        <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
         <button type="submit" class="main_button button">로그인</button>
     </form>
 </div>
@@ -34,6 +36,15 @@
         <input type="password" class="input_text member_pw" placeholder="재설정할 비밀번호" required>
         <input type="password" class="input_text member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
         <button type="submit" class="main_button button">비밀번호 재설정</button>
+    </form>
+</div>
+<div class="pw_reset_mail_box popup center">
+    <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
+    <h2>비밀번호 복구</h2>
+    <p>학교 이메일계정으로 복구 링크가 전송됩니다</p>
+    <form class="pw_reset_mail" method="post" autocomplete="off" onsubmit="pwResetMail();return false;">
+        <input type="text" class="input_text member_id" placeholder="복구할 아이디" required>
+        <button type="submit" class="main_button button">복구 메일전송</button>
     </form>
 </div>
 <div class="valid_code_box popup center">

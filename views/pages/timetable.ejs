@@ -95,7 +95,7 @@
                     const timetableInit = () => {
                         $('tbody').innerHTML = '<tr><th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th></tr>';
                         for(i=0;i<classTimes.length;i++){
-                            $('tbody').innerHTML += `<tr><td>${classTimes[i]}:${classTimes[i][1]}~${classTimes[i][2]}:${classTimes[i][3]}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
+                            $('tbody').innerHTML += `<tr><td>${classTimes[i][0]}:${classTimes[i][1]}~${classTimes[i][2]}:${classTimes[i][3]}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
                         }
                     }
                     $(`.select_grade li:nth-child(${grade})`).classList.add('active')
@@ -116,7 +116,7 @@
                         for(i=0;i<classTimeTable.length;i++){
                             for(j=0;j<classTimeTable[i].length;j++){
                                 if(day-1==i){
-                                    if(((hour*60)+min>=(classTimes[j]*60)+classTimes[j][1]) && ((hour*60)+min<(classTimes[j][2]*60)+classTimes[j][3])){
+                                    if(((hour*60)+min>=(classTimes[j][0]*60)+classTimes[j][1]) && ((hour*60)+min<(classTimes[j][2]*60)+classTimes[j][3])){
                                         classTime=classTimeTable[i][j];
                                         $(`tbody tr:nth-child(${j+2}) td:nth-child(${i+2})`).classList.add('active_time');
                                     }

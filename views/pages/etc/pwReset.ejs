@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../../common/head') %>
+    <title>비밀번호 재설정</title>
+</head>
+<body>
+    <div class="pw_reset_box popup on center">
+        <h2>비밀번호 재설정</h2>
+        <form class="pw_reset" method="post" autocomplete="off" onsubmit="pwEdit();return false;">
+            <input type="password" class="input_text member_pw" placeholder="재설정할 비밀번호" required autofocus>
+            <input type="password" class="input_text member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
+            <button type="submit" class="main_button button">비밀번호 재설정</button>
+        </form>
+    </div>
+    <script>
+        const pwEdit = () => {
+            ajax({
+                method:'post',
+                url:'/account/pwEdit',
+                payload:{
+                    member_pw:$('.pw_reset .member_pw').value,
+                    member_pw_check:$('.pw_reset .member_pw_check').value,
+                },
+                callBack:()=>{
+                    alert('비밀번호 재설정이 완료되었습니다');
+                    window.location='/'
+                }
+            })
+        }
+    </script>
+</body>
+</html>
