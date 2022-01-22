@@ -100,25 +100,25 @@ section#download{
   border-radius:1rem;
 }
 .service_wrap.info .service:nth-child(1) .image div{
-  background-image:url('/resource/index/images/meal.png');
+  background-image:url('/resource/index/images/meal.webp');
 }
 .service_wrap.info .service:nth-child(2) .image div{
-  background-image:url('/resource/index/images/timetable.png');
+  background-image:url('/resource/index/images/timetable.webp');
 }
 .service_wrap.info .service:nth-child(3) .image div{
-  background-image:url('/resource/index/images/meister.png');
+  background-image:url('/resource/index/images/meister.webp');
 }
 .service_wrap.info .service:nth-child(4) .image div{
-  background-image:url('/resource/index/images/community.png');
+  background-image:url('/resource/index/images/community.webp');
 }
 .service_wrap.update .service:nth-child(1) .image div{
-  background-image:url('/resource/index/images/update/1.2.0/update1.png');
+  background-image:url('/resource/index/images/update/1.2.0/update1.webp');
 }
 .service_wrap.update .service:nth-child(2) .image div{
-  background-image:url('/resource/index/images/update/1.2.0/update2.png');
+  background-image:url('/resource/index/images/update/1.2.0/update2.webp');
 }
 .service_wrap.update .service:nth-child(3) .image div{
-  background-image:url('/resource/index/images/update/1.2.0/update3.png');
+  background-image:url('/resource/index/images/update/1.2.0/update3.webp');
 }
 .service_wrap.update .service:nth-child(4) .image div{
   background-image:url('/resource/index/images/update/1.2.0/update4.webp');
