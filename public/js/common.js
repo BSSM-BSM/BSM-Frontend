@@ -66,6 +66,39 @@ const popupClose = (element) => {
         }
     }
 }
+
+let progressBar, progressBarFlag=0;
+const progress = per => {
+    if(progressBar.style.left=="0%"){
+        if(per<100){
+            progressBarFlag+=1;
+            progressBar.style.left='-100%';
+            progressBar.classList.add('on');
+            window.setTimeout(()=>{
+                progressBar.style.left=`${per-100}%`;
+            }, 1)
+        }
+    }else{
+        if(per>=100){
+            window.setTimeout(()=>{
+                if(progressBarFlag-1==0){
+                    progressBar.classList.add('remove');
+                }
+                window.setTimeout(()=>{
+                    progressBarFlag-=1;
+                    if(progressBarFlag==0){
+                        progressBar.classList.remove('on');
+                        progressBar.classList.remove('remove');
+                    }
+                }, 450)
+            }, 1000);
+        }else{
+            progressBar.classList.add('on');
+        }
+        progressBar.style.left=`${per-100}%`;
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     if($('.dim.popup_close')){
         $('.dim.popup_close').addEventListener('click', ()=>{
@@ -74,6 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         })
     }
+    progressBar = $('.progress');
 })
 
 const instance = axios.create({

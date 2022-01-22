@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.26';
+const cacheName = '1.2.0.27';
 const cacheFiles = [
     '/',
     '/meal',
@@ -36,10 +36,11 @@ const libCacheFiles = [
     '/css/lib/font/summernote.woff2',
     '/css/lib/font/summernote.ttf'
 ];
-const imgCacheName = 'img-1.2.0.2';
-const imgCacheFiles = [
+const etcCacheName = 'etc-1.2.0';
+const etcCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
+    '/resource/common/font/NotoSansKR-Regular.woff2',
     '/resource/common/images/x.svg',
     '/resource/common/images/theme.svg',
     '/resource/common/images/download.png',
@@ -51,14 +52,14 @@ const imgCacheFiles = [
 const allCacheFiles = [
     ...cacheFiles,
     ...libCacheFiles,
-    ...imgCacheFiles
+    ...etcCacheName
 ]
 self.addEventListener('install', (event) => {
     event.waitUntil(
         // 캐시할 파일들 캐시
         caches.open(cacheName).then((cache) => cache.addAll(cacheFiles)),
         caches.open(libCacheName).then((cache) => cache.addAll(libCacheFiles)),
-        caches.open(imgCacheName).then((cache) => cache.addAll(imgCacheFiles))
+        caches.open(etcCacheName).then((cache) => cache.addAll(etcCacheFiles))
     );
     self.skipWaiting();
 });
@@ -67,7 +68,7 @@ self.addEventListener("activate", event => {
         caches.keys().then((keys) => {
             return Promise.all(
                 keys.filter(key => {
-                    return key != cacheName && key != libCacheName && key != imgCacheName;
+                    return key != cacheName && key != libCacheName && key != etcCacheName;
                 }).map((key) => {
                     return caches.delete(key);
                 })

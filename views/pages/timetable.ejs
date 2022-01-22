@@ -10,7 +10,6 @@
     <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
 </head>
 <body>
-    <%- include('../common/header') %>
     <main>
         <div class="title">
           <h1>시간표</h1>
@@ -89,7 +88,6 @@
                             }
                         })
                     }
-                    timetableRefresh(grade, classNo);
                     $('.select_grade .select').innerText=`${grade}학년`;
                     $('.select_class .select').innerText=`${classNo}반`;
                     const timetableInit = () => {
@@ -137,7 +135,7 @@
                         last_day=day;
                     }
                     window.addEventListener('DOMContentLoaded', () => {
-                        updateTimeTable();
+                        timetableRefresh(grade, classNo);
                         setInterval(() => {
                             times=new Date();
                             day=times.getDay();
@@ -157,6 +155,7 @@
             </span>
         </div>
     </main>
-    <%- include('../common/loginBox') %>
+    <%- include('../common/header') %>
+    <%- include('../common/common') %>
 </body>
 </html>

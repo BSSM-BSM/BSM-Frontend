@@ -43,4 +43,6 @@ const mealRender = () => {
         mealView.dinner = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner'];
     }
 }
-mealRefresh();
+window.addEventListener('DOMContentLoaded', () => {
+    mealRefresh();
+})

@@ -4,7 +4,6 @@
     '<span class="member_admin">[교사]</span> ',
     '<span class="member_admin">[관리자]</span> '
 ]; %>
-<div class="overlay-fadein"></div>
 <header>
     <nav>
         <div class="top_menu">
@@ -18,7 +17,7 @@
                     </span>
                 </span>
                 <span class="top_menu_item dropdown_menu">
-                    <span class="page">학교</span>
+                    <span class="menu_item">학교</span>
                     <ul class="dropdown_content">
                         <li><a href="/timetable" class="option">시간표</a></li>
                         <li><a href="/meister" class="option">마이스터 인증제</a></li>
@@ -26,28 +25,28 @@
                     </ul>
                 </span>
                 <span class="top_menu_item dropdown_menu">
-                    <span class="page">생활</span>
+                    <span class="menu_item">생활</span>
                     <ul class="dropdown_content">
                         <li><a href="/meal" class="option">급식</a></li>
                         <li><a href="/dorm_rule" class="option">기숙사 규정</a></li>
                     </ul>
                 </span>
                 <span class="top_menu_item dropdown_menu">
-                    <span class="page">커뮤니티</span>
+                    <span class="menu_item">커뮤니티</span>
                     <ul class="dropdown_content">
                         <li><a href="/board/board" class="option">자유게시판</a></li>
                         <li><a href="/board/anonymous" class="option">익명게시판</a></li>
                         <li><a href="/board/notice" class="option">공지사항</a></li>
                     </ul>
                 </span>
-                <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="page">깃허브</a></span>
+                <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="menu_item">깃허브</a></span>
             </div>
             <div class="right_wrap">
                 <span class="theme_toggle top_menu_item" onclick="toggleTheme()">
                     <img src="/resource/common/images/theme.svg" alt="theme_toggle">
                 </span>
                 <span class="searchBar top_menu_item">
-                    <input type="text" class="searchQuery input_text searchBox" oninput="search()" placeholder="여기에 검색" required>
+                    <input type="text" class="searchQuery input_text searchBox menu_item" oninput="search()" placeholder="여기에 검색" required>
                     <div class="searchResult">
                         <div class="boardResult">
                             <h2>자유게시판</h2><br>
@@ -74,7 +73,7 @@
                 </span>
                 <% if(member.isLogin){ %>
                     <span class="top_menu_item dropdown_menu user_menu">
-                        <span class="page user_profile_name"><%- memberLevel[member.level]+member.nickname %></span>
+                        <span class="menu_item user_profile_name"><%- memberLevel[member.level]+member.nickname %></span>
                         <img src="/resource/member/profile_images/profile_<%- member.code %>.png" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
                         <ul class="dropdown_content">
                             <li><a href="/memberinfo/<%= member.code %>" class="option">유저 정보</a></li>
@@ -82,7 +81,7 @@
                         </ul>
                     </span>
                 <% }else{ %>
-                    <span class="top_menu_item user_menu"><a onclick="showLoginBox()" class="page">로그인</a></span>
+                    <span class="top_menu_item user_menu"><a onclick="showLoginBox()" class="menu_item">로그인</a></span>
                 <% } %>
             </div>
         </div>
@@ -107,9 +106,8 @@
         </ul>
     </div>
 </header>
-<div class="dim popup_close"></div>
 <div class="dim search_close"></div>
-<div class="alert_wrap"></div>
-<div class="toast_wrap"></div>
-<div class="progress" style="left:0%;"></div>
 <script src="/js/header.js"></script>
+<div>
+    <%- include('../common/accountBox') %>
+</div>
