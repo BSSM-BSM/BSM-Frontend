@@ -27,6 +27,14 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 })
 
+const headerAccountView = new Vue({
+    el:'.user_menu',
+    data:{
+        member:member,
+        memberLevel:memberLevel
+    }
+})
+
 $('.searchBox').addEventListener('click', () => {
     $('.searchResult').classList.add('on')
     $('.search_close').classList.add('on')

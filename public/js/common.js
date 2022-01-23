@@ -9,9 +9,9 @@ let refresh = true;
 const apiUrl = '/api';
 const memberLevel=[
     '',
-    '<span class="member_admin">[룸메]</span> ',
-    '<span class="member_admin">[교사]</span> ',
-    '<span class="member_admin">[관리자]</span> '
+    '[룸메]',
+    '[교사]',
+    '[관리자]'
 ]
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)

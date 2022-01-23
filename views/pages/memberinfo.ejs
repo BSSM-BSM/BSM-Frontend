@@ -10,6 +10,7 @@
     <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
 </head>
 <body>
+    <%- include('../common/common') %>
     <main>
         <div class="title">
             <h1>유저 정보</h1>
@@ -35,9 +36,13 @@
                         </div>
                     </div>
                     <div class="user_profile_menu" v-if="permission">
-                        <form class="profile_upload" method="post" autocomplete="off" enctype="multipart/form-data" action="javascript://" onsubmit="profileUpload();return false;">
-                            <input type="file" name="file" required>
-                            <button type="submit" class="button">프로필 이미지 업로드</button>
+                        <form class="profile_upload" autocomplete="off" onsubmit="profileUpload();return false;">
+                            <span class="input_file">
+                                <input class="file_name input_text" value="" placeholder="선택된 파일 없음" readonly>
+                                <label class="button" for="file">파일 선택</label>
+                                <input type="file" name="file" id="file" required onchange="$('.file_name').value=$('#file').value.split('\\').slice(-1)[0]">
+                            </span>
+                            <button type="submit" class="button">이미지 업로드</button>
                         </form>
                         <div class="button" onClick="popupOpen($('.pw_reset_box'))">비밀번호 재설정</div>
                     </div>
@@ -113,6 +118,5 @@
         </div>
     </main>
     <%- include('../common/header') %>
-    <%- include('../common/common') %>
 </body>
 </html>

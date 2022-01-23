@@ -6,6 +6,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   border-collapse: collapse;
+  line-height:1.2;
+  vertical-align:middle;
   font-family:NotoSans,-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
 }
 :root{
@@ -287,8 +289,11 @@ header.on nav .top_menu{
 }
 .top_menu_item .menu_item{
   display:inline-block;
-  padding:1.5rem 2.5rem;
+  padding:1.4rem 2.5rem;
   font-size:1.6rem !important;
+  height:100%;
+  display:flex;
+  align-items:center;
 }
 .user_profile{
   border-radius:10rem;
@@ -299,6 +304,11 @@ header.on nav .top_menu{
 .user_menu .user_profile{
   height:5.1rem;
   padding:.5rem;
+}
+.user_profile_wrap{
+  height:100%;
+  display:flex;
+  align-items:center;
 }
 .top_menu_item.user_menu .user_profile_name{
   padding-right:0;
@@ -377,7 +387,7 @@ header.on nav .top_menu{
 }
 .side_menu ul li:hover:not(.home){
   box-shadow:var(--shadow);
-  background-color:var(--hover);
+  background-color:#80808066;
 }
 .side_menu ul li *{
   display:block; padding:1.2rem; color:var(--white);
@@ -421,11 +431,11 @@ header.on nav .top_menu{
   width:100%;
   cursor:pointer;
 }
-.dropdown_menu:hover .dropdown_content, 
-.dropdown_menu input:focus + .dropdown_content {opacity:1;pointer-events:unset;}
-
-input, .input_text, textarea, .textarea{
-  border:none; color:var(--text); width:37.5rem; font-weight:bold; font-size:1.5rem; margin:1rem 0; outline:none; padding:1.5rem; border-radius:.5rem;
+.dropdown_menu:hover .dropdown_content{
+  opacity:1;pointer-events:unset;
+}
+.input_text, textarea, .textarea{
+  border:none; color:var(--text); width:37.5rem; font-weight:bold; font-size:1.5rem; margin:1rem 0; outline:.2rem solid #00000000; padding:1.5rem; border-radius:.5rem;
   background-color:var(--input);
   text-align:left;
   transition:.25s;
@@ -443,9 +453,27 @@ input[type=number]{
 }
 .input_text:focus, input[type=number]:focus, textarea:focus, .textarea:focus{
   box-shadow:0 0 2rem 0 var(--main);
+  outline-color:var(--main);
+}
+.input_file .file_name{
+  width:15rem;
+}
+.input_file input[type=file]{
+  position:absolute;
+  opacity:0;
 }
 .button{
-  position:relative; width:auto; color:var(--white); border:none; padding:1.5rem 2.5rem; text-align:center; text-decoration:none; display:inline-block; font-size:1.5rem; font-weight:bold; cursor:pointer; border-radius:.75rem;
+  width:auto;
+  color:var(--white);
+  border:none;
+  padding:1.5rem 2.5rem;
+  text-align:center;
+  text-decoration:none;
+  display:inline-block;
+  font-size:1.5rem;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:.75rem;
   background-color:var(--main);
   transition:.25s;
 }
