@@ -91,7 +91,13 @@ body{
 }
 @font-face {
   font-family:'NotoSans';
+  font-weight:normal;
   src:url('/resource/common/font/NotoSansKR-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family:'NotoSans';
+  font-weight:bold;
+  src:url('/resource/common/font/NotoSansKR-Bold.woff2') format('woff2');
 }
 @keyframes fadein {
   from {opacity:1;display:block;}
@@ -486,12 +492,6 @@ input[type=number]{
 .red_button{
   background-color:var(--red);
 }
-.like_button.on{
-  background-color:var(--green);
-}
-.dislike_button.on{
-  background-color:var(--red);
-}
 .button:hover{
   box-shadow:var(--shadow);
   background-color:var(--hover);
@@ -790,6 +790,9 @@ table{
   flex:1;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
+  html::-webkit-scrollbar{
+    width:2px;
+  }
   body{
     padding-bottom:1rem;
   }
@@ -807,9 +810,6 @@ table{
   }
   main,.container{
     width:auto;
-  }
-  main::-webkit-scrollbar{
-    width:2px;
   }
   .title{
     padding:12.5rem 0 0 0;

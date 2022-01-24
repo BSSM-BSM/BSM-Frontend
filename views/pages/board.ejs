@@ -32,9 +32,9 @@
                             </div>
                         <div class="post_content"><div v-html="postContent"></div></div>
                         <div class="post_like_wrap post_like">
-                            <button class="button like_button" onclick="likeSend(1);" v-bind:class="{on:like>0}">좋아요</button>
+                            <button class="like_button like" onclick="likeSend(1);" v-bind:class="{on:like>0}"><object data="/resource/common/images/like.svg"></object></button>
                             <span class="post_like_cnt">{{postLike}}</span>
-                            <button class="button dislike_button" onclick="likeSend(-1);" v-bind:class="{on:like<0}">싫어요</button>
+                            <button class="like_button dislike" onclick="likeSend(-1);" v-bind:class="{on:like<0}"><object data="/resource/common/images/like.svg"></object></button>
                         </div>
                     </div>
                     <div class="comment_list">
@@ -58,7 +58,7 @@
                             <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                                 <br>
-                                <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
+                                <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                                 <input type="submit" name="" value="답글작성" class="button">
                             </form>
                             <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
@@ -67,7 +67,7 @@
                     <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
                         <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                         <br>
-                        <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
+                        <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                         <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
                         <input type="submit" name="" value="댓글작성" class="button">
                     </form>
@@ -83,7 +83,7 @@
                 <div class="emoticon_popup">
                     <div class="insert_emoticon_box popup center">
                         <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
-                        <p>아직 테스트중인 기능입니다</p>
+                        <h2>이모티콘 넣기</h2>
                         <div class="select_emoticon">
                             <img :src="`/resource/board/emoticon/${e.id}.png`" :alt="e.alt" class="emoticon_icon" v-on:click="selectEmoticon(i)" v-for="(e, i) in emoticon">
                         </div>
@@ -172,7 +172,7 @@
                         <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
                             <br>
-                            <button class="button" onclick="loadEmoticon();return false;">이모티콘 넣기(테스트)</button>
+                            <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                             <input type="submit" name="" value="답글작성" class="button">
                         </form>
                         <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>

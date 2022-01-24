@@ -1,4 +1,4 @@
-const cacheName = '1.2.0.29';
+const cacheName = '1.2.0.30';
 const cacheFiles = [
     '/',
     '/meal',
@@ -36,13 +36,14 @@ const libCacheFiles = [
     '/css/lib/font/summernote.woff2',
     '/css/lib/font/summernote.ttf'
 ];
-const etcCacheName = 'etc-1.2.0';
+const etcCacheName = 'etc-1.2.0.1';
 const etcCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
     '/resource/common/font/NotoSansKR-Regular.woff2',
     '/resource/common/images/x.svg',
     '/resource/common/images/theme.svg',
+    '/resource/common/images/like.svg',
     '/resource/common/images/download.png',
     '/resource/index/images/main.webp',
     '/resource/index/images/main2.webp',

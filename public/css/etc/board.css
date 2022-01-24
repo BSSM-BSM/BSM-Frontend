@@ -135,6 +135,9 @@
   flex-direction:column;
   justify-content:center;
 }
+.member_nickname{
+  font-weight:bold;
+}
 .post_info_wrap .left_wrap .user_profile{
   margin-right:2rem;
   height:5.4rem;
@@ -149,7 +152,7 @@
 }
 .post_info_wrap .post_title{
   width:100%;
-  font-size:1.8rem;
+  font-size:2.2rem;
   font-weight:bold;
   text-align:left;
   margin-bottom:1rem;
@@ -192,6 +195,32 @@
   justify-content:space-between;
   padding:5rem;
 }
+.post_like_cnt{
+  margin:0 1rem;
+}
+.like_button{
+  height:3.5rem;
+  width:3.5rem;
+  background-color:#00000000;
+  border:none;
+}
+.like_button object{
+  pointer-events:none;
+  filter:var(--bright);
+}
+.like_button.on object{
+  filter:brightness(0) saturate(100%);
+}
+.like_button.dislike{
+  transform:scaleX(-1) scaleY(-1);
+}
+.like.on{
+  filter:invert(95%) sepia(3%) saturate(6824%) hue-rotate(56deg) brightness(85%) contrast(110%);
+}
+.dislike.on{
+  filter:invert(60%) sepia(16%) saturate(1873%) hue-rotate(316deg) brightness(104%) contrast(96%);
+}
+
 .comment_list{
   margin:5rem 0;
   padding:0 3rem;
@@ -203,7 +232,7 @@
   display:inline-block;
   position:relative;
   width:100%;
-  padding:1.5rem 2rem;
+  padding:1rem 1.5rem;
   text-align:left;
   transition:.25s;
   border-radius:1rem;
@@ -221,18 +250,26 @@
   display:flex;
   margin-bottom:1rem;
 }
+.comment_item_info_wrap .left_wrap{
+  display:flex;
+  align-items:center;
+}
 .comment_item_info_wrap .left_wrap .user_profile{
   margin-right:1rem;
-  height:4rem;
+  height:3rem;
 }
 .comment_item_info_wrap .right_wrap{
   display:flex;
   flex-direction:column;
   width:100%;
 }
-.comment_item_info{
+.comment_item_info:first-child{
   display:flex;
   justify-content: space-between;
+  font-weight:bold;
+}
+.comment_item_info:last-child{
+  font-size:1.3rem;
 }
 .comment_menu *{
   cursor:pointer;
@@ -240,12 +277,11 @@
 .comment_item_content{
   width:100%;
   white-space:pre-wrap;
-  font-weight:bold;
 }
 .comment_child{
   border-left:.2rem solid var(--gray);
   width:95%;
-  float:right;
+  margin-left:auto;
 }
 .comment_write{
   padding:0rem 5rem;
@@ -310,6 +346,10 @@
   .post_wrap{
     padding:5rem 3% 0 3%;
   }
+  .post_info_wrap .post_title{
+    font-size:1.8rem;
+    margin-bottom:.5rem;
+  }
   .post_info_wrap > div:not(.post_title){
     font-size:1.3rem;
   }
@@ -333,6 +373,6 @@
     padding:0 3%;
   }
   .comment_item_wrap{
-    padding:1.5rem 3%;
+    padding:1rem 3%;
   }
 }
