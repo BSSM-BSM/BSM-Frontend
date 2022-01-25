@@ -197,6 +197,7 @@
 }
 .post_like_cnt{
   margin:0 1rem;
+  font-weight:bold;
 }
 .like_button{
   height:3.5rem;

@@ -49,6 +49,6 @@ const meisterScore = () => {
         }
     })
 }
-$('.meisterInfo .hak').value= hak
-$('.meisterInfo .ban').value= ban
-$('.meisterInfo .bun').value= bun
+$('.meisterInfo .hak').value = hak
+$('.meisterInfo .ban').value = ban
+$('.meisterInfo .bun').value = bun

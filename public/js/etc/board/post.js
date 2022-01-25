@@ -63,13 +63,13 @@ const postRefresh = () => {
             postView.postContent=data.postContent;
             postView.like=data.like;
             postView.postLike=data.postLike;
-            // window.setTimeout(()=>{
-            //     // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
-            //     // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
-            //     $('.note-video-clip').each((i, e) => {
-            //         $(e).wrap('<div class="video-container"></div>');
-            //     });
-            // },1);
+            window.setTimeout(()=>{
+                // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
+                // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
+                $$('.note-video-clip').forEach(e => {
+                    e.outerHTML=`<div class="video-container">${e.outerHTML}</div>`;
+                });
+            },1);
             progress(50)
             commentRefresh();
         }

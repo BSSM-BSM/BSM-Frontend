@@ -465,7 +465,7 @@ input[type=number]{
   width:15rem;
 }
 .input_file input[type=file]{
-  position:absolute;
+  position:fixed;
   opacity:0;
 }
 .button{
