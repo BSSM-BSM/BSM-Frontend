@@ -5,7 +5,7 @@ const statusCode = (status, subStatus) => {
             1:{type:1, msg:'서버와의 연결에 실패하였습니다.'}
         },
         1:{msg:'정상',
-            0:{type:1, msg:'정상 처리되었습니다.'}
+            0:{type:0, msg:'정상 처리되었습니다.'}
         },
         2:{msg:'서버 문제',
             0:{type:1, msg:'서버에 문제가 발생하였습니다.'},
@@ -33,6 +33,8 @@ const statusCode = (status, subStatus) => {
             1:{type:2, msg:'로그인후 이용 가능 합니다.'},
             2:{type:2, msg:'비밀번호 재설정이 필요합니다.'},
             3:{type:1, msg:'만료된 코드입니다, 회원가입된 계정으로 로그인해주세요.'},
+            4:{type:0, msg:'토큰 재발급 됨'},
+            5:{type:2, msg:'리프레시 토큰이 만료되었습니다. 다시 로그인 해주세요.'},
         },
         5:{msg:'경고',
             0:{type:1, msg:'id 또는 password가 맞지 않습니다.'},
@@ -47,6 +49,7 @@ const statusCode = (status, subStatus) => {
             case 4:
                 switch(subStatus){
                     case 1:
+                    case 5:
                         showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
                         showLoginBox()
                         break;

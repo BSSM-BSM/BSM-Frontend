@@ -134,18 +134,20 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         res = await get(method)
         res = res.data
         if(res.status!=1){
+            if(res.status==4&&res.subStatus==4){
+                // 액세스 토큰 갱신 후 원래 요청을 다시 보냄
+                return ajax ({method:method, url:url, payload:payload, callBack:callBack, errorCallBack:errorCallBack});
+            }
             if(errorCallBack && errorCallBack(res.status, res.subStatus)){
                 return;
             }
-            $('.loading').classList.remove("on");
-            progress(100)
+            loadingInit()
             statusCode(res.status, res.subStatus);
             return;
         }
     }catch(err){
         console.log(err)
-        $('.loading').classList.remove("on");
-        progress(100)
+        loadingInit()
         statusCode(0, 1)
         return;
     }
@@ -153,11 +155,13 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         callBack(res)
     }catch(err) {
         console.log(err)
-        $('.loading').classList.remove("on");
-        progress(100)
+        loadingInit()
         statusCode(0, 0)
         return;
     }
+    loadingInit()
+}
+const loadingInit = () => {
     $('.loading').classList.remove("on");
     progress(100)
 }

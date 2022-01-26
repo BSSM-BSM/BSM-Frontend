@@ -99,7 +99,7 @@ const pwResetMail = () => {
 const validCode = () => {
     ajax({
         method:'post',
-        url:`/account/signUp`,
+        url:`/account/validCode`,
         payload:{
             student_enrolled:$('.valid_code .studentEnrolled').value,
             student_grade:$('.valid_code .studentGrade').value,
