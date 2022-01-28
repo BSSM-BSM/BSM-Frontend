@@ -72,14 +72,13 @@
                     </div>
                     <ul v-if="member.isLogin" class="dropdown_content">
                         <li><a :href="`/memberinfo/${member.code}`" class="option">유저 정보</a></li>
-                        <li><a href="/logout" class="option">로그아웃</a></li>
+                        <li><a onclick="logout()" class="option">로그아웃</a></li>
                     </ul>
                     <a v-if="!member.isLogin" onclick="showLoginBox()" class="menu_item">로그인</a>
                 </span>
             </div>
         </div>
         <div class="notice_bar">
-            <a href="/board/notice/6" class="notice">Jquery관련 레거시 코드들을 전부 제거하였습니다</a>
         </div>
     </nav>
     <div class="side_menu">

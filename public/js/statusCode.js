@@ -50,7 +50,20 @@ const statusCode = (status, subStatus) => {
                 switch(subStatus){
                     case 1:
                     case 5:
-                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
+                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg);
+                        member={
+                            isLogin:false,
+                            code:null,
+                            id:null,
+                            nickname:null,
+                            level:null,
+                            grade:null,
+                            classNo:null,
+                            studentNo:null,
+                        }
+                        if(headerAccountView){
+                            headerAccountView.member = member;
+                        }
                         showLoginBox()
                         break;
                     case 2:

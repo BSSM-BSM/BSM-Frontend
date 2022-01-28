@@ -5,8 +5,7 @@ window.addEventListener('resize', () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
-let refresh = true;
-const apiUrl = '/api';
+let refresh = false;
 const memberLevel=[
     '',
     '[룸메]',
@@ -135,7 +134,24 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         res = res.data
         if(res.status!=1){
             if(res.status==4&&res.subStatus==4){
-                // 액세스 토큰 갱신 후 원래 요청을 다시 보냄
+                // 액세스 토큰 갱신 후 로그인 상태를 갱신함
+                // base64를 decoding하는 함수인 atob는 한글을 지원안함
+                // 그래서 escape로 유니코드로 변환후 decodeURI로 복호화함
+                const jsonData = JSON.parse(decodeURIComponent(escape(atob(res.token.split('.')[1]))));
+                member = {
+                    isLogin:jsonData.isLogin,
+                    code:jsonData.memberCode,
+                    id:jsonData.memberId,
+                    nickname:jsonData.memberNickname,
+                    level:jsonData.memberLevel,
+                    grade:jsonData.grade,
+                    classNo:jsonData.classNo,
+                    studentNo:jsonData.studentNo,
+                }
+                if(headerAccountView){
+                    headerAccountView.member = member;
+                }
+                // 원래 하려던 요청을 다시 보냄
                 return ajax ({method:method, url:url, payload:payload, callBack:callBack, errorCallBack:errorCallBack});
             }
             if(errorCallBack && errorCallBack(res.status, res.subStatus)){

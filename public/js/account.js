@@ -39,14 +39,53 @@ const login = (id, pw) => {
             }
             return false;
         },
-        callBack:()=>{
+        callBack:data=>{
             if(refresh){
                 window.location.reload()
             }else{
+                // 액세스 토큰 갱신 후 로그인 상태를 갱신함
+                // base64를 decoding하는 함수인 atob는 한글을 지원안함
+                // 그래서 escape로 유니코드로 변환후 decodeURI로 복호화함
+                const jsonData = JSON.parse(decodeURIComponent(escape(atob(data.token.split('.')[1]))));
+                member = {
+                    isLogin:jsonData.isLogin,
+                    code:jsonData.memberCode,
+                    id:jsonData.memberId,
+                    nickname:jsonData.memberNickname,
+                    level:jsonData.memberLevel,
+                    grade:jsonData.grade,
+                    classNo:jsonData.classNo,
+                    studentNo:jsonData.studentNo,
+                }
+                if(headerAccountView){
+                    headerAccountView.member = member;
+                }
                 showToast('로그인에 성공하였습니다.');
                 popupClose($('.login_box'));
                 loginBoxView.init()
             }
+        }
+    })
+}
+const logout = () => {
+    ajax({
+        method:'delete',
+        url:`/account/logout`,
+        callBack:()=>{
+            member={
+                isLogin:false,
+                code:null,
+                id:null,
+                nickname:null,
+                level:null,
+                grade:null,
+                classNo:null,
+                studentNo:null,
+            }
+            if(headerAccountView){
+                headerAccountView.member = member;
+            }
+            showToast('로그아웃 되었습니다.');
         }
     })
 }

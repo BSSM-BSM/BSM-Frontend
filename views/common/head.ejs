@@ -17,7 +17,7 @@
 <script src="/sw.js"></script>
 <%-'<script>'%>
 <% if(!member.isLogin){ %>
-    const member={
+    let member={
         isLogin:false,
         code:null,
         id:null,
@@ -28,7 +28,7 @@
         studentNo:null,
     }
 <% }else{ %>
-    const member={
+    let member={
         isLogin:<%- member.isLogin %>,
         code:<%- member.code %>,
         id:'<%- member.id %>',
