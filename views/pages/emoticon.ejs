@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../common/head') %>
+    <link rel="stylesheet" type="text/css" href="/css/etc/meal.css">
+    <title>이모티콘 - BSM</title>
+    <meta property="title" content="이모티콘 - BSM | 부산소마고 지원 서비스">
+    <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+    <meta property="og:title" content="이모티콘 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
+</head>
+<body>
+    <%- include('../common/common') %>
+    <main>
+        <div class="title">
+            <h1>이모티콘</h1>
+        </div>
+        <div class="container">
+            아직 준비중인 페이지 입니다.
+        </div>
+    </main>
+    <div class="emoticon_upload_box on popup center">
+        <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
+        <h2>이모티콘 업로드</h2>
+        <form class="emoticon_upload" autocomplete="off" onsubmit="emoticonUpload();return false;">
+            <span class="input_file emoticon_info_file">
+                <input class="file_name input_text" value="" placeholder="선택된 파일 없음" readonly>
+                <label class="button" for="emoticon_info">파일 선택</label>
+                <input type="file" name="file" id="emoticon_info" required onchange="$('.emoticon_info_file .file_name').value=$('#emoticon_info').value.split('\\').slice(-1)[0]">
+            </span>
+            <div class="emoticon_files">
+                <span v-for="i in 2" class="input_file emoticon_file">
+                    <input :class="`file_name input_text file_name_${i}`" value="" placeholder="선택된 파일 없음" readonly>
+                    <label class="button" :for="`emoticon_${i}`">파일 선택</label>
+                    <input type="file" name="file" :id="`emoticon_${i}`" required :onchange="`$('.emoticon_file .file_name_${i}').value=$('#emoticon_${i}').value.split('\\\\').slice(-1)[0]`">
+                </span>
+            </div>
+            <button type="submit" class="button">이미지 업로드</button>
+        </form>
+    </div>
+    <script>
+        const emoticonFilesView = new Vue({
+            el:'.emoticon_files'
+        })
+        const emoticonUpload = () => {
+            event.preventDefault();
+            const files = new FormData();
+            files.append('name', '테스트 콘');
+            files.append('description', 'test');
+            files.append('file', $('.emoticon_upload .emoticon_info_file [type=file]').files[0])
+            let emoticons = {}
+            $$('.emoticon_upload .emoticon_file [type=file]').forEach(e => {
+                const name = e.files[0].name.split('.')[0]
+                const ext = e.files[0].name.split('.')[e.files[0].name.split('.').length-1];
+                const idx = e.getAttribute('id').split('_')[1];
+                emoticons[name]={};
+                emoticons[name].idx = idx
+                emoticons[name].type = ext
+                files.append('files', e.files[0]);
+            });
+            files.append('emoticons', JSON.stringify(emoticons));
+            ajax({
+                method:'post',
+                payload:files,
+                url:'/emoticon',
+                callBack:data=>{
+                    alert("업로드에 성공하였습니다");
+                }
+            })
+        }
+    </script>
+    <%- include('../common/header') %>
+</body>
+</html>
