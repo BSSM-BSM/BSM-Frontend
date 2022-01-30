@@ -56,7 +56,7 @@
                                 <div class="comment_item_content" v-html="item.comment"></div>
                             </div>
                             <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
-                                <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
+                                <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                                 <br>
                                 <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                                 <input type="submit" name="" value="답글작성" class="button">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
-                        <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
+                        <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                         <br>
                         <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                         <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
@@ -151,7 +151,7 @@
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
                         <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
-                            <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" required></pre>
+                            <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                             <br>
                             <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                             <input type="submit" name="" value="답글작성" class="button">

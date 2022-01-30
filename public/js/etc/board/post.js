@@ -173,3 +173,32 @@ const commentWrite = (depth, parentIdx) => {
         }
     })
 }
+const editorNewline = () => {
+    /*
+    브라우저에서 contenteditable 속성이 다음줄을 만들면 \n문자를 집어넣어서 개행처리를 하지않고
+    <div><br></div>로 개행처리를 해서 댓글에 저 태그가 그대로 남는 버그 발생
+    그렇다고 contenteditable을 plaintext-only로 하면 이모티콘이 안되므로 이벤트를 가로채서 대신 \n을 집어넣게 만들기로함
+    document.execCommand는 더 이상 표준이 아니라고 왠만하면 쓰지말라고해서 입력 커서를 조작하는 식으로 해결
+    */
+    // 키 입력이 엔터라면
+    if(event.keyCode==13) {
+        // 이벤트 가로챔
+        event.preventDefault();
+        // 입력커서 가져옴
+        const selection = window.getSelection(),
+        // 커서 범위 가져옴
+        range = selection.getRangeAt(0),
+        // 집어넣을 개행문자 노드 생성
+        newline = document.createTextNode('\n');
+        // 현재 커서 범위에 만든 개행문자 집어넣음
+        range.insertNode(newline);
+        // 그냥 집어넣기만 하면 커서가 자동으로 이동하지 않기 때문에
+        // 커서의 위치를 집어넣은 노드의 다음으로 이동함
+        range.setStartAfter(newline);
+        range.setEndAfter(newline);
+        // 커서 선택범위를 전부 해제하고
+        selection.removeAllRanges();
+        // 선택범위를 현재위치로
+        selection.addRange(range);
+    }
+}
