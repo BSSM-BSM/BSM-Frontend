@@ -16,44 +16,102 @@
             <h1>이모티콘</h1>
         </div>
         <div class="container">
-            아직 준비중인 페이지 입니다.
+            <p>아직 준비중인 페이지 입니다.</p>
+            <br>
+            <button class="button" onclick="popupOpen($('.emoticon_upload_box'))">이모티콘 업로드</button>
+            <p>이모티콘 업로드는 할 수 있어요.</p>
         </div>
     </main>
-    <div class="emoticon_upload_box on popup center">
+    <div class="emoticon_upload_box emoticon_info_box popup center">
         <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
         <h2>이모티콘 업로드</h2>
+        <p>썸네일: 2:1비율의 png파일 400x200px 권장</p>
+        <p>이모티콘: 1:1비율의 png, jpg, gif, webp파일 400x400px 권장</p>
         <form class="emoticon_upload" autocomplete="off" onsubmit="emoticonUpload();return false;">
             <span class="input_file emoticon_info_file">
-                <input class="file_name input_text" value="" placeholder="선택된 파일 없음" readonly>
-                <label class="button" for="emoticon_info">파일 선택</label>
-                <input type="file" name="file" id="emoticon_info" required onchange="$('.emoticon_info_file .file_name').value=$('#emoticon_info').value.split('\\').slice(-1)[0]">
+                <div class="top_wrap">
+                    <label for="emoticon_info" class="upload_emoticon icon">
+                        <span v-if="!emoticon.imgSrc">업로드<br>이모티콘 썸네일</span>
+                        <img v-if="emoticon.imgSrc" :src="emoticon.imgSrc" alt="이모티콘 썸네일" class="emoticon_icon">
+                        <input type="file" name="file" id="emoticon_info" accept=".png" required onchange="emoticonFilesView.change(-1, this)">
+                    </label>
+                    <input type="text" class="name input_text" placeholder="이모티콘 이름">
+                </div>
+                <input type="text" class="description input_text full" placeholder="설명">
             </span>
-            <div class="emoticon_files">
-                <span v-for="i in 2" class="input_file emoticon_file">
-                    <input :class="`file_name input_text file_name_${i}`" value="" placeholder="선택된 파일 없음" readonly>
-                    <label class="button" :for="`emoticon_${i}`">파일 선택</label>
-                    <input type="file" name="file" :id="`emoticon_${i}`" required :onchange="`$('.emoticon_file .file_name_${i}').value=$('#emoticon_${i}').value.split('\\\\').slice(-1)[0]`">
+            <div class="emoticon_box emoticon_files">
+                <span v-for="(e, i) in emoticons" class="input_file emoticon_file">
+                    <label :for="`emoticon_${i}`" class="upload_emoticon"><span v-if="!e.imgSrc">업로드<br>{{i+1}}</span><img v-if="e.imgSrc" :src="e.imgSrc" :alt="i" class="emoticon"></label>
+                    <input type="file" name="file" :id="`emoticon_${i}`" accept=".png, .jpe, .gif, .webp" required :onchange="`emoticonFilesView.change(${i}, this)`">
+                </span>
+                <span>
+                    <button class="upload_emoticon clear_button" @click="add"><span>추가</span></button>
                 </span>
             </div>
-            <button type="submit" class="button">이미지 업로드</button>
+            <br>
+            <button type="submit" class="button main_button full">이모티콘 업로드</button>
         </form>
     </div>
     <script>
         const emoticonFilesView = new Vue({
-            el:'.emoticon_files'
+            el:'.emoticon_upload',
+            data:{
+                emoticon:{
+                    imgSrc:''
+                },
+                emoticons:[
+                    {imgSrc:''},
+                    {imgSrc:''},
+                    {imgSrc:''},
+                    {imgSrc:''}
+                ]
+            },
+            methods:{
+                change:function(i, e){
+                    if(e.files.length){
+                        if(i==-1) this.emoticon.imgSrc = window.URL.createObjectURL(e.files[0]);
+                        else this.emoticons[i].imgSrc = window.URL.createObjectURL(e.files[0]);
+                    }else{
+                        if(i==-1) this.emoticon.imgSrc = '';
+                        else this.emoticons[i].imgSrc = '';
+                    }
+                },
+                add:function(){
+                    this.emoticons.push({imgSrc:''});
+                },
+                remove:function(i){
+                    this.emoticons.splice(i, 1);
+                },
+                init:function(){
+                    this.emoticon.imgSrc = '';
+                    this.emoticons.splice(0);
+                    this.emoticons=[
+                        {imgSrc:''},
+                        {imgSrc:''},
+                        {imgSrc:''},
+                        {imgSrc:''}
+                    ]
+                    $('.emoticon_upload .emoticon_info_file .name').value = null
+                    $('.emoticon_upload .emoticon_info_file .description').value = null
+                    $('.emoticon_upload .emoticon_info_file [type=file]').value = null
+                }
+            }
         })
         const emoticonUpload = () => {
-            event.preventDefault();
+            if($$('.emoticon_upload .emoticon_file [type=file]').length<4){
+                showAlert('이모티콘 개수는 최소 4개입니다.');
+                return;
+            }
             const files = new FormData();
-            files.append('name', '테스트 콘');
-            files.append('description', 'test');
+            files.append('name', $('.emoticon_upload .emoticon_info_file .name').value);
+            files.append('description', $('.emoticon_upload .emoticon_info_file .description').value);
             files.append('file', $('.emoticon_upload .emoticon_info_file [type=file]').files[0])
             let emoticons = {}
             $$('.emoticon_upload .emoticon_file [type=file]').forEach(e => {
                 const name = e.files[0].name.split('.')[0]
                 const ext = e.files[0].name.split('.')[e.files[0].name.split('.').length-1];
-                const idx = e.getAttribute('id').split('_')[1];
-                emoticons[name]={};
+                const idx = parseInt(e.getAttribute('id').split('_')[1])+1;
+                emoticons[name] = {};
                 emoticons[name].idx = idx
                 emoticons[name].type = ext
                 files.append('files', e.files[0]);
@@ -65,6 +123,8 @@
                 url:'/emoticon',
                 callBack:data=>{
                     alert("업로드에 성공하였습니다");
+                    emoticonFilesView.init()
+                    popupClose($('.emoticon_upload_box'))
                 }
             })
         }

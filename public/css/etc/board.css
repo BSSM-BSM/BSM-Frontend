@@ -310,26 +310,6 @@
 .note-editing-area{
   text-align:start;
 }
-.insert_emoticon_box, .emoticon_info_box{
-  max-width:53rem;
-  width:100%;
-}
-.select_emoticon{
-  display:flex;
-}
-.emoticon_box{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.emoticon{
-  width:10rem !important;
-  height:10rem !important;
-}
-.emoticon_icon{
-  width:10rem !important;
-  height:5rem !important;
-}
 @media screen and (min-width:0px) and (max-width:1023px){
   .board_item_wrap{
     font-size:1.3rem;

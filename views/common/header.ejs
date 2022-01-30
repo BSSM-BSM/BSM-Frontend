@@ -18,19 +18,14 @@
                         <li><a href="https://school.busanedu.net/bssm-h/main.do" class="option">학교 홈페이지</a></li>
                     </ul>
                 </span>
-                <span class="top_menu_item dropdown_menu">
-                    <span class="menu_item">생활</span>
-                    <ul class="dropdown_content">
-                        <li><a href="/meal" class="option">급식</a></li>
-                        <li><a href="/dorm_rule" class="option">기숙사 규정</a></li>
-                    </ul>
-                </span>
+                <span class="top_menu_item"><a href="/meal" class="menu_item">급식</a></span>
                 <span class="top_menu_item dropdown_menu">
                     <span class="menu_item">커뮤니티</span>
                     <ul class="dropdown_content">
                         <li><a href="/board/board" class="option">자유게시판</a></li>
                         <li><a href="/board/anonymous" class="option">익명게시판</a></li>
                         <li><a href="/board/notice" class="option">공지사항</a></li>
+                        <li><a href="/emoticon" class="option">이모티콘</a></li>
                     </ul>
                 </span>
                 <span class="top_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="menu_item">깃허브</a></span>
@@ -92,7 +87,7 @@
             <li class="page"><a href="/board/board">자유게시판</a></li>
             <li class="page"><a href="/board/anonymous">익명게시판</a></li>
             <li class="page"><a href="/board/notice">공지사항</a></li>
-            <li class="page"><a href="/dorm_rule">기숙사 규정</a></li>
+            <li class="page"><a href="/emoticon">이모티콘</a></li>
             <li class="page"><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
             <li class="page"><a href="https://github.com/leehj050211/BSM-Frontend">깃허브</a></li>
         </ul>
@@ -103,3 +98,12 @@
 <div>
     <%- include('../common/accountBox') %>
 </div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EVVC0KSD2L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EVVC0KSD2L');
+</script>

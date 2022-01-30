@@ -154,11 +154,11 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
                 // 원래 하려던 요청을 다시 보냄
                 return ajax ({method:method, url:url, payload:payload, callBack:callBack, errorCallBack:errorCallBack});
             }
-            if(errorCallBack && errorCallBack(res.status, res.subStatus)){
+            if(errorCallBack && errorCallBack(res.status, res.subStatus, res.msg)){
                 return;
             }
             loadingInit()
-            statusCode(res.status, res.subStatus);
+            statusCode(res.status, res.subStatus, res.msg);
             return;
         }
     }catch(err){

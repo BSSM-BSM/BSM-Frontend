@@ -11,7 +11,8 @@
     </div>
     <div class="emoticon_info_box popup center">
         <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
-        <h2>{{emoticonInfo.alt}}</h2>
+        <h2>{{emoticonInfo.name}}</h2>
+        <p>{{emoticonInfo.description}}</p>
         <p>{{emoticonInfo.created}}</p>
         <div class="emoticon_box" v-if="emoticonInfo">
             <img :src="`/resource/board/emoticon/${emoticonInfo.id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" v-for="e in emoticonInfo.e">

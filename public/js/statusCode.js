@@ -1,4 +1,4 @@
-const statusCode = (status, subStatus) => {
+const statusCode = (status, subStatus, msg) => {
     errorMsg={
         0:{msg:'오류',
             0:{type:1, msg:'알 수 없는 에러가 발생하였습니다'},
@@ -50,7 +50,11 @@ const statusCode = (status, subStatus) => {
                 switch(subStatus){
                     case 1:
                     case 5:
-                        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg);
+                        if(msg){
+                            showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
+                        }else{
+                            showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
+                        }
                         member={
                             isLogin:false,
                             code:null,
@@ -76,6 +80,10 @@ const statusCode = (status, subStatus) => {
                 break;
         }
     }else{
-        showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
+        if(msg){
+            showAlert('에러코드 '+status+"_"+subStatus+"\n"+msg)
+        }else{
+            showAlert('에러코드 '+status+"_"+subStatus+"\n"+errorMsg[status][subStatus].msg)
+        }
     }
 }
