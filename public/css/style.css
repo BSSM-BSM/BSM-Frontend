@@ -459,10 +459,10 @@ input[type=number]{
 }
 .input_text:hover, input[type=number]:hover, textarea:hover, .textarea:hover{
   box-shadow:var(--shadow);
-  background-color:var(--hover);
+  background-color:var(--hover) !important;
 }
 .popup .input_text:hover, input[type=number]:hover, textarea:hover, .textarea:hover{
-  background-color:var(--hover-level-2);
+  background-color:var(--hover-level-2) !important;
 }
 .input_text:focus, input[type=number]:focus, textarea:focus, .textarea:focus{
   box-shadow:0 0 2rem 0 var(--main);
@@ -503,14 +503,14 @@ input[type=number]{
   width:37.5rem;
 }
 .green_button{
-  background-color:var(--green);
+  background-color:var(--green) !important;
 }
 .red_button{
-  background-color:var(--red);
+  background-color:var(--red) !important;
 }
 .button:hover{
   box-shadow:var(--shadow);
-  background-color:var(--hover);
+  background-color:var(--hover) !important;
 }
 .none_active{
   background-color:var(--gray);
@@ -759,7 +759,7 @@ input[type=number]{
   transition:.25s;
 }
 .upload_emoticon:hover{
-  background-color:var(--hover-level-2);
+  background-color:var(--hover-level-2) !important;
 }
 .upload_emoticon.icon{
   height:5rem;

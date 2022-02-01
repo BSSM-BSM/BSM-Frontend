@@ -41,11 +41,15 @@
             </span>
             <div class="emoticon_box emoticon_files">
                 <span v-for="(e, i) in emoticons" class="input_file emoticon_file">
-                    <label :for="`emoticon_${i}`" class="upload_emoticon"><span v-if="!e.imgSrc">업로드<br>{{i+1}}</span><img v-if="e.imgSrc" :src="e.imgSrc" :alt="i" class="emoticon"></label>
+                    <label v-if="mode=='remove'" class="upload_emoticon red_button" @click="remove(i)"><span>삭제<br>{{i+1}}</span></label>
+                    <label v-if="mode=='upload'" :for="`emoticon_${i}`" class="upload_emoticon"><span v-if="!e.imgSrc">업로드<br>{{i+1}}</span><img v-if="e.imgSrc" :src="e.imgSrc" :alt="i" class="emoticon"></label>
                     <input type="file" name="file" :id="`emoticon_${i}`" accept=".png, .jpe, .gif, .webp" required :onchange="`emoticonFilesView.change(${i}, this)`">
                 </span>
                 <span>
-                    <button class="upload_emoticon clear_button" @click="add"><span>추가</span></button>
+                    <button class="upload_emoticon clear_button" @click="add" onclick="return false"><span>추가</span></button>
+                </span>
+                <span>
+                    <button class="upload_emoticon clear_button" @click="changeMode" onclick="return false"><span>{{mode}}<br>mode</span></button>
                 </span>
             </div>
             <br>
@@ -56,6 +60,7 @@
         const emoticonFilesView = new Vue({
             el:'.emoticon_upload',
             data:{
+                mode:'upload',
                 emoticon:{
                     imgSrc:''
                 },
@@ -94,7 +99,14 @@
                     $('.emoticon_upload .emoticon_info_file .name').value = null
                     $('.emoticon_upload .emoticon_info_file .description').value = null
                     $('.emoticon_upload .emoticon_info_file [type=file]').value = null
-                }
+                },
+                changeMode:function(){
+                    if(this.mode=='upload'){
+                        this.mode='remove'
+                    }else{
+                        this.mode='upload'
+                    }
+                },
             }
         })
         const emoticonUpload = () => {
