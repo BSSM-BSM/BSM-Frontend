@@ -468,6 +468,9 @@ input[type=number]{
   box-shadow:0 0 2rem 0 var(--main);
   outline-color:var(--main);
 }
+.write_wrap{
+  position:relative;
+}
 .input_file .file_name{
   width:15rem;
 }
@@ -491,6 +494,10 @@ input[type=number]{
   background-color:var(--main);
   transition:.25s;
 }
+.button:hover{
+  box-shadow:var(--shadow);
+  background-color:var(--hover) !important;
+}
 .clear_button{
   background:none;
   border:none;
@@ -498,19 +505,25 @@ input[type=number]{
   color:var(--text);
   font-weight:bold;
   font-size:1.5rem;
+  transition:.25s;
+}
+.clear_button:hover{
+  border-radius:.75rem;
+  box-shadow:var(--shadow);
+  background-color:var(--hover) !important;
 }
 .main_button{
   width:37.5rem;
+}
+.icon object{
+  pointer-events:none;
+  filter:var(--bright);
 }
 .green_button{
   background-color:var(--green) !important;
 }
 .red_button{
   background-color:var(--red) !important;
-}
-.button:hover{
-  box-shadow:var(--shadow);
-  background-color:var(--hover) !important;
 }
 .none_active{
   background-color:var(--gray);
@@ -736,6 +749,16 @@ input[type=number]{
   -webkit-animation:spin .75s ease-in-out infinite;
 }
 
+.emoticon_button{
+  position:absolute;
+  top:.5rem;
+  right:.5rem;
+  padding:.5rem;
+}
+.emoticon_button object{
+  width:3rem;
+  height:3rem;
+}
 .insert_emoticon_box, .emoticon_info_box{
   max-width:43rem;
   width:100%;

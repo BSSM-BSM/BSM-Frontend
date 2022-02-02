@@ -32,9 +32,9 @@
                             </div>
                         <div class="post_content"><div v-html="postContent"></div></div>
                         <div class="post_like_wrap post_like">
-                            <button class="like_button like" onclick="likeSend(1);" v-bind:class="{on:like>0}"><object data="/resource/common/images/like.svg"></object></button>
+                            <button class="like_button like icon" onclick="likeSend(1);" v-bind:class="{on:like>0}"><object data="/resource/common/images/like.svg"></object></button>
                             <span class="post_like_cnt">{{postLike}}</span>
-                            <button class="like_button dislike" onclick="likeSend(-1);" v-bind:class="{on:like<0}"><object data="/resource/common/images/like.svg"></object></button>
+                            <button class="like_button dislike icon" onclick="likeSend(-1);" v-bind:class="{on:like<0}"><object data="/resource/common/images/like.svg"></object></button>
                         </div>
                     </div>
                     <div class="comment_list">
@@ -55,19 +55,23 @@
                                 </div>
                                 <div class="comment_item_content" v-html="item.comment"></div>
                             </div>
+                            <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                             <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
-                                <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                                <div class="write_wrap">
+                                    <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                                    <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                                </div>
                                 <br>
-                                <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                                 <input type="submit" name="" value="답글작성" class="button">
                             </form>
-                            <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                         </div>
                     </div>
                     <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
-                        <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                        <div class="write_wrap">
+                            <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                            <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                        </div>
                         <br>
-                        <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                         <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
                         <input type="submit" name="" value="댓글작성" class="button">
                     </form>
@@ -150,13 +154,15 @@
                             </div>
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
+                        <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                         <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
-                            <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                            <div class="write_wrap">
+                                <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                                <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                            </div>
                             <br>
-                            <button class="button" onclick="loadEmoticon();return false;">이모티콘</button>
                             <input type="submit" name="" value="답글작성" class="button">
                         </form>
-                        <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
                     </div>
                 </script>
                 <script src="/js/etc/board/post.js"></script>

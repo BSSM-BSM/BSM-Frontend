@@ -205,10 +205,6 @@
   background-color:#00000000;
   border:none;
 }
-.like_button object{
-  pointer-events:none;
-  filter:var(--bright);
-}
 .like_button.on object{
   filter:brightness(0) saturate(100%);
 }
