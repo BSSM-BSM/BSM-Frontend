@@ -181,21 +181,12 @@ span{
   opacity:0;
 }
 .dim{
-  position:fixed; left:0; top:0; z-index:99; width:100%; height:100%; transition:.15s;
+  position:fixed; left:0; top:0; z-index:98; width:100%; height:100%;
+  display:none;
+  background-color:var(--dim);
 }
-.dim.search_close.on{
-  background-color:var(--dim)
-}
-.dim.popup_close.on{
-  z-index:100;
-  background-color:var(--dim)
-}
-.dim.menu_close.on{
-  z-index:99;
-  background-color:var(--dim)
-}
-.dim:not(.on){
-  pointer-events:none;
+.dim.on{
+  display:block;
 }
 .x_button{
   width:5rem;
@@ -563,7 +554,7 @@ input[type=number]{
   border-radius:2rem;
   box-shadow:var(--shadow);
   background-color:var(--level-1);
-  z-index:1000;
+  z-index:99;
   display:none;
 }
 .popup.on{
@@ -598,7 +589,7 @@ input[type=number]{
   position:fixed;
   bottom:2rem;
   right:1rem;
-  z-index:1001;
+  z-index:99;
   display:flex;
   flex-direction:column-reverse;
   box-shadow:var(--shadow);
@@ -671,7 +662,7 @@ input[type=number]{
   bottom:0;
   left:0;
   width:100%;
-  z-index:1001;
+  z-index:99;
   padding:2rem 1rem;
   color:var(--white);
   background-color:var(--red);
