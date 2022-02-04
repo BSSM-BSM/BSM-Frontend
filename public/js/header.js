@@ -1,6 +1,3 @@
-if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (navigator.userAgent.toLowerCase().indexOf("msie") != -1)){
-    document.getElementsByClassName('notice_bar').innerHTML+='<div class="notice red">현재 사용하시는 브라우저는 정상적으로 지원되지 않습니다</div>';
-}
 if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
     $('.notice_bar').innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
 }
