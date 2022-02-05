@@ -19,17 +19,17 @@ const themeInit = () => {
     const theme = localStorage.getItem('theme');
     if(theme=='light' || theme=='dark'){
         if(theme=='dark'){
-            $$(':root')[0].classList.add('dark');
+            $(':root').classList.add('dark');
         }else{
-            $$(':root')[0].classList.remove('dark');
+            $(':root').classList.remove('dark');
         }
     }else{
         if(prefersDarkScheme.matches){
             localStorage.setItem('theme', 'dark');
-            $$(':root')[0].classList.add('dark');
+            $(':root').classList.add('dark');
         }else{
             localStorage.setItem('theme', 'light');
-            $$(':root')[0].classList.remove('dark');
+            $(':root').classList.remove('dark');
         }
     }
 }
@@ -40,10 +40,10 @@ const toggleTheme = () => {
         return;
     }
     if(theme=='dark'){
-        $$(':root')[0].classList.remove('dark');
+        $(':root').classList.remove('dark');
         localStorage.setItem('theme', 'light');
     }else{
-        $$(':root')[0].classList.add('dark');
+        $(':root').classList.add('dark');
         localStorage.setItem('theme', 'dark');
     }
 }
@@ -85,7 +85,7 @@ const progress = per => {
                 }
                 window.setTimeout(()=>{
                     progressBarFlag-=1;
-                    if(progressBarFlag==0){
+                    if(progressBarFlag<1){
                         progressBar.classList.remove('on');
                         progressBar.classList.remove('remove');
                     }

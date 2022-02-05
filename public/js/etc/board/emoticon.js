@@ -19,7 +19,15 @@ const emoticonView = new Vue({
 })
 const insertEmoticon = (id, idx, type) => {
     focusEditor();
-    document.execCommand("insertHTML", true, `<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`)
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const emoticon = document.createElement('img');
+    emoticon.src = `/resource/board/emoticon/${id}/${idx}.${type}`;
+    emoticon.setAttribute('e_id', id);
+    emoticon.setAttribute('e_idx', idx);
+    emoticon.setAttribute('e_type', type);
+    emoticon.classList.add('emoticon');
+    range.insertNode(emoticon);
 }
 const loadEmoticon = () => {
     ajax({
