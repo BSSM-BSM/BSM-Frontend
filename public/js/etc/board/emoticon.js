@@ -28,6 +28,7 @@ const insertEmoticon = (id, idx, type) => {
     emoticon.setAttribute('e_type', type);
     emoticon.classList.add('emoticon');
     range.insertNode(emoticon);
+    range.setStartAfter(emoticon);
 }
 const loadEmoticon = () => {
     ajax({

@@ -126,7 +126,7 @@
                         url:'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
                         payload:{
                             postTitle:$('input[name=post_title]').value,
-                            postContent:$('textarea[name=post_content]').value,
+                            postContent:jQuery('#summernote').summernote('code'),
                         },
                         callBack:()=>{
                             window.location.href="/board/<%= boardType %>";

@@ -95,7 +95,7 @@
                     const timetableInit = () => {
                         $('tbody').innerHTML = '<tr><th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th></tr>';
                         for(i=0;i<classTimes.length;i++){
-                            $('tbody').innerHTML += `<tr><td>${classTimes[i][0]}:${1 ? classTimes[i][1] : classTimes[i][1]}~${classTimes[i][2]}:${classTimes[i][3]}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
+                            $('tbody').innerHTML += `<tr><td>${classTimes[i][0]}:${classTimes[i][1]<10 ? classTimes[i][1]+'0' : classTimes[i][1]}~${classTimes[i][2]}:${classTimes[i][3]<10 ? classTimes[i][3]+'0' : classTimes[i][3]}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
                         }
                     }
                     $(`.select_grade li:nth-child(${grade})`).classList.add('active')
