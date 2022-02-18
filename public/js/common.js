@@ -163,8 +163,8 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         }
     }catch(err){
         console.log(err)
+        showAlert(err)
         loadingInit()
-        statusCode(0, 1)
         return;
     }
     try{
