@@ -109,6 +109,12 @@ window.addEventListener('DOMContentLoaded', () => {
     progressBar = $('.progress');
 })
 
+const decodeBase64 = (str) => {
+    // base64를 decoding하는 함수인 atob는 -나 _가 들어있으면 작동안하므로 각각 +, /로 변환해줌
+    // atob로 디코드 해도 한글은 제대로 나오지 않으므로 escape로 유니코드로 변환후 decodeURI로 복호화함
+    return decodeURIComponent(escape(atob(str.replace(/-/g, '+').replace(/_/g, '/'))));
+}
+
 const instance = axios.create({
     baseURL:'https://bssm.kro.kr/api/',
     headers:{'Pragma':'no-cache'},
@@ -134,10 +140,8 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         res = res.data
         if(res.status!=1){
             if(res.status==4&&res.subStatus==4){
-                // 액세스 토큰 갱신 후 로그인 상태를 갱신함
-                // base64를 decoding하는 함수인 atob는 한글을 지원안함
-                // 그래서 escape로 유니코드로 변환후 decodeURI로 복호화함
-                const jsonData = JSON.parse(decodeURIComponent(escape(atob(res.token.split('.')[1]))));
+                // 액세스 토큰 갱신 후 로그인 상태를 갱신함-
+                const jsonData = JSON.parse(decodeBase64(res.token.split('.')[1]));
                 member = {
                     isLogin:jsonData.isLogin,
                     code:jsonData.memberCode,

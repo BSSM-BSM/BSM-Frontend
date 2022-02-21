@@ -44,9 +44,7 @@ const login = (id, pw) => {
                 window.location.reload()
             }else{
                 // 액세스 토큰 갱신 후 로그인 상태를 갱신함
-                // base64를 decoding하는 함수인 atob는 한글을 지원안함
-                // 그래서 escape로 유니코드로 변환후 decodeURI로 복호화함
-                const jsonData = JSON.parse(decodeURIComponent(escape(atob(data.token.split('.')[1]))));
+                const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
                 member = {
                     isLogin:jsonData.isLogin,
                     code:jsonData.memberCode,
