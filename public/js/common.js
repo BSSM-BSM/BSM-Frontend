@@ -49,20 +49,42 @@ const toggleTheme = () => {
 }
 themeInit()
 
-const popupOpen = (element) => {
-    if($('.dim.popup_close')){
-        if($$('.popup.on').length<1){
-            $('.dim.popup_close').classList.add('on')
+let popup = {
+    noPopupClose: false,
+
+    get noClose(){
+        return this.noPopupClose;
+    },
+    set noClose(flag){
+        this.noPopupClose = flag;
+        if(flag){
+            $('.dim.popup_close').classList.remove('on')
+        }else{
+            if($$('.popup.on').length<1){
+                $('.dim.popup_close').classList.add('on')
+            }
         }
     }
+};
+const popupOpen = (element) => {
     element.classList.add('on')
+    if(!$('.dim.popup_close')){
+        return;
+    }
+    if(popup.noClose){
+        return;
+    }
+    if($$('.popup.on').length>=1){
+        $('.dim.popup_close').classList.add('on')
+    }
 }
 const popupClose = (element) => {
     element.classList.remove('on')
-    if($('.dim.popup_close')){
-        if($$('.popup.on').length<1){
-            $('.dim.popup_close').classList.remove('on')
-        }
+    if(!$('.dim.popup_close')){
+        return;
+    }
+    if($$('.popup.on').length<1){
+        $('.dim.popup_close').classList.remove('on')
     }
 }
 

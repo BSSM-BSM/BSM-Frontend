@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../../common/head') %>
+    <title>로그인 - BSM | 부산소마고 지원 서비스</title>
+</head>
+<body>
+    <%- include('../../common/common') %>
+    <%- include('../../common/accountBox') %>
+    <script>
+        if(member.isLogin){
+            window.history.back();
+        }else{
+            popup.noClose = true;
+            $('.login_box .popup_close_button').style.display = 'none';
+            showLoginBox();
+        }
+        window.setInterval(()=>{
+            if(member.isLogin){
+                window.history.back();
+            }
+        }, 200);
+    </script>
+</body>
+</html>
