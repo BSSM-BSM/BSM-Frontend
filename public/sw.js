@@ -1,4 +1,4 @@
-const cacheName = '1.3.0.11';
+const cacheName = '1.3.0.12';
 const cacheFiles = [
     '/',
     '/meal',
@@ -15,6 +15,7 @@ const cacheFiles = [
     '/js/alert.js',
     '/js/etc/meal.js',
     '/js/etc/meister.js',
+    '/js/etc/timetable.js',
     '/js/etc/board/board.js',
     '/js/etc/board/post.js',
     '/js/etc/board/emoticon.js',

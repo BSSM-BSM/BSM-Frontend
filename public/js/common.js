@@ -1,5 +1,5 @@
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/sw.js');
 }
 window.addEventListener('resize', () => {
     let vh = window.innerHeight * 0.01;
@@ -8,12 +8,12 @@ window.addEventListener('resize', () => {
 let refresh = false;
 const memberLevel=[
     '',
-    '[룸메]',
+    '[사감]',
     '[교사]',
     '[관리자]'
 ]
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 const themeInit = () => {
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const theme = localStorage.getItem('theme');
@@ -36,7 +36,7 @@ const themeInit = () => {
 const toggleTheme = () => {
     const theme = localStorage.getItem('theme');
     if(!(theme=='light' || theme=='dark')){
-        themeInit()
+        themeInit();
         return;
     }
     if(theme=='dark'){
@@ -47,7 +47,7 @@ const toggleTheme = () => {
         localStorage.setItem('theme', 'dark');
     }
 }
-themeInit()
+themeInit();
 
 let popup = {
     noPopupClose: false,
@@ -58,16 +58,16 @@ let popup = {
     set noClose(flag){
         this.noPopupClose = flag;
         if(flag){
-            $('.dim.popup_close').classList.remove('on')
+            $('.dim.popup_close').classList.remove('on');
         }else{
             if($$('.popup.on').length<1){
-                $('.dim.popup_close').classList.add('on')
+                $('.dim.popup_close').classList.add('on');
             }
         }
     }
 };
 const popupOpen = (element) => {
-    element.classList.add('on')
+    element.classList.add('on');
     if(!$('.dim.popup_close')){
         return;
     }
@@ -75,7 +75,7 @@ const popupOpen = (element) => {
         return;
     }
     if($$('.popup.on').length>=1){
-        $('.dim.popup_close').classList.add('on')
+        $('.dim.popup_close').classList.add('on');
     }
 }
 const popupClose = (element) => {
@@ -84,7 +84,7 @@ const popupClose = (element) => {
         return;
     }
     if($$('.popup.on').length<1){
-        $('.dim.popup_close').classList.remove('on')
+        $('.dim.popup_close').classList.remove('on');
     }
 }
 
@@ -149,13 +149,13 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         const get = async () => {
             switch (method){
                 case 'get':
-                    return await instance.get(url, payload)
+                    return instance.get(url, payload);
                 case 'post':
-                    return await instance.post(url, payload)
+                    return instance.post(url, payload);
                 case 'put':
-                    return await instance.put(url, payload)
+                    return instance.put(url, payload);
                 case 'delete':
-                    return await instance.delete(url, payload)
+                    return instance.delete(url, payload);
             }
         }
         res = await get(method)
@@ -181,29 +181,29 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
                 return ajax ({method:method, url:url, payload:payload, callBack:callBack, errorCallBack:errorCallBack});
             }
             if(errorCallBack && errorCallBack(res.status, res.subStatus, res.msg)){
+                loadingInit()
                 return;
             }
-            loadingInit()
             statusCode(res.status, res.subStatus, res.msg);
             return;
         }
     }catch(err){
-        console.log(err)
-        showAlert(err)
-        loadingInit()
+        console.log(err);
+        showAlert(err);
+        loadingInit();
         return;
     }
     try{
-        callBack(res)
+        callBack(res);
     }catch(err) {
-        console.log(err)
-        loadingInit()
-        statusCode(0, 0)
+        console.log(err);
+        loadingInit();
+        statusCode(0, 0);
         return;
     }
-    loadingInit()
+    loadingInit();
 }
 const loadingInit = () => {
     $('.loading').classList.remove("on");
-    progress(100)
+    progress(100);
 }

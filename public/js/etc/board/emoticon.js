@@ -38,7 +38,7 @@ const loadEmoticon = () => {
             emoticonView.emoticon=data.emoticon;
         }
     })
-    popupOpen($('.insert_emoticon_box'))
+    popupOpen($('.insert_emoticon_box'));
 }
 const loadEmoticonInfo = (id) => {
     ajax({
@@ -53,5 +53,5 @@ const loadEmoticonInfo = (id) => {
             }
         }
     })
-    popupOpen($('.emoticon_info_box'))
+    popupOpen($('.emoticon_info_box'));
 }

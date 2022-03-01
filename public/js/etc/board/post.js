@@ -1,7 +1,7 @@
 let postNo = window.location.pathname.split('/')[3];
 const boardPostChange = (changePostMo) => {
     postNo=changePostMo;
-    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`)
+    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
     postRefresh();
 }
 const postView = new Vue({
@@ -23,7 +23,7 @@ const postView = new Vue({
     },
     methods:{
         isParent:function(){
-            return this.item.child && this.item.child.length
+            return this.item.child && this.item.child.length;
         },
         focusComment:function(focus){
             this.commentFocus=focus;
@@ -44,17 +44,17 @@ const postView = new Vue({
     }
 })
 const postRefresh = () => {
-    progress(20)
+    progress(20);
     ajax({
         method:'get',
         url:`/post/${boardType}/${postNo}`,
         callBack:data=>{
-            $('.post').classList.remove('hide')
+            $('.post').classList.remove('hide');
             $('html').scrollTop=0;
             postView.permission=data.permission;
             postView.memberCode=data.memberCode;
             postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
-            postView.memberInfoUrl=`/memberinfo/${data.memberCode}`
+            postView.memberInfoUrl=`/memberinfo/${data.memberCode}`;
             postView.postTitle=data.postTitle;
             postView.postDate=data.postDate;
             postView.postHit=data.postHit;
@@ -70,7 +70,7 @@ const postRefresh = () => {
                     e.outerHTML=`<div class="video-container">${e.outerHTML}</div>`;
                 });
             },1);
-            progress(50)
+            progress(50);
             commentRefresh();
         }
     })
@@ -79,10 +79,6 @@ const postDelete = () => {
     ajax({
         method:'delete',
         url:`/post/${boardType}/${postNo}`,
-        errorCallBack:()=>{
-            refresh = false;
-            return false;
-        },
         callBack:()=>{
             window.location.href=`/board/${boardType}`;
         }
@@ -94,10 +90,6 @@ const likeSend = like => {
         url:`/like/${boardType}/${postNo}`,
         payload:{
             like:like
-        },
-        errorCallBack:()=>{
-            refresh = false;
-            return false;
         },
         callBack:data=>{
             postView.like=data.like;
@@ -124,7 +116,7 @@ Vue.component('tree-item', {
 })
 
 const commentRefresh = () => {
-    progress(50)
+    progress(50);
     ajax({
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
@@ -139,10 +131,6 @@ const commentDelete = commentIndex => {
     ajax({
         method:'delete',
         url:`/comment/${boardType}/${postNo}/${commentIndex}`,
-        errorCallBack:()=>{
-            refresh = false;
-            return false;
-        },
         callBack:()=>{
             commentRefresh();
         }
@@ -162,10 +150,6 @@ const commentWrite = (depth, parentIdx) => {
         url:url,
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
-        },
-        errorCallBack:()=>{
-            refresh = false;
-            return false;
         },
         callBack:()=>{
             $(`.comment_write.write_${parentIdx} .write`).innerHTML='';

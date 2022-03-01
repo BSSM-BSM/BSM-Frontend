@@ -5,6 +5,7 @@ if(limit==null){
     limit=15;
 }
 $('.board_limit .select').innerText=limit+"개";
+
 const boardTitle = new Vue({
     el:'.board_title',
     data:{
@@ -38,9 +39,9 @@ const boardChange = (changeBoard) => {
             boardTitle.subBoardName='';
             break;
     }
-    history.pushState(null, null, `/board/${boardType}${window.location.search}`)
-    $('.post').classList.add('hide')
-    if(page>1) boardPageChange(1)
+    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+    $('.post').classList.add('hide');
+    if(page>1) boardPageChange(1);
     else boardRefresh();
 }
 
@@ -88,44 +89,44 @@ const boardRefresh = () => {
         },
         callBack:data=>{
             if(member.isLogin){
-                boardMenu.isLogin=true
-                boardMenu.writeUrl='/board/write/'+boardType
+                boardMenu.isLogin=true;
+                boardMenu.writeUrl='/board/write/'+boardType;
             }
             boardMenu.activePage=page;
-            boardMenu.pages=data.pages
-            const date = new Date()
-            let today = ""+date.getFullYear()
+            boardMenu.pages=data.pages;
+            const date = new Date();
+            let today = ""+date.getFullYear();
             // 날짜 2자리수로 맞추기
             if((date.getMonth()+1)<10){
-                today+='0'
+                today+='0';
             }
-            today+=(date.getMonth()+1)
+            today+=date.getMonth()+1;
             if(date.getDate()<10){
-                today+='0'
+                today+='0';
             }
-            today+=date.getDate()
+            today+=date.getDate();
 
             boardData=data.arrBoard;
-            boardView.posts.splice(0)
-            if(boardData!=null){
-                for(let i=0;i<boardData.length;i++){
-                    if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
-                        boardData[i].postDate = boardData[i].postDate.split(' ')[1];
-                    else{
-                        boardData[i].postDate = boardData[i].postDate.split(' ')[0];
-                    }
-                    boardView.posts.push({
-                        memberCode:boardData[i].memberCode,
-                        memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
-                        boardType:boardData[i].boardType,
-                        postNo:boardData[i].postNo,
-                        postTitle:boardData[i].postTitle,
-                        postDate:boardData[i].postDate,
-                        postHit:boardData[i].postHit,
-                        postComments:boardData[i].postComments,
-                        postLike:boardData[i].postLike,
-                    })
-                }
+            boardView.posts.splice(0);
+            if(boardData==null){
+                return;
+            }
+            for(let i=0;i<boardData.length;i++){
+                if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
+                    boardData[i].postDate = boardData[i].postDate.split(' ')[1];
+                else
+                    boardData[i].postDate = boardData[i].postDate.split(' ')[0];
+                boardView.posts.push({
+                    memberCode:boardData[i].memberCode,
+                    memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
+                    boardType:boardData[i].boardType,
+                    postNo:boardData[i].postNo,
+                    postTitle:boardData[i].postTitle,
+                    postDate:boardData[i].postDate,
+                    postHit:boardData[i].postHit,
+                    postComments:boardData[i].postComments,
+                    postLike:boardData[i].postLike,
+                })
             }
         }
     })
