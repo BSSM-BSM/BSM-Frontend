@@ -142,7 +142,7 @@ const instance = axios.create({
     headers:{'Pragma':'no-cache'},
     timeout:3000,
 })
-const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
+const ajax = async ({method, url, payload, success, error}) => {
     $('.loading').classList.add("on");
     let res
     try{
@@ -178,12 +178,13 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
                     headerAccountView.member = member;
                 }
                 // 원래 하려던 요청을 다시 보냄
-                return ajax ({method:method, url:url, payload:payload, callBack:callBack, errorCallBack:errorCallBack});
+                return ajax ({method:method, url:url, payload:payload, success:success, error:error});
             }
-            if(errorCallBack && errorCallBack(res.status, res.subStatus, res.msg)){
+            if(error && error(res.status, res.subStatus, res.msg)){
                 loadingInit()
                 return;
             }
+            loadingInit()
             statusCode(res.status, res.subStatus, res.msg);
             return;
         }
@@ -194,7 +195,7 @@ const ajax = async ({method, url, payload, callBack, errorCallBack}) => {
         return;
     }
     try{
-        callBack(res);
+        success(res);
     }catch(err) {
         console.log(err);
         loadingInit();

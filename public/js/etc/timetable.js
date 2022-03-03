@@ -35,7 +35,7 @@ const timetableRefresh = (grade, classNo) => {
     ajax({
         method:'get',
         url:`/timetable/${grade}/${classNo}`,
-        callBack:data=>{
+        success:data=>{
             if(data.arrTimetable==null){
                 showAlert("시간표 데이터가 없는 반 입니다.")
                 classTimeTable=[]

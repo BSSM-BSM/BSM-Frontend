@@ -34,7 +34,7 @@ const loadEmoticon = () => {
     ajax({
         method:'get',
         url:`/emoticon`,
-        callBack:data=>{
+        success:data=>{
             emoticonView.emoticon=data.emoticon;
         }
     })
@@ -44,7 +44,7 @@ const loadEmoticonInfo = (id) => {
     ajax({
         method:'get',
         url:`/emoticon/${id}`,
-        callBack:data=>{
+        success:data=>{
             if(data.emoticon){
                 data.emoticon.created=data.emoticon.created.split(' ')[0];
                 emoticonView.emoticonInfo=data.emoticon;

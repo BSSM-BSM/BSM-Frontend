@@ -14,7 +14,7 @@ const mealSubscribe = () => {
                         auth:sub.keys.auth,
                         p256dh:sub.keys.p256dh,
                     },
-                    callBack:()=>{
+                    success:()=>{
                         showToast("급식 알림등록이 완료되었습니다.");
                     }
                 })

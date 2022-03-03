@@ -87,7 +87,7 @@ const boardRefresh = () => {
             member_nickname:$('.sign_up .member_nickname').value,
             code:$('.sign_up .code').value,
         },
-        callBack:data=>{
+        success:data=>{
             if(member.isLogin){
                 boardMenu.isLogin=true;
                 boardMenu.writeUrl='/board/write/'+boardType;

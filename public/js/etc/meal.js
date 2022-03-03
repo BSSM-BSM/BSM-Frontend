@@ -26,7 +26,7 @@ const mealRefresh = () => {
     ajax({
         method:'get',
         url:`/meal/${year}-${month}-${date}`,
-        callBack:data=>{
+        success:data=>{
             if(data.arrMeal!=null){
                 let arrMeal=data.arrMeal;
                 mealTable[year+'-'+month+'-'+date]={'morning':arrMeal.morning, 'lunch':arrMeal.lunch, 'dinner':arrMeal.dinner};

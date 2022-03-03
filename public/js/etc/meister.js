@@ -23,7 +23,7 @@ const meisterPoint = () => {
         payload:{
             pw:$('.meisterInfo .pw').value,
         },
-        callBack:data=>{
+        success:data=>{
             $('.meisterInfo .pw').value = '';
             $('.meister .result.point').innerHTML = data.result;
             $$('.fas.fa-sad-cry').forEach(item =>{
@@ -37,14 +37,14 @@ const meisterScore = () => {
     ajax({
         method:'get',
         url:`/meister/score/${$('.meisterInfo .hak').value}/${$('.meisterInfo .ban').value}/${$('.meisterInfo .bun').value}`,
-        errorCallBack:(status, subStatus)=>{
+        error:(status, subStatus)=>{
             if(status==3&&subStatus==8){
                 showAlert('에러코드 3_8 학생정보가 맞지 않거나 불러올 수 없는 학생입니다.');
                 return true;
             }
             return false;
         },
-        callBack:data=>{
+        success:data=>{
             $('.meister .result.score').innerHTML = data.result;
         }
     })

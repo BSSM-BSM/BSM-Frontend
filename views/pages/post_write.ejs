@@ -82,7 +82,7 @@
                         method:'post',
                         payload:files,
                         url:'/imageUpload',
-                        callBack:data=>{
+                        success:data=>{
                             jQuery(el).summernote('editor.insertImage', data.filePath);
                         }
                     })
@@ -95,7 +95,7 @@
                         ajax({
                             method:'get',
                             url:'/post/<%= boardType %>/<%= postNo %>',
-                            callBack:data=>{
+                            success:data=>{
                                 $('input[name=post_title]').value = data.postTitle;
                                 jQuery('#summernote').summernote('code', data.postContent);
                             }
@@ -128,7 +128,7 @@
                             postTitle:$('input[name=post_title]').value,
                             postContent:jQuery('#summernote').summernote('code'),
                         },
-                        callBack:()=>{
+                        success:()=>{
                             window.location.href="/board/<%= boardType %>";
                         }
                     })

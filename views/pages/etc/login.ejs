@@ -10,16 +10,13 @@
     <script>
         if(member.isLogin){
             window.history.back();
-        }else{
-            popup.noClose = true;
-            $('.login_box .popup_close_button').style.display = 'none';
-            showLoginBox();
         }
-        window.setInterval(()=>{
-            if(member.isLogin){
-                window.history.back();
-            }
-        }, 200);
+        popup.noClose = true;
+        $('.login_box .popup_close_button').style.display = 'none';
+        showLoginBox();
+        account.loginCallback = () => {
+            window.history.back();
+        }
     </script>
 </body>
 </html>

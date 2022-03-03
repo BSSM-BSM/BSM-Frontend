@@ -133,7 +133,7 @@
                 method:'post',
                 payload:files,
                 url:'/emoticon',
-                callBack:data=>{
+                success:data=>{
                     alert("업로드에 성공하였습니다");
                     emoticonFilesView.init()
                     popupClose($('.emoticon_upload_box'))

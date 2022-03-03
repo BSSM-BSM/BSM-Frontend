@@ -1,6 +1,6 @@
 const showLoginBox = () => {
-    loginBoxView.init()
-    popupOpen($('.login_box'))
+    loginBoxView.init();
+    popupOpen($('.login_box'));
 }
 const loginBoxView = new Vue({
     el:'.login_box',
@@ -12,20 +12,41 @@ const loginBoxView = new Vue({
     methods:{
         init:function(){
             this.step=0;
-            this.msg='로그인'
-            this.id=''
+            this.msg='로그인';
+            this.id='';
         },
         step1:function(){
             this.step=1;
-            this.msg=`${this.id}(으)로 계속`
+            this.msg=`${this.id}(으)로 계속`;
         },
         step2:function(){
-            this.msg=`인증 중...`
-            login(this.id, $('.login_box .member_pw').value);
+            this.msg=`인증 중...`;
+            account.login(this.id, $('.login_box .member_pw').value);
         }
     },
 })
-const login = (id, pw) => {
+
+const account = {
+    callbacks: {
+        login: function(){},
+        pwEdit: function(){}
+    },
+
+    login(id, pw){
+        return login(id, pw, this.callbacks.login);
+    },
+    set loginCallback(callback){
+        this.callbacks.login = callback;
+    },
+    pwEdit(pw, pwCheck){
+        return pwEdit(pw, pwCheck, this.callbacks.pwEdit);
+    },
+    set pwEditCallback(callback){
+        this.callbacks.pwEdit = callback;
+    }
+}
+
+const login = (id, pw, callback) => {
     ajax({
         method:'post',
         url:`/account/login`,
@@ -33,34 +54,34 @@ const login = (id, pw) => {
             member_id:id,
             member_pw:pw
         },
-        errorCallBack:(status, subStatus)=>{
+        error:(status, subStatus)=>{
             if(status==5&&subStatus==0){
-                loginBoxView.init()
+                loginBoxView.init();
             }
             return false;
         },
-        callBack:data=>{
-            if(refresh){
-                window.location.reload()
-            }else{
-                // 액세스 토큰 갱신 후 로그인 상태를 갱신함
-                const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
-                member = {
-                    isLogin:jsonData.isLogin,
-                    code:jsonData.memberCode,
-                    id:jsonData.memberId,
-                    nickname:jsonData.memberNickname,
-                    level:jsonData.memberLevel,
-                    grade:jsonData.grade,
-                    classNo:jsonData.classNo,
-                    studentNo:jsonData.studentNo,
-                }
-                if(headerAccountView){
-                    headerAccountView.member = member;
-                }
-                showToast('로그인에 성공하였습니다.');
-                popupClose($('.login_box'));
-                loginBoxView.init()
+        success:data=>{
+            // 액세스 토큰 갱신 후 로그인 상태를 갱신함
+            const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
+            member = {
+                isLogin:jsonData.isLogin,
+                code:jsonData.memberCode,
+                id:jsonData.memberId,
+                nickname:jsonData.memberNickname,
+                level:jsonData.memberLevel,
+                grade:jsonData.grade,
+                classNo:jsonData.classNo,
+                studentNo:jsonData.studentNo,
+            }
+            if(typeof headerAccountView != 'undefined'){
+                headerAccountView.member = member;
+            }
+            showToast('로그인에 성공하였습니다.');
+            popupClose($('.login_box'));
+            loginBoxView.init();
+
+            if(callback){
+                callback(data);
             }
         }
     })
@@ -69,7 +90,7 @@ const logout = () => {
     ajax({
         method:'delete',
         url:`/account/logout`,
-        callBack:()=>{
+        success:()=>{
             member={
                 isLogin:false,
                 code:null,
@@ -80,7 +101,7 @@ const logout = () => {
                 classNo:null,
                 studentNo:null,
             }
-            if(headerAccountView){
+            if(typeof headerAccountView != 'undefined'){
                 headerAccountView.member = member;
             }
             showToast('로그아웃 되었습니다.');
@@ -88,6 +109,9 @@ const logout = () => {
     })
 }
 const signUp = () => {
+    if(!confirm('회원 가입하시겠습니까?')){
+        return;
+    }
     ajax({
         method:'post',
         url:`/account/signUp`,
@@ -98,24 +122,31 @@ const signUp = () => {
             member_nickname:$('.sign_up .member_nickname').value,
             code:$('.sign_up .code').value,
         },
-        callBack:()=>{
+        success:()=>{
             showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
             popupClose($('.sign_up_box'));
         }
     })
 }
-const pwEdit = () => {
+const pwEdit = (pw, pwCheck, callback) => {
+    if(!confirm('비밀번호를 재설정하시겠습니까?')){
+        return;
+    }
     ajax({
         method:'post',
         url:'/account/pwEdit',
         payload:{
-            member_pw:$('.pw_reset .member_pw').value,
-            member_pw_check:$('.pw_reset .member_pw_check').value,
+            member_pw:pw,
+            member_pw_check:pwCheck,
         },
-        callBack:()=>{
-            showToast('비밀번호 재설정이 완료되었습니다.\n다시 로그인 해주세요.');
-            popupClose($('.pw_reset_box'))
-            popupOpen($('.login_box'))
+        success:()=>{
+            showToast('비밀번호 재설정이 완료되었습니다.');
+            popupClose($('.pw_reset_box'));
+            popupOpen($('.login_box'));
+
+            if(callback){
+                callback();
+            }
         }
     })
 }
@@ -126,10 +157,10 @@ const pwResetMail = () => {
         payload:{
             member_id:$('.pw_reset_mail .member_id').value,
         },
-        callBack:()=>{
+        success:()=>{
             showToast('비밀번호 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($('.pw_reset_mail_box'))
-            popupOpen($('.login_box'))
+            popupClose($('.pw_reset_mail_box'));
+            popupOpen($('.login_box'));
         }
     })
 }
@@ -144,9 +175,9 @@ const validCode = () => {
             student_no:$('.valid_code .studentNo').value,
             student_name:$('.valid_code .studentName').value,
             },
-        callBack:()=>{
+        success:()=>{
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($('.valid_code_box'))
+            popupClose($('.valid_code_box'));
         }
     })
 }

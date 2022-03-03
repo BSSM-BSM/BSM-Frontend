@@ -48,7 +48,7 @@ const postRefresh = () => {
     ajax({
         method:'get',
         url:`/post/${boardType}/${postNo}`,
-        callBack:data=>{
+        success:data=>{
             $('.post').classList.remove('hide');
             $('html').scrollTop=0;
             postView.permission=data.permission;
@@ -76,10 +76,13 @@ const postRefresh = () => {
     })
 }
 const postDelete = () => {
+    if(!confirm('게시글을 삭제하시겠습니까?')){
+        return;
+    }
     ajax({
         method:'delete',
         url:`/post/${boardType}/${postNo}`,
-        callBack:()=>{
+        success:()=>{
             window.location.href=`/board/${boardType}`;
         }
     })
@@ -91,7 +94,7 @@ const likeSend = like => {
         payload:{
             like:like
         },
-        callBack:data=>{
+        success:data=>{
             postView.like=data.like;
             postView.postLike=data.postLike;
         }
@@ -120,7 +123,7 @@ const commentRefresh = () => {
     ajax({
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
-        callBack:data=>{
+        success:data=>{
             postView.commentTree = data.arrComment;
             postView.commentFocus = 0;
         }
@@ -128,10 +131,13 @@ const commentRefresh = () => {
 }
 
 const commentDelete = commentIndex => {
+    if(!confirm('댓글을 삭제하시겠습니까?')){
+        return;
+    }
     ajax({
         method:'delete',
         url:`/comment/${boardType}/${postNo}/${commentIndex}`,
-        callBack:()=>{
+        success:()=>{
             commentRefresh();
         }
     })
@@ -151,7 +157,7 @@ const commentWrite = (depth, parentIdx) => {
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
         },
-        callBack:()=>{
+        success:()=>{
             $(`.comment_write.write_${parentIdx} .write`).innerHTML='';
             commentRefresh();
         }
