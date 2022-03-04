@@ -199,8 +199,16 @@ span{
   box-shadow:var(--shadow);
   background-color:var(--hover);
 }
+.notice_bar{
+  text-align:center;
+  font-weight:bold;
+}
 .notice_bar .notice{
-  display:block; width:100%; background-color:var(--green); padding:.75rem 0; opacity:1; text-align:center; color:var(--white); font-weight:bold;
+  display:block;
+  width:100%;
+  color:var(--white);
+  background-color:var(--green);
+  padding:.6rem 0;
 }
 .notice_bar .notice.yellow{
   background-color:var(--yellow);
@@ -878,10 +886,10 @@ table{
     font-size:2rem;
   }
   main,.container{
-    width:auto;
+    width:100%;
   }
   .title{
-    padding:12.5rem 0 0 0;
+    padding:11rem 0 0 0;
   }
   .top_menu{
     width:auto; padding:0rem;

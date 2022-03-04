@@ -16,31 +16,25 @@
             <h1>급식</h1>
             <h2 class="meal_date">x월x일</h2>
             <button class="button" onclick="mealSubscribe();">급식 알림받기</button>
-            <br><br>
-            <p>알림은 급식 1시간 전에 도착합니다.</p>
             <script src="/js/subscribe.js"></script>
         </div>
-        <div class="container">
-            <div class="information">
-                <div class="meals center">
-                    <div class="meal meal-1" :class="{hover:hover==1}" onclick="today.setDate(today.getDate()-1);mealRefresh();" onmouseover="mealView.setHover(1)" onmouseout="mealView.setHover(2)">
-                        <div class="meal_time">아침</div>
-                        <div class="meal_menu" v-if="!morning">급식이 없습니다.</div>
-                        <div class="meal_menu" v-if="morning" v-html="morning"></div>
-                    </div>
-                    <div class="meal meal-2" :class="{hover:hover==2}">
-                        <div class="meal_time">점심</div>
-                        <div class="meal_menu" v-if="!lunch">급식이 없습니다.</div>
-                        <div class="meal_menu" v-if="lunch" v-html="lunch"></div>
-                    </div>
-                    <div class="meal meal-3" :class="{hover:hover==3}" onclick="today.setDate(today.getDate()+1);mealRefresh();" onmouseover="mealView.setHover(3)" onmouseout="mealView.setHover(2)">
-                        <div class="meal_time">저녁</div>
-                        <div class="meal_menu" v-if="!dinner">급식이 없습니다.</div>
-                        <div class="meal_menu" v-if="dinner" v-html="dinner"></div>
-                    </div>
-                    <script src="/js/etc/meal.js"></script>
-                </div>
+        <div class="container meals center">
+            <div class="meal meal-1" :class="{hover:hover==1}" onclick="today.setDate(today.getDate()-1);mealRefresh();" onmouseover="mealView.setHover(1)" onmouseout="mealView.setHover(2)">
+                <div class="meal_time">아침</div>
+                <div class="meal_menu nothing" v-if="!morning">급식이 없습니다.</div>
+                <div class="meal_menu" v-else v-html="morning"></div>
             </div>
+            <div class="meal meal-2" :class="{hover:hover==2}">
+                <div class="meal_time">점심</div>
+                <div class="meal_menu nothing" v-if="!lunch">급식이 없습니다.</div>
+                <div class="meal_menu" v-else v-html="lunch"></div>
+            </div>
+            <div class="meal meal-3" :class="{hover:hover==3}" onclick="today.setDate(today.getDate()+1);mealRefresh();" onmouseover="mealView.setHover(3)" onmouseout="mealView.setHover(2)">
+                <div class="meal_time">저녁</div>
+                <div class="meal_menu nothing" v-if="!dinner">급식이 없습니다.</div>
+                <div class="meal_menu" v-else v-html="dinner"></div>
+            </div>
+            <script src="/js/etc/meal.js"></script>
         </div>
     </main>
     <%- include('../common/header') %>

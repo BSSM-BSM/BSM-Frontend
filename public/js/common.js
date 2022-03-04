@@ -195,7 +195,9 @@ const ajax = async ({method, url, payload, success, error}) => {
         return;
     }
     try{
-        success(res);
+        if(success){
+            success(res);
+        }
     }catch(err) {
         console.log(err);
         loadingInit();

@@ -29,7 +29,7 @@ const mealRefresh = () => {
         success:data=>{
             if(data.arrMeal!=null){
                 let arrMeal=data.arrMeal;
-                mealTable[year+'-'+month+'-'+date]={'morning':arrMeal.morning, 'lunch':arrMeal.lunch, 'dinner':arrMeal.dinner};
+                mealTable[year+'-'+month+'-'+date]={'morning':arrMeal.morning?.replaceAll('<br/>', '\n'), 'lunch':arrMeal.lunch?.replaceAll('<br/>', '\n'), 'dinner':arrMeal.dinner?.replaceAll('<br/>', '\n')};
             }
             mealRender();
         }

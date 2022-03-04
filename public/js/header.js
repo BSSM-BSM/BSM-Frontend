@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const header = $('header')
     // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
     window.addEventListener('scroll', () => {
-        if(window.scrollY >= 51){
+        if(window.scrollY > 20){
             header.classList.add('on')
         }else{
             header.classList.remove('on')

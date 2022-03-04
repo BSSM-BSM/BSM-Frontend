@@ -15,7 +15,7 @@ const mealSubscribe = () => {
                         p256dh:sub.keys.p256dh,
                     },
                     success:()=>{
-                        showToast("급식 알림등록이 완료되었습니다.");
+                        showToast('급식 알림등록이 완료되었습니다.<br>알림은 급식 1시간 전에 도착합니다.');
                     }
                 })
             });
