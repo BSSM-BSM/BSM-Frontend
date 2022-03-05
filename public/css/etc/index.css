@@ -11,13 +11,81 @@ body{
   padding-bottom:7.5rem;
   animation:index-show 1000ms ease-out;
 }
-@keyframes index-show {
-  0% {transform:translateY(7rem);opacity:.25;}
-  30% {transform:translateY(3rem);opacity:.7;}
-  100% {transform:translateY(0);opacity:1;}
+#quick_menu{
+  width:100%;
+  height: calc(var(--vh, 1vh) * 100);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+#quick_menu_list{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  row-gap:3rem;
+  column-gap:5rem;
+  max-width:100rem;
+  width:100%;
+}
+#quick_menu_list .menu{
+  display:contents;
+}
+#quick_menu_list .menu a{
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  background-color:var(--menu-background);
+  padding:2rem;
+  border-radius:1rem;
+  transition:.25s;
+  cursor:pointer;
+  font-size:2.4rem;
+  font-weight:bold;
+}
+#quick_menu_list .menu a:hover{
+  background-color:var(--hover);
+}
+#quick_menu_list .menu a img{
+  height:5rem;
+  padding:.75rem;
+}
+#quick_menu_list .menu.user a img{
+  border-radius:50%;
+  padding:.5rem;
+}
+#quick_menu_list .menu.user .user_info{
+  font-size:1.7rem;
+}
+#quick_menu_list .menu.user .user_name{
+  font-size:2.2rem;
+}
+@media screen and (min-width:0px) and (max-width:720px){
+  #quick_menu{
+    padding-top:10rem;
+  }
+  #quick_menu_list{
+    grid-template-columns:1fr;
+    row-gap:1rem;
+  }
+  #quick_menu_list .menu a{
+    padding:1.75rem 2.5rem;
+    font-size:2rem;
+  }
+  #quick_menu_list .menu a img{
+    height:3rem;
+    padding:.25rem;
+  }
+  #quick_menu_list .menu.user a img{
+    padding:0;
+  }
+  #quick_menu_list .menu.user .user_info{
+    font-size:1.4rem;
+  }
+  #quick_menu_list .menu.user .user_name{
+    font-size:1.8rem;
+  }
 }
 .main_logo{
-  margin-top:20rem;
   height:12.8rem;
 }
 h1.main{
@@ -45,7 +113,7 @@ h5{
 .section_wrap{
   box-shadow:0 0 2.5rem rgba(0, 0, 0, 0.5);
 }
-section{
+.section_wrap section{
   background-color:var(--background);
   padding: 5rem 0;
 }
@@ -126,7 +194,6 @@ section#download{
     max-width:100%;
   }
   .main_logo{
-    margin-top:20rem;
     height:9.6rem;
   }
   h1.main{

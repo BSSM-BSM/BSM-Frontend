@@ -27,10 +27,24 @@ window.addEventListener('DOMContentLoaded', () => {
 const headerAccountView = new Vue({
     el:'.user_menu',
     data:{
-        member:member,
-        memberLevel:memberLevel
+        user:member,
+        userLevel:memberLevel,
+        setUser(user){
+            this.user = user;
+            if(menuAccountView){
+                menuAccountView.user = user;
+            }
+        }
     }
 })
+
+const menuAccountView = $('#quick_menu_list .user')? new Vue({
+    el:'#quick_menu_list .user',
+    data:{
+        user:member,
+    }
+}): undefined;
+
 
 $('.searchBox').addEventListener('click', () => {
     $('.searchResult').classList.add('on')

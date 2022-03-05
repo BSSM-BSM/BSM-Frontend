@@ -3,17 +3,17 @@
 <head>
     <%- include('../common/head') %>
     <link rel="stylesheet" type="text/css" href="/css/etc/meister.css">
-    <title>마이스터 역량인증제 확인 - BSM</title>
-    <meta property="title" content="마이스터 상벌점 확인 - BSM | 부산소마고 지원 서비스">
+    <title>마이스터 역량 인증제 확인 - BSM</title>
+    <meta property="title" content="마이스터 역량 인증제 확인 - BSM | 부산소마고 지원 서비스">
     <meta property="description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
-    <meta property="og:title" content="마이스터 상벌점 확인 - BSM | 부산소마고 지원 서비스">
+    <meta property="og:title" content="마이스터 역량 인증제 확인 - BSM | 부산소마고 지원 서비스">
     <meta property="og:description" content="부산 소프트웨어 마이스터고 학교 지원 서비스">
 </head>
 <body>
     <%- include('../common/common') %>
     <main>
         <div class="title">
-            <h1>마이스터 역량인증제 확인</h1>
+            <h1>마이스터 역량 인증제 확인</h1>
         </div>
         <div class="container">
             <div class="information">
@@ -25,6 +25,7 @@
                     <div class="meister_point" v-if="viewCase=='point'">
                         <h2>상벌점 확인</h2>
                         <p>상벌점을 보기위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</p>
+                        <h2>현재 마이스터 인증제 사이트 버그로인해 이용할 수 없습니다.</h2>
                     </div>
                     <br>
                     <form class="meisterInfo" method="post" autocomplete="off" onsubmit="meister();return false;">

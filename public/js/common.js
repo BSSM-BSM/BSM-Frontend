@@ -174,8 +174,8 @@ const ajax = async ({method, url, payload, success, error}) => {
                     classNo:jsonData.classNo,
                     studentNo:jsonData.studentNo,
                 }
-                if(headerAccountView){
-                    headerAccountView.member = member;
+                if(typeof headerAccountView != 'undefined'){
+                    headerAccountView.setUser(member);
                 }
                 // 원래 하려던 요청을 다시 보냄
                 return ajax ({method:method, url:url, payload:payload, success:success, error:error});

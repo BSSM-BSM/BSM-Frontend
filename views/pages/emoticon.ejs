@@ -30,7 +30,7 @@
         <form class="emoticon_upload" autocomplete="off" onsubmit="emoticonUpload();return false;">
             <span class="input_file emoticon_info_file">
                 <div class="top_wrap">
-                    <label for="emoticon_info" class="upload_emoticon icon">
+                    <label for="emoticon_info" class="upload_emoticon emoticon_icon">
                         <span v-if="!emoticon.imgSrc">업로드<br>이모티콘 썸네일</span>
                         <img v-if="emoticon.imgSrc" :src="emoticon.imgSrc" alt="이모티콘 썸네일" class="emoticon_icon">
                         <input type="file" name="file" id="emoticon_info" accept=".png" required onchange="emoticonFilesView.change(-1, this)">

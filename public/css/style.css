@@ -506,9 +506,11 @@ input[type=number]{
 .main_button{
   width:37.5rem;
 }
+.icon{
+  filter:var(--bright);
+}
 .icon object{
   pointer-events:none;
-  filter:var(--bright);
 }
 .green_button{
   background-color:var(--green) !important;
