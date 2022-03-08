@@ -1,7 +1,6 @@
 @charset "utf-8";
 .meals{
   display:flex;
-  overflow:hidden;
 }
 .meal{
   display:flex;
@@ -59,7 +58,6 @@
   .meals{
     flex-direction:column;
     margin-top:1rem;
-    border-radius:2rem 2rem 0 0;
   }
   .meal{
     width:100%;
@@ -74,5 +72,8 @@
     white-space:normal;
     word-spacing:1rem;
     text-align:left;
+  }
+  .meal.meal-1{
+    border-radius:2rem 2rem 0 0;
   }
 }

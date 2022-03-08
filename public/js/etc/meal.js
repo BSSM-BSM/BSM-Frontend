@@ -41,6 +41,10 @@ const mealRender = () => {
         mealView.morning = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['morning'];
         mealView.lunch = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['lunch'];
         mealView.dinner = mealTable[today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()]['dinner'];
+    }else{
+        mealView.morning = null;
+        mealView.lunch = null;
+        mealView.dinner = null;
     }
 }
 window.addEventListener('DOMContentLoaded', () => {

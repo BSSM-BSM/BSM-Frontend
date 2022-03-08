@@ -74,7 +74,7 @@ const login = (id, pw, callback) => {
                 studentNo:jsonData.studentNo,
             }
             if(typeof headerAccountView != 'undefined'){
-                headerAccountView.member = member;
+                headerAccountView.setUser(member);
             }
             showToast('로그인에 성공하였습니다.');
             popupClose($('.login_box'));
@@ -102,7 +102,7 @@ const logout = () => {
                 studentNo:null,
             }
             if(typeof headerAccountView != 'undefined'){
-                headerAccountView.member = member;
+                headerAccountView.setUser(member);
             }
             showToast('로그아웃 되었습니다.');
         }

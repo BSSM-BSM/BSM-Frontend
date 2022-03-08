@@ -118,7 +118,7 @@ const boardRefresh = () => {
                     boardData[i].postDate = boardData[i].postDate.split(' ')[0];
                 boardView.posts.push({
                     memberCode:boardData[i].memberCode,
-                    memberNickname:memberLevel[boardData[i].memberLevel]+boardData[i].memberNickname,
+                    memberNickname:boardData[i].memberNickname,
                     boardType:boardData[i].boardType,
                     postNo:boardData[i].postNo,
                     postTitle:boardData[i].postTitle,
