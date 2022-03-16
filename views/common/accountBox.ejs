@@ -57,13 +57,9 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <h2>인증코드 발급</h2>
     <p>인증코드는 학교 이메일계정으로 보내드립니다.</p>
-    <p>
-        2022학년도 기준입니다.
-        <br>
-        2022학년 신입생은 학교 이메일계정이 없어 가입이 불가능 합니다.
-    </p>
+    <p>2022학년도 기준입니다.</p>
     <form class="valid_code" autocomplete="off" onsubmit="validCode();return false;">
-        <input type="number" class="input_text studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
+        <input type="number" class="input_text year studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
         <input type="number" class="input_text studentGrade" placeholder="학년" min="1" max="3" required>
         <input type="number" class="input_text studentClass" placeholder="반" min="1" max="4" required>
         <input type="number" class="input_text studentNo" placeholder="번호" min="1" max="16" required>

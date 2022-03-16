@@ -2,7 +2,8 @@ let hak=member.grade, ban=member.classNo, bun=member.studentNo;
 const meisterView = new Vue({
     el:'.meister',
     data:{
-        viewCase:'score'
+        viewCase:'score',
+        defaultPW:false
     }
 });
 const meister = () => {
@@ -22,6 +23,14 @@ const meisterPoint = () => {
         url:`/meister/point/${$('.meisterInfo .hak').value}/${$('.meisterInfo .ban').value}/${$('.meisterInfo .bun').value}`,
         payload:{
             pw:$('.meisterInfo .pw').value,
+            defaultPW:meisterView.defaultPW
+        },
+        error:(status, subStatus)=>{
+            if(status==5&&subStatus==0){
+                showAlert('에러코드 5_0 비밀번호가 맞지 않습니다. 다른 비밀번호로 시도해 보세요.');
+                return true;
+            }
+            return false;
         },
         success:data=>{
             $('.meisterInfo .pw').value = '';

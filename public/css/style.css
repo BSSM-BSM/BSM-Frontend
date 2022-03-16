@@ -446,6 +446,10 @@ header.on nav .top_menu{
   transition:.25s;
 }
 input[type=number]{
+  width:5.5rem;
+  padding:1rem 0 1rem 1rem;
+}
+input[type=number].year{
   width:8rem;
   padding:1rem 0 1rem 1rem;
 }
@@ -522,7 +526,8 @@ input[type=number]{
   background-color:var(--red) !important;
 }
 .none_active{
-  background-color:var(--gray);
+  background-color:var(--gray) !important;
+  opacity:.5;
   cursor:not-allowed;
 }
 .download_button_wrap{
