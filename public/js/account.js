@@ -63,7 +63,7 @@ const login = (id, pw, callback) => {
         success:data=>{
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
-            member = {
+            saveUserInfo({
                 isLogin:jsonData.isLogin,
                 code:jsonData.memberCode,
                 id:jsonData.memberId,
@@ -71,11 +71,8 @@ const login = (id, pw, callback) => {
                 level:jsonData.memberLevel,
                 grade:jsonData.grade,
                 classNo:jsonData.classNo,
-                studentNo:jsonData.studentNo,
-            }
-            if(typeof headerAccountView != 'undefined'){
-                headerAccountView.setUser(member);
-            }
+                studentNo:jsonData.studentNo
+            });
             showToast('로그인에 성공하였습니다.');
             popupClose($('.login_box'));
             loginBoxView.init();
@@ -91,7 +88,7 @@ const logout = () => {
         method:'delete',
         url:`/account/logout`,
         success:()=>{
-            member={
+            saveUserInfo({
                 isLogin:false,
                 code:null,
                 id:null,
@@ -100,10 +97,7 @@ const logout = () => {
                 grade:null,
                 classNo:null,
                 studentNo:null,
-            }
-            if(typeof headerAccountView != 'undefined'){
-                headerAccountView.setUser(member);
-            }
+            });
             showToast('로그아웃 되었습니다.');
         }
     })

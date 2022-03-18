@@ -20,31 +20,6 @@
     }
 </script>
 <script src="/sw.js"></script>
-<%-'<script>'%>
-<% if(!member.isLogin){ %>
-    let member={
-        isLogin:false,
-        code:null,
-        id:null,
-        nickname:null,
-        level:null,
-        grade:null,
-        classNo:null,
-        studentNo:null,
-    }
-<% }else{ %>
-    let member={
-        isLogin:<%- member.isLogin %>,
-        code:<%- member.code %>,
-        id:'<%- member.id %>',
-        nickname:'<%- member.nickname %>',
-        level:<%- member.level %>,
-        grade:<%- member.grade %>,
-        classNo:<%- member.classNo %>,
-        studentNo:<%- member.studentNo %>,
-    }
-<% } %>
-<%-'</script>'%>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <style media="screen and (min-width:651px) and (max-width:1319px)">.video, .video div{width:540px;}</style>
 <script src="/js/lib/vue.js"></script>

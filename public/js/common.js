@@ -49,6 +49,54 @@ const toggleTheme = () => {
 }
 themeInit();
 
+const member = {
+    isLogin:false,
+    code:null,
+    id:null,
+    nickname:null,
+    level:null,
+    grade:null,
+    classNo:null,
+    studentNo:null,
+    
+    setUser(user){
+        this.isLogin = user.isLogin;
+        this.code = user.code;
+        this.id = user.id;
+        this.nickname = user.nickname;
+        this.level = user.level;
+        this.grade = user.grade;
+        this.classNo = user.classNo;
+        this.studentNo = user.studentNo;
+        if (typeof headerAccountView != 'undefined') {
+            headerAccountView.setUser(member);
+        }
+    }
+}
+const loadUserInfo = () => {
+    const userInfo = localStorage.getItem('user');
+    if (userInfo === null) {
+        member.setUser({
+            isLogin:false,
+            code:null,
+            id:null,
+            nickname:null,
+            level:null,
+            grade:null,
+            classNo:null,
+            studentNo:null
+        });
+    } else {
+        member.setUser(JSON.parse(userInfo));
+    }
+}
+loadUserInfo();
+const saveUserInfo = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    loadUserInfo();
+}
+
+
 let popup = {
     noPopupClose: false,
 
@@ -164,7 +212,7 @@ const ajax = async ({method, url, payload, success, error}) => {
             if(res.status==4&&res.subStatus==4){
                 // 액세스 토큰 갱신 후 로그인 상태를 갱신함-
                 const jsonData = JSON.parse(decodeBase64(res.token.split('.')[1]));
-                member = {
+                saveUserInfo({
                     isLogin:jsonData.isLogin,
                     code:jsonData.memberCode,
                     id:jsonData.memberId,
@@ -172,11 +220,8 @@ const ajax = async ({method, url, payload, success, error}) => {
                     level:jsonData.memberLevel,
                     grade:jsonData.grade,
                     classNo:jsonData.classNo,
-                    studentNo:jsonData.studentNo,
-                }
-                if(typeof headerAccountView != 'undefined'){
-                    headerAccountView.setUser(member);
-                }
+                    studentNo:jsonData.studentNo
+                });
                 // 원래 하려던 요청을 다시 보냄
                 return ajax ({method:method, url:url, payload:payload, success:success, error:error});
             }
