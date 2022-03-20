@@ -1,6 +1,6 @@
 let editor = null;
 const focusEditor = () => {
-    if(editor){
+    if (editor) {
         editor.focus({preventScroll: true});
     }
 }
@@ -12,7 +12,7 @@ const emoticonView = new Vue({
         emoticonInfo:{}
     },
     methods:{
-        selectEmoticon:function(select){
+        selectEmoticon:function (select) {
             this.emoticonIdx=select;
         }
     },
@@ -34,8 +34,8 @@ const loadEmoticon = () => {
     ajax({
         method:'get',
         url:`/emoticon`,
-        success:data=>{
-            emoticonView.emoticon=data.emoticon;
+        success:(data) => {
+            emoticonView.emoticon = data.emoticon;
         }
     })
     popupOpen($('.insert_emoticon_box'));
@@ -44,10 +44,10 @@ const loadEmoticonInfo = (id) => {
     ajax({
         method:'get',
         url:`/emoticon/${id}`,
-        success:data=>{
-            if(data.emoticon){
-                data.emoticon.created=data.emoticon.created.split(' ')[0];
-                emoticonView.emoticonInfo=data.emoticon;
+        success:(data) => {
+            if (data.emoticon) {
+                data.emoticon.created = data.emoticon.created.split(' ')[0];
+                emoticonView.emoticonInfo = data.emoticon;
             }else{
                 showAlert('이모티콘 정보를 불러올 수 없습니다');
             }

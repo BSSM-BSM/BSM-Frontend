@@ -10,16 +10,16 @@ const loginBoxView = new Vue({
         id:'',
     },
     methods:{
-        init:function(){
+        init:function () {
             this.step=0;
             this.msg='로그인';
             this.id='';
         },
-        step1:function(){
+        step1:function () {
             this.step=1;
             this.msg=`${this.id}(으)로 계속`;
         },
-        step2:function(){
+        step2:function () {
             this.msg=`인증 중...`;
             account.login(this.id, $('.login_box .member_pw').value);
         }
@@ -28,20 +28,20 @@ const loginBoxView = new Vue({
 
 const account = {
     callbacks: {
-        login: function(){},
-        pwEdit: function(){}
+        login: function () {},
+        pwEdit: function () {}
     },
 
-    login(id, pw){
+    login(id, pw) {
         return login(id, pw, this.callbacks.login);
     },
-    set loginCallback(callback){
+    set loginCallback(callback) {
         this.callbacks.login = callback;
     },
-    pwEdit(pw, pwCheck){
+    pwEdit(pw, pwCheck) {
         return pwEdit(pw, pwCheck, this.callbacks.pwEdit);
     },
-    set pwEditCallback(callback){
+    set pwEditCallback(callback) {
         this.callbacks.pwEdit = callback;
     }
 }
@@ -54,13 +54,13 @@ const login = (id, pw, callback) => {
             member_id:id,
             member_pw:pw
         },
-        error:(status, subStatus)=>{
-            if(status==5&&subStatus==0){
+        error:(data) => {
+            if (data.statusCode == 401) {
                 loginBoxView.init();
             }
             return false;
         },
-        success:data=>{
+        success: data => {
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
             saveUserInfo({
@@ -77,7 +77,7 @@ const login = (id, pw, callback) => {
             popupClose($('.login_box'));
             loginBoxView.init();
 
-            if(callback){
+            if (callback) {
                 callback(data);
             }
         }
@@ -87,7 +87,7 @@ const logout = () => {
     ajax({
         method:'delete',
         url:`/account/logout`,
-        success:()=>{
+        success:() => {
             saveUserInfo({
                 isLogin:false,
                 code:null,
@@ -103,7 +103,7 @@ const logout = () => {
     })
 }
 const signUp = () => {
-    if(!confirm('회원 가입하시겠습니까?')){
+    if (!confirm('회원 가입하시겠습니까?')) {
         return;
     }
     ajax({
@@ -116,14 +116,14 @@ const signUp = () => {
             member_nickname:$('.sign_up .member_nickname').value,
             code:$('.sign_up .code').value,
         },
-        success:()=>{
+        success:() => {
             showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
             popupClose($('.sign_up_box'));
         }
     })
 }
 const pwEdit = (pw, pwCheck, callback) => {
-    if(!confirm('비밀번호를 재설정하시겠습니까?')){
+    if (!confirm('비밀번호를 재설정하시겠습니까?')) {
         return;
     }
     ajax({
@@ -133,12 +133,12 @@ const pwEdit = (pw, pwCheck, callback) => {
             member_pw:pw,
             member_pw_check:pwCheck,
         },
-        success:()=>{
+        success:() => {
             showToast('비밀번호 재설정이 완료되었습니다.');
             popupClose($('.pw_reset_box'));
             popupOpen($('.login_box'));
 
-            if(callback){
+            if (callback) {
                 callback();
             }
         }
@@ -151,7 +151,7 @@ const pwResetMail = () => {
         payload:{
             member_id:$('.pw_reset_mail .member_id').value,
         },
-        success:()=>{
+        success:() => {
             showToast('비밀번호 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('.pw_reset_mail_box'));
             popupOpen($('.login_box'));
@@ -168,8 +168,8 @@ const validCode = () => {
             student_class:$('.valid_code .studentClass').value,
             student_no:$('.valid_code .studentNo').value,
             student_name:$('.valid_code .studentName').value,
-            },
-        success:()=>{
+        },
+        success:() => {
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('.valid_code_box'));
         }

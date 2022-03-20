@@ -436,6 +436,12 @@ header.on nav .top_menu{
 .dropdown_menu:hover .dropdown_content{
   opacity:1;pointer-events:unset;
 }
+.dropdown_menu > .select::after{
+  content:' ▼';
+}
+.dropdown_menu > .select{
+  padding-right:2rem;
+}
 .full{
   width:100% !important;
 }

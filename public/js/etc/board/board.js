@@ -1,10 +1,10 @@
 let boardType = window.location.pathname.split('/')[2];
 let page = new URLSearchParams(location.search).get("page");
 let limit = new URLSearchParams(location.search).get("limit");
-if(limit==null){
-    limit=15;
+if (limit == null) {
+    limit = 15;
 }
-$('.board_limit .select').innerText=limit+"개";
+$('.board_limit .select').innerText = limit+"개";
 
 const boardTitle = new Vue({
     el:'.board_title',
@@ -16,7 +16,7 @@ const boardTitle = new Vue({
     }
 })
 const boardChange = (changeBoard) => {
-    switch(changeBoard){
+    switch (changeBoard) {
         case 'board':
             boardType='board';
             boardTitle.boardType='board';
@@ -41,20 +41,20 @@ const boardChange = (changeBoard) => {
     }
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
     $('.post').classList.add('hide');
-    if(page>1) boardPageChange(1);
+    if (page>1) boardPageChange(1);
     else boardRefresh();
 }
 
 const boardPageChange = (changePage) => {
-    page=changePage;
-    boardMenu.activePage=page;
+    page = changePage;
+    boardMenu.activePage = page;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
     history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
     boardRefresh();
 }
 const boardLimitChange = (changeLimit) => {
-    limit=changeLimit;
+    limit = changeLimit;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('limit', String(changeLimit));
     history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
@@ -64,7 +64,7 @@ const boardMenu = new Vue({
     el:'.board_bottom_menu',
     data:{
         isLogin:false,
-        writeUrl:'javascript:statusCode(4, 1);',
+        writeUrl:'javascript:showLoginBox()',
         pages:0,
         activePage:0
     }
@@ -87,32 +87,32 @@ const boardRefresh = () => {
             member_nickname:$('.sign_up .member_nickname').value,
             code:$('.sign_up .code').value,
         },
-        success:data=>{
-            if(member.isLogin){
-                boardMenu.isLogin=true;
-                boardMenu.writeUrl='/board/write/'+boardType;
+        success:(data) => {
+            if (member.isLogin) {
+                boardMenu.isLogin = true;
+                boardMenu.writeUrl = '/board/write/'+boardType;
             }
             boardMenu.activePage=page;
             boardMenu.pages=data.pages;
             const date = new Date();
             let today = ""+date.getFullYear();
             // 날짜 2자리수로 맞추기
-            if((date.getMonth()+1)<10){
-                today+='0';
+            if ((date.getMonth()+1)<10) {
+                today += '0';
             }
             today+=date.getMonth()+1;
-            if(date.getDate()<10){
-                today+='0';
+            if (date.getDate()<10) {
+                today += '0';
             }
             today+=date.getDate();
 
-            boardData=data.arrBoard;
+            const boardData = data.board;
             boardView.posts.splice(0);
-            if(boardData==null){
+            if (boardData == null) {
                 return;
             }
-            for(let i=0;i<boardData.length;i++){
-                if(boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
+            for (let i=0; i<boardData.length; i++) {
+                if (boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
                     boardData[i].postDate = boardData[i].postDate.split(' ')[1];
                 else
                     boardData[i].postDate = boardData[i].postDate.split(' ')[0];
@@ -131,7 +131,7 @@ const boardRefresh = () => {
         }
     })
 }
-switch(boardType){
+switch (boardType) {
     case 'board':
         boardType='board';
         boardTitle.boardType='board';
@@ -155,7 +155,7 @@ switch(boardType){
         break;
 }
 window.addEventListener('DOMContentLoaded', () => {
-    if(postNo!=null)
+    if (postNo!=null)
         postRefresh();
     boardRefresh();
 })

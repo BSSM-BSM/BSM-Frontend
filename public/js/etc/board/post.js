@@ -22,14 +22,14 @@ const postView = new Vue({
         commentFocus:0,
     },
     methods:{
-        isParent:function(){
+        isParent:function () {
             return this.item.child && this.item.child.length;
         },
-        focusComment:function(focus){
+        focusComment:function (focus) {
             this.commentFocus=focus;
         },
     },
-    updated(){
+    updated() {
         this.$nextTick(function () {
             [
                 ...$$('.post_content img[e_id]:not(.emoticon)'),
@@ -48,22 +48,23 @@ const postRefresh = () => {
     ajax({
         method:'get',
         url:`/post/${boardType}/${postNo}`,
-        success:data=>{
+        success:(data) => {
             $('.post').classList.remove('hide');
-            $('html').scrollTop=0;
-            postView.permission=data.permission;
-            postView.memberCode=data.memberCode;
-            postView.memberProfile=`/resource/member/profile_images/profile_${data.memberCode}.png`;
-            postView.memberInfoUrl=`/memberinfo/${data.memberCode}`;
-            postView.postTitle=data.postTitle;
-            postView.postDate=data.postDate;
-            postView.postHit=data.postHit;
-            postView.postComments=data.postComments;
-            postView.memberNickname=data.memberNickname;
-            postView.postContent=data.postContent;
-            postView.like=data.like;
-            postView.postLike=data.postLike;
-            window.setTimeout(()=>{
+            $('html').scrollTop = 0;
+            const post = data.post;
+            postView.permission = post.permission;
+            postView.memberCode = post.memberCode;
+            postView.memberProfile = `/resource/member/profile_images/profile_${post.memberCode}.png`;
+            postView.memberInfoUrl = `/memberinfo/${post.memberCode}`;
+            postView.postTitle = post.postTitle;
+            postView.postDate = post.postDate;
+            postView.postHit = post.postHit;
+            postView.postComments = post.postComments;
+            postView.memberNickname = post.memberNickname;
+            postView.postContent = post.postContent;
+            postView.like = post.like;
+            postView.postLike = post.postLike;
+            window.setTimeout(() => {
                 // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
                 // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
                 $$('.note-video-clip').forEach(e => {
@@ -76,25 +77,25 @@ const postRefresh = () => {
     })
 }
 const postDelete = () => {
-    if(!confirm('게시글을 삭제하시겠습니까?')){
+    if (!confirm('게시글을 삭제하시겠습니까?')) {
         return;
     }
     ajax({
         method:'delete',
         url:`/post/${boardType}/${postNo}`,
-        success:()=>{
+        success:() => {
             window.location.href=`/board/${boardType}`;
         }
     })
 }
-const likeSend = like => {
+const likeSend = (like) => {
     ajax({
         method:'post',
         url:`/like/${boardType}/${postNo}`,
         payload:{
             like:like
         },
-        success:data=>{
+        success:(data) => {
             postView.like=data.like;
             postView.postLike=data.postLike;
         }
@@ -107,12 +108,12 @@ Vue.component('tree-item', {
         item:Object
     },
     methods:{
-        focusComment:function(focus){
+        focusComment:function (focus) {
             postView.commentFocus=focus;
         }
     },
     computed:{
-        isParent:function(){
+        isParent:function () {
             return this.item.child && this.item.child.length
         }
     }
@@ -123,21 +124,21 @@ const commentRefresh = () => {
     ajax({
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
-        success:data=>{
-            postView.commentTree = data.arrComment;
+        success:(data) => {
+            postView.commentTree = data.comments;
             postView.commentFocus = 0;
         }
     })
 }
 
 const commentDelete = commentIndex => {
-    if(!confirm('댓글을 삭제하시겠습니까?')){
+    if (!confirm('댓글을 삭제하시겠습니까?')) {
         return;
     }
     ajax({
         method:'delete',
         url:`/comment/${boardType}/${postNo}/${commentIndex}`,
-        success:()=>{
+        success:() => {
             commentRefresh();
         }
     })
@@ -146,7 +147,7 @@ const commentDelete = commentIndex => {
 const commentWrite = (depth, parentIdx) => {
     depth = parseInt(depth)+1;
     let url;
-    if(parentIdx<1){
+    if (parentIdx<1) {
         url = `/comment/${boardType}/${postNo}`;
     }else{
         url = `/comment/${boardType}/${postNo}/${depth}/${parentIdx}`;
@@ -157,7 +158,7 @@ const commentWrite = (depth, parentIdx) => {
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
         },
-        success:()=>{
+        success:() => {
             $(`.comment_write.write_${parentIdx} .write`).innerHTML='';
             commentRefresh();
         }
@@ -171,7 +172,7 @@ const editorNewline = () => {
     document.execCommand는 더 이상 표준이 아니라고 왠만하면 쓰지말라고해서 입력 커서를 조작하는 식으로 해결
     */
     // 키 입력이 엔터라면
-    if(event.keyCode==13) {
+    if (event.keyCode==13) {
         // 이벤트 가로챔
         event.preventDefault();
         // 입력커서 가져옴
