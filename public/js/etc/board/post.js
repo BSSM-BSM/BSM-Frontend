@@ -8,8 +8,7 @@ const postView = new Vue({
     el:'.post',
     data:{
         permission:false,
-        memberProfile:'',
-        memberInfoUrl:'',
+        memberCode:0,
         postTitle:'',
         postDate:'',
         postHit:'',
@@ -54,8 +53,6 @@ const postRefresh = () => {
             const post = data.post;
             postView.permission = post.permission;
             postView.memberCode = post.memberCode;
-            postView.memberProfile = `/resource/member/profile_images/profile_${post.memberCode}.png`;
-            postView.memberInfoUrl = `/memberinfo/${post.memberCode}`;
             postView.postTitle = post.postTitle;
             postView.postDate = post.postDate;
             postView.postHit = post.postHit;

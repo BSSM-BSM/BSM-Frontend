@@ -27,12 +27,12 @@ window.addEventListener('DOMContentLoaded', () => {
 const headerAccountView = new Vue({
     el:'.user_menu',
     data:{
-        user:member,
+        user,
         userLevel:memberLevel,
-        setUser(user) {
-            this.user = user;
+        setUser(userInfo) {
+            this.user = userInfo;
             if (menuAccountView) {
-                menuAccountView.user = user;
+                menuAccountView.user = userInfo;
             }
         }
     }
@@ -41,39 +41,6 @@ const headerAccountView = new Vue({
 const menuAccountView = $('#quick_menu_list .user')? new Vue({
     el:'#quick_menu_list .user',
     data:{
-        user:member,
+        user,
     }
 }): undefined;
-
-
-$('.searchBox').addEventListener('click', () => {
-    $('.searchResult').classList.add('on')
-    $('.search_close').classList.add('on')
-})
-$('.search_close').addEventListener('click', () => {
-    $('.searchResult').classList.remove('on')
-    $('.search_close').classList.remove('on')
-})
-const searchView = new Vue({
-    el:'.searchResult',
-    data:{
-        boardResult:[],
-        anonymousResult:[]
-    }
-})
-const search = () => {
-    ajax({
-        method:'get',
-        url:`/search/board/${$('.searchQuery').value}`,
-        callBack:data=>{
-            searchView.boardResult = data.arrSearchResult;
-        }
-    })
-    ajax({
-        method:'get',
-        url:`/search/anonymous/${$('.searchQuery').value}`,
-        callBack:data=>{
-            searchView.anonymousResult = data.arrSearchResult;
-        }
-    })
-}

@@ -49,7 +49,7 @@ const toggleTheme = () => {
 }
 themeInit();
 
-const member = {
+const user = {
     isLogin:false,
     code:null,
     id:null,
@@ -59,24 +59,24 @@ const member = {
     classNo:null,
     studentNo:null,
     
-    setUser(user) {
-        this.isLogin = user.isLogin;
-        this.code = user.code;
-        this.id = user.id;
-        this.nickname = user.nickname;
-        this.level = user.level;
-        this.grade = user.grade;
-        this.classNo = user.classNo;
-        this.studentNo = user.studentNo;
+    setUser(userInfo) {
+        this.isLogin = userInfo.isLogin;
+        this.code = userInfo.code;
+        this.id = userInfo.id;
+        this.nickname = userInfo.nickname;
+        this.level = userInfo.level;
+        this.grade = userInfo.grade;
+        this.classNo = userInfo.classNo;
+        this.studentNo = userInfo.studentNo;
         if (typeof headerAccountView != 'undefined') {
-            headerAccountView.setUser(member);
+            headerAccountView.setUser(userInfo);
         }
     }
 }
 const loadUserInfo = () => {
     const userInfo = localStorage.getItem('user');
     if (userInfo === null) {
-        member.setUser({
+        user.setUser({
             isLogin:false,
             code:null,
             id:null,
@@ -87,7 +87,7 @@ const loadUserInfo = () => {
             studentNo:null
         });
     } else {
-        member.setUser(JSON.parse(userInfo));
+        user.setUser(JSON.parse(userInfo));
     }
 }
 loadUserInfo();
@@ -256,8 +256,15 @@ const ajax = async ({method, url, payload, success, error}) => {
                     classNo:null,
                     studentNo:null,
                 });
-                showAlert('로그인 후 이용 가능 합니다.');
+                if (err.response.data.message == 'Need to relogin') {
+                    showAlert('다시 로그인 해주세요.');
+                } else {
+                    showAlert('로그인 후 이용 가능 합니다.');
+                }
                 showLoginBox();
+                break;
+            case 429:
+                showAlert('잠시 후에 다시 시도해주세요.');
                 break;
             default:
                 showAlert(`에러코드: ${err.response.data.statusCode} ${err.response.data.message}`);

@@ -21,13 +21,13 @@
                 <div class="post hide" v-show="postTitle">
                     <div class="post_wrap">
                         <div class="post_info_wrap">
-                            <div class="left_wrap"><img :src="memberProfile" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile"></div>
+                            <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
                             <div class="right_wrap">
                                 <div class="post_title">{{postTitle}}</div>
                                 <div class="post_date">{{postDate}}</div>
                                 <div class="post_hit">{{postHit}}</div>
                                 <div class="post_comments">{{postComments}}</div>
-                                <div class="member_nickname"><a :href="memberInfoUrl">{{memberNickname}}</a></div>
+                                <div class="member_nickname"><a :href="`/memberinfo/${memberCode}`">{{memberNickname}}</a></div>
                                 </div>
                             </div>
                         <div class="post_content"><div v-html="postContent"></div></div>
@@ -43,7 +43,7 @@
                             <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
                                 <div class="comment_item_info_wrap">
                                     <div class="left_wrap">
-                                        <img :src="`/resource/member/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                                        <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                                     </div>
                                     <div class="right_wrap">
                                         <div class="comment_item_info">
@@ -107,7 +107,7 @@
                             <div class="board_item bottom_wrap">
                                 <div class="board_item_info left_wrap">
                                     <span class="member_info">
-                                        <img :src="`/resource/member/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                                        <img :src="`/resource/user/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                                         <a :href="`/memberinfo/${post.memberCode}`">{{post.memberNickname}}</a>
                                     </span>
                                 </div>
@@ -142,7 +142,7 @@
                         <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
-                                    <img :src="`/resource/member/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                                    <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                                 </div>
                                 <div class="right_wrap">
                                     <div class="comment_item_info">

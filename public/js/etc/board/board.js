@@ -87,13 +87,17 @@ const boardRefresh = () => {
             member_nickname:$('.sign_up .member_nickname').value,
             code:$('.sign_up .code').value,
         },
+        error:() => {
+            boardView.posts.splice(0);
+            boardMenu.pages = 0;
+        },
         success:(data) => {
-            if (member.isLogin) {
+            if (user.isLogin) {
                 boardMenu.isLogin = true;
                 boardMenu.writeUrl = '/board/write/'+boardType;
             }
-            boardMenu.activePage=page;
-            boardMenu.pages=data.pages;
+            boardMenu.activePage = page;
+            boardMenu.pages = data.pages;
             const date = new Date();
             let today = ""+date.getFullYear();
             // 날짜 2자리수로 맞추기

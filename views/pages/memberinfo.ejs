@@ -20,7 +20,7 @@
                 <div class="member_info_wrap">
                     <div class="member_info" v-show="memberType!='deleted'">
                         <div class="left_wrap">
-                            <img :src="`/resource/member/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="" class="user_profile">
+                            <img :src="`/resource/user/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                         </div>
                         <div class="right_wrap">
                             <div class="top_wrap">
@@ -70,7 +70,7 @@
                             url:`/account/<%- memberCode %>`,
                             success:data=>{
                                 memberInfoView.memberType=data.member.memberType;
-                                if(data.member.memberType=="active"){
+                                if (data.member.memberType=="active") {
                                     memberInfoView.memberCode=data.member.memberCode;
                                     memberInfoView.memberNickname=data.member.memberNickname;
                                     memberInfoView.memberLevel=data.member.memberLevel;
@@ -81,13 +81,13 @@
                                     memberInfoView.memberStudentNo=data.member.memberStudentNo;
                                     memberInfoView.memberName=data.member.memberName;
                                     memberInfoView.permission=data.member.permission;
-                                }else if(data.member.memberType=="anonymous"){
+                                } else if (data.member.memberType=="anonymous") {
                                     memberInfoView.memberCode=-1;
                                     memberInfoView.memberNickname="Anonymous";
                                     memberInfoView.memberLevel=0;
                                     memberInfoView.permission=data.member.permission;
                                     showAlert("익명 프로필입니다");
-                                }else if(data.member.memberType=="deleted"){
+                                } else if (data.member.memberType=="deleted") {
                                     memberInfoView.memberCode=data.member.memberCode;
                                     memberInfoView.permission=data.member.permission;
                                     showAlert("삭제된 계정입니다");

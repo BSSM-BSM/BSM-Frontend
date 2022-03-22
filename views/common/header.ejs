@@ -34,32 +34,6 @@
                 <span class="theme_toggle top_menu_item" onclick="toggleTheme()">
                     <img src="/resource/common/images/theme.svg" alt="theme_toggle">
                 </span>
-                <span class="searchBar top_menu_item">
-                    <input type="text" class="searchQuery input_text searchBox menu_item" oninput="search()" placeholder="여기에 검색" required>
-                    <div class="searchResult">
-                        <div class="boardResult">
-                            <h2>자유게시판</h2><br>
-                            <p v-if="!boardResult.length">검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요</p>
-                            <ul v-for="item in boardResult">
-                                <li>{{item.postNo}}</li>
-                                <li><a :href="`/board/board/${item.postNo}`">{{item.postTitle}}</a></li>
-                                <li>{{item.memberNickname}}</li>
-                                <li>{{item.postDate}}</li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="anonymousResult">
-                            <h2>익명게시판</h2><br>
-                            <p v-if="!anonymousResult.length">검색 결과가 없습니다.<br>단어사이에 띄어쓰기를 하거나 검색어를 조금더 길게 적어주세요</p>
-                            <ul v-for="item in anonymousResult">
-                                <li>{{item.postNo}}</li>
-                                <li><a :href="`/board/board/${item.postNo}`">{{item.postTitle}}</a></li>
-                                <li>{{item.memberNickname}}</li>
-                                <li>{{item.postDate}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </span>
                 <span class="top_menu_item dropdown_menu user_menu">
                     <div v-if="user.isLogin" class="user_profile_wrap">
                         <span class="menu_item user_profile_name"><span v-if="user.level>0" class="member_admin">{{userLevel[user.level]}}</span><span>{{user.nickname}}</span></span>
@@ -73,9 +47,7 @@
                 </span>
             </div>
         </div>
-        <div class="notice_bar">
-            <a href="/board/notice/10" class="notice">상벌점 간편 확인기능이 업데이트 되었습니다</a>
-        </div>
+        <div class="notice_bar"></div>
     </nav>
     <div class="side_menu">
         <div class="popup_close_button x_button" onClick="$('.side_menu').classList.remove('on')"></div>
@@ -95,7 +67,6 @@
         </ul>
     </div>
 </header>
-<div class="dim search_close"></div>
 <script src="/js/header.js"></script>
 <div>
     <%- include('../common/accountBox') %>

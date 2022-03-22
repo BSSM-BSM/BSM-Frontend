@@ -1,6 +1,6 @@
-let hak = member.grade;
-let ban = member.classNo;
-let bun = member.studentNo;
+let hak = user.grade;
+let ban = user.classNo;
+let bun = user.studentNo;
 const meisterView = new Vue({
     el:'.meister',
     data:{

@@ -60,7 +60,7 @@ const login = (id, pw, callback) => {
             }
             return false;
         },
-        success: data => {
+        success:(data) => {
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
             saveUserInfo({
