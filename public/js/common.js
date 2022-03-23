@@ -220,7 +220,11 @@ const ajax = async ({method, url, payload, success, error}) => {
             return;
         }
         if (!err.response.data.statusCode) {
-            showAlert(`HTTP ERROR ${err.response.status}`);
+            if (err.response.status == 429) {
+                showAlert('잠시 후에 다시 시도해주세요.');
+            } else {
+                showAlert(`HTTP ERROR ${err.response.status}`);
+            }
             return;
         }
 
@@ -262,9 +266,6 @@ const ajax = async ({method, url, payload, success, error}) => {
                     showAlert('로그인 후 이용 가능 합니다.');
                 }
                 showLoginBox();
-                break;
-            case 429:
-                showAlert('잠시 후에 다시 시도해주세요.');
                 break;
             default:
                 showAlert(`에러코드: ${err.response.data.statusCode} ${err.response.data.message}`);

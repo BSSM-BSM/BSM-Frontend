@@ -26,8 +26,8 @@
         <section id="quick_menu">
             <ul id="quick_menu_list">
                 <li class="menu user">
-                    <a v-if="user.isLogin" :href="`/memberinfo/${user.code}`">
-                        <img v-if="user.isLogin" :src="`/resource/member/profile_images/profile_${user.code}.png`" onerror="this.src='/resource/member/profile_images/profile_default.png'" alt="user_profile">
+                    <a v-if="user.isLogin" :href="`/user/${user.code}`">
+                        <img v-if="user.isLogin" :src="`/resource/user/profile_images/profile_${user.code}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="user_profile">
                         <div>
                             <div class="user_info">{{user.grade}}학년 {{user.classNo}}반 {{user.studentNo}}번 {{user.studentName}}</div>
                             <div class="user_name">{{user.nickname}}</div>
@@ -190,7 +190,7 @@
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.4.0</p>
+                                <p>Ver. 1.4.0.1</p>
                             </div>
                         </a>
                     </div>

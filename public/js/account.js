@@ -55,7 +55,7 @@ const login = (id, pw, callback) => {
             member_pw:pw
         },
         error:(data) => {
-            if (data.statusCode == 401) {
+            if (data.statusCode == 400) {
                 loginBoxView.init();
             }
             return false;
@@ -137,6 +137,16 @@ const pwEdit = (pw, pwCheck, callback) => {
             showToast('비밀번호 재설정이 완료되었습니다.');
             popupClose($('.pw_reset_box'));
             popupOpen($('.login_box'));
+            saveUserInfo({
+                isLogin:false,
+                code:null,
+                id:null,
+                nickname:null,
+                level:null,
+                grade:null,
+                classNo:null,
+                studentNo:null,
+            });
 
             if (callback) {
                 callback();

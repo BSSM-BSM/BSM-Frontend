@@ -1,4 +1,4 @@
-const cacheName = '1.4.0';
+const cacheName = '1.4.0.1';
 const cacheFiles = [
     '/',
     '/meal',
@@ -11,7 +11,6 @@ const cacheFiles = [
     '/js/common.js',
     '/js/header.js',
     '/js/account.js',
-    '/js/statusCode.js',
     '/js/alert.js',
     '/js/etc/meal.js',
     '/js/etc/meister.js',
@@ -24,10 +23,10 @@ const cacheFiles = [
     '/css/etc/index.css',
     '/css/etc/meal.css',
     '/css/etc/meister.css',
-    '/css/etc/memberinfo.css',
+    '/css/etc/user.css',
     '/css/etc/timetable.css',
 ];
-const libCacheName = 'lib-1.2.0.2';
+const libCacheName = 'lib-1.4.0.1';
 const libCacheFiles = [
     '/js/lib/jquery.min.js',
     '/js/lib/axios.js',
@@ -39,7 +38,7 @@ const libCacheFiles = [
     '/css/lib/font/summernote.woff2',
     '/css/lib/font/summernote.ttf'
 ];
-const etcCacheName = 'etc-1.3.0';
+const etcCacheName = 'etc-1.4.0.1';
 const etcCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
@@ -51,8 +50,8 @@ const etcCacheFiles = [
     '/resource/common/images/download.png',
     '/resource/index/images/main.webp',
     '/resource/index/images/main2.webp',
-    '/resource/member/profile_images/profile_default.png',
-    '/resource/member/profile_images/profile_-1.png'
+    '/resource/user/profile_images/profile_default.png',
+    '/resource/user/profile_images/profile_-1.png'
 ];
 const allCacheFiles = [
     ...cacheFiles,
@@ -82,10 +81,10 @@ self.addEventListener("activate", event => {
     );
 });
 self.addEventListener('fetch', (event) => {
-    if(event.request.method !== 'GET') { // GET 요청만 캐싱
+    if (event.request.method !== 'GET') { // GET 요청만 캐싱
         return;
     }
-    if(allCacheFiles.indexOf(event.request.url.split('bssm.kro.kr')[1])==-1){ // 캐싱된 요청만
+    if (allCacheFiles.indexOf(event.request.url.split('bssm.kro.kr')[1])==-1) { // 캐싱된 요청만
         return;
     }
     const fetchRequest = event.request.clone();

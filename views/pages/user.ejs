@@ -2,7 +2,7 @@
 <html lang="kr">
 <head>
     <%- include('../common/head') %>
-    <link rel="stylesheet" type="text/css" href="/css/etc/memberinfo.css">
+    <link rel="stylesheet" type="text/css" href="/css/etc/user.css">
     <title>유저정보 - BSM</title>
     <meta property="title" content="유저정보 - BSM | 부산소마고 지원 서비스">
     <meta property="description" content="부산 소프트웨어 마이스터고 학교 기숙사 지원 서비스">
@@ -68,29 +68,38 @@
                         ajax({
                             method:'get',
                             url:`/account/<%- memberCode %>`,
-                            success:data=>{
-                                memberInfoView.memberType=data.member.memberType;
-                                if (data.member.memberType=="active") {
-                                    memberInfoView.memberCode=data.member.memberCode;
-                                    memberInfoView.memberNickname=data.member.memberNickname;
-                                    memberInfoView.memberLevel=data.member.memberLevel;
-                                    memberInfoView.memberCreated=data.member.memberCreated.split(' ')[0];
-                                    memberInfoView.memberEnrolled=data.member.memberEnrolled;
-                                    memberInfoView.memberGrade=data.member.memberGrade;
-                                    memberInfoView.memberClass=data.member.memberClass;
-                                    memberInfoView.memberStudentNo=data.member.memberStudentNo;
-                                    memberInfoView.memberName=data.member.memberName;
-                                    memberInfoView.permission=data.member.permission;
-                                } else if (data.member.memberType=="anonymous") {
-                                    memberInfoView.memberCode=-1;
-                                    memberInfoView.memberNickname="Anonymous";
-                                    memberInfoView.memberLevel=0;
-                                    memberInfoView.permission=data.member.permission;
-                                    showAlert("익명 프로필입니다");
-                                } else if (data.member.memberType=="deleted") {
-                                    memberInfoView.memberCode=data.member.memberCode;
-                                    memberInfoView.permission=data.member.permission;
-                                    showAlert("삭제된 계정입니다");
+                            success:(data) => {
+                                memberInfoView.memberType = data.user.memberType;
+                                switch (data.user.memberType) {
+                                    case 'active':
+                                        memberInfoView.memberCode=data.user.memberCode;
+                                        memberInfoView.memberNickname=data.user.memberNickname;
+                                        memberInfoView.memberLevel=data.user.memberLevel;
+                                        memberInfoView.memberCreated=data.user.memberCreated.split(' ')[0];
+                                        memberInfoView.memberEnrolled=data.user.memberEnrolled;
+                                        memberInfoView.memberGrade=data.user.memberGrade;
+                                        memberInfoView.memberClass=data.user.memberClass;
+                                        memberInfoView.memberStudentNo=data.user.memberStudentNo;
+                                        memberInfoView.memberName=data.user.memberName;
+                                        memberInfoView.permission=data.user.permission;
+                                        break;
+                                    case 'anonymous':
+                                        memberInfoView.memberCode=-1;
+                                        memberInfoView.memberNickname="Anonymous";
+                                        memberInfoView.memberLevel=0;
+                                        memberInfoView.permission=data.user.permission;
+                                        showAlert("익명 유저입니다");
+                                        break;
+                                    case 'deleted':
+                                        memberInfoView.memberCode=data.user.memberCode;
+                                        memberInfoView.permission=data.user.permission;
+                                        showAlert("삭제된 유저입니다");
+                                        break;
+                                    case 'none':
+                                        memberInfoView.memberCode=data.user.memberCode;
+                                        memberInfoView.permission=data.user.permission;
+                                        showAlert("유저를 찾을 수 없습니다");
+                                        break;
                                 }
                             }
                         })
@@ -107,7 +116,7 @@
                     ajax({
                         method:'post',
                         payload:formData,
-                        url:'/account/profileUpload',
+                        url:'/account/profile',
                         success:data=>{
                             alert("업로드에 성공하였습니다.\n캐시때문에 사진이 변경되지 않을 수 있으니\n기다리거나 캐시 삭제를 해주시면 됩니다");
                             window.location.reload();

@@ -27,7 +27,7 @@
                                 <div class="post_date">{{postDate}}</div>
                                 <div class="post_hit">{{postHit}}</div>
                                 <div class="post_comments">{{postComments}}</div>
-                                <div class="member_nickname"><a :href="`/memberinfo/${memberCode}`">{{memberNickname}}</a></div>
+                                <div class="member_nickname"><a :href="`/user/${memberCode}`">{{memberNickname}}</a></div>
                                 </div>
                             </div>
                         <div class="post_content"><div v-html="postContent"></div></div>
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="right_wrap">
                                         <div class="comment_item_info">
-                                            <a :href="`/memberinfo/${item.memberCode}`">{{item.memberNickname}}</a>
+                                            <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
                                             <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
                                         </div>
                                         <div class="comment_item_info">{{item.commentDate}}</div>
@@ -108,7 +108,7 @@
                                 <div class="board_item_info left_wrap">
                                     <span class="member_info">
                                         <img :src="`/resource/user/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
-                                        <a :href="`/memberinfo/${post.memberCode}`">{{post.memberNickname}}</a>
+                                        <a :href="`/user/${post.memberCode}`">{{post.memberNickname}}</a>
                                     </span>
                                 </div>
                                 <div class="board_item_info right_wrap">
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="right_wrap">
                                     <div class="comment_item_info">
-                                        <a :href="`/memberinfo/${item.memberCode}`">{{item.memberNickname}}</a>
+                                        <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
                                         <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
                                     </div>
                                     <div class="comment_item_info">{{item.commentDate}}</div>
