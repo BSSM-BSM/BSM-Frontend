@@ -185,3 +185,22 @@ const validCode = () => {
         }
     })
 }
+
+const findIdMail = () => {
+    ajax({
+        method:'post',
+        url:'/account/findIdMail',
+        payload:{
+            student_enrolled:$('#find_id_box .studentEnrolled').value,
+            student_grade:$('#find_id_box .studentGrade').value,
+            student_class:$('#find_id_box .studentClass').value,
+            student_no:$('#find_id_box .studentNo').value,
+            student_name:$('#find_id_box .studentName').value,
+        },
+        success:() => {
+            showToast('ID 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
+            popupClose($('#find_id_box'));
+            popupOpen($('.login_box'));
+        }
+    })
+}

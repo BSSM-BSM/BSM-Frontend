@@ -7,6 +7,7 @@
         <div class="bottom_box">
             <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
             <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
+            <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
         </div>
         <button type="submit" class="main_button button">다음</button>
     </form>
@@ -15,6 +16,7 @@
         <div class="bottom_box">
             <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
             <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
+            <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
         </div>
         <button type="submit" class="main_button button">로그인</button>
     </form>
@@ -66,6 +68,21 @@
         <br>
         <input type="text" class="input_text studentName" placeholder="이름" required>
         <button type="submit" class="main_button button">인증코드 발급</button>
+    </form>
+</div>
+<div id="find_id_box" class="popup center">
+    <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
+    <h2>ID 찾기</h2>
+    <p>학교 이메일계정으로 복구 메일이 전송됩니다.</p>
+    <p>2022학년도 기준입니다.</p>
+    <form class="valid_code" autocomplete="off" onsubmit="findIdMail();return false;">
+        <input type="number" class="input_text year studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
+        <input type="number" class="input_text studentGrade" placeholder="학년" min="1" max="3" required>
+        <input type="number" class="input_text studentClass" placeholder="반" min="1" max="4" required>
+        <input type="number" class="input_text studentNo" placeholder="번호" min="1" max="16" required>
+        <br>
+        <input type="text" class="input_text studentName" placeholder="이름" required>
+        <button type="submit" class="main_button button">ID 복구 메일전송</button>
     </form>
 </div>
 <script src="/js/account.js"></script>
