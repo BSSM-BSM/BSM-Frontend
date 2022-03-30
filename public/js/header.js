@@ -1,4 +1,4 @@
-if (navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)) {
+if (navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
     $('.notice_bar').innerHTML+='<div class="notice yellow">IOS환경에서는 제대로 동작하지 않을 수 있습니다.</div>';
 }
 window.addEventListener('online', () => {

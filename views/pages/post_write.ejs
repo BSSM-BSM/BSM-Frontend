@@ -96,8 +96,8 @@
                             method:'get',
                             url:'/post/<%= boardType %>/<%= postNo %>',
                             success:data=>{
-                                $('input[name=post_title]').value = data.postTitle;
-                                jQuery('#summernote').summernote('code', data.postContent);
+                                $('input[name=post_title]').value = data.post.postTitle;
+                                jQuery('#summernote').summernote('code', data.post.postContent);
                             }
                         })
                     }

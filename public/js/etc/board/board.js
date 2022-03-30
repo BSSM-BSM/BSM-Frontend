@@ -39,6 +39,7 @@ const boardChange = (changeBoard) => {
             boardTitle.subBoardName='';
             break;
     }
+    boardView.boardType = boardTitle.boardType;
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
     $('.post').classList.add('hide');
     if (page>1) boardPageChange(1);
@@ -72,7 +73,8 @@ const boardMenu = new Vue({
 const boardView = new Vue({
     el:'.board_list',
     data:{
-        posts:[]
+        posts:[],
+        boardType
     }
 })
 const boardRefresh = () => {
