@@ -10,81 +10,87 @@
 <body>
     <%- include('../common/common') %>
     <main>
-        <div class="title board_title">
-            <div class="container">
-                <a :href="`/board/${boardType}`" class="main" :onclick="`boardChange('${boardType}');return false;`">{{boardName}}</a>
-                <a :href="`/board/${subBoardType}`" class="sub" v-if="boardType!='notice'" :onclick="`boardChange('${subBoardType}');return false;`">{{subBoardName}}</a>
+        <div class="post hide">
+            <div id="close-post" onclick="postWindowClose()">
+                <span> < </span>
+                <span> < </span>
             </div>
-        </div>
-        <div class="container">
-            <div class="board">
-                <div class="post hide" v-show="postTitle">
-                    <div class="post_wrap">
-                        <div class="post_info_wrap">
-                            <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
-                            <div class="right_wrap">
-                                <div class="post_title">{{postTitle}}</div>
-                                <div class="post_date">{{postDate}}</div>
-                                <div class="post_hit">{{postHit}}</div>
-                                <div class="post_comments">{{postComments}}</div>
-                                <div class="member_nickname"><a :href="`/user/${memberCode}`">{{memberNickname}}</a></div>
-                                </div>
+            <div class="container">
+                <div class="post_wrap">
+                    <div class="post_info_wrap">
+                        <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
+                        <div class="right_wrap">
+                            <div class="post_title">{{post.postTitle}}</div>
+                            <div class="post_date">{{post.postDate}}</div>
+                            <div class="post_hit">{{post.postHit}}</div>
+                            <div class="post_comments">{{post.postComments}}</div>
+                            <div class="member_nickname"><a :href="`/user/${post.memberCode}`">{{post.memberNickname}}</a></div>
                             </div>
-                        <div class="post_content"><div v-html="postContent"></div></div>
-                        <div class="post_like_wrap post_like">
-                            <button class="like_button like icon" onclick="likeSend(1);" v-bind:class="{on:like>0}"><object data="/resource/common/images/like.svg"></object></button>
-                            <span class="post_like_cnt">{{postLike}}</span>
-                            <button class="like_button dislike icon" onclick="likeSend(-1);" v-bind:class="{on:like<0}"><object data="/resource/common/images/like.svg"></object></button>
                         </div>
-                    </div>
-                    <div class="comment_list">
-                        <div class="comment_item" v-for="item in commentTree">
-                            <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
-                            <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
-                                <div class="comment_item_info_wrap">
-                                    <div class="left_wrap">
-                                        <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
-                                    </div>
-                                    <div class="right_wrap">
-                                        <div class="comment_item_info">
-                                            <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
-                                            <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
-                                        </div>
-                                        <div class="comment_item_info">{{item.commentDate}}</div>
-                                    </div>
-                                </div>
-                                <div class="comment_item_content" v-html="item.comment"></div>
-                            </div>
-                            <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
-                            <form v-if="commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
-                                <div class="write_wrap">
-                                    <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
-                                    <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
-                                </div>
-                                <br>
-                                <input type="submit" name="" value="답글작성" class="button">
-                            </form>
-                        </div>
-                    </div>
-                    <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
-                        <div class="write_wrap">
-                            <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
-                            <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
-                        </div>
-                        <br>
-                        <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
-                        <input type="submit" name="" value="댓글작성" class="button">
-                    </form>
-                    <div class="post_menu">
-                        <span class="post_delete">
-                            <div class="button red_button" onclick="postDelete();" v-if="permission">글 삭제</div>
-                        </span>
-                        <span class="post_modify">
-                            <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="permission">게시글 수정</a>
-                        </span>
+                    <div class="post_content"><div v-html="post.postContent"></div></div>
+                    <div class="post_like_wrap post_like">
+                        <button class="like_button like icon" onclick="likeSend(1);" v-bind:class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
+                        <span class="post_like_cnt">{{post.postLike}}</span>
+                        <button class="like_button dislike icon" onclick="likeSend(-1);" v-bind:class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
                     </div>
                 </div>
-                <%- include('../common/emoticonBox') %>
+                <div class="comment_list">
+                    <div class="comment_item" v-for="item in comment.comments">
+                        <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
+                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
+                            <div class="comment_item_info_wrap">
+                                <div class="left_wrap">
+                                    <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                                </div>
+                                <div class="right_wrap">
+                                    <div class="comment_item_info">
+                                        <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
+                                        <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
+                                    </div>
+                                    <div class="comment_item_info">{{item.commentDate}}</div>
+                                </div>
+                            </div>
+                            <div class="comment_item_content" v-html="item.comment"></div>
+                        </div>
+                        <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
+                        <form v-if="comment.commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
+                            <div class="write_wrap">
+                                <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                                <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                            </div>
+                            <br>
+                            <input type="submit" name="" value="답글작성" class="button">
+                        </form>
+                    </div>
+                </div>
+                <form class="comment_write write_0" method="post" autocomplete="off" v-on:click="focusComment(0)" onsubmit="commentWrite(0, 0);return false;">
+                    <div class="write_wrap">
+                        <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
+                        <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                    </div>
+                    <br>
+                    <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
+                    <input type="submit" name="" value="댓글작성" class="button">
+                </form>
+                <div class="post_menu">
+                    <span class="post_delete">
+                        <div class="button red_button" onclick="postDelete();" v-if="post.permission">글 삭제</div>
+                    </span>
+                    <span class="post_modify">
+                        <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="post.permission">게시글 수정</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <%- include('../common/emoticonBox') %>
+        <div class="container">
+            <div class="board">
+                <div class="title board_title">
+                    <div class="container">
+                        <a :href="`/board/${boardType}`" class="main" :onclick="`boardChange('${boardType}');return false;`">{{boardName}}</a>
+                        <a :href="`/board/${subBoardType}`" class="sub" v-if="boardType!='notice'" :onclick="`boardChange('${subBoardType}');return false;`">{{subBoardName}}</a>
+                    </div>
+                </div>
                 <div class="board_top_menu">
                     <span class="dropdown_menu board_limit">
                         <span class="select button">15개</span>

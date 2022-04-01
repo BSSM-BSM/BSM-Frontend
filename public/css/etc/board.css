@@ -118,14 +118,62 @@
   justify-content:space-between;
 }
 
+#close-post{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:fixed;
+  top:0;
+  left:-8.5rem;
+  z-index:101;
+  width:10rem;
+  height:100%;
+  transition:left .25s;
+  background-color:var(--hover);
+  cursor:pointer;
+}
+.post.hide #close-post{
+  left:-10rem;
+}
+#close-post:hover{
+  left:0;
+}
+#close-post span:first-child{
+  font-size:5rem;
+  font-weight:bold;
+}
+#close-post span:last-child{
+  position:absolute;
+  left:11rem;
+  font-size:4rem;
+  font-weight:bold;
+  color:var(--text-level-1);
+  transition:.25s;
+}
+#close-post:hover span:last-child,
+.post.hide #close-post span:last-child{
+  opacity:0;
+}
+
+
 .post{
   width:100%;
+  height:100%;
+  overflow:auto;
+  position:fixed;
+  top:0;
+  right:0;
+  z-index:1;
+  padding-top:5rem;
+  background-color:var(--background);
+  transition:right .4s;
 }
 .post.hide{
-  display:none;
+  right:-100%;
 }
 .post_wrap{
-  padding:5rem 5rem 0 5rem;
+  padding:5rem;
+  padding-top:10rem;
 }
 .post_info_wrap{
   display:flex;
@@ -289,7 +337,13 @@
   overflow:hidden;
 }
 .pages *{
-  width:auto; color:var(--white); font-weight:bold; padding:1.5rem 2rem; text-align:center; display: inline-block; font-size:1.5rem; cursor:pointer;
+  width:auto; color:var(--white);
+  font-weight:bold;
+  padding:1.5rem 2rem;
+  text-align:center;
+  display:inline-block;
+  font-size:1.5rem;
+  cursor:pointer;
   background-color:var(--main);
   transition:.25s;
 }
@@ -320,8 +374,11 @@
   .member_info .user_profile{
     height:1.7rem;
   }
+  #close-post{
+    display:none;
+  }
   .post_wrap{
-    padding:5rem 3% 0 3%;
+    padding:3%;
   }
   .post_info_wrap .post_title{
     font-size:1.8rem;

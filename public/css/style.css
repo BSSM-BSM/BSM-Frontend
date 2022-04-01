@@ -21,12 +21,15 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
   --main: #77a3f5;
   --text: #202124;
+  --text-level-1: #505154;
+  --text-level-2: #808184;
+  --text-level-3: #b0b1b4;
   --background: #f9f9f9;
 
   --level-1: #f9f9f9;
   --level-2: #DDD;
 
-  --input: rgba(192, 192, 192, .2);
+  --input: rgba(192, 192, 192, .3);
 
   --menu-background: #FFFFFF88;
 
@@ -47,12 +50,15 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
   --main: #4682B4;
   --text: #e8eaed;
+  --text-level-1: #b8babd;
+  --text-level-2: #888a8d;
+  --text-level-3: #585a5d;
   --background: #202124;
 
   --level-1: #303134;
   --level-2: #404144;
 
-  --input: rgba(192, 192, 192, .2);
+  --input: rgba(192, 192, 192, .3);
 
   --menu-background: #20212488;
 
@@ -91,6 +97,10 @@ body{
   background-size:cover;
   transition:background-color .5s;
   padding-bottom:5rem;
+}
+body.no_scroll{
+  height:100%;
+  overflow:hidden;
 }
 @font-face {
   font-family:'NotoSans';

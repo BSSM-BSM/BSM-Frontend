@@ -2,7 +2,7 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
     <h2>{{msg}}</h2>
-    <form v-if="step==0" class="login" autocomplete="off" onsubmit="loginBoxView.step1();return false;">
+    <form v-if="step==0" class="login" autocomplete="off" onsubmit="loginBoxView.step1(event);">
         <input type="text" class="input_text member_id" placeholder="아이디" required autofocus v-model="id">
         <div class="bottom_box">
             <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
@@ -11,8 +11,8 @@
         </div>
         <button type="submit" class="main_button button">다음</button>
     </form>
-    <form v-if="step==1" class="login" autocomplete="off" onsubmit="loginBoxView.step2();return false;">
-        <input type="password" class="input_text member_pw" placeholder="비밀번호" required autofocus>
+    <form v-if="step==1" class="login" autocomplete="off" onsubmit="loginBoxView.step2(event)">
+        <input name="member_pw" type="password" class="input_text" placeholder="비밀번호" required autofocus>
         <div class="bottom_box">
             <a onClick="popupOpen($('.sign_up_box'));">회원가입</a>
             <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
@@ -25,7 +25,7 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
     <h2>회원가입</h2>
-    <form class="sign_up" autocomplete="off" onsubmit="signUp();return false;">
+    <form class="sign_up" autocomplete="off" onsubmit="signUp();event.preventDefault()">
         <input type="text" class="input_text member_id" placeholder="아이디" required autofocus>
         <input type="password" class="input_text member_pw" placeholder="비밀번호" required>
         <input type="password" class="input_text member_pw_check" placeholder="비밀번호 재입력" required>
@@ -40,7 +40,7 @@
 <div class="pw_reset_box popup center">
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <h2>비밀번호 재설정</h2>
-    <form class="pw_reset" autocomplete="off" onsubmit="account.pwEdit($('.pw_reset_box .member_pw').value, $('.pw_reset_box .member_pw_check').value);return false;">
+    <form class="pw_reset" autocomplete="off" onsubmit="account.pwEdit($('.pw_reset_box .member_pw').value, $('.pw_reset_box .member_pw_check').value);event.preventDefault()">
         <input type="password" class="input_text member_pw" placeholder="재설정할 비밀번호" required>
         <input type="password" class="input_text member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
         <button type="submit" class="main_button button">비밀번호 재설정</button>
@@ -50,7 +50,7 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <h2>비밀번호 복구</h2>
     <p>학교 이메일계정으로 복구 링크가 전송됩니다</p>
-    <form class="pw_reset_mail" autocomplete="off" onsubmit="pwResetMail();return false;">
+    <form class="pw_reset_mail" autocomplete="off" onsubmit="pwResetMail();event.preventDefault()">
         <input type="text" class="input_text member_id" placeholder="복구할 아이디" required>
         <button type="submit" class="main_button button">복구 메일전송</button>
     </form>
@@ -59,7 +59,7 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <h2>인증코드 발급</h2>
     <p>인증코드는 학교 이메일계정으로 보내드립니다.</p>
-    <form class="valid_code" autocomplete="off" onsubmit="validCode();return false;">
+    <form class="valid_code" autocomplete="off" onsubmit="validCode();event.preventDefault()">
         <input type="number" class="input_text year studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
         <input type="number" class="input_text studentGrade" placeholder="학년" min="1" max="3" required>
         <input type="number" class="input_text studentClass" placeholder="반" min="1" max="4" required>
@@ -73,7 +73,7 @@
     <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
     <h2>ID 찾기</h2>
     <p>학교 이메일계정으로 복구 메일이 전송됩니다.</p>
-    <form class="valid_code" autocomplete="off" onsubmit="findIdMail();return false;">
+    <form class="valid_code" autocomplete="off" onsubmit="findIdMail();event.preventDefault()">
         <input type="number" class="input_text year studentEnrolled" placeholder="입학년도" min="2021" max="2099" required>  
         <input type="number" class="input_text studentGrade" placeholder="학년" min="1" max="3" required>
         <input type="number" class="input_text studentClass" placeholder="반" min="1" max="4" required>

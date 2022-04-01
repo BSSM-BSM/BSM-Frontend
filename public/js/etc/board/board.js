@@ -41,7 +41,7 @@ const boardChange = (changeBoard) => {
     }
     boardView.boardType = boardTitle.boardType;
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
-    $('.post').classList.add('hide');
+    postWindowClose();
     if (page>1) boardPageChange(1);
     else boardRefresh();
 }
@@ -82,13 +82,6 @@ const boardRefresh = () => {
     ajax({
         method:'get',
         url:`/board/${boardType}?page=${page}&limit=${limit}`,
-        payload:{
-            member_id:$('.sign_up .member_id').value,
-            member_pw:$('.sign_up .member_pw').value,
-            member_pw_check:$('.sign_up .member_pw_check').value,
-            member_nickname:$('.sign_up .member_nickname').value,
-            code:$('.sign_up .code').value,
-        },
         error:() => {
             boardView.posts.splice(0);
             boardMenu.pages = 0;
@@ -117,23 +110,19 @@ const boardRefresh = () => {
             if (boardData == null) {
                 return;
             }
-            for (let i=0; i<boardData.length; i++) {
-                if (boardData[i].postDate.split(' ')[0].replaceAll("-","")==today)
-                    boardData[i].postDate = boardData[i].postDate.split(' ')[1];
-                else
-                    boardData[i].postDate = boardData[i].postDate.split(' ')[0];
-                boardView.posts.push({
-                    memberCode:boardData[i].memberCode,
-                    memberNickname:boardData[i].memberNickname,
-                    boardType:boardData[i].boardType,
-                    postNo:boardData[i].postNo,
-                    postTitle:boardData[i].postTitle,
-                    postDate:boardData[i].postDate,
-                    postHit:boardData[i].postHit,
-                    postComments:boardData[i].postComments,
-                    postLike:boardData[i].postLike,
-                })
-            }
+            boardView.posts = boardData.map(e => {
+                return {
+                    memberCode: e.memberCode,
+                    memberNickname: e.memberNickname,
+                    boardType: e.boardType,
+                    postNo: e.postNo,
+                    postTitle: e.postTitle,
+                    postDate: e.postDate.split(' ')[0].replaceAll("-","")==today? e.postDate.split(' ')[1]: e.postDate.split(' ')[0],
+                    postHit: e.postHit,
+                    postComments: e.postComments,
+                    postLike: e.postLike,
+                }
+            });
         }
     })
 }

@@ -15,13 +15,20 @@ const loginBoxView = new Vue({
             this.msg='로그인';
             this.id='';
         },
-        step1:function () {
+        step1:function (event) {
+            event.preventDefault();
             this.step=1;
             this.msg=`${this.id}(으)로 계속`;
         },
-        step2:function () {
+        step2:function (event) {
+            event.preventDefault();
+            console.log(event)
+            if (event.target?.member_pw?.value === undefined) {
+                showAlert("알 수 없는 에러가 발생하였습니다");
+                return;
+            }
             this.msg=`인증 중...`;
-            account.login(this.id, $('.login_box .member_pw').value);
+            account.login(this.id, event.target.member_pw.value);
         }
     },
 })

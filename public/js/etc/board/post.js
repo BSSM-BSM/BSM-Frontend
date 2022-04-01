@@ -1,31 +1,41 @@
 let postNo = window.location.pathname.split('/')[3];
+
 const boardPostChange = (changePostMo) => {
-    postNo=changePostMo;
+    if (postNo == changePostMo) {
+        postWindowOpen();
+        return;
+    }
+    postNo = changePostMo;
     history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
     postRefresh();
 }
+
 const postView = new Vue({
     el:'.post',
     data:{
-        permission:false,
-        memberCode:0,
-        postTitle:'',
-        postDate:'',
-        postHit:'',
-        postComments:'',
-        memberNickname:'',
-        postContent:'',
-        postLike:0,
-        like:0,
-        commentTree:[],
-        commentFocus:0,
+        post:{
+            permission:false,
+            memberCode:0,
+            postTitle:'',
+            postDate:'',
+            postHit:'',
+            postComments:'',
+            memberNickname:'',
+            postContent:'',
+            postLike:0,
+            like:0,
+        },
+        comment:{
+            comments:[],
+            commentFocus:0
+        }
     },
     methods:{
         isParent:function () {
             return this.item.child && this.item.child.length;
         },
         focusComment:function (focus) {
-            this.commentFocus=focus;
+            this.commentFocus = focus;
         },
     },
     updated() {
@@ -42,6 +52,19 @@ const postView = new Vue({
         })
     }
 })
+
+const postWindowOpen = () => {
+    $('.post').classList.remove('hide');
+    $('body').classList.add('no_scroll');
+    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
+}
+
+const postWindowClose = () => {
+    $('.post').classList.add('hide');
+    $('body').classList.remove('no_scroll');
+    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+}
+
 const postRefresh = () => {
     progress(20);
     ajax({
@@ -49,23 +72,24 @@ const postRefresh = () => {
         url:`/post/${boardType}/${postNo}`,
         success:(data) => {
             $('.post').classList.remove('hide');
+            $('body').classList.add('no_scroll');
             $('html').scrollTop = 0;
             const post = data.post;
-            postView.permission = post.permission;
-            postView.memberCode = post.memberCode;
-            postView.postTitle = post.postTitle;
-            postView.postDate = post.postDate;
-            postView.postHit = post.postHit;
-            postView.postComments = post.postComments;
-            postView.memberNickname = post.memberNickname;
-            postView.postContent = post.postContent;
-            postView.like = post.like;
-            postView.postLike = post.postLike;
+            postView.post.permission = post.permission;
+            postView.post.memberCode = post.memberCode;
+            postView.post.postTitle = post.postTitle;
+            postView.post.postDate = post.postDate;
+            postView.post.postHit = post.postHit;
+            postView.post.postComments = post.postComments;
+            postView.post.memberNickname = post.memberNickname;
+            postView.post.postContent = post.postContent;
+            postView.post.like = post.like;
+            postView.post.postLike = post.postLike;
             window.setTimeout(() => {
                 // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
                 // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
                 $$('.note-video-clip').forEach(e => {
-                    e.outerHTML=`<div class="video-container">${e.outerHTML}</div>`;
+                    e.outerHTML = `<div class="video-container">${e.outerHTML}</div>`;
                 });
             },1);
             progress(50);
@@ -73,6 +97,7 @@ const postRefresh = () => {
         }
     })
 }
+
 const postDelete = () => {
     if (!confirm('게시글을 삭제하시겠습니까?')) {
         return;
@@ -81,10 +106,11 @@ const postDelete = () => {
         method:'delete',
         url:`/post/${boardType}/${postNo}`,
         success:() => {
-            window.location.href=`/board/${boardType}`;
+            window.location.href = `/board/${boardType}`;
         }
     })
 }
+
 const likeSend = (like) => {
     ajax({
         method:'post',
@@ -93,8 +119,8 @@ const likeSend = (like) => {
             like:like
         },
         success:(data) => {
-            postView.like=data.like;
-            postView.postLike=data.postLike;
+            postView.post.like = data.like;
+            postView.post.postLike = data.postLike;
         }
     })
 }
@@ -106,7 +132,7 @@ Vue.component('tree-item', {
     },
     methods:{
         focusComment:function (focus) {
-            postView.commentFocus=focus;
+            postView.post.commentFocus = focus;
         }
     },
     computed:{
@@ -122,8 +148,8 @@ const commentRefresh = () => {
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
         success:(data) => {
-            postView.commentTree = data.comments;
-            postView.commentFocus = 0;
+            postView.comment.comments = data.comments;
+            postView.comment.commentFocus = 0;
         }
     })
 }
@@ -161,6 +187,7 @@ const commentWrite = (depth, parentIdx) => {
         }
     })
 }
+
 const editorNewline = () => {
     /*
     브라우저에서 contenteditable 속성이 다음줄을 만들면 \n문자를 집어넣어서 개행처리를 하지않고
