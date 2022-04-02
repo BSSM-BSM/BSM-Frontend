@@ -27,6 +27,7 @@
     background-color:var(--hover) !important;
 }
 .result.point > .bad{
+    color:var(--accent-text) !important;
     background-color:var(--red) !important;
 }
 .result.point > li > div{

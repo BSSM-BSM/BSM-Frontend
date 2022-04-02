@@ -1,10 +1,24 @@
 @charset "utf-8";
-body{
-  background-image: url('/resource/index/images/main.webp');
-  background-position: center center;
-  background-repeat:  no-repeat;
-  background-attachment: fixed;
-  background-size:  cover;
+#background_rainbow{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-100;
+  background:radial-gradient(ellipse at bottom left, #50dc6fdd 10%, #00d6bacc 20%, #0390e2aa 45% ,var(--background) 80%, var(--background) 100%);
+  animation:rainbow 15000ms infinite;
+}
+@keyframes rainbow{
+  0%{
+    filter:none;
+  }
+  50%{
+    filter:hue-rotate(180deg);
+  }
+  100%{
+    filter:none;
+  }
 }
 .container{
   max-width:150rem;
@@ -60,9 +74,6 @@ body{
   font-size:2.2rem;
 }
 @media screen and (min-width:0px) and (max-width:720px){
-  #quick_menu{
-    padding-top:10rem;
-  }
   #quick_menu_list{
     grid-template-columns:1fr;
     row-gap:1rem;

@@ -9,7 +9,7 @@
             <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
             <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
         </div>
-        <button type="submit" class="main_button button">다음</button>
+        <button type="submit" class="button main_button accent">다음</button>
     </form>
     <form v-if="step==1" class="login" autocomplete="off" onsubmit="loginBoxView.step2(event)">
         <input name="member_pw" type="password" class="input_text" placeholder="비밀번호" required autofocus>
@@ -18,7 +18,7 @@
             <a onClick="popupOpen($('.pw_reset_mail_box'));">비밀번호 복구</a>
             <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
         </div>
-        <button type="submit" class="main_button button">로그인</button>
+        <button type="submit" class="button main_button accent">로그인</button>
     </form>
 </div>
 <div class="sign_up_box popup center">
@@ -34,7 +34,7 @@
         <div class="bottom_box">
             <a onClick="popupOpen($('.valid_code_box'))">인증코드 발급</a>
         </div>
-        <button type="submit" class="main_button button">가입하기</button>
+        <button type="submit" class="button main_button accent">가입하기</button>
     </form>
 </div>
 <div class="pw_reset_box popup center">
@@ -43,7 +43,7 @@
     <form class="pw_reset" autocomplete="off" onsubmit="account.pwEdit($('.pw_reset_box .member_pw').value, $('.pw_reset_box .member_pw_check').value);event.preventDefault()">
         <input type="password" class="input_text member_pw" placeholder="재설정할 비밀번호" required>
         <input type="password" class="input_text member_pw_check" placeholder="재설정할 비밀번호 재입력" required>
-        <button type="submit" class="main_button button">비밀번호 재설정</button>
+        <button type="submit" class="button main_button accent">비밀번호 재설정</button>
     </form>
 </div>
 <div class="pw_reset_mail_box popup center">
@@ -52,7 +52,7 @@
     <p>학교 이메일계정으로 복구 링크가 전송됩니다</p>
     <form class="pw_reset_mail" autocomplete="off" onsubmit="pwResetMail();event.preventDefault()">
         <input type="text" class="input_text member_id" placeholder="복구할 아이디" required>
-        <button type="submit" class="main_button button">복구 메일전송</button>
+        <button type="submit" class="button main_button accent">복구 메일전송</button>
     </form>
 </div>
 <div class="valid_code_box popup center">
@@ -66,7 +66,7 @@
         <input type="number" class="input_text studentNo" placeholder="번호" min="1" max="16" required>
         <br>
         <input type="text" class="input_text studentName" placeholder="이름" required>
-        <button type="submit" class="main_button button">인증코드 발급</button>
+        <button type="submit" class="button main_button accent">인증코드 발급</button>
     </form>
 </div>
 <div id="find_id_box" class="popup center">
@@ -80,7 +80,7 @@
         <input type="number" class="input_text studentNo" placeholder="번호" min="1" max="16" required>
         <br>
         <input type="text" class="input_text studentName" placeholder="이름" required>
-        <button type="submit" class="main_button button">ID 복구 메일전송</button>
+        <button type="submit" class="button main_button accent">ID 복구 메일전송</button>
     </form>
 </div>
 <script src="/js/account.js"></script>

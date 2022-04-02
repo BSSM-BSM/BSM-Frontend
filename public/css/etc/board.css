@@ -163,7 +163,7 @@
   position:fixed;
   top:0;
   right:0;
-  z-index:1;
+  z-index:10;
   padding-top:5rem;
   background-color:var(--background);
   transition:right .4s;
@@ -332,19 +332,19 @@
   padding:0rem 5rem;
 }
 .pages{
-  box-shadow:var(--shadow);
   border-radius:1rem;
   overflow:hidden;
 }
 .pages *{
-  width:auto; color:var(--white);
+  width:auto;
+  color:var(--text);
   font-weight:bold;
   padding:1.5rem 2rem;
   text-align:center;
   display:inline-block;
   font-size:1.5rem;
   cursor:pointer;
-  background-color:var(--main);
+  background-color:var(--level-2);
   transition:.25s;
 }
 .pages *.active{

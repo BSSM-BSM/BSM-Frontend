@@ -18,7 +18,8 @@
         <div class="container">
             <p>아직 준비중인 페이지 입니다.</p>
             <br>
-            <button class="button" onclick="popupOpen($('.emoticon_upload_box'))">이모티콘 업로드</button>
+            <button class="button accent" onclick="popupOpen($('.emoticon_upload_box'))">이모티콘 업로드</button>
+            <br><br>
             <p>이모티콘 업로드는 할 수 있어요.</p>
         </div>
     </main>
@@ -41,7 +42,7 @@
             </span>
             <div class="emoticon_box emoticon_files">
                 <span v-for="(e, i) in emoticons" class="input_file emoticon_file">
-                    <label v-if="mode=='remove'" class="upload_emoticon red_button" @click="remove(i)"><span>삭제<br>{{i+1}}</span></label>
+                    <label v-if="mode=='remove'" class="upload_emoticon delete" @click="remove(i)"><span>삭제<br>{{i+1}}</span></label>
                     <label v-if="mode=='upload'" :for="`emoticon_${i}`" class="upload_emoticon"><span v-if="!e.imgSrc">업로드<br>{{i+1}}</span><img v-if="e.imgSrc" :src="e.imgSrc" :alt="i" class="emoticon"></label>
                     <input type="file" name="file" :id="`emoticon_${i}`" accept=".png, .jpg, .jpeg, .gif, .webp" required :onchange="`emoticonFilesView.change(${i}, this)`">
                 </span>
@@ -53,7 +54,7 @@
                 </span>
             </div>
             <br>
-            <button type="submit" class="button main_button full">이모티콘 업로드</button>
+            <button type="submit" class="button main_button full accent">이모티콘 업로드</button>
         </form>
     </div>
     <script>

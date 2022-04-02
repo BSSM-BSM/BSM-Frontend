@@ -108,7 +108,7 @@
                 <textarea name="post_content" placeholder="내용" id="summernote" class="input_text" style="width:100%;" required></textarea>
                 <br><br>
                 <a href="/board/<%= boardType %>" class="button"><% switch(boardType){ case 'board': %>자유게시판<% break; case 'anonymous': %>익명게시판<% break; } %></a>
-                <input type="submit" value="글작성" class="button">
+                <input type="submit" value="글작성" class="button accent">
             </form>
             <% if(postNo==null){ %>
                 <script>

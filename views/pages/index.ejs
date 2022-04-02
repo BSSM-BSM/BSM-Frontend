@@ -22,6 +22,7 @@
 </head>
 <body>
     <%- include('../common/common') %>
+    <div id="background_rainbow"></div>
     <main>
         <section id="quick_menu">
             <ul id="quick_menu_list">
@@ -83,7 +84,7 @@
             <img src="/icons/icon-512x512.png" alt="로고" class="main_logo">
             <h1 class="main">아주 환상적인 학교 지원 서비스</h1>
             <br>
-            <a href="#download" class="button blue_button">BSM앱 다운로드</a>
+            <a href="#download" class="button accent">BSM앱 다운로드</a>
             <br><br><br><br>
             <div class="section_wrap">
                 <section>
@@ -171,7 +172,7 @@
                     <h4>다운로드</h4>
                     <br><br>
                     <div class="download_button_wrap">
-                        <a class="webapp_install_button download_button button" onclick="
+                        <a class="download_button button accent" onclick="
                             if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
                                 showAlert('설치할 수 없는 브라우저입니다.');
                             }else{
@@ -190,7 +191,7 @@
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.4.0.4</p>
+                                <p>Ver. 1.4.0.5</p>
                             </div>
                         </a>
                     </div>

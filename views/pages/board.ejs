@@ -10,7 +10,7 @@
 <body>
     <%- include('../common/common') %>
     <main>
-        <div class="post hide">
+        <div class="post hide scroll_bar">
             <div id="close-post" onclick="postWindowClose()">
                 <span> < </span>
                 <span> < </span>
@@ -70,14 +70,14 @@
                     </div>
                     <br>
                     <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
-                    <input type="submit" name="" value="댓글작성" class="button">
+                    <input type="submit" name="" value="댓글작성" class="button accent">
                 </form>
                 <div class="post_menu">
                     <span class="post_delete">
-                        <div class="button red_button" onclick="postDelete();" v-if="post.permission">글 삭제</div>
+                        <div class="button delete" onclick="postDelete();" v-if="post.permission">글 삭제</div>
                     </span>
                     <span class="post_modify">
-                        <a class="button blue_button" :href="`/board/write/${boardType}/${postNo}`" v-if="post.permission">게시글 수정</a>
+                        <a class="button accent" :href="`/board/write/${boardType}/${postNo}`" v-if="post.permission">게시글 수정</a>
                     </span>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                             <button onClick="boardRefresh();" class="button">글 새로고침</button>
                         </div>
                         <div class="board_menu_item post_write_button">
-                            <a :href="writeUrl" class="button" v-bind:class="{none_active:!isLogin}">글쓰기</a>
+                            <a :href="writeUrl" class="button accent" v-bind:class="{inactive:!isLogin}">글쓰기</a>
                         </div>
                     </div>
                 </div>

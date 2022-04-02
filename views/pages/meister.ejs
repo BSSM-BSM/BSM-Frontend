@@ -32,11 +32,11 @@
                         <input type="number" class="input_text ban" placeholder="반" min="1" max="4" required>
                         <input type="number" class="input_text bun" placeholder="번호" min="1" max="16" required>
                         <div v-if="viewCase=='point'">
-                            <input :class="{none_active:defaultPW}" type="password" class="input_text pw" placeholder="마이스터 인증제 사이트 비밀번호" :required="!defaultPW">
+                            <input :class="{inactive:defaultPW}" type="password" class="input_text pw" placeholder="마이스터 인증제 사이트 비밀번호" :required="!defaultPW">
                             <br>
                             <label for="checkDefaultPW">
                                 <input id="checkDefaultPW" type="checkbox" v-model="defaultPW">
-                                기본 비밀번호 적용
+                                비밀번호 사용 안함
                             </label>
                         </div>
                         <br><br>
@@ -47,7 +47,7 @@
                                 <li class="option" onclick="$('.select_grade .select').innerText=this.innerText;meisterView.viewCase='point'">상벌점 점수</li>
                             </ul>
                         </span>
-                        <button type="submit" class="button">조회</button>
+                        <button type="submit" class="button accent">조회</button>
                     </form>
                     <div class="result point" v-show="viewCase=='point'"></div>
                     <div class="result score" v-show="viewCase=='score'"></div>
