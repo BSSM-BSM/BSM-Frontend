@@ -57,12 +57,17 @@ const postWindowOpen = () => {
     $('.post').classList.remove('hide');
     $('body').classList.add('no_scroll');
     history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
+    allMenuBtn.el.classList.add('go_back');
+    allMenuBtn.setAction(() => {
+        postWindowClose();
+    });
 }
 
 const postWindowClose = () => {
     $('.post').classList.add('hide');
     $('body').classList.remove('no_scroll');
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+    allMenuBtn.setDefault();
 }
 
 const postRefresh = () => {
@@ -71,9 +76,8 @@ const postRefresh = () => {
         method:'get',
         url:`/post/${boardType}/${postNo}`,
         success:(data) => {
-            $('.post').classList.remove('hide');
-            $('body').classList.add('no_scroll');
-            $('html').scrollTop = 0;
+            postWindowOpen();
+            $('.post').scrollTop = 0;
             const post = data.post;
             postView.post.permission = post.permission;
             postView.post.memberCode = post.memberCode;

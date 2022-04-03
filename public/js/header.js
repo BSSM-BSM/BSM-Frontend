@@ -44,3 +44,23 @@ const menuAccountView = $('#quick_menu_list .user')? new Vue({
         user,
     }
 }): undefined;
+
+const allMenuBtn = {
+    el: $('#all_menu'),
+    setAction(callback) {
+        this.el.onclick = (event) => {
+            try {
+                callback(event);
+            } catch (err) {
+                showAlert('알 수 없는 에러가 발생하였습니다');
+            }
+        }
+    },
+    setDefault() {
+        this.el.onclick = () => {
+            $('.side_menu').classList.add('on');
+        }
+        this.el.classList = 'top_menu_item';
+    }
+}
+allMenuBtn.setDefault();
