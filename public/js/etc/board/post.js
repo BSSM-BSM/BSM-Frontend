@@ -27,7 +27,7 @@ const postView = new Vue({
         },
         comment:{
             comments:[],
-            commentFocus:0
+            focus:0
         }
     },
     methods:{
@@ -35,7 +35,7 @@ const postView = new Vue({
             return this.item.child && this.item.child.length;
         },
         focusComment:function (focus) {
-            this.commentFocus = focus;
+            this.comment.focus = focus;
         },
     },
     updated() {
@@ -48,7 +48,7 @@ const postView = new Vue({
                 e.classList.add('emoticon');
                 e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
             });
-            editor = $(`.comment_write.write_${this.commentFocus} .write`);
+            editor = $(`.comment_write.write_${this.comment.focus} .write`);
         })
     }
 })
@@ -136,7 +136,7 @@ Vue.component('tree-item', {
     },
     methods:{
         focusComment:function (focus) {
-            postView.post.commentFocus = focus;
+            postView.comment.focus = focus;
         }
     },
     computed:{
@@ -153,7 +153,7 @@ const commentRefresh = () => {
         url:`/comment/${boardType}/${postNo}`,
         success:(data) => {
             postView.comment.comments = data.comments;
-            postView.comment.commentFocus = 0;
+            postView.comment.focus = 0;
         }
     })
 }

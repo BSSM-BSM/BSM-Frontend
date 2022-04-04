@@ -124,28 +124,28 @@
   align-items:center;
   position:fixed;
   top:0;
-  left:-8.5rem;
+  left:-6.5rem;
   z-index:101;
-  width:10rem;
+  width:7.5rem;
   height:100%;
   transition:left .25s;
-  background-color:var(--hover);
+  background-color:var(--level-1);
   cursor:pointer;
 }
 .post.hide #close-post{
-  left:-10rem;
+  left:-7.5rem;
 }
 #close-post:hover{
   left:0;
 }
 #close-post span:first-child{
-  font-size:5rem;
+  font-size:2.5rem;
   font-weight:bold;
 }
 #close-post span:last-child{
   position:absolute;
-  left:11rem;
-  font-size:4rem;
+  left:8.5rem;
+  font-size:2rem;
   font-weight:bold;
   color:var(--text-level-1);
   transition:.25s;

@@ -12,8 +12,8 @@
     <main>
         <div class="post hide scroll_bar">
             <div id="close-post" onclick="postWindowClose()">
-                <span> < </span>
-                <span> < </span>
+                <span> ◀ </span>
+                <span> ◀ </span>
             </div>
             <div class="container">
                 <div class="post_wrap">
@@ -53,7 +53,7 @@
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
                         <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
-                        <form v-if="comment.commentFocus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
+                        <form v-if="comment.focus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <div class="write_wrap">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                                 <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
@@ -129,7 +129,7 @@
                 <div class="board_bottom_menu">
                     <div class="top">
                         <div class="board_menu_item pages">
-                            <div :onClick="'boardPageChange('+page+');'" v-for="page in pages" :class="{active:page==activePage}">{{page}}</div>
+                            <div :onClick="`boardPageChange(${page})`" v-for="page in pages" :class="{active:page==activePage}">{{page}}</div>
                         </div>
                     </div>
                     <div class="bottom">
@@ -161,7 +161,7 @@
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
                         <tree-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></tree-item>
-                        <form v-if="`${postView.commentFocus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
+                        <form v-if="`${postView.comment.focus}`==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <div class="write_wrap">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                                 <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
