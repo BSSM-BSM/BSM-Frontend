@@ -1,11 +1,12 @@
 let postNo = window.location.pathname.split('/')[3];
 
 const boardPostChange = (changePostMo) => {
-    if (postNo == changePostMo) {
+    if (postNo == changePostMo && lastBoardType == boardType) {
         postWindowOpen();
         return;
     }
     postNo = changePostMo;
+    lastBoardType = boardType;
     history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
     postRefresh();
 }
@@ -61,6 +62,7 @@ const postWindowOpen = () => {
     allMenuBtn.setAction(() => {
         postWindowClose();
     });
+    $('header').classList.add('on');
 }
 
 const postWindowClose = () => {
@@ -68,6 +70,7 @@ const postWindowClose = () => {
     $('body').classList.remove('no_scroll');
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
     allMenuBtn.setDefault();
+    $('header').classList.remove('on');
 }
 
 const postRefresh = () => {

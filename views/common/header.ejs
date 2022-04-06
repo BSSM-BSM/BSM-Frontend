@@ -13,19 +13,27 @@
                 <span class="top_menu_item dropdown_menu">
                     <span class="menu_item">학교</span>
                     <ul class="dropdown_content">
+                        <li><a href="/meal" class="option">급식</a></li>
                         <li><a href="/timetable" class="option">시간표</a></li>
-                        <li><a href="/meister" class="option">마이스터 인증제</a></li>
+                        <li><a href="/meister" class="option">인증제 / 상벌점</a></li>
                         <li><a href="https://school.busanedu.net/bssm-h/main.do" class="option">학교 홈페이지</a></li>
                     </ul>
                 </span>
-                <span class="top_menu_item"><a href="/meal" class="menu_item">급식</a></span>
                 <span class="top_menu_item dropdown_menu">
-                    <span class="menu_item">커뮤니티</span>
+                    <span class="menu_item">일반게시판</span>
                     <ul class="dropdown_content">
-                        <li><a href="/board/board" class="option">자유게시판</a></li>
-                        <li><a href="/board/anonymous" class="option">익명게시판</a></li>
-                        <li><a href="/board/notice" class="option">공지사항</a></li>
+                        <li><a href="/board/board" class="option menu_community_link" data-boardtype="board">자유게시판</a></li>
+                        <li><a href="/board/anonymous" class="option menu_community_link" data-boardtype="anonymous">익명게시판</a></li>
+                        <li><a href="/board/notice" class="option menu_community_link" data-boardtype="notice">공지사항</a></li>
                         <li><a href="/emoticon" class="option">이모티콘</a></li>
+                    </ul>
+                </span>
+                <span class="top_menu_item dropdown_menu">
+                    <span class="menu_item">전공게시판</span>
+                    <ul class="dropdown_content">
+                        <li><a href="/board/software" class="option menu_community_link" data-boardtype="software">소프트웨어</a></li>
+                        <li><a href="/board/embedded" class="option menu_community_link" data-boardtype="embedded">임베디드</a></li>
+                        <li><a href="/board/qna" class="option menu_community_link" data-boardtype="qna">질문게시판</a></li>
                     </ul>
                 </span>
                 <span class="top_menu_item"><a href="https://drive.bssm.kro.kr" class="menu_item">BSM Cloud</a></span>
@@ -48,24 +56,38 @@
             </div>
         </div>
         <div class="notice_bar">
+            <a href="/board/notice/11" class="notice">소프트웨어와 임베디드 게시판이 생겼습니다</a>
         </div>
     </nav>
     <div class="side_menu">
         <div class="popup_close_button x_button" onClick="$('.side_menu').classList.remove('on')"></div>
         <div class="background" onClick="$('.side_menu').classList.remove('on')"></div>
-        <ul>
-            <li class="home"><a href="/" class="logo"><img src="/icons/logo.png" alt="로고"></a></li>
-            <li class="page"><a href="/timetable">시간표</a></li>
-            <li class="page"><a href="/meal">급식</a></li>
-            <li class="page"><a href="/meister">마이스터 인증제</a></li>
-            <li class="page"><a href="/board/board">자유게시판</a></li>
-            <li class="page"><a href="/board/anonymous">익명게시판</a></li>
-            <li class="page"><a href="/board/notice">공지사항</a></li>
-            <li class="page"><a href="/emoticon">이모티콘</a></li>
-            <li class="page"><a href="https://drive.bssm.kro.kr/">BSM Cloud</a></li>
-            <li class="page"><a href="https://school.busanedu.net/bssm-h/main.do">학교 홈페이지</a></li>
-            <li class="page"><a href="https://github.com/leehj050211/BSM-Frontend">깃허브</a></li>
-        </ul>
+        <div class="menus">
+            <span class="side_menu_item home"><a href="/" class="logo menu_item"><img src="/icons/logo.png" alt="로고"></a></span>
+            <span class="side_menu_item"><a href="/timetable" class="menu_item">시간표</a></span>
+            <span class="side_menu_item"><a href="/meal" class="menu_item">급식</a></span>
+            <span class="side_menu_item"><a href="/meister" class="menu_item">인증제 / 상벌점</a></span>
+            <span class="side_menu_item dropdown_menu">
+                <span class="menu_item">일반게시판</span>
+                <ul class="dropdown_content">
+                    <li><a href="/board/board" class="option menu_community_link" data-boardtype="board">자유게시판</a></li>
+                    <li><a href="/board/anonymous" class="option menu_community_link" data-boardtype="anonymous">익명게시판</a></li>
+                    <li><a href="/board/notice" class="option menu_community_link" data-boardtype="notice">공지사항</a></li>
+                </ul>
+            </span>
+            <span class="side_menu_item dropdown_menu">
+                <span class="menu_item">전공게시판</span>
+                <ul class="dropdown_content">
+                    <li><a href="/board/software" class="option menu_community_link" data-boardtype="software">소프트웨어</a></li>
+                    <li><a href="/board/embedded" class="option menu_community_link" data-boardtype="embedded">임베디드</a></li>
+                    <li><a href="/board/qna" class="option menu_community_link" data-boardtype="qna">질문게시판</a></li>
+                </ul>
+            </span>
+            <span class="side_menu_item"><a href="/emoticon" class="menu_item">이모티콘</a></span>
+            <span class="side_menu_item"><a href="https://drive.bssm.kro.kr/" class="menu_item">BSM Cloud</a></span>
+            <span class="side_menu_item"><a href="https://school.busanedu.net/bssm-h/main.do" class="menu_item">학교 홈페이지</a></span>
+            <span class="side_menu_item"><a href="https://github.com/leehj050211/BSM-Frontend" class="menu_item">깃허브</a></span>
+        </div>
     </div>
 </header>
 <script src="/js/header.js"></script>

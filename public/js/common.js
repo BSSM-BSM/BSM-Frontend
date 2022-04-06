@@ -139,23 +139,24 @@ const popupClose = (element) => {
 let progressBar, progressBarFlag=0;
 const progress = per => {
     if (progressBar.style.left=="0%") {
-        if (per<100) {
+        if (per < 100) {
             progressBarFlag+=1;
             progressBar.style.left='-100%';
             progressBar.classList.add('on');
             window.setTimeout(()=>{
                 progressBar.style.left=`${per-100}%`;
-            }, 1)
+            }, 1);
         }
     } else {
-        if (per>=100) {
+        if (per >= 100) {
             window.setTimeout(()=>{
-                if (progressBarFlag-1==0) {
+                if (progressBarFlag-1 == 0) {
                     progressBar.classList.add('remove');
                 }
                 window.setTimeout(()=>{
                     progressBarFlag-=1;
                     if (progressBarFlag<1) {
+                        progressBarFlag = 0;
                         progressBar.classList.remove('on');
                         progressBar.classList.remove('remove');
                     }
@@ -266,6 +267,9 @@ const ajax = async ({method, url, payload, success, error}) => {
                     showAlert('로그인 후 이용 가능 합니다.');
                 }
                 showLoginBox();
+                break;
+            case 403:
+                showAlert(`에러코드: 403 권한이 없습니다.`);
                 break;
             default:
                 showAlert(`에러코드: ${err.response.data.statusCode} ${err.response.data.message}`);

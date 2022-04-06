@@ -1,4 +1,5 @@
 let boardType = window.location.pathname.split('/')[2];
+let lastBoardType = '';
 let page = new URLSearchParams(location.search).get("page");
 let limit = new URLSearchParams(location.search).get("limit");
 if (limit == null) {
@@ -15,37 +16,16 @@ const boardTitle = new Vue({
         subBoardType:''
     }
 })
+
+
 const boardChange = (changeBoard) => {
-    switch (changeBoard) {
-        case 'board':
-            boardType='board';
-            boardTitle.boardType='board';
-            boardTitle.boardName='자유게시판';
-            boardTitle.subBoardType='anonymous';
-            boardTitle.subBoardName='익명게시판';
-            break;
-        case 'anonymous':
-            boardType='anonymous';
-            boardTitle.boardType='anonymous';
-            boardTitle.boardName='익명게시판';
-            boardTitle.subBoardType='board';
-            boardTitle.subBoardName='자유게시판';
-            break;
-        case 'notice':
-            boardType='notice';
-            boardTitle.boardType='notice';
-            boardTitle.boardName='공지사항';
-            boardTitle.subBoardType='';
-            boardTitle.subBoardName='';
-            break;
-    }
-    boardView.boardType = boardTitle.boardType;
+    boardType = changeBoard;
+    boardView.boardType = boardType;
     history.pushState(null, null, `/board/${boardType}${window.location.search}`);
     postWindowClose();
     if (page>1) boardPageChange(1);
     else boardRefresh();
 }
-
 const boardPageChange = (changePage) => {
     page = changePage;
     boardMenu.activePage = page;
@@ -61,6 +41,7 @@ const boardLimitChange = (changeLimit) => {
     history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
     boardRefresh();
 }
+
 const boardMenu = new Vue({
     el:'.board_bottom_menu',
     data:{
@@ -87,12 +68,19 @@ const boardRefresh = () => {
             boardMenu.pages = 0;
         },
         success:(data) => {
+            boardTitle.boardName = data.boardName;
+            boardTitle.boardType = boardType;
+            boardTitle.subBoardName = data.subBoard.boardName;
+            boardTitle.subBoardType = data.subBoard.boardType;
+
             if (user.isLogin) {
                 boardMenu.isLogin = true;
                 boardMenu.writeUrl = '/board/write/'+boardType;
             }
+
             boardMenu.activePage = page;
             boardMenu.pages = data.pages;
+
             const date = new Date();
             let today = ""+date.getFullYear();
             // 날짜 2자리수로 맞추기
@@ -126,30 +114,15 @@ const boardRefresh = () => {
         }
     })
 }
-switch (boardType) {
-    case 'board':
-        boardType='board';
-        boardTitle.boardType='board';
-        boardTitle.boardName='자유게시판';
-        boardTitle.subBoardType='anonymous';
-        boardTitle.subBoardName='익명게시판';
-        break;
-    case 'anonymous':
-        boardType='anonymous';
-        boardTitle.boardType='anonymous';
-        boardTitle.boardName='익명게시판';
-        boardTitle.subBoardType='board';
-        boardTitle.subBoardName='자유게시판';
-        break;
-    case 'notice':
-        boardType='notice';
-        boardTitle.boardType='notice';
-        boardTitle.boardName='공지사항';
-        boardTitle.subBoardType='';
-        boardTitle.subBoardName='';
-        break;
-}
+
 window.addEventListener('DOMContentLoaded', () => {
+    $$('.menu_community_link').forEach(e => {
+        e.onclick = (event) => {
+            event.preventDefault();
+            $('.side_menu').classList.remove('on');
+            boardChange(e.dataset.boardtype);
+        }
+    })
     if (postNo!=null)
         postRefresh();
     boardRefresh();
