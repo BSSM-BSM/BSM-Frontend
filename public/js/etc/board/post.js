@@ -1,16 +1,3 @@
-let postNo = window.location.pathname.split('/')[3];
-
-const boardPostChange = (changePostMo) => {
-    if (postNo == changePostMo && lastBoardType == boardType) {
-        postWindowOpen();
-        return;
-    }
-    postNo = changePostMo;
-    lastBoardType = boardType;
-    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
-    postRefresh();
-}
-
 const postView = new Vue({
     el:'.post',
     data:{
@@ -53,24 +40,52 @@ const postView = new Vue({
         })
     }
 })
+Vue.component('tree-item', {
+    template:'#comment_item_template',
+    props:{
+        item:Object
+    },
+    methods:{
+        focusComment:function (focus) {
+            postView.comment.focus = focus;
+        }
+    },
+    computed:{
+        isParent:function () {
+            return this.item.child && this.item.child.length
+        }
+    }
+})
 
-const postWindowOpen = () => {
+const boardPostChange = (changePostMo) => {
+    if (postNo == changePostMo && lastBoardType == boardType) {
+        postWindowOpen();
+        return;
+    }
+    postNo = changePostMo;
+    lastBoardType = boardType;
+    postRefresh();
+}
+
+const postWindowOpen = (changeUrlPath = true) => {
     $('.post').classList.remove('hide');
     $('body').classList.add('no_scroll');
-    history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
+    if (changeUrlPath) {
+        history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
+    }
     allMenuBtn.el.classList.add('go_back');
     allMenuBtn.setAction(() => {
         postWindowClose();
     });
-    $('header').classList.add('on');
 }
 
-const postWindowClose = () => {
+const postWindowClose = (changeUrlPath = true) => {
     $('.post').classList.add('hide');
     $('body').classList.remove('no_scroll');
-    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+    if (changeUrlPath) {
+        history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+    }
     allMenuBtn.setDefault();
-    $('header').classList.remove('on');
 }
 
 const postRefresh = () => {
@@ -131,23 +146,6 @@ const likeSend = (like) => {
         }
     })
 }
-
-Vue.component('tree-item', {
-    template:'#comment_item_template',
-    props:{
-        item:Object
-    },
-    methods:{
-        focusComment:function (focus) {
-            postView.comment.focus = focus;
-        }
-    },
-    computed:{
-        isParent:function () {
-            return this.item.child && this.item.child.length
-        }
-    }
-})
 
 const commentRefresh = () => {
     progress(50);

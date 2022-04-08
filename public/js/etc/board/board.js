@@ -1,12 +1,3 @@
-let boardType = window.location.pathname.split('/')[2];
-let lastBoardType = '';
-let page = new URLSearchParams(location.search).get("page");
-let limit = new URLSearchParams(location.search).get("limit");
-if (limit == null) {
-    limit = 15;
-}
-$('.board_limit .select').innerText = limit+"개";
-
 const boardTitle = new Vue({
     el:'.board_title',
     data:{
@@ -16,32 +7,6 @@ const boardTitle = new Vue({
         subBoardType:''
     }
 })
-
-
-const boardChange = (changeBoard) => {
-    boardType = changeBoard;
-    boardView.boardType = boardType;
-    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
-    postWindowClose();
-    if (page>1) boardPageChange(1);
-    else boardRefresh();
-}
-const boardPageChange = (changePage) => {
-    page = changePage;
-    boardMenu.activePage = page;
-    const urlSearch = new URLSearchParams(location.search);
-    urlSearch.set('page', String(changePage));
-    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
-    boardRefresh();
-}
-const boardLimitChange = (changeLimit) => {
-    limit = changeLimit;
-    const urlSearch = new URLSearchParams(location.search);
-    urlSearch.set('limit', String(changeLimit));
-    history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
-    boardRefresh();
-}
-
 const boardMenu = new Vue({
     el:'.board_bottom_menu',
     data:{
@@ -58,6 +23,37 @@ const boardView = new Vue({
         boardType
     }
 })
+
+const boardChange = (changeBoard) => {
+    boardType = changeBoard;
+    boardView.boardType = boardType;
+    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+    postWindowClose(false);
+    if (page>1) boardPageChange(1, false);
+    else boardRefresh();
+}
+
+const boardPageChange = (changePage, changeUrlPath = true) => {
+    page = changePage;
+    boardMenu.activePage = page;
+    const urlSearch = new URLSearchParams(location.search);
+    urlSearch.set('page', String(changePage));
+    if (changeUrlPath) {
+        history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
+    }
+    boardRefresh();
+}
+
+const boardLimitChange = (changeLimit, changeUrlPath = true) => {
+    limit = changeLimit;
+    const urlSearch = new URLSearchParams(location.search);
+    urlSearch.set('limit', String(changeLimit));
+    if (changeUrlPath) {
+        history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
+    }
+    boardRefresh();
+}
+
 const boardRefresh = () => {
     progress(20);
     ajax({
@@ -114,16 +110,3 @@ const boardRefresh = () => {
         }
     })
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    $$('.menu_community_link').forEach(e => {
-        e.onclick = (event) => {
-            event.preventDefault();
-            $('.side_menu').classList.remove('on');
-            boardChange(e.dataset.boardtype);
-        }
-    })
-    if (postNo!=null)
-        postRefresh();
-    boardRefresh();
-})

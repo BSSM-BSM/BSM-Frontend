@@ -118,6 +118,16 @@ body{
   transition:background-color .5s;
   padding-bottom:5rem;
 }
+@keyframes blocking_click{
+  0%{
+    pointer-events:none;
+  }
+  99%{
+  }
+  100%{
+    pointer-events:visible;
+  }
+}
 @font-face {
   font-family:'NotoSans';
   font-weight:normal;
@@ -245,7 +255,7 @@ span{
 .notice_bar .notice.red{
   background-color:var(--red);
 }
-header.on nav .notice_bar{
+:is(body.no_scroll, header.on) nav .notice_bar{
   animation:fadein 500ms ease;
   opacity:0;
   pointer-events:none;
@@ -265,7 +275,7 @@ header nav{
 header nav, header nav *{
   transition:.25s;
 }
-header.on nav .top_menu{
+:is(body.no_scroll, header.on) nav .top_menu{
   padding:0;
 }
 .top_menu span{
@@ -418,7 +428,7 @@ header.on nav .top_menu{
 }
 .side_menu .menus .dropdown_content {
   transform:translateY(1.5rem);
-  bottom:0;
+  bottom:100%;
 }
 .side_menu .menus .home{
   margin:1rem 0 3rem 0;
@@ -486,9 +496,10 @@ header.on nav .top_menu{
   cursor:pointer;
 }
 .dropdown_menu:hover .dropdown_content{
-  transform:translateY(0);
+  transform:translateY(0) !important;
   opacity:1;
-  pointer-events:unset;
+  animation:blocking_click 250ms ease;
+  animation-fill-mode: forwards;
 }
 .dropdown_menu > .select::after{
   content:' ▼';
