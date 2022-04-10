@@ -155,6 +155,33 @@
   opacity:0;
 }
 
+#post_tools{
+  position: fixed;
+  bottom: 2rem;
+  right: 5rem;
+  transition: .25s;
+}
+.post.hide #post_tools{
+  bottom: -100%;
+}
+#post_tools .icon{
+  width: 6rem;
+  height: 6rem;
+  transition: .25s;
+  border-radius: 50%;
+  background-color: var(--level-2);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  cursor: pointer;
+}
+#post_tools .icon object{
+  width: 100%;
+  height: 100%;
+}
+#post_tools .icon:hover{
+  background-color: var(--hover);
+}
+
 
 .post{
   width:100%;
@@ -376,6 +403,14 @@
   }
   #close-post{
     display:none;
+  }
+  #post_tools{
+    right: 2rem;
+  }
+  #post_tools .icon{
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 1.25rem;
   }
   .post_wrap{
     padding:3%;

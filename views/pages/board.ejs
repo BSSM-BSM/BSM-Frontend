@@ -15,7 +15,6 @@
                 <span> ◀ </span>
                 <span> ◀ </span>
             </div>
-            <button id="copy_post"></button>
             <div class="container">
                 <div class="post_wrap">
                     <div class="post_info_wrap">
@@ -81,6 +80,11 @@
                         <a class="button accent" :href="`/board/write/${boardType}/${postNo}`" v-if="post.permission">게시글 수정</a>
                     </span>
                 </div>
+            </div>
+            <div id="post_tools">
+                <button id="copy_post" class="icon clear_button">
+                    <object data="/resource/common/images/copy.svg"></object>
+                </button>
             </div>
         </div>
         <div class="container">

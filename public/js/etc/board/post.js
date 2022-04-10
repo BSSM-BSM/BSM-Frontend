@@ -222,3 +222,9 @@ const editorNewline = () => {
         selection.addRange(range);
     }
 }
+
+const copyPostEl = $('#copy_post');
+copyPostEl.onclick = () => {
+    navigator.clipboard.writeText($('.post_content > div').textContent);
+    showToast('복사되었습니다');
+}
