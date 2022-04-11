@@ -27,30 +27,29 @@ const boardView = new Vue({
 const boardChange = (changeBoard) => {
     boardType = changeBoard;
     boardView.boardType = boardType;
-    history.pushState(null, null, `/board/${boardType}${window.location.search}`);
     postWindowClose(false);
-    if (page>1) boardPageChange(1, false);
-    else boardRefresh();
+    if (page>1) {
+        boardPageChange(1);
+    } else {
+        history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+        boardRefresh();
+    }
 }
 
-const boardPageChange = (changePage, changeUrlPath = true) => {
+const boardPageChange = (changePage) => {
     page = changePage;
     boardMenu.activePage = page;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
-    if (changeUrlPath) {
-        history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
-    }
+    history.pushState(null, null, `/board/${boardType}?`+urlSearch.toString());
     boardRefresh();
 }
 
-const boardLimitChange = (changeLimit, changeUrlPath = true) => {
+const boardLimitChange = (changeLimit) => {
     limit = changeLimit;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('limit', String(changeLimit));
-    if (changeUrlPath) {
-        history.pushState(null, null, window.location.pathname+"?"+urlSearch.toString());
-    }
+    history.pushState(null, null, `/board/${boardType}?`+urlSearch.toString());
     boardRefresh();
 }
 

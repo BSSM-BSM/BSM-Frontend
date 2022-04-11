@@ -2,11 +2,11 @@
     <div class="insert_emoticon_box popup center">
         <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
         <h2>이모티콘 넣기</h2>
-        <div class="select_emoticon">
-            <img :src="`/resource/board/emoticon/${e.id}.png`" :alt="e.alt" class="emoticon_icon" v-on:click="selectEmoticon(i)" v-for="(e, i) in emoticon">
+        <div class="select_emoticon scroll_bar">
+            <img v-for="(e, i) in emoticon" :src="`/resource/board/emoticon/${e.id}.png`" :alt="e.alt" class="emoticon_icon" v-on:click="selectEmoticon(i)">
         </div>
-        <div class="emoticon_box" v-if="emoticon[emoticonIdx]">
-            <img :src="`/resource/board/emoticon/${emoticon[emoticonIdx].id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" :onclick="`insertEmoticon('${emoticon[emoticonIdx].id}', '${e.idx}', '${e.type}')`" v-for="e in emoticon[emoticonIdx].e">
+        <div class="emoticon_box scroll_bar" v-if="emoticon[emoticonIdx]">
+            <img v-for="e in emoticon[emoticonIdx].e" :src="`/resource/board/emoticon/${emoticon[emoticonIdx].id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" :onclick="`insertEmoticon('${emoticon[emoticonIdx].id}', '${e.idx}', '${e.type}')`">
         </div>
     </div>
     <div class="emoticon_info_box popup center">
@@ -14,8 +14,8 @@
         <h2>{{emoticonInfo.name}}</h2>
         <p>{{emoticonInfo.description}}</p>
         <p>{{emoticonInfo.created}}</p>
-        <div class="emoticon_box" v-if="emoticonInfo">
-            <img :src="`/resource/board/emoticon/${emoticonInfo.id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon" v-for="e in emoticonInfo.e">
+        <div class="emoticon_box scroll_bar" v-if="emoticonInfo">
+            <img v-for="e in emoticonInfo.e" :src="`/resource/board/emoticon/${emoticonInfo.id}/${e.idx}.${e.type}`" :alt="e.idx" class="emoticon">
         </div>
     </div>
 </div>

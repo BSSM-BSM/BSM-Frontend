@@ -59,7 +59,8 @@
 #quick_menu_list .menu a:hover{
   background-color:var(--hover);
 }
-#quick_menu_list .menu a img{
+#quick_menu_list .menu :is(a img, .icon object){
+  width:5rem;
   height:5rem;
   padding:.75rem;
 }
@@ -82,7 +83,8 @@
     padding:1.75rem 2.5rem;
     font-size:2rem;
   }
-  #quick_menu_list .menu a img{
+  #quick_menu_list .menu :is(a img, .icon object){
+    width:3rem;
     height:3rem;
     padding:.25rem;
   }

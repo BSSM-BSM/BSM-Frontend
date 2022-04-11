@@ -64,6 +64,8 @@ const login = (id, pw, callback) => {
         error:(data) => {
             if (data.statusCode == 400) {
                 loginBoxView.init();
+                showAlert('id 또는 password가 맞지 않습니다.');
+                return true;
             }
             return false;
         },

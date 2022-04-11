@@ -40,7 +40,7 @@
                 </div>
                 <input type="text" class="description input_text full" placeholder="설명">
             </span>
-            <div class="emoticon_box emoticon_files">
+            <div class="emoticon_box emoticon_files scroll_bar">
                 <span v-for="(e, i) in emoticons" class="input_file emoticon_file">
                     <label v-if="mode=='remove'" class="upload_emoticon delete" @click="remove(i)"><span>삭제<br>{{i+1}}</span></label>
                     <label v-if="mode=='upload'" :for="`emoticon_${i}`" class="upload_emoticon"><span v-if="!e.imgSrc">업로드<br>{{i+1}}</span><img v-if="e.imgSrc" :src="e.imgSrc" :alt="i" class="emoticon"></label>

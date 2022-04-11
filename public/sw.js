@@ -1,4 +1,4 @@
-const cacheName = '1.4.0.11';
+const cacheName = '1.4.0.12';
 const cacheFiles = [
     '/',
     '/meal',
@@ -40,7 +40,7 @@ const libCacheFiles = [
     '/css/lib/font/summernote.woff2',
     '/css/lib/font/summernote.ttf'
 ];
-const etcCacheName = 'etc-1.4.0.1';
+const etcCacheName = 'etc-1.4.0.2';
 const etcCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
@@ -48,10 +48,17 @@ const etcCacheFiles = [
     '/resource/common/images/x.svg',
     '/resource/common/images/theme.svg',
     '/resource/common/images/like.svg',
+    '/resource/common/images/copy.svg',
     '/resource/common/images/emoticon.svg',
     '/resource/common/images/download.png',
     '/resource/index/images/main.webp',
     '/resource/index/images/main2.webp',
+    '/resource/common/images/meal.svg',
+    '/resource/common/images/person.svg',
+    '/resource/common/images/timetable.svg',
+    '/resource/common/images/people.svg',
+    '/resource/common/images/bell.svg',
+    '/resource/common/images/cloud.svg',
     '/resource/user/profile_images/profile_default.png',
     '/resource/user/profile_images/profile_-1.png'
 ];

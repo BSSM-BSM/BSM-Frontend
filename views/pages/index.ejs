@@ -34,47 +34,47 @@
                             <div class="user_name">{{user.nickname}}</div>
                         </div>
                     </a>
-                    <a v-if="!user.isLogin" onclick="showLoginBox()">로그인</a>
+                    <a v-if="!user.isLogin" class="icon" onclick="showLoginBox()">로그인</a>
                 </li>
                 <li class="menu meal">
-                    <a href="/meal">
-                        <img src="/resource/common/images/meal.svg" alt="meal" class="icon">
+                    <a href="/meal" class="icon">
+                        <object data="/resource/common/images/meal.svg" alt="meal"></object>
                         <span>급식</span>
                     </a>
                 </li>
                 <li class="menu meister">
-                    <a href="/meister">
-                        <img src="/resource/common/images/person.svg" alt="meister" class="icon">
+                    <a href="/meister" class="icon">
+                        <object data="/resource/common/images/person.svg" alt="meister"></object>
                         마이스터 인증제 / 상벌점
                     </a>
                 </li>
                 <li class="menu timetable">
-                    <a href="/timetable">
-                        <img src="/resource/common/images/timetable.svg" alt="timetable" class="icon">
+                    <a href="/timetable" class="icon">
+                        <object data="/resource/common/images/timetable.svg" alt="timetable"></object>
                         시간표
                     </a>
                 </li>
                 <li class="menu community">
-                    <a href="/board/board">
-                        <img src="/resource/common/images/people.svg" alt="board" class="icon">
+                    <a href="/board/board" class="icon">
+                        <object data="/resource/common/images/people.svg" alt="board"></object>
                         자유게시판
                     </a>
                 </li>
                 <li class="menu community">
-                    <a href="/board/anonymous">
-                        <img src="/resource/common/images/people.svg" alt="anonymous board" class="icon">
+                    <a href="/board/anonymous" class="icon">
+                        <object data="/resource/common/images/people.svg" alt="anonymous board"></object>
                         익명게시판
                     </a>
                 </li>
                 <li class="menu community">
-                    <a href="/board/notice">
-                        <img src="/resource/common/images/bell.svg" alt="notice" class="icon">
+                    <a href="/board/notice" class="icon">
+                        <object data="/resource/common/images/bell.svg" alt="notice"></object>
                         공지사항
                     </a>
                 </li>
                 <li class="menu bsm_cloud">
-                    <a href="https://drive.bssm.kro.kr/">
-                        <img src="/resource/common/images/cloud.svg" alt="bsm cloud" class="icon">
+                    <a href="https://drive.bssm.kro.kr/" class="icon">
+                        <object data="/resource/common/images/cloud.svg" alt="bsm cloud"></object>
                         BSM Cloud
                     </a>
                 </li>
@@ -191,7 +191,7 @@
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.4.0.11</p>
+                                <p>Ver. 1.4.0.12</p>
                             </div>
                         </a>
                     </div>

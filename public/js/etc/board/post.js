@@ -57,14 +57,14 @@ Vue.component('tree-item', {
     }
 })
 
-const boardPostChange = (changePostMo) => {
-    if (postNo == changePostMo && lastBoardType == boardType) {
-        postWindowOpen();
+const boardPostChange = (changePostNo, changeUrlPath = true) => {
+    if (postNo == changePostNo && lastBoardType == boardType) {
+        postWindowOpen(changeUrlPath);
         return;
     }
-    postNo = changePostMo;
+    postNo = changePostNo;
     lastBoardType = boardType;
-    postRefresh();
+    postRefresh(changeUrlPath);
 }
 
 const postWindowOpen = (changeUrlPath = true) => {
@@ -88,13 +88,13 @@ const postWindowClose = (changeUrlPath = true) => {
     allMenuBtn.setDefault();
 }
 
-const postRefresh = () => {
+const postRefresh = (changeUrlPath = true) => {
     progress(20);
     ajax({
         method:'get',
         url:`/post/${boardType}/${postNo}`,
         success:(data) => {
-            postWindowOpen();
+            postWindowOpen(changeUrlPath);
             $('.post').scrollTop = 0;
             const post = data.post;
             postView.post.permission = post.permission;

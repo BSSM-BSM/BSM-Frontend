@@ -1,21 +1,27 @@
-let boardType = '';
-let lastBoardType = '';
-let postNo = '';
-let page = '';
-let limit = '';
+let boardType = null;
+let lastBoardType = null;
+let postNo = null;
+let page = null;
+let limit = null;
 
 const boardInit = () => {
     boardType = window.location.pathname.split('/')[2];
-    lastBoardType = '';
     postNo = window.location.pathname.split('/')[3];
     page = new URLSearchParams(location.search).get("page");
     limit = new URLSearchParams(location.search).get("limit");
     if (limit == null) {
         limit = 15;
+    } else {
+        limit = parseInt(limit);
+    }
+    if (page == null) {
+        page = 1;
+    } else {
+        page = parseInt(page);
     }
     $('.board_limit .select').innerText = limit+"개";
     if (postNo != null) {
-        postWindowOpen(false);
+        boardPostChange(postNo, false);
     } else {
         postWindowClose(false);
     }
