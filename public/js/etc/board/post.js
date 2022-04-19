@@ -225,6 +225,6 @@ const editorNewline = () => {
 
 const copyPostEl = $('#copy_post');
 copyPostEl.onclick = () => {
-    navigator.clipboard.writeText($('.post_content > div').textContent);
+    navigator.clipboard.writeText($('.post_content > div').innerText);
     showToast('복사되었습니다');
 }

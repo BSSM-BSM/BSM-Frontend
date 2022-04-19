@@ -93,6 +93,7 @@ const boardRefresh = () => {
             if (boardData == null) {
                 return;
             }
+            boardView.boardType = boardType;
             boardView.posts = boardData.map(e => {
                 return {
                     memberCode: e.memberCode,
