@@ -17,26 +17,26 @@
         </div>
         <div class="container">
             <div class="information">
-                <div class="member_info_wrap">
-                    <div class="member_info" v-show="memberType!='deleted'">
+                <div class="user_info_wrap">
+                    <div class="user_info" v-show="user.userType != 'deleted'">
                         <div class="left_wrap">
-                            <img :src="`/resource/user/profile_images/profile_${memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                            <img :src="`/resource/user/profile_images/profile_${user.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                         </div>
                         <div class="right_wrap">
                             <div class="top_wrap">
-                                <span class="member_nickname">{{memberNickname}}</span>
-                                <span class="member_created" v-show="memberType=='active'">{{memberCreated}} 가입</span>
+                                <span class="user_nickname">{{user.nickname}}</span>
+                                <span class="user_created" v-show="user.userType=='active'">{{user.created}} 가입</span>
                             </div>
                             <div class="bottom_wrap">
-                                <span class="student_info" v-show="memberType=='active'">{{memberGrade}}학년 {{memberClass}}반 {{memberStudentNo}}번 {{memberName}}</span>
-                                <span class="member_level">권한 수준: {{memberLevel}}</span>
-                                <span class="member_enrolled" v-show="memberType=='active'">{{memberEnrolled}}년 입학</span>
-                                <span class="member_code">멤버 코드: {{memberCode}}</span>
+                                <span class="student_info" v-show="user.userType=='active'">{{user.grade}}학년 {{user.class}}반 {{user.studentNo}}번 {{user.name}}</span>
+                                <span class="user_level">권한 수준: {{user.level}}</span>
+                                <span class="user_enrolled" v-show="user.userType=='active'">{{user.enrolled}}년 입학</span>
+                                <span class="user_code">멤버 코드: {{user.code}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="user_profile_menu" v-if="permission">
-                        <form class="profile_upload" autocomplete="off" onsubmit="profileUpload();return false;">
+                    <div class="user_profile_menu" v-show="user.permission">
+                        <form id="profile_upload" autocomplete="off">
                             <span class="input_file">
                                 <input class="file_name input_text" value="" placeholder="선택된 파일 없음" readonly>
                                 <label class="button" for="file">파일 선택</label>
@@ -47,83 +47,8 @@
                         <div class="button" onClick="popupOpen($('.pw_reset_box'))">비밀번호 재설정</div>
                     </div>
                 </div>
-                <script>
-                    const memberInfoView = new Vue({
-                        el:'.member_info_wrap',
-                        data:{
-                            memberType:"",
-                            memberCode:0,
-                            memberNickname:"",
-                            memberLevel:0,
-                            memberCreated:0,
-                            memberEnrolled:0,
-                            memberGrade:0,
-                            memberClass:0,
-                            memberStudentNo:0,
-                            memberName:"",
-                            permission:false
-                        }
-                    })
-                    const memberInfo = () => {
-                        ajax({
-                            method:'get',
-                            url:`/account/<%- memberCode %>`,
-                            success:(data) => {
-                                memberInfoView.memberType = data.user.memberType;
-                                switch (data.user.memberType) {
-                                    case 'active':
-                                        memberInfoView.memberCode=data.user.memberCode;
-                                        memberInfoView.memberNickname=data.user.memberNickname;
-                                        memberInfoView.memberLevel=data.user.memberLevel;
-                                        memberInfoView.memberCreated=data.user.memberCreated.split(' ')[0];
-                                        memberInfoView.memberEnrolled=data.user.memberEnrolled;
-                                        memberInfoView.memberGrade=data.user.memberGrade;
-                                        memberInfoView.memberClass=data.user.memberClass;
-                                        memberInfoView.memberStudentNo=data.user.memberStudentNo;
-                                        memberInfoView.memberName=data.user.memberName;
-                                        memberInfoView.permission=data.user.permission;
-                                        break;
-                                    case 'anonymous':
-                                        memberInfoView.memberCode=-1;
-                                        memberInfoView.memberNickname="Anonymous";
-                                        memberInfoView.memberLevel=0;
-                                        memberInfoView.permission=data.user.permission;
-                                        showAlert("익명 유저입니다");
-                                        break;
-                                    case 'deleted':
-                                        memberInfoView.memberCode=data.user.memberCode;
-                                        memberInfoView.permission=data.user.permission;
-                                        showAlert("삭제된 유저입니다");
-                                        break;
-                                    case 'none':
-                                        memberInfoView.memberCode=data.user.memberCode;
-                                        memberInfoView.permission=data.user.permission;
-                                        showAlert("유저를 찾을 수 없습니다");
-                                        break;
-                                }
-                            }
-                        })
-                    }
-                    window.addEventListener('DOMContentLoaded', () => {
-                        memberInfo();
-                    })
-                </script>
             </div>
-            <script>
-                const profileUpload = () => {
-                    const form = $('.profile_upload');
-                    const formData = new FormData(form);
-                    ajax({
-                        method:'post',
-                        payload:formData,
-                        url:'/account/profile',
-                        success:data=>{
-                            alert("업로드에 성공하였습니다.\n캐시때문에 사진이 변경되지 않을 수 있으니\n기다리거나 캐시 삭제를 해주시면 됩니다");
-                            window.location.reload();
-                        }
-                    })
-                }
-            </script>
+            <script src="/js/etc/userinfo.js"></script>
         </div>
     </main>
     <%- include('../common/header') %>

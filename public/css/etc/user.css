@@ -1,70 +1,70 @@
 @charset "utf-8";
-.member_info{
+.user_info{
   display:flex;
   width:100%;
   padding:0 5rem;
 }
-.member_info .left_wrap{
+.user_info .left_wrap{
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
-.member_info .left_wrap .user_profile{
+.user_info .left_wrap .user_profile{
   margin-right:2rem;
   height:5.4rem;
 }
-.member_info .right_wrap{
+.user_info .right_wrap{
   display:flex;
   flex-direction:column;
   flex:auto;
 }
-.member_info > div{
+.user_info > div{
   font-size:1.5rem;
   text-align:left;
 }
-.member_info .right_wrap .top_wrap{
+.user_info .right_wrap .top_wrap{
   display:flex;
   margin-bottom:.5rem;
 }
-.member_info .right_wrap .bottom_wrap{
+.user_info .right_wrap .bottom_wrap{
   display:flex;
 }
-.member_info .member_nickname{
+.user_info .user_nickname{
   font-size:1.8rem;
   font-weight:bold;
   text-align:left;
 }
-.member_info .student_info{
+.user_info .student_info{
   flex:auto;
   text-align:left;
 }
-.member_info .member_created{
+.user_info .user_created{
   flex:auto;
   text-align:right;
 }
-.member_info .member_level{
+.user_info .user_level{
   text-align:right;
   margin-right:2.5rem;
 }
-.member_info .member_enrolled{
+.user_info .user_enrolled{
   text-align:right;
   margin-right:2.5rem;
 }
 @media screen and (min-width:0px) and (max-width:1023px){
-  .member_info{
+  .user_info{
     padding:0 3%;
   }
-  .member_info > div:not(.post_title){
+  .user_info > div:not(.post_title){
     font-size:1.3rem;
   }
-  .member_info .left_wrap .user_profile{
+  .user_info .left_wrap .user_profile{
     margin-right:1rem;
     height:4rem;
   }
-  .member_info .member_level{
+  .user_info .user_level{
     margin-right:1.5rem;
   }
-  .member_info .member_enrolled{
+  .user_info .user_enrolled{
     margin-right:1.5rem;
   }
 }

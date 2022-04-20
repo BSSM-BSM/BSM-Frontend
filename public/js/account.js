@@ -73,14 +73,16 @@ const login = (id, pw, callback) => {
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
             saveUserInfo({
-                isLogin:jsonData.isLogin,
-                code:jsonData.memberCode,
-                id:jsonData.memberId,
-                nickname:jsonData.memberNickname,
-                level:jsonData.memberLevel,
-                grade:jsonData.grade,
-                classNo:jsonData.classNo,
-                studentNo:jsonData.studentNo
+                isLogin: true,
+                level: jsonData.level,
+                code: jsonData.code,
+                id: jsonData.id,
+                nickname: jsonData.nickname,
+                enrolled: jsonData.enrolled,
+                grade: jsonData.grade,
+                classNo: jsonData.classNo,
+                studentNo: jsonData.studentNo,
+                name: jsonData.name
             });
             showToast('로그인에 성공하였습니다.');
             popupClose($('.login_box'));
@@ -98,14 +100,16 @@ const logout = () => {
         url:`/account/logout`,
         success:() => {
             saveUserInfo({
-                isLogin:false,
-                code:null,
-                id:null,
-                nickname:null,
-                level:null,
-                grade:null,
-                classNo:null,
-                studentNo:null,
+                isLogin: false,
+                level: null,
+                code: null,
+                id: null,
+                nickname: null,
+                enrolled: null,
+                grade: null,
+                classNo: null,
+                studentNo: null,
+                name: null
             });
             showToast('로그아웃 되었습니다.');
         }
@@ -147,14 +151,16 @@ const pwEdit = (pw, pwCheck, callback) => {
             popupClose($('.pw_reset_box'));
             popupOpen($('.login_box'));
             saveUserInfo({
-                isLogin:false,
-                code:null,
-                id:null,
-                nickname:null,
-                level:null,
-                grade:null,
-                classNo:null,
-                studentNo:null,
+                isLogin: false,
+                level: null,
+                code: null,
+                id: null,
+                nickname: null,
+                enrolled: null,
+                grade: null,
+                classNo: null,
+                studentNo: null,
+                name: null
             });
 
             if (callback) {

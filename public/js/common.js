@@ -50,24 +50,28 @@ const toggleTheme = () => {
 themeInit();
 
 const user = {
-    isLogin:false,
-    code:null,
-    id:null,
-    nickname:null,
-    level:null,
-    grade:null,
-    classNo:null,
-    studentNo:null,
+    isLogin: false,
+    level: null,
+    code: null,
+    id: null,
+    nickname: null,
+    enrolled: null,
+    grade: null,
+    classNo: null,
+    studentNo: null,
+    name: null,
     
     setUser(userInfo) {
         this.isLogin = userInfo.isLogin;
+        this.level = userInfo.level;
         this.code = userInfo.code;
         this.id = userInfo.id;
         this.nickname = userInfo.nickname;
-        this.level = userInfo.level;
+        this.enrolled = userInfo.enrolled;
         this.grade = userInfo.grade;
         this.classNo = userInfo.classNo;
         this.studentNo = userInfo.studentNo;
+        this.name = userInfo.name;
         if (typeof headerAccountView != 'undefined') {
             headerAccountView.setUser(userInfo);
         }
@@ -77,14 +81,16 @@ const loadUserInfo = () => {
     const userInfo = localStorage.getItem('user');
     if (userInfo === null) {
         user.setUser({
-            isLogin:false,
-            code:null,
-            id:null,
-            nickname:null,
-            level:null,
-            grade:null,
-            classNo:null,
-            studentNo:null
+            isLogin: false,
+            level: null,
+            code: null,
+            id: null,
+            nickname: null,
+            enrolled: null,
+            grade: null,
+            classNo: null,
+            studentNo: null,
+            name: null
         });
     } else {
         user.setUser(JSON.parse(userInfo));
@@ -233,14 +239,16 @@ const ajax = async ({method, url, payload, success, error}) => {
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(err.response.data.token.split('.')[1]));
             saveUserInfo({
-                isLogin:jsonData.isLogin,
-                code:jsonData.memberCode,
-                id:jsonData.memberId,
-                nickname:jsonData.memberNickname,
-                level:jsonData.memberLevel,
-                grade:jsonData.grade,
-                classNo:jsonData.classNo,
-                studentNo:jsonData.studentNo
+                isLogin: true,
+                level: jsonData.level,
+                code: jsonData.code,
+                id: jsonData.id,
+                nickname: jsonData.nickname,
+                enrolled: jsonData.enrolled,
+                grade: jsonData.grade,
+                classNo: jsonData.classNo,
+                studentNo: jsonData.studentNo,
+                name: jsonData.name
             });
             // 원래 하려던 요청을 다시 보냄
             return ajax({method:method, url:url, payload:payload, success:success, error:error});
@@ -252,14 +260,16 @@ const ajax = async ({method, url, payload, success, error}) => {
         switch (err.response.data.statusCode) {
             case 401:
                 saveUserInfo({
-                    isLogin:false,
-                    code:null,
-                    id:null,
-                    nickname:null,
-                    level:null,
-                    grade:null,
-                    classNo:null,
-                    studentNo:null,
+                    isLogin: false,
+                    level: null,
+                    code: null,
+                    id: null,
+                    nickname: null,
+                    enrolled: null,
+                    grade: null,
+                    classNo: null,
+                    studentNo: null,
+                    name: null
                 });
                 if (err.response.data.message == 'Need to relogin') {
                     showAlert('다시 로그인 해주세요.');
