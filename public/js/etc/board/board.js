@@ -96,15 +96,15 @@ const boardRefresh = () => {
             boardView.boardType = boardType;
             boardView.posts = boardData.map(e => {
                 return {
-                    memberCode: e.memberCode,
-                    memberNickname: e.memberNickname,
+                    usercode: e.usercode,
+                    nickname: e.nickname,
                     boardType: e.boardType,
                     postNo: e.postNo,
-                    postTitle: e.postTitle,
-                    postDate: e.postDate.split(' ')[0].replaceAll("-","")==today? e.postDate.split(' ')[1]: e.postDate.split(' ')[0],
-                    postHit: e.postHit,
-                    postComments: e.postComments,
-                    postLike: e.postLike,
+                    title: e.title,
+                    date: e.date.split(' ')[0].replaceAll("-","")==today? e.date.split(' ')[1]: e.date.split(' ')[0],
+                    hit: e.hit,
+                    comments: e.comments,
+                    totalLike: e.totalLike,
                 }
             });
         }

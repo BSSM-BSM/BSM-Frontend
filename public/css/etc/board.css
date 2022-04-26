@@ -93,7 +93,7 @@
 .board_item_post_info.like.active::after{
   color:var(--red);
 }
-.member_info .user_profile{
+.user_info .user_profile{
   margin-right:.5rem;
 }
 .board_top_menu{
@@ -210,7 +210,7 @@
   flex-direction:column;
   justify-content:center;
 }
-.member_nickname{
+.nickname{
   font-weight:bold;
 }
 .post_info_wrap .left_wrap .user_profile{
@@ -398,7 +398,7 @@
   .board_item .post_title{
     font-size:1.7rem;
   }
-  .member_info .user_profile{
+  .user_info .user_profile{
     height:1.7rem;
   }
   #close-post{

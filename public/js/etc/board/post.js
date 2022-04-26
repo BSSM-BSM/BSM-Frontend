@@ -3,14 +3,14 @@ const postView = new Vue({
     data:{
         post:{
             permission:false,
-            memberCode:0,
-            postTitle:'',
-            postDate:'',
-            postHit:'',
-            postComments:'',
-            memberNickname:'',
-            postContent:'',
-            postLike:0,
+            usercode:0,
+            title:'',
+            date:'',
+            hit:'',
+            comments:'',
+            nickname:'',
+            content:'',
+            totalLike:0,
             like:0,
         },
         comment:{
@@ -96,17 +96,7 @@ const postRefresh = (changeUrlPath = true) => {
         success:(data) => {
             postWindowOpen(changeUrlPath);
             $('.post').scrollTop = 0;
-            const post = data.post;
-            postView.post.permission = post.permission;
-            postView.post.memberCode = post.memberCode;
-            postView.post.postTitle = post.postTitle;
-            postView.post.postDate = post.postDate;
-            postView.post.postHit = post.postHit;
-            postView.post.postComments = post.postComments;
-            postView.post.memberNickname = post.memberNickname;
-            postView.post.postContent = post.postContent;
-            postView.post.like = post.like;
-            postView.post.postLike = post.postLike;
+            postView.post = {...data.post};
             window.setTimeout(() => {
                 // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
                 // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
@@ -142,7 +132,7 @@ const likeSend = (like) => {
         },
         success:(data) => {
             postView.post.like = data.like;
-            postView.post.postLike = data.postLike;
+            postView.post.totalLike = data.totalLike;
         }
     })
 }

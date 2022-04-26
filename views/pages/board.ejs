@@ -23,19 +23,19 @@
             <div class="container">
                 <div class="post_wrap">
                     <div class="post_info_wrap">
-                        <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
+                        <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${post.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
                         <div class="right_wrap">
-                            <div class="post_title">{{post.postTitle}}</div>
-                            <div class="post_date">{{post.postDate}}</div>
-                            <div class="post_hit">{{post.postHit}}</div>
-                            <div class="post_comments">{{post.postComments}}</div>
-                            <div class="member_nickname"><a :href="`/user/${post.memberCode}`">{{post.memberNickname}}</a></div>
+                            <div class="post_title">{{post.title}}</div>
+                            <div class="post_date">{{post.date}}</div>
+                            <div class="post_hit">{{post.hit}}</div>
+                            <div class="post_comments">{{post.comments}}</div>
+                            <div class="nickname"><a :href="`/user/${post.usercode}`">{{post.nickname}}</a></div>
                             </div>
                         </div>
-                    <div class="post_content"><div v-html="post.postContent"></div></div>
+                    <div class="post_content"><div v-html="post.content"></div></div>
                     <div class="post_like_wrap post_like">
                         <button class="like_button like icon" onclick="likeSend(1);" v-bind:class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
-                        <span class="post_like_cnt">{{post.postLike}}</span>
+                        <span class="post_like_cnt">{{post.totalLike}}</span>
                         <button class="like_button dislike icon" onclick="likeSend(-1);" v-bind:class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
                     </div>
                 </div>
@@ -45,14 +45,14 @@
                         <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
-                                    <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                                    <img :src="`/resource/user/profile_images/profile_${item.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                                 </div>
                                 <div class="right_wrap">
                                     <div class="comment_item_info">
-                                        <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
+                                        <a :href="`/user/${item.usercode}`">{{item.nickname}}</a>
                                         <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
                                     </div>
-                                    <div class="comment_item_info">{{item.commentDate}}</div>
+                                    <div class="comment_item_info">{{item.date}}</div>
                                 </div>
                             </div>
                             <div class="comment_item_content" v-html="item.comment"></div>
@@ -108,23 +108,23 @@
                 <div class=board_list>
                     <span class="board_item_wrap" v-for="post in posts">
                         <div class="board_item left_wrap">
-                            <span class="post_comments" v-bind:class="{active:post.postComments>0}">{{post.postComments}}</span>
+                            <span class="post_comments" v-bind:class="{active:post.comments>0}">{{post.comments}}</span>
                         </div>
                         <div class="board_item right_wrap">
                             <div class="board_item top_wrap">
-                                <a :href="`/board/${boardType}/${post.postNo}`" class="post_title" :onclick="`boardPostChange(${post.postNo});return false;`">{{post.postTitle}}</a>
+                                <a :href="`/board/${boardType}/${post.postNo}`" class="post_title" :onclick="`boardPostChange(${post.postNo});return false;`">{{post.title}}</a>
                             </div>
                             <div class="board_item bottom_wrap">
                                 <div class="board_item_info left_wrap">
-                                    <span class="member_info">
-                                        <img :src="`/resource/user/profile_images/profile_${post.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
-                                        <a :href="`/user/${post.memberCode}`">{{post.memberNickname}}</a>
+                                    <span class="user_info">
+                                        <img :src="`/resource/user/profile_images/profile_${post.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                                        <a :href="`/user/${post.usercode}`">{{post.nickname}}</a>
                                     </span>
                                 </div>
                                 <div class="board_item_info right_wrap">
-                                    <span class="board_item_post_info like" v-bind:class="{active:post.postLike>0}" v-show="post.postLike!=0">{{post.postLike}}</span>
-                                    <span class="board_item_post_info hit">{{post.postHit}}</span>
-                                    <span class="board_item_post_info date">{{post.postDate}}</span>
+                                    <span class="board_item_post_info like" v-bind:class="{active:post.totalLike>0}" v-show="post.totalLike!=0">{{post.totalLike}}</span>
+                                    <span class="board_item_post_info hit">{{post.hit}}</span>
+                                    <span class="board_item_post_info date">{{post.date}}</span>
                                 </div>
                             </div>
                         </div>
@@ -151,14 +151,14 @@
                         <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
-                                    <img :src="`/resource/user/profile_images/profile_${item.memberCode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                                    <img :src="`/resource/user/profile_images/profile_${item.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                                 </div>
                                 <div class="right_wrap">
                                     <div class="comment_item_info">
-                                        <a :href="`/user/${item.memberCode}`">{{item.memberNickname}}</a>
+                                        <a :href="`/user/${item.usercode}`">{{item.nickname}}</a>
                                         <div class="comment_menu"><span v-if="item.permission" :onclick="`commentDelete(${item.idx});`">삭제</span></div>
                                     </div>
-                                    <div class="comment_item_info">{{item.commentDate}}</div>
+                                    <div class="comment_item_info">{{item.date}}</div>
                                 </div>
                             </div>
                             <div class="comment_item_content" v-html="item.comment"></div>
