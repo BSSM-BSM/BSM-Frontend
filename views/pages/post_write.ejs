@@ -6,7 +6,11 @@
     <title>글쓰기 - BSM</title>
     <meta property="title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
     <meta property="og:title" content="글쓰기 - BSM | 부산소마고 지원 서비스">
-    <script src="/js/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- summernote 라이브러리가 Jquery를 사용해서 어쩔 수 없이 사용함 -->
+    <script src="/js/lib/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/lib/summernote-lite.min.css">
+    <script src="/js/lib/summernote-lite.min.js"></script>
+    <script src="/js/lib/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
     <%- include('../common/common') %>
@@ -16,64 +20,73 @@
     <main>
         <div class="title">
             <h1>글쓰기</h1>
+            <% switch(boardType){
+                case 'board': %>
+                <h2>자유게시판</h2>
+                <% break
+            case 'anonymous': %>
+                <h2>익명게시판</h2>
+                <% break
+            } %>
+            <br>
         </div>
         <div class="container">
             <%- include('../common/emoticonBox') %>
             <script>
-                // const emoticonButton = context => {
-                //     return jQuery.summernote.ui.button({
-                //         contents: '이모티콘',
-                //         tooltip: '이모티콘',
-                //         click:()=>{
-                //             editor=$('.note-editable');
-                //             loadEmoticon();
-                //         }
-                //     }).render();
-                // }
-                // window.addEventListener('DOMContentLoaded', () => {
-                //     jQuery('#summernote').summernote({
-                //         height : 480,
-                //         maxHeight : null,
-                //         minHeight : 480,
-                //         lang : 'ko-KR',
-                //         callbacks: {
-                //             onImageUpload:function(files, editor, welEditable){
-                //                 for(let i = files.length - 1;i>=0;i--){
-                //                     sendFile(files[i], this);
-                //                 }
-                //             }
-                //         },
-                //         disableResizeEditor: true,
-                //         toolbar: [
-                //             ['fontname', ['fontname']],
-                //             ['fontsize', ['fontsize']],
-                //             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-                //             ['color', ['color']],
-                //             ['table', ['table']],
-                //             ['para', ['paragraph']],
-                //             ['height', ['height']],
-                //             ['insert',['emoticon','picture','link','video']],
-                //             ['view', ['fullscreen', 'codeview', 'help']]
-                //         ],
-                //         buttons:{
-                //             emoticon:emoticonButton
-                //         },
-                //         fontNames: ['NotoSans','sans-serif','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-                //         fontSizes: ['8','9','10','11','12','14','15','16','18','20','24','32','48','72','96','112','128','256','512']
-                //     });
-                // })
-                // function sendFile(file, el, welEditable){
-                //     let files = new FormData();
-                //     files.append('file', file);
-                //     ajax({
-                //         method:'post',
-                //         payload:files,
-                //         url:'/imageUpload',
-                //         success:data=>{
-                //             jQuery(el).summernote('editor.insertImage', data.filePath);
-                //         }
-                //     })
-                // }
+                const emoticonButton = context => {
+                    return jQuery.summernote.ui.button({
+                        contents: '이모티콘',
+                        tooltip: '이모티콘',
+                        click:()=>{
+                            editor=$('.note-editable');
+                            loadEmoticon();
+                        }
+                    }).render();
+                }
+                window.addEventListener('DOMContentLoaded', () => {
+                    jQuery('#summernote').summernote({
+                        height : 480,
+                        maxHeight : null,
+                        minHeight : 480,
+                        lang : 'ko-KR',
+                        callbacks: {
+                            onImageUpload:function(files, editor, welEditable){
+                                for(let i = files.length - 1;i>=0;i--){
+                                    sendFile(files[i], this);
+                                }
+                            }
+                        },
+                        disableResizeEditor: true,
+                        toolbar: [
+                            ['fontname', ['fontname']],
+                            ['fontsize', ['fontsize']],
+                            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                            ['color', ['color']],
+                            ['table', ['table']],
+                            ['para', ['paragraph']],
+                            ['height', ['height']],
+                            ['insert',['emoticon','picture','link','video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ],
+                        buttons:{
+                            emoticon:emoticonButton
+                        },
+                        fontNames: ['NotoSans','sans-serif','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+                        fontSizes: ['8','9','10','11','12','14','15','16','18','20','24','32','48','72','96','112','128','256','512']
+                    });
+                })
+                function sendFile(file, el, welEditable){
+                    let files = new FormData();
+                    files.append('file', file);
+                    ajax({
+                        method:'post',
+                        payload:files,
+                        url:'/imageUpload',
+                        success:data=>{
+                            jQuery(el).summernote('editor.insertImage', data.filePath);
+                        }
+                    })
+                }
             </script>
             <form class="post_write" method="post" autocomplete="off" onsubmit="writePost();return false;">
                 <% if(postNo!=null){ %>
@@ -83,8 +96,8 @@
                             method:'get',
                             url:'/post/<%= boardType %>/<%= postNo %>',
                             success:data=>{
-                                $('input[name=post_title]').value = data.post.postTitle;
-                                jQuery('#summernote').summernote('code', data.post.postContent);
+                                $('input[name=post_title]').value = data.post.title;
+                                jQuery('#summernote').summernote('code', data.post.content);
                             }
                         })
                     }
@@ -92,7 +105,7 @@
                     </script>
                 <% } %>
                 <input type="text" name="post_title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
-                <textarea id="post-editor" style="width:100%;" required></textarea>
+                <textarea name="post_content" placeholder="내용" id="summernote" class="input_text" style="width:100%;" required></textarea>
                 <br><br>
                 <a href="/board/<%= boardType %>" class="button"><% switch(boardType){ case 'board': %>자유게시판<% break; case 'anonymous': %>익명게시판<% break; } %></a>
                 <input type="submit" value="글작성" class="button accent">
@@ -107,44 +120,13 @@
                 </script>
             <% } %>
             <script>
-                tinymce.init({
-                    selector: '#post-editor',
-                    language: 'ko_KR',
-                    height: 480,
-                    menubar: true,
-                    plugins: [
-                    'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
-                    'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
-                    'powerpaste','media','table','wordcount'
-                    ],
-                    toolbar: 'undo redo |  bold italic | alignleft alignright aligncenter alignjustify | image media | preview code',
-                    file_picker_types: 'image',
-                    /* and here's our custom image picker*/
-                    file_picker_callback: function (cb, value, meta) {
-                        var input = document.createElement('input');
-                        input.setAttribute('type', 'file');
-                        input.setAttribute('accept', 'image/*');
-                        input.onchange = function () {
-                            let file = new FormData();
-                            file.append('file', this.files[0]);
-                            ajax({
-                                method:'post',
-                                payload:file,
-                                url:'/imageUpload',
-                                success:(data) => {
-                                    reader.readAsDataURL(data.filePath);
-                                }
-                            })
-                        }
-                    }
-                });
                 const writePost = () => {
                     ajax({
                         method:writeType,
                         url:'/post/<%= boardType %><% if(postNo!=null) %>/<%= postNo %>',
                         payload:{
-                            postTitle:$('input[name=post_title]').value,
-                            postContent:jQuery('#summernote').summernote('code'),
+                            title:$('input[name=post_title]').value,
+                            content:jQuery('#summernote').summernote('code'),
                         },
                         success:()=>{
                             window.location.href="/board/<%= boardType %>";
