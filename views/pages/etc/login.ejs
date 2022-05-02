@@ -12,7 +12,7 @@
             window.history.back();
         }
         popup.noClose = true;
-        $('.login_box .popup_close_button').style.display = 'none';
+        $('#login_box .popup_close_button')? $('#login_box .popup_close_button').style.display = 'none': undefined;
         showLoginBox();
         account.loginCallback = () => {
             window.history.back();

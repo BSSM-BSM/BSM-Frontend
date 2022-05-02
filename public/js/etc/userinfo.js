@@ -1,18 +1,18 @@
 const viewUsercode = window.location.pathname.split('/')[2];
 const userInfoView = new Vue({
     el:'.user_info_wrap',
-    data:{
+    data: {
         user: {
-            userType:"",
-            usercode:0,
-            nickname:"",
-            level:0,
-            created:0,
-            enrolled:0,
-            grade:0,
-            classNo:0,
+            userType: '',
+            usercode: 0,
+            nickname: '',
+            level: 0,
+            created: 0,
+            enrolled: 0,
+            grade: 0,
+            classNo: 0,
             studentNo: 0,
-            name: "",
+            name: '',
             permission: false
         }
     }

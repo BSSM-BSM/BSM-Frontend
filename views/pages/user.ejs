@@ -28,10 +28,10 @@
                                 <span class="user_created" v-show="user.userType=='active'">{{user.created}} 가입</span>
                             </div>
                             <div class="bottom_wrap">
-                                <span class="student_info" v-show="user.userType=='active'">{{user.grade}}학년 {{user.class}}반 {{user.studentNo}}번 {{user.name}}</span>
+                                <span class="student_info" v-show="user.userType=='active'">{{user.grade}}학년 {{user.classNo}}반 {{user.studentNo}}번 {{user.name}}</span>
                                 <span class="user_level">권한 수준: {{user.level}}</span>
                                 <span class="user_enrolled" v-show="user.userType=='active'">{{user.enrolled}}년 입학</span>
-                                <span class="user_code">멤버 코드: {{user.code}}</span>
+                                <span class="user_code">멤버 코드: {{user.usercode}}</span>
                             </div>
                         </div>
                     </div>
@@ -40,11 +40,10 @@
                             <span class="input_file">
                                 <input class="file_name input_text" value="" placeholder="선택된 파일 없음" readonly>
                                 <label class="button" for="file">파일 선택</label>
-                                <input type="file" name="file" id="file" required onchange="$('.file_name').value=$('#file').value.split('\\').slice(-1)[0]">
+                                <input type="file" name="file" id="file" required onchange="$('#profile_upload .file_name').value=$('#file').value.split('\\').slice(-1)[0]">
                             </span>
-                            <button type="submit" class="button">이미지 업로드</button>
+                            <button type="submit" class="button accent">프로필 이미지 업로드</button>
                         </form>
-                        <div class="button" onClick="popupOpen($('.pw_reset_box'))">비밀번호 재설정</div>
                     </div>
                 </div>
             </div>

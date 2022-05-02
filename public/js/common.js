@@ -141,6 +141,11 @@ const popupClose = (element) => {
         $('.dim.popup_close').classList.remove('on');
     }
 }
+const allPopupClose = () => {
+    $$('.popup').forEach(e => {
+        popupClose(e);
+    });
+}
 
 let progressBar, progressBarFlag=0;
 const progress = per => {
@@ -178,9 +183,7 @@ const progress = per => {
 window.addEventListener('DOMContentLoaded', () => {
     if ($('.dim.popup_close')) {
         $('.dim.popup_close').addEventListener('click', ()=>{
-            $$('.popup').forEach(e => {
-                popupClose(e);
-            });
+            allPopupClose();
         })
     }
     progressBar = $('.progress');
@@ -240,15 +243,7 @@ const ajax = async ({method, url, payload, success, error}) => {
             const jsonData = JSON.parse(decodeBase64(err.response.data.token.split('.')[1]));
             saveUserInfo({
                 isLogin: true,
-                level: jsonData.level,
-                code: jsonData.code,
-                id: jsonData.id,
-                nickname: jsonData.nickname,
-                enrolled: jsonData.enrolled,
-                grade: jsonData.grade,
-                classNo: jsonData.classNo,
-                studentNo: jsonData.studentNo,
-                name: jsonData.name
+                ...jsonData
             });
             // 원래 하려던 요청을 다시 보냄
             return ajax({method:method, url:url, payload:payload, success:success, error:error});

@@ -13,9 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#pw_reset_box').onsubmit = (event) => {
         event.preventDefault();
         const data = event.target;
-        pwEdit(
+        account.pwEdit(
             data.pw.value,
-            data.pw_check.value,
+            data.pw_check.value
+        )
+    }
+    $('#nickname_update_box').onsubmit = (event) => {
+        event.preventDefault();
+        const data = event.target;
+        nicknameEdit(
+            data.nickname.value
         )
     }
     $('#pw_reset_mail_box').onsubmit = (event) => {
@@ -54,13 +61,13 @@ const showLoginBox = () => {
     popupOpen($('#login_box'));
 }
 const loginBoxView = new Vue({
-    el:'#login_box',
-    data:{
-        msg:'로그인',
-        step:0,
-        id:'',
+    el: '#login_box',
+    data: {
+        msg: '로그인',
+        step: 0,
+        id: '',
     },
-    methods:{
+    methods: {
         init:function () {
             this.step=0;
             this.msg='로그인';
@@ -106,9 +113,9 @@ const account = {
 
 const login = (id, pw, callback) => {
     ajax({
-        method:'post',
-        url:`/account/login`,
-        payload:{
+        method: 'post',
+        url: '/account/login',
+        payload: {
             id,
             pw
         },
@@ -147,8 +154,8 @@ const login = (id, pw, callback) => {
 }
 const logout = () => {
     ajax({
-        method:'delete',
-        url:`/account/logout`,
+        method: 'delete',
+        url: '/account/logout',
         success:() => {
             saveUserInfo({
                 isLogin: false,
@@ -177,9 +184,9 @@ const signUp = (
         return;
     }
     ajax({
-        method:'post',
-        url:`/account`,
-        payload:{
+        method: 'post',
+        url: '/account',
+        payload: {
             id,
             pw,
             pw_check,
@@ -197,16 +204,16 @@ const pwEdit = (pw, pw_check, callback) => {
         return;
     }
     ajax({
-        method:'put',
-        url:'/account/pw',
-        payload:{
+        method: 'put',
+        url: '/account/pw',
+        payload: {
             pw,
             pw_check,
         },
         success:() => {
             showToast('비밀번호 재설정이 완료되었습니다.');
-            popupClose($('.pw_reset_box'));
-            popupOpen($('.login_box'));
+            popupClose($('#pw_reset_box'));
+            popupOpen($('#login_box'));
             saveUserInfo({
                 isLogin: false,
                 level: null,
@@ -226,17 +233,39 @@ const pwEdit = (pw, pw_check, callback) => {
         }
     })
 }
+
+const nicknameEdit = (nickname) => {
+    if (!confirm('닉네임을 변경하시겠습니까?')) {
+        return;
+    }
+    ajax({
+        method: 'put',
+        url: '/account/nickname',
+        payload: {
+            nickname
+        },
+        success:(data) => {
+            showToast('닉네임 변경이 완료되었습니다.');
+            allPopupClose();
+            saveUserInfo({
+                isLogin: true,
+                ...data.user
+            });
+        }
+    })
+}
+
 const pwResetMail = (id) => {
     ajax({
-        method:'post',
-        url:'/account/mail/pw',
-        payload:{
+        method: 'post',
+        url: '/account/mail/pw',
+        payload: {
             id
         },
         success:() => {
             showToast('비밀번호 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($('.pw_reset_mail_box'));
-            popupOpen($('.login_box'));
+            popupClose($('#pw_reset_mail_box'));
+            popupOpen($('#login_box'));
         }
     })
 }
@@ -248,9 +277,9 @@ const authcodeMail = (
     student_name
 ) => {
     ajax({
-        method:'post',
-        url:`/account/mail/authcode`,
-        payload:{
+        method: 'post',
+        url: '/account/mail/authcode',
+        payload: {
             student_enrolled,
             student_grade,
             student_class,
@@ -259,7 +288,7 @@ const authcodeMail = (
         },
         success:() => {
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($('.valid_code_box'));
+            popupClose($('#valid_code_box'));
         }
     })
 }
@@ -272,9 +301,9 @@ const findIdMail = (
     student_name
 ) => {
     ajax({
-        method:'post',
-        url:'/account/mail/id',
-        payload:{
+        method: 'post',
+        url: '/account/mail/id',
+        payload: {
             student_enrolled,
             student_grade,
             student_class,
@@ -284,7 +313,7 @@ const findIdMail = (
         success:() => {
             showToast('ID 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('#find_id_box'));
-            popupOpen($('.login_box'));
+            popupOpen($('#login_box'));
         }
     })
 }

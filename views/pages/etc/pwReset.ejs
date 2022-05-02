@@ -9,8 +9,8 @@
     <%- include('../../common/accountBox') %>
     <script>
         popup.noClose = true;
-        $('.pw_reset_box .popup_close_button').style.display = 'none';
-        popupOpen($('.pw_reset_box'));
+        $('#pw_reset_box .popup_close_button')? $('#pw_reset_box .popup_close_button').style.display = 'none': undefined;
+        popupOpen($('#pw_reset_box'));
         account.pwEditCallback = () => {
             window.location = '/';
         }
