@@ -93,7 +93,7 @@ const postRefresh = (changeUrlPath = true) => {
     ajax({
         method:'get',
         url:`/post/${boardType}/${postNo}`,
-        success:(data) => {
+        callback:(data) => {
             postWindowOpen(changeUrlPath);
             $('.post').scrollTop = 0;
             postView.post = {...data.post};
@@ -117,7 +117,7 @@ const postDelete = () => {
     ajax({
         method:'delete',
         url:`/post/${boardType}/${postNo}`,
-        success:() => {
+        callback:() => {
             window.location.href = `/board/${boardType}`;
         }
     })
@@ -130,7 +130,7 @@ const likeSend = (like) => {
         payload:{
             like:like
         },
-        success:(data) => {
+        callback:(data) => {
             postView.post.like = data.like;
             postView.post.totalLike = data.totalLike;
         }
@@ -142,7 +142,7 @@ const commentRefresh = () => {
     ajax({
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
-        success:(data) => {
+        callback:(data) => {
             postView.comment.comments = data.comments;
             postView.comment.focus = 0;
         }
@@ -156,7 +156,7 @@ const commentDelete = commentIndex => {
     ajax({
         method:'delete',
         url:`/comment/${boardType}/${postNo}/${commentIndex}`,
-        success:() => {
+        callback:() => {
             commentRefresh();
         }
     })
@@ -176,7 +176,7 @@ const commentWrite = (depth, parentIdx) => {
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
         },
-        success:() => {
+        callback:() => {
             $(`.comment_write.write_${parentIdx} .write`).innerHTML='';
             commentRefresh();
         }
@@ -215,6 +215,6 @@ const editorNewline = () => {
 
 const copyPostEl = $('#copy_post');
 copyPostEl.onclick = () => {
-    navigator.clipboard.writeText($('.post_content > div').innerText);
+    navigator.clipboard.writeText($('.post_content > div').innerText.replaceAll(' ', ' '));
     showToast('복사되었습니다');
 }

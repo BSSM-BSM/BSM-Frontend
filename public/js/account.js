@@ -80,11 +80,6 @@ const loginBoxView = new Vue({
         },
         step2:function (event) {
             event.preventDefault();
-            console.log(event)
-            if (event.target?.pw?.value === undefined) {
-                showAlert("알 수 없는 에러가 발생하였습니다");
-                return;
-            }
             this.msg=`인증 중...`;
             account.login(this.id, event.target.pw.value);
         }
@@ -119,7 +114,7 @@ const login = (id, pw, callback) => {
             id,
             pw
         },
-        error:(data) => {
+        errorCallback:(data) => {
             if (data.statusCode == 400) {
                 loginBoxView.init();
                 showAlert('id 또는 password가 맞지 않습니다.');
@@ -127,7 +122,7 @@ const login = (id, pw, callback) => {
             }
             return false;
         },
-        success:(data) => {
+        callback:(data) => {
             // 액세스 토큰 갱신 후 로그인 상태를 갱신함
             const jsonData = JSON.parse(decodeBase64(data.token.split('.')[1]));
             saveUserInfo({
@@ -156,7 +151,7 @@ const logout = () => {
     ajax({
         method: 'delete',
         url: '/account/logout',
-        success:() => {
+        callback:() => {
             saveUserInfo({
                 isLogin: false,
                 level: null,
@@ -193,7 +188,7 @@ const signUp = (
             nickname,
             authcode,
         },
-        success:() => {
+        callback:() => {
             showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
             popupClose($('#sign_up_box'));
         }
@@ -210,7 +205,7 @@ const pwEdit = (pw, pw_check, callback) => {
             pw,
             pw_check,
         },
-        success:() => {
+        callback:() => {
             showToast('비밀번호 재설정이 완료되었습니다.');
             popupClose($('#pw_reset_box'));
             popupOpen($('#login_box'));
@@ -244,7 +239,7 @@ const nicknameEdit = (nickname) => {
         payload: {
             nickname
         },
-        success:(data) => {
+        callback:(data) => {
             showToast('닉네임 변경이 완료되었습니다.');
             allPopupClose();
             saveUserInfo({
@@ -262,7 +257,7 @@ const pwResetMail = (id) => {
         payload: {
             id
         },
-        success:() => {
+        callback:() => {
             showToast('비밀번호 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('#pw_reset_mail_box'));
             popupOpen($('#login_box'));
@@ -286,7 +281,7 @@ const authcodeMail = (
             student_no,
             student_name
         },
-        success:() => {
+        callback:() => {
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('#valid_code_box'));
         }
@@ -310,7 +305,7 @@ const findIdMail = (
             student_no,
             student_name
         },
-        success:() => {
+        callback:() => {
             showToast('ID 복구 메일 전송이 완료되었습니다.\n메일함을 확인해주세요.');
             popupClose($('#find_id_box'));
             popupOpen($('#login_box'));

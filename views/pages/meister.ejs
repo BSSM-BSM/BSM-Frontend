@@ -27,12 +27,12 @@
                         <p>상벌점을 보기위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</p>
                     </div>
                     <br>
-                    <form class="meisterInfo" method="post" autocomplete="off" onsubmit="meister();return false;">
+                    <form id="meister_info" autocomplete="off">
                         <input type="number" class="input_text hak" placeholder="학년" min="1" max="3" required>
                         <input type="number" class="input_text ban" placeholder="반" min="1" max="4" required>
                         <input type="number" class="input_text bun" placeholder="번호" min="1" max="16" required>
                         <div v-if="viewCase=='point'">
-                            <input :class="{inactive:defaultPW}" type="password" class="input_text pw" placeholder="마이스터 인증제 사이트 비밀번호" :required="!defaultPW">
+                            <input :class="{inactive:defaultPW}" :readonly="defaultPW" type="password" class="input_text pw" placeholder="마이스터 인증제 사이트 비밀번호" :required="!defaultPW">
                             <br>
                             <label for="checkDefaultPW">
                                 <input id="checkDefaultPW" type="checkbox" v-model="defaultPW">
@@ -41,7 +41,7 @@
                         </div>
                         <br><br>
                         <span class="dropdown_menu select_grade">
-                            <span class="select button">인증제 점수</span>
+                            <span class="select button">상벌점 점수</span>
                             <ul class="dropdown_content">
                                 <li class="option" onclick="$('.select_grade .select').innerText=this.innerText;meisterView.viewCase='score'">인증제 점수</li>
                                 <li class="option" onclick="$('.select_grade .select').innerText=this.innerText;meisterView.viewCase='point'">상벌점 점수</li>

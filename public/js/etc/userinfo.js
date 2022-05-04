@@ -22,7 +22,7 @@ const viewUserInfo = () => {
     ajax({
         method:'get',
         url:`/account/${viewUsercode}`,
-        success:(data) => {
+        callback:(data) => {
             Object.keys(userInfoView.user).forEach(e => {
                 if (data.user[e] === undefined) {
                     userInfoView.user[e] = null;
@@ -55,7 +55,7 @@ const profileUpload = () => {
         method:'post',
         payload:formData,
         url:'/account/profile',
-        success:() => {
+        callback:() => {
             alert("업로드에 성공하였습니다.\n캐시때문에 사진이 변경되지 않을 수 있으니\n기다리거나 캐시 삭제를 해주시면 됩니다");
             window.location.reload();
         }

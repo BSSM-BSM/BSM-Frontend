@@ -26,13 +26,13 @@ const mealRefresh = () => {
     ajax({
         method:'get',
         url:`/meal/${year}-${month}-${date}`,
-        error:(data) => {
+        errorCallback:(data) => {
             mealRender();
             if (data.statusCode == 404) {
                 return true;
             }
         },
-        success:data => {
+        callback:(data) => {
             if (data.meal != null) {
                 const meal = data.meal;
                 mealTable[year+'-'+month+'-'+date] = {

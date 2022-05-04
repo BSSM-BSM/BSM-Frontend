@@ -58,11 +58,11 @@ const boardRefresh = () => {
     ajax({
         method:'get',
         url:`/board/${boardType}?page=${page}&limit=${limit}`,
-        error:() => {
+        errorCallback:() => {
             boardView.posts.splice(0);
             boardMenu.pages = 0;
         },
-        success:(data) => {
+        callback:(data) => {
             boardTitle.boardName = data.boardName;
             boardTitle.boardType = boardType;
             boardTitle.subBoardName = data.subBoard.boardName;

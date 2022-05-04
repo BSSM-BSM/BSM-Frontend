@@ -200,24 +200,34 @@ const instance = axios.create({
     headers:{'Pragma':'no-cache'},
     timeout:3000,
 })
-const ajax = async ({method, url, payload, success, error}) => {
+const ajax = async ({
+    method,
+    url,
+    payload,
+    config,
+    callback,
+    errorCallback,
+    rawResPass
+}) => {
     $('.loading').classList.add("on");
     let res
     try {
         const get = async () => {
             switch (method) {
                 case 'get':
-                    return instance.get(url, payload);
+                    return instance.get(url, config);
                 case 'post':
-                    return instance.post(url, payload);
+                    return instance.post(url, payload, config);
                 case 'put':
-                    return instance.put(url, payload);
+                    return instance.put(url, payload, config);
                 case 'delete':
-                    return instance.delete(url, payload);
+                    return instance.delete(url, config);
             }
         }
         res = await get(method);
-        res = res.data;
+        if (!rawResPass) {
+            res = res.data;
+        }
     } catch (err) {
         console.log(err);
         loadingInit();
@@ -246,10 +256,10 @@ const ajax = async ({method, url, payload, success, error}) => {
                 ...jsonData
             });
             // 원래 하려던 요청을 다시 보냄
-            return ajax({method:method, url:url, payload:payload, success:success, error:error});
+            return ajax({method, url, payload, callback, errorCallback});
         }
 
-        if (error && error(err.response.data)) {
+        if (errorCallback && errorCallback(err.response.data)) {
             return;
         }
         switch (err.response.data.statusCode) {
@@ -282,8 +292,8 @@ const ajax = async ({method, url, payload, success, error}) => {
         return;
     }
     try {
-        if (success) {
-            success(res);
+        if (callback) {
+            callback(res);
         }
     } catch (err) {
         console.log(err);
