@@ -18,6 +18,10 @@ const emoticonView = new Vue({
     },
 })
 const insertEmoticon = (id, idx, type) => {
+    if (typeof tinymce != 'undefined' && editor == tinymce?.activeEditor?.contentDocument?.body) {
+        tinymce.activeEditor.insertContent(`<img src="/resource/board/emoticon/${id}/${idx}.${type}" e_id="${id}" e_idx="${idx}" e_type="${type}" class="emoticon">`);
+        return;
+    }
     focusEditor();
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
