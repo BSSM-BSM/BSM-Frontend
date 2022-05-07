@@ -3,7 +3,7 @@ let postNo = window.location.pathname.split('/')[4];
 
 const postEditorInit = () => {
     const cssLink = document.createElement("link");
-    cssLink.href = '/css/style.css';
+    cssLink.href = '/css/etc/board.css';
     cssLink.rel = 'stylesheet';
     cssLink.type = 'text/css';
     tinymce.activeEditor.contentDocument.head.appendChild(cssLink);
@@ -51,6 +51,8 @@ tinymce.init({
     mobile: {
         menubar: true,
     },
+    skin: localStorage.getItem('theme')=='dark'? 'oxide-dark': undefined,
+    content_css: localStorage.getItem('theme')?? undefined,
     plugins: [
         'code','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks','media','table','wordcount'
     ],

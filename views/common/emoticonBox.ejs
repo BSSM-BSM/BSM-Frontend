@@ -2,7 +2,7 @@
     <div class="insert_emoticon_box popup center">
         <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
         <h2>이모티콘 넣기</h2>
-        <div class="select_emoticon scroll_bar">
+        <div class="select_emoticon scroll_bar no_overlay">
             <img v-for="(e, i) in emoticon" :src="`/resource/board/emoticon/${e.id}.png`" :alt="e.alt" class="emoticon_icon" v-on:click="selectEmoticon(i)">
         </div>
         <div class="emoticon_box scroll_bar" v-if="emoticon[emoticonIdx]">

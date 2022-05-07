@@ -1,4 +1,4 @@
-const cacheName = '1.4.1.2';
+const cacheName = '1.4.1.3';
 const cacheFiles = [
     '/',
     '/meal',
@@ -7,7 +7,9 @@ const cacheFiles = [
     '/board/board',
     '/board/anonymous',
     '/board/notice',
-    '/board/qanda',
+    '/board/qna',
+    '/board/software',
+    '/board/embedded',
     '/emoticon',
     '/js/common.js',
     '/js/header.js',
@@ -16,29 +18,25 @@ const cacheFiles = [
     '/js/etc/meal.js',
     '/js/etc/meister.js',
     '/js/etc/timetable.js',
+    '/js/etc/userinfo.js',
     '/js/etc/board/load.js',
     '/js/etc/board/board.js',
     '/js/etc/board/post.js',
+    '/js/etc/board/postWrite.js',
     '/js/etc/board/emoticon.js',
     '/css/style.css',
     '/css/etc/board.css',
     '/css/etc/index.css',
     '/css/etc/meal.css',
     '/css/etc/meister.css',
-    '/css/etc/user.css',
     '/css/etc/timetable.css',
+    '/css/etc/user.css',
 ];
-const libCacheName = 'lib-1.4.0.1';
+const libCacheName = 'lib-1.4.1.1';
 const libCacheFiles = [
-    '/js/lib/jquery.min.js',
-    '/js/lib/axios.js',
-    '/js/lib/summernote-lite.min.js',
-    '/js/lib/lang/summernote-ko-KR.js',
-    '/js/lib/vue.js',
-    '/css/lib/summernote-lite.min.css',
-    '/css/lib/font/summernote.woff',
-    '/css/lib/font/summernote.woff2',
-    '/css/lib/font/summernote.ttf'
+    '/lib/axios.js',
+    '/lib/vue.js',
+    '/lib/tinymce/tinymce.min.js',
 ];
 const etcCacheName = 'etc-1.4.0.2';
 const etcCacheFiles = [
