@@ -5,18 +5,18 @@
     <form v-if="step==0" class="login" autocomplete="off" onsubmit="loginBoxView.step1(event);">
         <input name="id" type="text" class="input_text" placeholder="아이디" required v-model="id">
         <div class="bottom_box">
-            <a onClick="popupOpen($('#signup_box'));">회원가입</a>
-            <a onClick="popupOpen($('#pw_reset_mail_box'));">비밀번호 복구</a>
-            <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
+            <span class="clear_button" onClick="popupOpen($('#signup_box'));">회원가입</span>
+            <span class="clear_button" onClick="popupOpen($('#pw_reset_mail_box'));">비밀번호 복구</span>
+            <span class="clear_button" onClick="popupOpen($('#find_id_box'));">ID 찾기</span>
         </div>
         <button type="submit" class="button main_button accent">다음</button>
     </form>
     <form v-if="step==1" class="login" autocomplete="off" onsubmit="loginBoxView.step2(event)">
         <input name="pw" type="password" class="input_text" placeholder="비밀번호" required>
         <div class="bottom_box">
-            <a onClick="popupOpen($('#signup_box'));">회원가입</a>
-            <a onClick="popupOpen($('#pw_reset_mail_box'));">비밀번호 복구</a>
-            <a onClick="popupOpen($('#find_id_box'));">ID 찾기</a>
+            <span class="clear_button" onClick="popupOpen($('#signup_box'));">회원가입</span>
+            <span class="clear_button" onClick="popupOpen($('#pw_reset_mail_box'));">비밀번호 복구</span>
+            <span class="clear_button" onClick="popupOpen($('#find_id_box'));">ID 찾기</span>
         </div>
         <button type="submit" class="button main_button accent">로그인</button>
     </form>
@@ -33,7 +33,7 @@
         <input name="nickname" type="text" class="input_text" placeholder="닉네임" required>
         <input name="authcode" type="text" class="input_text" placeholder="인증코드" required>
         <div class="bottom_box">
-            <a onClick="popupOpen($('#authcode_box'))">인증코드 발급</a>
+            <span class="clear_button" onClick="popupOpen($('#authcode_box'))">인증코드 발급</span>
         </div>
         <button type="submit" class="button main_button accent">가입하기</button>
     </form>

@@ -49,11 +49,11 @@
                     </div>
                     <ul v-if="user.isLogin" class="dropdown_content">
                         <li><a :href="`/user/${user.code}`" class="option">유저 정보</a></li>
-                        <li><a onclick="popupOpen($('#pw_reset_box'))" class="option">비밀번호 재설정</a></li>
-                        <li><a onclick="popupOpen($('#nickname_update_box'))" class="option">닉네임 변경</a></li>
-                        <li><a onclick="logout()" class="option">로그아웃</a></li>
+                        <li><button onclick="popupOpen($('#pw_reset_box'))" class="option clear_button">비밀번호 재설정</button></li>
+                        <li><button onclick="popupOpen($('#nickname_update_box'))" class="option clear_button">닉네임 변경</button></li>
+                        <li><button onclick="logout()" class="option clear_button">로그아웃</button></li>
                     </ul>
-                    <a v-if="!user.isLogin" onclick="showLoginBox()" class="menu_item">로그인</a>
+                    <button v-if="!user.isLogin" onclick="showLoginBox()" class="menu_item clear_button">로그인</button>
                 </span>
             </div>
         </div>

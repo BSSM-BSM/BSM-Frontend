@@ -11,7 +11,7 @@
     <script>
         let installed = true;
         let prompt;
-        window.addEventListener('beforeinstallprompt', function(e){
+        window.addEventListener('beforeinstallprompt', function(e) {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
             // Stash the event so it can be triggered later.
@@ -34,7 +34,10 @@
                             <div class="user_name">{{user.nickname}}</div>
                         </div>
                     </a>
-                    <a v-if="!user.isLogin" class="icon" onclick="showLoginBox()">로그인</a>
+                    <a v-if="!user.isLogin" class="icon" onclick="showLoginBox()">
+                        <object data="/resource/common/images/person.svg" alt="meister"></object>
+                        <span>로그인</span>
+                    </a>
                 </li>
                 <li class="menu meal">
                     <a href="/meal" class="icon">
@@ -134,16 +137,16 @@
                     <br><br>
                     <div class="download_button_wrap">
                         <a class="download_button button accent" onclick="
-                            if(navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)){
+                            if (navigator.platform && /Mac|iPad|iPhone|iPod/.test(navigator.platform)) {
                                 showAlert('설치할 수 없는 브라우저입니다.');
-                            }else{
-                                if('serviceWorker' in navigator){
-                                    if(installed){
+                            } else {
+                                if ('serviceWorker' in navigator) {
+                                    if (installed) {
                                         showAlert('이미 설치되어 있습니다.');
-                                    }else{
+                                    } else {
                                         prompt.prompt();
                                     }
-                                }else{
+                                } else {
                                     showAlert('설치할 수 없는 브라우저입니다.');
                                 }
                             }">
@@ -152,7 +155,7 @@
                             </div>
                             <div class="right_wrap">
                                 <p>Web App</p>
-                                <p>Ver. 1.4.1.3</p>
+                                <p>Ver. 1.4.1.4</p>
                             </div>
                         </a>
                     </div>
