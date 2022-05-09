@@ -1,24 +1,22 @@
 const boardTitle = new Vue({
-    el:'.board_title',
-    data:{
-        boardName:'',
-        boardType:'',
-        subBoardName:'',
-        subBoardType:''
+    el: '.board_title',
+    data: {
+        boardName: '',
+        boardType: '',
+        subBoardName: '',
+        subBoardType: ''
     }
 })
 const boardMenu = new Vue({
-    el:'.board_bottom_menu',
-    data:{
-        isLogin:false,
-        writeUrl:'javascript:showLoginBox()',
+    el: '.board_bottom_menu',
+    data: {
         pages:0,
         activePage:0
     }
 })
 const boardView = new Vue({
-    el:'.board_list',
-    data:{
+    el: '.board_list',
+    data: {
         posts:[],
         boardType
     }
@@ -31,7 +29,8 @@ const boardChange = (changeBoard) => {
     if (page>1) {
         boardPageChange(1);
     } else {
-        history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+        const newUrl = `/board/${boardType}${window.location.search}`;
+        newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
         boardRefresh();
     }
 }
@@ -41,7 +40,8 @@ const boardPageChange = (changePage) => {
     boardMenu.activePage = page;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
-    history.pushState(null, null, `/board/${boardType}?`+urlSearch.toString());
+    const newUrl = `/board/${boardType}?`+urlSearch.toString();
+    newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
     boardRefresh();
 }
 
@@ -49,14 +49,15 @@ const boardLimitChange = (changeLimit) => {
     limit = changeLimit;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('limit', String(changeLimit));
-    history.pushState(null, null, `/board/${boardType}?`+urlSearch.toString());
+    const newUrl = `/board/${boardType}?`+urlSearch.toString();
+    newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
     boardRefresh();
 }
 
 const boardRefresh = () => {
     progress(20);
     ajax({
-        method:'get',
+        method: 'get',
         url:`/board/${boardType}?page=${page}&limit=${limit}`,
         errorCallback:() => {
             boardView.posts.splice(0);
@@ -67,12 +68,6 @@ const boardRefresh = () => {
             boardTitle.boardType = boardType;
             boardTitle.subBoardName = data.subBoard.boardName;
             boardTitle.subBoardType = data.subBoard.boardType;
-
-            if (user.isLogin) {
-                boardMenu.isLogin = true;
-                boardMenu.writeUrl = '/board/write/'+boardType;
-            }
-
             boardMenu.activePage = page;
             boardMenu.pages = data.pages;
 

@@ -1,12 +1,6 @@
-let boardType = window.location.pathname.split('/')[3];
-let postNo = window.location.pathname.split('/')[4];
-
 const postEditorInit = () => {
-    const cssLink = document.createElement("link");
-    cssLink.href = '/css/etc/board.css';
-    cssLink.rel = 'stylesheet';
-    cssLink.type = 'text/css';
-    tinymce.activeEditor.contentDocument.head.appendChild(cssLink);
+    $('#post_write').title.value = '';
+    tinymce.activeEditor.setContent('');
     loadPost();
 }
 
@@ -38,7 +32,13 @@ const writePost = () => {
             content: tinymce.activeEditor.getContent(),
         },
         callback:() => {
-            window.location.href = `/board/${boardType}`;
+            postEditorInit();
+            if (postNo) {
+                postRefresh();
+            } else {
+                postWindowClose();
+                boardRefresh();
+            }
         }
     })
 }
@@ -87,5 +87,14 @@ tinymce.init({
             });
         });
     },
-    init_instance_callback: postEditorInit
+    init_instance_callback: () => {
+        const cssLink = document.createElement('link');
+        cssLink.href = '/css/etc/board.css';
+        cssLink.rel = 'stylesheet';
+        cssLink.type = 'text/css';
+        const css = document.createElement('style');
+        css.innerHTML = `html{font-size:62.5%}ul,ol,li{list-style:none}h1{font-size:3.8rem}h2{font-size:2.4rem}h3{font-size:3.2rem}h4{font-size:2.2rem}p{font-size:1.5rem}a{text-decoration:none}`;
+        tinymce.activeEditor.contentDocument.head.appendChild(cssLink);
+        tinymce.activeEditor.contentDocument.head.appendChild(css);
+    }
 });

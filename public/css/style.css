@@ -74,7 +74,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   --visited: #f4a4ff;
 }
 html{
-  font-size:62.5%; height:100%;
+  font-size:62.5%;
+  height:100%;
   /* 1rem == 10px */
   scroll-behavior:smooth;
   height: calc(var(--vh, 1vh) * 100);

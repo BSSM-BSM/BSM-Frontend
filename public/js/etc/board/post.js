@@ -1,24 +1,25 @@
 const postView = new Vue({
-    el:'.post',
-    data:{
-        post:{
-            permission:false,
-            usercode:0,
-            title:'',
-            date:'',
-            hit:'',
-            comments:'',
-            nickname:'',
-            content:'',
-            totalLike:0,
-            like:0,
+    el: '.post',
+    data: {
+        mode: 'view',
+        post: {
+            permission: false,
+            usercode: 0,
+            title: '',
+            date: '',
+            hit: '',
+            comments: '',
+            nickname: '',
+            content: '',
+            totalLike: 0,
+            like: 0,
         },
-        comment:{
-            comments:[],
-            focus:0
+        comment: {
+            comments: [],
+            focus: 0
         }
     },
-    methods:{
+    methods: {
         isParent:function () {
             return this.item.child && this.item.child.length;
         },
@@ -71,7 +72,8 @@ const postWindowOpen = (changeUrlPath = true) => {
     $('.post').classList.remove('hide');
     $('body').classList.add('no_scroll');
     if (changeUrlPath) {
-        history.pushState(null, null, `/board/${boardType}/${postNo}${window.location.search}`);
+        const newUrl = `/board/${boardType}/${postNo}${window.location.search}`;
+        newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
     }
     allMenuBtn.el.classList.add('go_back');
     allMenuBtn.setAction(() => {
@@ -79,11 +81,18 @@ const postWindowOpen = (changeUrlPath = true) => {
     });
 }
 
+const postWriteWindowOpen = () => {
+    postView.mode = 'write';
+    postNo = null;
+    postWindowOpen(false);
+}
+
 const postWindowClose = (changeUrlPath = true) => {
     $('.post').classList.add('hide');
     $('body').classList.remove('no_scroll');
     if (changeUrlPath) {
-        history.pushState(null, null, `/board/${boardType}${window.location.search}`);
+        const newUrl = `/board/${boardType}${window.location.search}`;
+        newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
     }
     allMenuBtn.setDefault();
 }
@@ -97,6 +106,7 @@ const postRefresh = (changeUrlPath = true) => {
             postWindowOpen(changeUrlPath);
             $('.post').scrollTop = 0;
             postView.post = {...data.post};
+            postView.mode = 'view';
             window.setTimeout(() => {
                 // iframe영상을 화면에 꽉채우게 하기위해서 컨테이너로 감싸줌
                 // 바로 실행하면 요소가 dom에 렌더링되기 전에 실행되므로 딜레이를 줘서 실행
@@ -123,12 +133,17 @@ const postDelete = () => {
     })
 }
 
+const postEdit = () => {
+    postView.mode = 'write';
+    postEditorInit();
+}
+
 const likeSend = (like) => {
     ajax({
         method:'post',
         url:`/like/${boardType}/${postNo}`,
         payload:{
-            like:like
+            like
         },
         callback:(data) => {
             postView.post.like = data.like;
@@ -167,12 +182,12 @@ const commentWrite = (depth, parentIdx) => {
     let url;
     if (parentIdx<1) {
         url = `/comment/${boardType}/${postNo}`;
-    }else{
+    } else {
         url = `/comment/${boardType}/${postNo}/${depth}/${parentIdx}`;
     }
     ajax({
         method:'post',
-        url:url,
+        url,
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
         },

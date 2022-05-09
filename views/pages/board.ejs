@@ -20,7 +20,17 @@
                     <object data="/resource/common/images/copy.svg"></object>
                 </button>
             </div>
-            <div class="container">
+            <div v-show="mode=='write'" class="container post_wrap">
+                <h1>글쓰기</h1><br>
+                <form id="post_write" autocomplete="off">
+                    <input type="text" name="title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
+                    <textarea name="content" style="width:100%"></textarea>
+                    <br><br>
+                    <span onclick="postView.mode = 'view'" class="button delete">취소</span>
+                    <input type="submit" value="글작성" class="button accent">
+                </form>
+            </div>
+            <div v-show="mode=='view'" class="container">
                 <div class="post_wrap">
                     <div class="post_info_wrap">
                         <div class="left_wrap"><img :src="`/resource/user/profile_images/profile_${post.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile"></div>
@@ -34,15 +44,15 @@
                         </div>
                     <div class="post_content"><div v-html="post.content"></div></div>
                     <div class="post_like_wrap post_like">
-                        <button class="like_button like icon" onclick="likeSend(1);" v-bind:class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
+                        <button class="like_button like icon" onclick="likeSend(1)" v-bind:class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
                         <span class="post_like_cnt">{{post.totalLike}}</span>
-                        <button class="like_button dislike icon" onclick="likeSend(-1);" v-bind:class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
+                        <button class="like_button dislike icon" onclick="likeSend(-1)" v-bind:class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
                     </div>
                 </div>
                 <div class="comment_list">
                     <div class="comment_item" v-for="item in comment.comments">
                         <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
-                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
+                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx)" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
                                     <img :src="`/resource/user/profile_images/profile_${item.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -74,16 +84,12 @@
                         <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
                     </div>
                     <br>
-                    <div class="button" onclick="commentRefresh();">댓글 새로고침</div>
+                    <div class="button" onclick="commentRefresh()">댓글 새로고침</div>
                     <input type="submit" name="" value="댓글작성" class="button accent">
                 </form>
                 <div class="post_menu">
-                    <span class="post_delete">
-                        <div class="button delete" onclick="postDelete();" v-if="post.permission">글 삭제</div>
-                    </span>
-                    <span class="post_modify">
-                        <a class="button accent" :href="`/board/write/${boardType}/${postNo}`" v-if="post.permission">게시글 수정</a>
-                    </span>
+                    <button class="button delete" onclick="postDelete()" v-if="post.permission">글 삭제</button>
+                    <button class="button accent" onclick="postEdit()" v-if="post.permission">게시글 수정</button>
                 </div>
             </div>
         </div>
@@ -133,22 +139,22 @@
                 <div class="board_bottom_menu">
                     <div class="top">
                         <div class="board_menu_item pages">
-                            <div :onClick="`boardPageChange(${page})`" v-for="page in pages" :class="{active:page==activePage}">{{page}}</div>
+                            <div :onclick="`boardPageChange(${page})`" v-for="page in pages" :class="{active:page==activePage}">{{page}}</div>
                         </div>
                     </div>
                     <div class="bottom">
                         <div class="board_menu_item board_refresh_button">
-                            <button onClick="boardRefresh();" class="button">글 새로고침</button>
+                            <button onclick="boardRefresh()" class="button">글 새로고침</button>
                         </div>
                         <div class="board_menu_item post_write_button">
-                            <a :href="writeUrl" class="button accent" v-bind:class="{inactive:!isLogin}">글쓰기</a>
+                            <button onclick="postWriteWindowOpen()" class="button accent">글쓰기</button>
                         </div>
                     </div>
                 </div>
                 <script type="text/x-template" id="comment_item_template">
                     <div class="comment_item">
                         <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
-                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx);" v-if="!item.deleted">
+                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx)" v-if="!item.deleted">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
                                     <img :src="`/resource/user/profile_images/profile_${item.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -180,6 +186,8 @@
     <script src="/js/etc/board/load.js"></script>
     <script src="/js/etc/board/board.js"></script>
     <script src="/js/etc/board/post.js"></script>
+    <script src="/lib/tinymce/tinymce.min.js"></script>
+    <script src="/js/etc/board/postWrite.js"></script>
     <%- include('../common/emoticonBox') %>
     <%- include('../common/header') %>
 </body>
