@@ -7,7 +7,14 @@ const boardTitle = new Vue({
         subBoardType: ''
     }
 })
-const boardMenu = new Vue({
+const boardTopMenuView = new Vue({
+    el: '.board_top_menu',
+    data: {
+        categoryList: {},
+        category
+    }
+})
+const boardBottomMenuView = new Vue({
     el: '.board_bottom_menu',
     data: {
         pages:0,
@@ -17,14 +24,16 @@ const boardMenu = new Vue({
 const boardView = new Vue({
     el: '.board_list',
     data: {
-        posts:[],
-        boardType
+        posts: [],
+        boardType,
+        categoryList: {}
     }
 })
 
 const boardChange = (changeBoard) => {
     boardType = changeBoard;
     boardView.boardType = boardType;
+    boardTopMenuView.category = 'all';
     postWindowClose(false);
     if (page>1) {
         boardPageChange(1);
@@ -37,7 +46,7 @@ const boardChange = (changeBoard) => {
 
 const boardPageChange = (changePage) => {
     page = changePage;
-    boardMenu.activePage = page;
+    boardBottomMenuView.activePage = page;
     const urlSearch = new URLSearchParams(location.search);
     urlSearch.set('page', String(changePage));
     const newUrl = `/board/${boardType}?`+urlSearch.toString();
@@ -54,22 +63,34 @@ const boardLimitChange = (changeLimit) => {
     boardRefresh();
 }
 
+const boardCategoryChange = (changeCategory) => {
+    category = changeCategory;
+    boardTopMenuView.category = changeCategory;
+    const urlSearch = new URLSearchParams(location.search);
+    urlSearch.set('category', String(changeCategory));
+    const newUrl = `/board/${boardType}?`+urlSearch.toString();
+    newUrl==location.pathname+location.search? undefined: history.pushState(null, null, newUrl);
+    boardRefresh();
+}
+
 const boardRefresh = () => {
     progress(20);
     ajax({
         method: 'get',
-        url:`/board/${boardType}?page=${page}&limit=${limit}`,
+        url:`/board/${boardType}?page=${page}&limit=${limit}&category=${category}`,
         errorCallback:() => {
             boardView.posts.splice(0);
-            boardMenu.pages = 0;
+            boardBottomMenuView.pages = 0;
         },
         callback:(data) => {
             boardTitle.boardName = data.boardName;
             boardTitle.boardType = boardType;
             boardTitle.subBoardName = data.subBoard.boardName;
             boardTitle.subBoardType = data.subBoard.boardType;
-            boardMenu.activePage = page;
-            boardMenu.pages = data.pages;
+            boardBottomMenuView.activePage = page;
+            boardBottomMenuView.pages = data.pages;
+            boardTopMenuView.categoryList = data.category;
+            postView.categoryList = data.category;
 
             const date = new Date();
             let today = ""+date.getFullYear();
@@ -89,17 +110,11 @@ const boardRefresh = () => {
                 return;
             }
             boardView.boardType = boardType;
+            boardView.categoryList = data.category;
             boardView.posts = boardData.map(e => {
                 return {
-                    usercode: e.usercode,
-                    nickname: e.nickname,
-                    boardType: e.boardType,
-                    postNo: e.postNo,
-                    title: e.title,
+                    ...e,
                     date: e.date.split(' ')[0].replaceAll("-","")==today? e.date.split(' ')[1]: e.date.split(' ')[0],
-                    hit: e.hit,
-                    comments: e.comments,
-                    totalLike: e.totalLike,
                 }
             });
         }

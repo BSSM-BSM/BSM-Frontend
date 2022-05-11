@@ -98,10 +98,29 @@
 }
 .board_top_menu{
   display: flex;
-  justify-content: right;
+  align-items: center;
   padding: 0 1rem;
   margin-top: 5rem;
 }
+.board_category{
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+  overflow: auto;
+}
+.board_category li{
+  padding: 1rem 1.25rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  word-break: keep-all;
+  background-color: var(--level-1);
+  transition: .25s;
+}
+.board_category li:is(:hover, .active){
+  background-color: var(--hover);
+}
+
 .board_bottom_menu{
   display: flex;
   flex-direction: column;
@@ -132,7 +151,7 @@
   background-color: var(--level-1);
   cursor: pointer;
 }
-.post.hide #close-post{
+#post.hide #close-post{
   left: -7.5rem;
 }
 #close-post:hover{
@@ -150,17 +169,17 @@
   color: var(--text-level-1);
   transition: .25s;
 }
-.post:not(.hide) #close-post span:last-child::after{
+#post:not(.hide) #close-post span:last-child::after{
   position: fixed;
   top: 0;
   left: 0;
-  width: 6rem;
+  width: 5rem;
   height: 100%;
   content: '';
   transition: .25s;
 }
 #close-post:hover span:last-child,
-.post.hide #close-post span:last-child{
+#post.hide #close-post span:last-child{
   opacity: 0;
 }
 
@@ -170,7 +189,7 @@
   right: 5rem;
   transition: .25s;
 }
-.post.hide #post_tools{
+#post.hide #post_tools{
   bottom: -100%;
 }
 #post_tools .icon{
@@ -191,8 +210,18 @@
   background-color: var(--hover);
 }
 
+#post_editor_menu{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+#post_editor_menu .board_category{
+  flex: 1;
+}
 
-.post{
+#post{
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -204,7 +233,7 @@
   background-color: var(--background);
   transition: right .4s;
 }
-.post.hide{
+#post.hide{
   right: -100%;
 }
 .post_wrap{
@@ -264,14 +293,14 @@
 .post_info_wrap .post_comments::after{
   content: " 댓글";
 }
-.post .post_content{
+#post .post_content{
   width: 100%;
   margin: 5rem 0 10rem 0;
 }
 .post_content div p img{
   max-width: 100% !important;
 }
-.post .post_content div{
+#post .post_content div{
   text-align:left;
 }
 .post_menu{

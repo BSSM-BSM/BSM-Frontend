@@ -1,5 +1,5 @@
 const postView = new Vue({
-    el: '.post',
+    el: '#post',
     data: {
         mode: 'view',
         post: {
@@ -17,7 +17,9 @@ const postView = new Vue({
         comment: {
             comments: [],
             focus: 0
-        }
+        },
+        categoryList: {},
+        category: 'normal'
     },
     methods: {
         isParent:function () {
@@ -26,6 +28,9 @@ const postView = new Vue({
         focusComment:function (focus) {
             this.comment.focus = focus;
         },
+        changeEditorCategory:function (category) {
+            this.category = category;
+        }
     },
     updated() {
         this.$nextTick(function () {
@@ -69,7 +74,7 @@ const boardPostChange = (changePostNo, changeUrlPath = true) => {
 }
 
 const postWindowOpen = (changeUrlPath = true) => {
-    $('.post').classList.remove('hide');
+    $('#post').classList.remove('hide');
     $('body').classList.add('no_scroll');
     if (changeUrlPath) {
         const newUrl = `/board/${boardType}/${postNo}${window.location.search}`;
@@ -88,7 +93,7 @@ const postWriteWindowOpen = () => {
 }
 
 const postWindowClose = (changeUrlPath = true) => {
-    $('.post').classList.add('hide');
+    $('#post').classList.add('hide');
     $('body').classList.remove('no_scroll');
     if (changeUrlPath) {
         const newUrl = `/board/${boardType}${window.location.search}`;
@@ -104,7 +109,7 @@ const postRefresh = (changeUrlPath = true) => {
         url:`/post/${boardType}/${postNo}`,
         callback:(data) => {
             postWindowOpen(changeUrlPath);
-            $('.post').scrollTop = 0;
+            $('#post').scrollTop = 0;
             postView.post = {...data.post};
             postView.mode = 'view';
             window.setTimeout(() => {

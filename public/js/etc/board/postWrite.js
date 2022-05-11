@@ -1,6 +1,7 @@
 const postEditorInit = () => {
     $('#post_write').title.value = '';
     tinymce.activeEditor.setContent('');
+    postView.category = 'normal';
     loadPost();
 }
 
@@ -30,6 +31,7 @@ const writePost = () => {
         payload: {
             title: $('#post_write').title.value,
             content: tinymce.activeEditor.getContent(),
+            category: postView.category
         },
         callback:() => {
             postEditorInit();
@@ -75,7 +77,7 @@ tinymce.init({
             ajax({
                 method: 'post',
                 payload: file,
-                url: '/imageUpload',
+                url: '/post/image',
                 config:{
                     timeout: 0,
                     onUploadProgress: event => {
@@ -83,7 +85,7 @@ tinymce.init({
                     }
                 },
                 callback:(data) => resolve(data.filePath),
-                errorCallback:(data) => reject(data.message)
+                errorCallback:(data) => reject({message:data.message,remove:true})
             });
         });
     },

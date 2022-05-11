@@ -10,7 +10,7 @@
 <body>
     <%- include('../common/common') %>
     <main>
-        <div class="post hide scroll_bar">
+        <div id="post" class="hide scroll_bar">
             <div id="close-post" onclick="postWindowClose()">
                 <span> ◀ </span>
                 <span> ◀ </span>
@@ -25,9 +25,13 @@
                 <form id="post_write" autocomplete="off">
                     <input type="text" name="title" placeholder="제목" class="input_text" style="width:100%;" required autofocus>
                     <textarea name="content" style="width:100%"></textarea>
-                    <br><br>
-                    <span onclick="postView.mode = 'view'" class="button delete">취소</span>
-                    <input type="submit" value="글작성" class="button accent">
+                    <div id="post_editor_menu">
+                        <ul class="board_category scroll_bar no_overlay">
+                            <li v-for="(item, i) in categoryList" v-on:click="changeEditorCategory(i)" :class="{active:category==i}">{{item.name}}</li>
+                        </ul>
+                        <span onclick="postView.mode = 'view'" class="button delete">취소</span>
+                        <input type="submit" value="글작성" class="button accent">
+                    </div>
                 </form>
             </div>
             <div v-show="mode=='view'" class="container">
@@ -44,9 +48,9 @@
                         </div>
                     <div class="post_content"><div v-html="post.content"></div></div>
                     <div class="post_like_wrap post_like">
-                        <button class="like_button like icon" onclick="likeSend(1)" v-bind:class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
+                        <button class="like_button like icon" onclick="likeSend(1)" :class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
                         <span class="post_like_cnt">{{post.totalLike}}</span>
-                        <button class="like_button dislike icon" onclick="likeSend(-1)" v-bind:class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
+                        <button class="like_button dislike icon" onclick="likeSend(-1)" :class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
                     </div>
                 </div>
                 <div class="comment_list">
@@ -97,11 +101,15 @@
             <div class="board">
                 <div class="title board_title">
                     <div class="container">
-                        <a :href="`/board/${boardType}`" class="main" :onclick="`boardChange('${boardType}');return false;`">{{boardName}}</a>
+                        <a :href="`/board/${boardType}`" class="main" onclick="boardRefresh();return false;">{{boardName}}</a>
                         <a :href="`/board/${subBoardType}`" class="sub" v-if="boardType!='notice'" :onclick="`boardChange('${subBoardType}');return false;`">{{subBoardName}}</a>
                     </div>
                 </div>
                 <div class="board_top_menu">
+                    <ul class="board_category scroll_bar no_overlay">
+                        <li onclick="boardCategoryChange('all')" :class="{active:category=='all'}">전체</li>
+                        <li v-for="(item, i) in categoryList" :onclick="`boardCategoryChange('${i}')`" :class="{active:category==i}">{{item.name}}</li>
+                    </ul>
                     <span class="dropdown_menu board_limit">
                         <span class="select button">15개</span>
                         <ul class="dropdown_content">
@@ -129,6 +137,7 @@
                                 </div>
                                 <div class="board_item_info right_wrap">
                                     <span class="board_item_post_info like" v-bind:class="{active:post.totalLike>0}" v-show="post.totalLike!=0">{{post.totalLike}}</span>
+                                    <span v-if="post.category!='normal'" class="board_item_post_info">{{categoryList[post.category].name}}</span>
                                     <span class="board_item_post_info hit">{{post.hit}}</span>
                                     <span class="board_item_post_info date">{{post.date}}</span>
                                 </div>

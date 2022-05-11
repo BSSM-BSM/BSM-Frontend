@@ -3,6 +3,7 @@ let lastBoardType = null;
 let postNo = null;
 let page = null;
 let limit = null;
+let category = 'all';
 
 const boardInit = () => {
     boardType = window.location.pathname.split('/')[2];
