@@ -70,6 +70,7 @@ tinymce.init({
     },
     relative_urls: false,
     convert_urls: false,
+    extended_valid_elements: 'img[src|class|alt|e_id|e_idx|e_type]',
     images_upload_handler: (blobInfo) => {
         return new Promise((resolve, reject) => {
             let file = new FormData();
