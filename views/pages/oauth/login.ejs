@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../../common/head') %>
+    <title>OAuth 로그인 - BSM | 부산소마고 지원 서비스</title>
+</head>
+<body>
+    <%- include('../../common/common') %>
+    <%- include('../../common/accountBox') %>
+    <div id="oauth_box" class="popup center">
+        <h2>BSM계정으로 계속하기</h2>
+        <p>{{serviceDomain}}</p>
+        <span class="accent-text">{{serviceName}}</span>
+        <span>에서 다음의 정보들을 요청합니다 허용하시겠습니까?</span>
+        <br><br>
+        <ul>
+            <li v-for="item in scope">{{item.name}}: {{item.description}}</li>
+        </ul>
+        <br>
+        <button class="button main_button accent">허용</button>
+    </div>
+    <div id="oauth_authentication_failed_box" class="popup center">
+        <h2>OAuth 인증에 실패하였습니다</h2>
+        <p>정보를 요청하는 클라이언트 서버가 인증에 실패하였습니다</p>
+        <p>정말 안전한 인증된 사이트인지 확인해주세요.</p>
+        <button class="button main_button accent">다시 시도</button>
+    </div>
+    <div id="oauth_authorization_failed_box" class="popup center">
+        <h2>OAuth 인가에 실패하였습니다</h2>
+        <p>클라이언트 서버를 인증할 수 없거나 서버 내부에서 문제가 발생하였습니다</p>
+        <p>잠시후에 다시 시도해주세요.</p>
+        <button class="button main_button accent">다시 시도</button>
+    </div>
+    <script src="/js/oauth/login.js"></script>
+    <script>
+        popup.noClose = true;
+        if (user.isLogin) {
+            authentication();
+        } else {
+            $('#login_box .popup_close_button')? $('#login_box .popup_close_button').style.display = 'none': undefined;
+            showLoginBox();
+            account.loginCallback = () => {
+                authentication();
+            }
+        }
+    </script>
+</body>
+</html>

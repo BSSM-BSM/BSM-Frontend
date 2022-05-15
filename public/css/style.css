@@ -604,6 +604,9 @@ input[type=number].year{
   color:var(--accent-text);
   background-color:var(--accent);
 }
+.accent-text{
+  color:var(--accent);
+}
 .delete{
   color:var(--accent-text);
   background-color:var(--red) !important;
