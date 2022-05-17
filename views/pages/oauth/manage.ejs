@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <%- include('../../common/head') %>
+    <title>BSM API - BSM | 부산소마고 지원 서비스</title>
+    <link rel="stylesheet" type="text/css" href="/css/pages/oauth/manage.css">
+</head>
+<body>
+    <%- include('../../common/common') %>
+    <%- include('../../common/accountBox') %>
+    <header class="on">
+        <nav>
+            <div class="top_menu">
+                <div class="left_wrap">
+                    <span class="top_menu_item no_hide"><a href="/oauth/manage" class="logo"><img src="/icons/bsm-api-logo.png" alt="로고"></a></span>
+                </div>
+                <div class="right_wrap">
+                    <span class="theme_toggle top_menu_item" onclick="toggleTheme()">
+                        <img src="/resource/common/images/theme.svg" alt="theme_toggle">
+                    </span>
+                    <span id="header-user_menu" class="top_menu_item dropdown_menu user_menu">
+                        <div v-if="user.isLogin" class="user_profile_wrap">
+                            <span class="menu_client user_profile_name"><span v-if="user.level>0" class="member_admin">{{userLevel[user.level]}}</span><span>{{user.nickname}}</span></span>
+                            <img :src="`/resource/user/profile_images/profile_${user.code}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
+                        </div>
+                        <ul v-if="user.isLogin" class="dropdown_content">
+                            <li><a :href="`/user/${user.code}`" class="option">유저 정보</a></li>
+                            <li><button onclick="logout()" class="option clear_button">로그아웃</button></li>
+                        </ul>
+                        <button v-if="!user.isLogin" onclick="showLoginBox()" class="menu_client clear_button">로그인</button>
+                    </span>
+                </div>
+            </div>
+            <div class="notice_bar"></div>
+        </nav>
+    </header>
+    <main>
+        <section class="container">
+            <div class="oauth-menu">
+                <button id="oauth-create_client" class="button accent">추가</button>
+            </div>
+            <ul id="oauth-client_list">
+                <li v-for="client in clientList" class="oauth-client">
+                    <div class="top_wrap">
+                        <p class="oauth-service_name">{{client.serviceName}}</p>
+                        <p class="oauth-clientId">{{client.clientId}}</p>
+                    </div>
+                    <div class="bottom_wrap">
+                        <p class="oauth-service_domain accent-text">{{client.domain}}</p>
+                        <p class="oauth-service_callback_uri">{{client.redirectUri}}</p>
+                    </div>
+                    <details class="text_right">
+                        {{client.clientSecret}}
+                        <summary>Client Secret</summary>
+                    </details>
+                    <details>
+                        <ul class="scope_list text_left">
+                            <li v-for="item in client.scope">
+                                <details>
+                                    {{item.description}}
+                                    <summary>{{item.name}}</summary>
+                                </details>
+                            </li>
+                        </ul>
+                        <summary>제공되는 정보</summary>
+                    </details>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script src="/js/oauth/header.js"></script>
+    <script src="/js/oauth/manage.js"></script>
+</body>
+</html>

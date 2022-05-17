@@ -4,22 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#oauth_box .main_button').onclick = () => {
         authorization();
     }
-    $('#oauth_authentication_failed_box .main_button').onclick = () => {
+    $$(':is(#oauth_authentication_failed_box, #oauth_authorization_failed_box) .main_button').forEach(e => e.onclick = () => {
         authentication();
-    }
-    $('#oauth_authorization_failed_box .main_button').onclick = () => {
-        authorization();
-    }
+    })
 });
 
-const oauthBoxView = new Vue({
-    el: '#oauth_box',
-    data: {
-        serviceDomain: '',
-        serviceName: '',
-        scope: [],
+const oauthBoxView = Vue.createApp({
+    data() {
+        return {
+            serviceDomain: '',
+            serviceName: '',
+            scope: [],
+        }
     }
-})
+}).mount('#oauth_box');
 
 const authentication = () => {
     ajax({
@@ -33,6 +31,8 @@ const authentication = () => {
             oauthBoxView.serviceName = data.serviceName;
             oauthBoxView.scope = data.scope;
             popupOpen($('#oauth_box'));
+            popupClose($('#oauth_authentication_failed_box'));
+            popupClose($('#oauth_authorization_failed_box'));
         }
     })
 }
@@ -47,6 +47,7 @@ const authorization = () => {
         },
         errorCallback:() => {
             popupOpen($('#oauth_authorization_failed_box'));
+            popupClose($('#oauth_box'));
         },
         callback:(data) => {
             window.location = data.redirect;

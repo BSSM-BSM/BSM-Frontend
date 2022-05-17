@@ -3,18 +3,28 @@
 <head>
     <%- include('../../common/head') %>
     <title>OAuth 로그인 - BSM | 부산소마고 지원 서비스</title>
+    <link rel="stylesheet" href="/css/pages/oauth/login.css">
 </head>
 <body>
     <%- include('../../common/common') %>
     <%- include('../../common/accountBox') %>
-    <div id="oauth_box" class="popup center">
+    <div id="oauth_box" class="popup main center">
+        <div class="logo"><img src="/icons/logo.png" alt="로고"></div>
         <h2>BSM계정으로 계속하기</h2>
         <p>{{serviceDomain}}</p>
-        <span class="accent-text">{{serviceName}}</span>
-        <span>에서 다음의 정보들을 요청합니다 허용하시겠습니까?</span>
-        <br><br>
-        <ul>
-            <li v-for="item in scope">{{item.name}}: {{item.description}}</li>
+        <p>
+            <span class="accent-text">{{serviceName}}</span>
+            <span>에서 다음의 정보들을 요청합니다. 허용하시겠습니까?</span>
+        </p>
+        <br>
+        <p>제공되는 정보</p>
+        <ul class="scope_list text_left">
+            <li v-for="item in scope">
+                <details>
+                    {{item.description}}
+                    <summary>{{item.name}}</summary>
+                </details>
+            </li>
         </ul>
         <br>
         <button class="button main_button accent">허용</button>

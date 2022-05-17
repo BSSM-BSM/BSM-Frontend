@@ -49,7 +49,7 @@ const toggleTheme = () => {
 }
 themeInit();
 
-const user = {
+const user = Vue.reactive({
     isLogin: false,
     level: null,
     code: null,
@@ -72,11 +72,9 @@ const user = {
         this.classNo = userInfo.classNo;
         this.studentNo = userInfo.studentNo;
         this.name = userInfo.name;
-        if (typeof headerAccountView != 'undefined') {
-            headerAccountView.setUser(userInfo);
-        }
     }
-}
+})
+
 const loadUserInfo = () => {
     const userInfo = localStorage.getItem('user');
     if (userInfo === null) {

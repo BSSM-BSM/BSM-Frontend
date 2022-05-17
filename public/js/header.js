@@ -27,14 +27,6 @@ const headerAccountView = Vue.createApp({
             user,
             userLevel,
         }
-    },
-    methods: {
-        setUser: function(userInfo) {
-            this.user = userInfo;
-            if (menuAccountView) {
-                menuAccountView.user = userInfo;
-            }
-        }
     }
 }).mount('.user_menu');
 
