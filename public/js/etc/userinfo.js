@@ -1,22 +1,23 @@
 const viewUsercode = window.location.pathname.split('/')[2];
-const userInfoView = new Vue({
-    el:'.user_info_wrap',
-    data: {
-        user: {
-            userType: '',
-            usercode: 0,
-            nickname: '',
-            level: 0,
-            created: 0,
-            enrolled: 0,
-            grade: 0,
-            classNo: 0,
-            studentNo: 0,
-            name: '',
-            permission: false
+const userInfoView = Vue.createApp({
+    data() {
+        return {
+            user: {
+                userType: '',
+                usercode: 0,
+                nickname: '',
+                level: 0,
+                created: 0,
+                enrolled: 0,
+                grade: 0,
+                classNo: 0,
+                studentNo: 0,
+                name: '',
+                permission: false
+            }
         }
     }
-})
+}).mount('.user_info_wrap');
 
 const viewUserInfo = () => {
     ajax({

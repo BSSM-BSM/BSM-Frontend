@@ -21,26 +21,30 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-const headerAccountView = new Vue({
-    el:'.user_menu',
-    data:{
-        user,
-        userLevel:memberLevel,
-        setUser(userInfo) {
+const headerAccountView = Vue.createApp({
+    data() {
+        return {
+            user,
+            userLevel,
+        }
+    },
+    methods: {
+        setUser: function(userInfo) {
             this.user = userInfo;
             if (menuAccountView) {
                 menuAccountView.user = userInfo;
             }
         }
     }
-})
+}).mount('.user_menu');
 
-const menuAccountView = $('#quick_menu_list .user')? new Vue({
-    el:'#quick_menu_list .user',
-    data:{
-        user,
+const menuAccountView = $('#quick_menu_list .user')? Vue.createApp({
+    data() {
+        return {
+            user
+        }
     }
-}): undefined;
+}).mount('#quick_menu_list .user'): undefined;
 
 const allMenuBtn = {
     el: $('#all_menu'),

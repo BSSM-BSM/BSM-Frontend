@@ -1,17 +1,18 @@
-const mealView = new Vue({
-    el:'.meals',
-    data:{
-        morning:'',
-        lunch:'',
-        dinner:'',
-        hover:2
+const mealView = Vue.createApp({
+    data() {
+        return {
+            morning:'',
+            lunch:'',
+            dinner:'',
+            hover:2
+        }
     },
-    methods:{
-        setHover:function (hover) {
+    methods: {
+        setHover: function(hover) {
             this.hover = hover;
         }
     }
-})
+}).mount('.meals');
 let times, today, day, date, month, year, mealDate;
 let mealTable = [];
 const dayTable = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];

@@ -1,4 +1,4 @@
-const cacheName = '1.4.1.7';
+const cacheName = '1.4.1.8';
 const cacheFiles = [
     '/',
     '/meal',
@@ -32,7 +32,7 @@ const cacheFiles = [
     '/css/etc/timetable.css',
     '/css/etc/user.css',
 ];
-const libCacheName = 'lib-1.4.1.1';
+const libCacheName = 'lib-1.4.1.2';
 const libCacheFiles = [
     '/lib/axios.js',
     '/lib/vue.js',

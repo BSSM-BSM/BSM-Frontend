@@ -6,7 +6,7 @@ window.addEventListener('resize', () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 let refresh = false;
-const memberLevel=[
+const userLevel=[
     '',
     '[사감]',
     '[교사]',

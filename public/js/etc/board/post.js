@@ -1,39 +1,71 @@
-const postView = new Vue({
-    el: '#post',
-    data: {
-        mode: 'view',
-        post: {
-            permission: false,
-            usercode: 0,
-            title: '',
-            date: '',
-            hit: '',
-            comments: '',
-            nickname: '',
-            content: '',
-            totalLike: 0,
-            like: 0,
-        },
-        comment: {
-            comments: [],
-            focus: 0
-        },
-        categoryList: {},
-        category: 'normal'
+const post = Vue.reactive({
+    mode: 'view',
+    post: {
+        permission: false,
+        usercode: 0,
+        title: '',
+        date: '',
+        hit: '',
+        comments: '',
+        nickname: '',
+        content: '',
+        totalLike: 0,
+        like: 0,
+    },
+    categoryList: {},
+    category: 'normal'
+})
+const comment = Vue.reactive({
+    comments: [],
+    focus: 0
+})
+
+const postView = Vue.createApp({
+    components: {
+        'comment-item': {
+            name: 'comment-item',
+            template:'#comment_item_template',
+            props: {
+                item: Object
+            },
+            data() {
+                return {
+                    comment
+                }
+            },
+            methods: {
+                focusComment: function(focus) {
+                    comment.focus = focus;
+                }
+            },
+            computed: {
+                isParent: function() {
+                    return this.item.child && this.item.child.length
+                }
+            }
+        }
+    },
+    data() {
+        return {
+            ...post,
+            comment
+        }
     },
     methods: {
-        isParent:function () {
-            return this.item.child && this.item.child.length;
+        focusComment: function(focus) {
+            comment.focus = focus;
         },
-        focusComment:function (focus) {
-            this.comment.focus = focus;
-        },
-        changeEditorCategory:function (category) {
+        changeEditorCategory: function(category) {
             this.category = category;
         }
     },
+    computed: {
+        isParent: function() {
+            return this.item.child && this.item.child.length;
+        }
+    },
     updated() {
-        this.$nextTick(function () {
+        this.$nextTick(function() {
             [
                 ...$$('.post_content img[e_id]:not(.emoticon)'),
                 ...$$('.comment_item_content img[e_id]:not(.emoticon)')
@@ -42,26 +74,10 @@ const postView = new Vue({
                 e.classList.add('emoticon');
                 e.setAttribute('onClick', `loadEmoticonInfo(${e.getAttribute('e_id')})`);
             });
-            editor = $(`.comment_write.write_${this.comment.focus} .write`);
+            editor = $(`.comment_write.write_${comment.focus} .write`);
         })
     }
-})
-Vue.component('tree-item', {
-    template:'#comment_item_template',
-    props:{
-        item:Object
-    },
-    methods:{
-        focusComment:function (focus) {
-            postView.comment.focus = focus;
-        }
-    },
-    computed:{
-        isParent:function () {
-            return this.item.child && this.item.child.length
-        }
-    }
-})
+}).mount('#post');
 
 const boardPostChange = (changePostNo, changeUrlPath = true) => {
     if (postNo == changePostNo && lastBoardType == boardType) {
@@ -151,8 +167,8 @@ const likeSend = (like) => {
             like
         },
         callback:(data) => {
-            postView.post.like = data.like;
-            postView.post.totalLike = data.totalLike;
+            post.like = data.like;
+            post.totalLike = data.totalLike;
         }
     })
 }
@@ -163,8 +179,8 @@ const commentRefresh = () => {
         method:'get',
         url:`/comment/${boardType}/${postNo}`,
         callback:(data) => {
-            postView.comment.comments = data.comments;
-            postView.comment.focus = 0;
+            comment.comments = data.comments;
+            comment.focus = 0;
         }
     })
 }

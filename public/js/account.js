@@ -60,31 +60,32 @@ const showLoginBox = () => {
     loginBoxView.init();
     popupOpen($('#login_box'));
 }
-const loginBoxView = new Vue({
-    el: '#login_box',
-    data: {
-        msg: '로그인',
-        step: 0,
-        id: '',
+const loginBoxView = Vue.createApp({
+    data() {
+        return {
+            msg: '로그인',
+            step: 0,
+            id: '',
+        }
     },
     methods: {
-        init:function () {
+        init: function() {
             this.step=0;
             this.msg='로그인';
             this.id='';
         },
-        step1:function (event) {
+        step1: function(event) {
             event.preventDefault();
             this.step=1;
             this.msg=`${this.id}(으)로 계속`;
         },
-        step2:function (event) {
+        step2: function(event) {
             event.preventDefault();
             this.msg=`인증 중...`;
             account.login(this.id, event.target.pw.value);
         }
     },
-})
+}).mount('#login_box');
 
 const account = {
     callbacks: {
@@ -190,7 +191,7 @@ const signUp = (
         },
         callback:() => {
             showToast('회원가입이 완료되었습니다.\n다시 로그인 해주세요.');
-            popupClose($('#sign_up_box'));
+            popupClose($('#signup_box'));
         }
     })
 }

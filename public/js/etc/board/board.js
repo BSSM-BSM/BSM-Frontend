@@ -1,34 +1,38 @@
-const boardTitle = new Vue({
-    el: '.board_title',
-    data: {
-        boardName: '',
-        boardType: '',
-        subBoardName: '',
-        subBoardType: ''
+const boardTitle = Vue.createApp({
+    data() {
+        return {
+            boardName: '',
+            boardType: '',
+            subBoardName: '',
+            subBoardType: ''
+        }
     }
-})
-const boardTopMenuView = new Vue({
-    el: '.board_top_menu',
-    data: {
-        categoryList: {},
-        category
+}).mount('.board_title');
+const boardTopMenuView = Vue.createApp({
+    data() {
+        return {
+            categoryList: {},
+            category
+        }
     }
-})
-const boardBottomMenuView = new Vue({
-    el: '.board_bottom_menu',
-    data: {
-        pages:0,
-        activePage:0
+}).mount('.board_top_menu');
+const boardBottomMenuView = Vue.createApp({
+    data() {
+        return {
+            pages:0,
+            activePage:0
+        }
     }
-})
-const boardView = new Vue({
-    el: '.board_list',
-    data: {
-        posts: [],
-        boardType,
-        categoryList: {}
+}).mount('.board_bottom_menu');
+const boardView = Vue.createApp({
+    data() {
+        return {
+            posts: [],
+            boardType,
+            categoryList: {}
+        }
     }
-})
+}).mount('.board_list');
 
 const boardChange = (changeBoard) => {
     boardType = changeBoard;

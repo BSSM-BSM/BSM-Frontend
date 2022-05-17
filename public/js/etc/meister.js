@@ -1,13 +1,15 @@
 let hak = user.grade;
 let ban = user.classNo;
 let bun = user.studentNo;
-const meisterView = new Vue({
-    el:'.meister',
-    data:{
-        viewCase: 'point',
-        defaultPW: true
+const meisterView = Vue.createApp({
+    data() {
+        return {
+            viewCase: 'point',
+            defaultPW: true
+        }
     }
-});
+}).mount('.meister');
+
 const meister = () => {
     switch (meisterView.viewCase) {
         case 'score':
