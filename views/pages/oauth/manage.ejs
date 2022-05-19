@@ -20,24 +20,26 @@
                     </span>
                     <span id="header-user_menu" class="top_menu_item dropdown_menu user_menu">
                         <div v-if="user.isLogin" class="user_profile_wrap">
-                            <span class="menu_client user_profile_name"><span v-if="user.level>0" class="member_admin">{{userLevel[user.level]}}</span><span>{{user.nickname}}</span></span>
+                            <span class="menu_item user_profile_name"><span v-if="user.level>0" class="member_admin">{{userLevel[user.level]}}</span><span>{{user.nickname}}</span></span>
                             <img :src="`/resource/user/profile_images/profile_${user.code}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
                         </div>
                         <ul v-if="user.isLogin" class="dropdown_content">
                             <li><a :href="`/user/${user.code}`" class="option">유저 정보</a></li>
                             <li><button onclick="logout()" class="option clear_button">로그아웃</button></li>
                         </ul>
-                        <button v-if="!user.isLogin" onclick="showLoginBox()" class="menu_client clear_button">로그인</button>
+                        <button v-if="!user.isLogin" onclick="showLoginBox()" class="menu_item clear_button">로그인</button>
                     </span>
                 </div>
             </div>
             <div class="notice_bar"></div>
         </nav>
     </header>
-    <main>
-        <section class="container">
+    <main class="container">
+        <section id="oauth-manage">
+            <h1 class="text_left">OAuth 클라이언트</h1><br>
             <div class="oauth-menu">
                 <button id="oauth-create_client" class="button accent">추가</button>
+                <button id="oauth-load_client" class="button">새로 고침</button>
             </div>
             <ul id="oauth-client_list">
                 <li v-for="client in clientList" class="oauth-client">
@@ -47,7 +49,7 @@
                     </div>
                     <div class="bottom_wrap">
                         <p class="oauth-service_domain accent-text">{{client.domain}}</p>
-                        <p class="oauth-service_callback_uri">{{client.redirectUri}}</p>
+                        <p class="oauth-service_callback_uri">{{client.redirectURI}}</p>
                     </div>
                     <details class="text_right">
                         {{client.clientSecret}}
@@ -68,6 +70,44 @@
             </ul>
         </section>
     </main>
+    <div id="create_client_box" class="popup main big center">
+        <div class="popup_close_button x_button" onClick="popupClose(this.parentElement)"></div>
+        <h2>클라이언트 생성</h2>
+        <form autocomplete="off" class="text_left">
+            <h4>도메인 주소</h4>
+            <p>
+                도메인 주소 또는 IP 주소를 입력해주세요.<br>
+                개발환경에서 테스트하기 위해 IP 주소가 사용될 수 있지만 실제 서비스 환경에서는 도메인을 권장합니다.<br>
+                예시: domain.com, 127.0.0.1, localhost
+            </p>
+            <input v-model="domain" name="domain" type="text" class="input_text" placeholder="도메인 또는 IP 주소" required maxlength="63" pattern="^([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}?$">
+            <h4>서비스 이름</h4>
+            <p>무슨 서비스인지 알기 쉬운 2 - 32 글자의 이름을 적어주세요.</p>
+            <input name="service_name" type="text" class="input_text" placeholder="서비스 이름" required minlength="2" maxlength="32">
+            <h4>콜백 URI</h4>
+            <p>
+                사용자가 BSM계정으로 인증된 후 전달되는 인증코드를 받을 리다이렉트 주소입니다.<br>
+                이 주소는 개발환경에서 테스트하기 위해 IP 주소가 사용될 수 있지만 실제 서비스 환경에서는 도메인을 권장합니다.<br>
+                예시: https://domain.com/signup/bsm, http://127.0.0.1/afterlogin, http://localhost/oauth/bsm
+            </p>
+            <input name="redirect_uri" type="text" class="input_text" placeholder="콜백 URI" required maxlength="100" :pattern="`(https?://)(${domain})(:(6[0-5]{2}[0-3][0-5]|[1-5][0-9]{4}|[1-9][0-9]{0,3}))?/.*`">
+            <h4>사용할 정보</h4>
+            <ul class="scope_list text_left">
+                <li v-for="item in scopeInfo">
+                    <details>
+                        {{item.description}}
+                        <summary>
+                            <label>
+                                {{item.name}}
+                                <input class="oauth-create_client_scope" :data-scope_info="item.info" type="checkbox">
+                            </label>
+                        </summary>
+                    </details>
+                </li>
+            </ul>
+            <button type="submit" class="button main_button accent">생성</button>
+        </form>
+    </div>
     <script src="/js/oauth/header.js"></script>
     <script src="/js/oauth/manage.js"></script>
 </body>

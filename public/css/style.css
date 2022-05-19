@@ -170,6 +170,9 @@ footer{
 .text_left{
   text-align: left;
 }
+.text_right{
+  text-align: right;
+}
 .title{
   color: var(--text);
   position: relative;
@@ -208,7 +211,7 @@ img{
   width: auto; 
   filter: brightness(1);
 }
-summary{
+label, summary{
   cursor: pointer;
 }
 .logo img{
@@ -680,7 +683,12 @@ input[type=number].year{
   animation: popup_show 100ms ease-out;
 }
 .popup.main{
-  width:37.5rem;
+  min-width: 45rem;
+  max-width: 80rem;
+}
+.popup.big{
+  min-width: 60rem;
+  max-width: 80rem;
 }
 .popup.main .input_text{
   width:100% !important;
@@ -923,13 +931,16 @@ table{
   .top_menu{
     width: auto; padding: 0rem;
   }
-  .top_menu_item:not(.user_menu, #all_menu, .theme_toggle), .top_menu .home{
+  .top_menu_item:not(.user_menu, #all_menu, .theme_toggle, .no_hide){
     display: none;
   }
   .top_menu_item.theme_toggle{
     margin-right: auto;
   }
-  .input_text, .popup.main{
+  .popup.main{
+    max-width: 60rem;
+  }
+  .input_text{
     width: 32.5rem;
   }
   .video, .video div{
@@ -954,5 +965,16 @@ table{
     display: block;
     border-left: none;
     padding: 3rem 0;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+  .popup.big{
+    min-width: 100% !important;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 450px){
+  .popup.main{
+    min-width: 100% !important;
   }
 }

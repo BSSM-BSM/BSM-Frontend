@@ -1,5 +1,5 @@
 const clientId = new URLSearchParams(location.search).get("clientId");
-const redirectUri = new URLSearchParams(location.search).get("redirectUri");
+const redirectURI = new URLSearchParams(location.search).get("redirectURI");
 document.addEventListener('DOMContentLoaded', () => {
     $('#oauth_box .main_button').onclick = () => {
         authorization();
@@ -22,7 +22,7 @@ const oauthBoxView = Vue.createApp({
 const authentication = () => {
     ajax({
         method: 'get',
-        url: `/oauth/authentication?clientId=${clientId}&redirectUri=${redirectUri}`,
+        url: `/oauth/authentication?clientId=${clientId}&redirectURI=${redirectURI}`,
         errorCallback:() => {
             popupOpen($('#oauth_authentication_failed_box'));
         },
@@ -43,7 +43,7 @@ const authorization = () => {
         url: '/oauth/authorization',
         payload: {
             clientId: new URLSearchParams(location.search).get("clientId"),
-            redirectUri: new URLSearchParams(location.search).get("redirectUri")
+            redirectURI: new URLSearchParams(location.search).get("redirectURI")
         },
         errorCallback:() => {
             popupOpen($('#oauth_authorization_failed_box'));

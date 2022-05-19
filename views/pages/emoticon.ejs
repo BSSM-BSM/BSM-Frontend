@@ -58,37 +58,38 @@
         </form>
     </div>
     <script>
-        const emoticonFilesView = new Vue({
-            el:'.emoticon_upload',
-            data:{
-                mode:'upload',
-                emoticon:{
-                    imgSrc:''
-                },
-                emoticons:[
-                    {imgSrc:''},
-                    {imgSrc:''},
-                    {imgSrc:''},
-                    {imgSrc:''}
-                ]
+        const emoticonFilesView = Vue.createApp({
+            data() {
+                return {
+                    mode:'upload',
+                    emoticon:{
+                        imgSrc:''
+                    },
+                    emoticons:[
+                        {imgSrc:''},
+                        {imgSrc:''},
+                        {imgSrc:''},
+                        {imgSrc:''}
+                    ]
+                }
             },
             methods:{
-                change:function(i, e){
-                    if(e.files.length){
-                        if(i==-1) this.emoticon.imgSrc = window.URL.createObjectURL(e.files[0]);
+                change: function(i, e) {
+                    if (e.files.length) {
+                        if (i==-1) this.emoticon.imgSrc = window.URL.createObjectURL(e.files[0]);
                         else this.emoticons[i].imgSrc = window.URL.createObjectURL(e.files[0]);
-                    }else{
-                        if(i==-1) this.emoticon.imgSrc = '';
+                    } else {
+                        if (i==-1) this.emoticon.imgSrc = '';
                         else this.emoticons[i].imgSrc = '';
                     }
                 },
-                add:function(){
+                add: function() {
                     this.emoticons.push({imgSrc:''});
                 },
-                remove:function(i){
+                remove: function(i) {
                     this.emoticons.splice(i, 1);
                 },
-                init:function(){
+                init: function() {
                     this.emoticon.imgSrc = '';
                     this.emoticons.splice(0);
                     this.emoticons=[
@@ -101,17 +102,17 @@
                     $('.emoticon_upload .emoticon_info_file .description').value = null
                     $('.emoticon_upload .emoticon_info_file [type=file]').value = null
                 },
-                changeMode:function(){
-                    if(this.mode=='upload'){
+                changeMode: function() {
+                    if (this.mode=='upload') {
                         this.mode='remove'
-                    }else{
+                    } else {
                         this.mode='upload'
                     }
                 },
             }
-        })
+        }).mount('.emoticon_upload');
         const emoticonUpload = () => {
-            if($$('.emoticon_upload .emoticon_file [type=file]').length<4){
+            if ($$('.emoticon_upload .emoticon_file [type=file]').length<4) {
                 showAlert('이모티콘 개수는 최소 4개입니다.');
                 return;
             }
