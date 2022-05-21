@@ -165,7 +165,9 @@ footer{
   align-items: center;
 }
 .vertical_center{
-  position: relative;top: 50%;transform: translate(0,-50%);
+  position: relative;
+  top: 50%;
+  transform: translate(0,-50%);
 }
 .text_left{
   text-align: left;
@@ -173,6 +175,63 @@ footer{
 .text_right{
   text-align: right;
 }
+.rows{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cols{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gap-1{
+  gap: 1rem;
+}
+.flex-main{
+  flex: 1;
+}
+.row-space{
+  width: 5rem;
+}
+.col-space-5{
+  height: 5rem;
+}
+.col-space-10{
+  height: 10rem;
+}
+.left_slide_menu{
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.left_slide_menu .menu_button{
+  position: relative;
+}
+.left_slide_menu .menu_list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  word-break: keep-all;
+  padding: 1rem;
+  transition: .25s;
+  background-color: var(--menu-background);
+  backdrop-filter: blur(5px);
+}
+.left_slide_menu .menu_button:hover ~ .menu_list,
+.menu_list:hover{
+  pointer-events: all;
+  opacity: 1;
+  right: 0;
+}
+
 .title{
   color: var(--text);
   position: relative;
@@ -310,24 +369,26 @@ header nav, header nav *{
 .top_menu span{
   color: var(--text);
 }
-#all_menu{
+#all_menu, .menu_button{
   padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  border-radius: .75rem;
+  transition: all .25s;
 }
-#all_menu:hover{
+.menu_button:hover{
   box-shadow: var(--shadow);
   background-color: var(--hover);
 }
-#all_menu .line{
+:is(#all_menu, .menu_button) .line{
   width: 3rem;
   height: .3rem;
   border-radius: 1rem;
   background-color: var(--text);
   display: block;
-  margin: .5rem;
+  margin: .25rem;
   filter: var(--bright);
   transition: .4s ease-in-out;
 }
@@ -501,6 +562,7 @@ header nav, header nav *{
   text-align: center;
   font-size: 1.6rem;
   font-weight: bold;
+  word-break: keep-all;
   border-radius: .5rem;
   box-shadow: var(--shadow);
   background-color: var(--level-1);
@@ -558,6 +620,7 @@ header nav, header nav *{
 input[type=number]{
   width: 5.5rem;
   padding: 1rem 0 1rem 1rem;
+  margin: 1rem .2rem;
 }
 input[type=number].year{
   width: 8rem;
@@ -683,8 +746,8 @@ input[type=number].year{
   animation: popup_show 100ms ease-out;
 }
 .popup.main{
-  min-width: 45rem;
-  max-width: 80rem;
+  min-width: 35rem;
+  max-width: 40rem;
 }
 .popup.big{
   min-width: 60rem;

@@ -42,30 +42,42 @@
                 <button id="oauth-load_client" class="button">새로 고침</button>
             </div>
             <ul id="oauth-client_list">
-                <li v-for="client in clientList" class="oauth-client">
-                    <div class="top_wrap">
-                        <p class="oauth-service_name">{{client.serviceName}}</p>
-                        <p class="oauth-clientId">{{client.clientId}}</p>
+                <li v-for="client in clientList" class="oauth-client rows">
+                    <div class="flex-main">
+                        <div class="top_wrap">
+                            <p class="oauth-service_name">{{client.serviceName}}</p>
+                            <p class="oauth-clientId">{{client.clientId}}</p>
+                        </div>
+                        <div class="bottom_wrap">
+                            <p class="oauth-service_domain accent-text">{{client.domain}}</p>
+                            <p class="oauth-service_callback_uri">{{client.redirectURI}}</p>
+                        </div>
+                        <details class="text_left">
+                            {{client.clientSecret}}
+                            <summary>Client Secret</summary>
+                        </details>
+                        <details>
+                            <ul class="scope_list text_left">
+                                <li v-for="item in client.scope">
+                                    <details>
+                                        {{item.description}}
+                                        <summary>{{item.name}}</summary>
+                                    </details>
+                                </li>
+                            </ul>
+                            <summary>제공되는 정보</summary>
+                        </details>
                     </div>
-                    <div class="bottom_wrap">
-                        <p class="oauth-service_domain accent-text">{{client.domain}}</p>
-                        <p class="oauth-service_callback_uri">{{client.redirectURI}}</p>
-                    </div>
-                    <details class="text_right">
-                        {{client.clientSecret}}
-                        <summary>Client Secret</summary>
-                    </details>
-                    <details>
-                        <ul class="scope_list text_left">
-                            <li v-for="item in client.scope">
-                                <details>
-                                    {{item.description}}
-                                    <summary>{{item.name}}</summary>
-                                </details>
-                            </li>
+                    <div class="left_slide_menu">
+                        <span class="menu_button">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </span>
+                        <ul class="menu_list">
+                            <li><button v-on:click="deleteClient(client.clientId)" id="oauth-delete_client" class="button delete">삭제</button></li>
                         </ul>
-                        <summary>제공되는 정보</summary>
-                    </details>
+                    </div>
                 </li>
             </ul>
         </section>
@@ -80,7 +92,7 @@
                 개발환경에서 테스트하기 위해 IP 주소가 사용될 수 있지만 실제 서비스 환경에서는 도메인을 권장합니다.<br>
                 예시: domain.com, 127.0.0.1, localhost
             </p>
-            <input v-model="domain" name="domain" type="text" class="input_text" placeholder="도메인 또는 IP 주소" required maxlength="63" pattern="^([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}?$">
+            <input v-model="domain" name="domain" type="text" class="input_text" placeholder="도메인 또는 IP 주소" required maxlength="63" pattern="^([0-9]{1,3}.){3}[0-9]{1,3}|localhost|([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}?$">
             <h4>서비스 이름</h4>
             <p>무슨 서비스인지 알기 쉬운 2 - 32 글자의 이름을 적어주세요.</p>
             <input name="service_name" type="text" class="input_text" placeholder="서비스 이름" required minlength="2" maxlength="32">

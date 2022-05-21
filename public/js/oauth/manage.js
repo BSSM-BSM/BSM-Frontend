@@ -30,10 +30,24 @@ const oauthClientView = Vue.createApp({
         return {
             clientList: []
         }
+    },
+    methods: {
+        deleteClient: function(clientId) {
+            if (!confirm('해당 클라이언트를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다!')) {
+                return;
+            }
+            ajax({
+                method: 'delete',
+                url: `/oauth/client/${clientId}`,
+                callback:() => {
+                    loadClientList();
+                }
+            })
+        }
     }
 }).mount('#oauth-client_list');
 
-const createClientBoxView = Vue.createApp({
+const oauthCreateClientBoxView = Vue.createApp({
     data() {
         return {
             scopeInfo: [],
@@ -57,7 +71,7 @@ const getScopeInfo = () => {
         method: 'get',
         url: '/oauth/scopeInfo',
         callback:(data) => {
-            createClientBoxView.scopeInfo = data.scopeInfoList;
+            oauthCreateClientBoxView.scopeInfo = data.scopeInfoList;
         }
     })
 }
@@ -77,7 +91,7 @@ const createClient = (
             serviceName,
             scope
         },
-        callback:(data) => {
+        callback:() => {
             popupClose($('#create_client_box'));
             loadClientList();
         }
