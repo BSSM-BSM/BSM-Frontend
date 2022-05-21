@@ -36,12 +36,17 @@
     </header>
     <main class="container">
         <section id="oauth-manage">
-            <h1 class="text_left">OAuth 클라이언트</h1><br>
+            <h1 class="text_left">OAuth 클라이언트</h1>
+            <div class="col-space-5"></div>
             <div class="oauth-menu">
                 <button id="oauth-create_client" class="button accent">추가</button>
                 <button id="oauth-load_client" class="button">새로 고침</button>
             </div>
             <ul id="oauth-client_list">
+                <div v-if="!clientList.length">
+                    <div class="col-space-5"></div>
+                    <p>클라이언트가 없습니다, 상단 추가버튼을 눌러 추가하세요</p>
+                </div>
                 <li v-for="client in clientList" class="oauth-client rows">
                     <div class="flex-main">
                         <div class="top_wrap">

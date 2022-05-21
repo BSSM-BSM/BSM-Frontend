@@ -284,7 +284,7 @@ const authcodeMail = (
         },
         callback:() => {
             showToast('인증코드 전송이 완료되었습니다.\n메일함을 확인해주세요.');
-            popupClose($('#valid_code_box'));
+            popupClose($('#authcode_box'));
         }
     })
 }

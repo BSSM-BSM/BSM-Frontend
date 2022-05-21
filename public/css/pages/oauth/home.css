@@ -5,20 +5,45 @@ body{
   background-repeat:  no-repeat;
   background-attachment: fixed;
   background-size:  cover;
+  padding-bottom: 0;
+}
+*[data-aos]{
+  display: inline-block;
 }
 main{
+  scroll-snap-type: y mandatory;
+}
+main > section{
+  scroll-snap-align: start;
   width:100%;
-  height:100%;
+}
+section.home{
+  height: calc(100% - 10rem);
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   color:#fff;
 }
-
 h1.main{
   font-size:6.4rem;
 }
+h2{
+  font-size: 3.6rem;
+}
+h3{
+  font-size: 2.4rem;
+}
+section.introduce{
+  background-color:var(--background);
+  padding: 2rem 0 5rem 0;
+}
+.bottom_arrow{
+  font-size: 3rem;
+  padding: 1rem;
+  text-align: center;
+}
+
 @media screen and (min-width:0px) and (max-width:780px) {
   h1.main{
     font-size:5.4rem;

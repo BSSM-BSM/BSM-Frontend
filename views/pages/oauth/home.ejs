@@ -7,15 +7,101 @@
     <meta property="og:title" content="BSM Auth">
     <meta property="og:description" content="BSM Auth 서비스">
     <link rel="stylesheet" type="text/css" href="/css/pages/oauth/home.css">
+    <link rel="stylesheet" type="text/css" href="/lib/aos/aos.css">
 </head>
 <body>
     <main>
-        <div>
-            <h1 class="main">BSM Auth</h1>
-            <p class="main">복잡한 회원 인증을 간편하게</p>
-            <a href="#" class="button">준비 중</a>
-        </div>
+        <section class="home">
+            <div>
+                <h1 class="main">BSM Auth</h1>
+                <p class="main">복잡한 회원 인증을 간편하게</p>
+                <div class="rows">
+                    <a href="/oauth/manage" class="button accent">시작하기</a>
+                    <div class="row-space"></div>
+                    <a href="/board/doc-oauth" class="button">사용 가이드</a>
+                </div>
+            </div>
+        </section>
+        <section class="introduce center">
+            <div class="bottom_arrow">▼</div>
+            <div class="col-space-5"></div>
+            <h2>BSM Auth란?</h2>
+            <div class="col-space-20"></div>
+            <h3 data-aos="fade-right">
+                우리 학교 학생들을 위한 서비스를 개발하는데<br>
+                학년 정보 등, 학생 인증에 어려움을 겪고 계신가요?
+            </h3>
+            <div class="col-space-20"></div>
+            <div class="col-space-20"></div>
+            <h3 data-aos="fade-left">
+                아니면 이메일 인증 기능 같은거<br>
+                회원가입 기능 만들기 귀찮으신가요?
+            </h3>
+            <div class="col-space-20"></div>
+            <div class="col-space-20"></div>
+            <h3 data-aos="fade-right">
+                친구들이 만든 서비스를 사용하려는데<br>
+                서비스마다 따로 회원가입하기 싫으신가요?
+            </h3>
+            <div class="col-space-20"></div>
+            <div class="col-space-20"></div>
+            <h2 data-aos="zoom-in">
+                BSM Auth는 회원가입의 번거로움을 해결하기 위한<br>
+                간편 로그인 서비스입니다
+            </h2>
+            <div class="col-space-20"></div>
+            <div class="col-space-20"></div>
+            <h2>BSM Auth를 사용하면..</h2>
+            <div class="col-space-20"></div>
+            <div class="rows">
+                <span class="icon">
+                    <object style="height: 25rem;" data="/resource/common/images/person.svg" alt="" data-aos="fade-up"></object>
+                </span>
+                <span class="row-space"></span>
+                <h3 data-aos="fade-left">
+                    학반번호, 이름, 학교 이메일 주소 등<br>
+                    다양한 정보를 제공받을 수 있습니다.
+                </h3>
+            </div>
+            <div class="col-space-20"></div>
+            <div class="rows">
+                <h3 data-aos="fade-right">
+                    학년이 바뀌거나 학생의 인적사항이 변경되면<br>
+                    신경 쓸 필요 없이 업데이트가 반영되며<br>
+                    서버에서 데이터를 다시 불러오기만 하면 됩니다.
+                </h3>
+                <span class="row-space"></span>
+                <span class="icon">
+                    <object style="height: 25rem;" data="/resource/common/images/calendar-clock.svg" alt="" data-aos="fade-up"></object>
+                </span>
+            </div>
+            <div class="col-space-20"></div>
+            <div class="rows">
+                <img src="/resource/oauth/index/images/1.png" alt="" data-aos="fade-up">
+                <span class="row-space"></span>
+                <h3 data-aos="fade-left">
+                    만약 사용자가 BSM계정을 가지고있다면<br>
+                    사용자는 버튼 하나만 누르면 됩니다.
+                </h3>
+            </div>
+            <div class="col-space-20"></div>
+        </section>
+        <section class="home">
+            <div>
+                <h2>지금 바로 시작해보세요</h2>
+                <div class="col-space-5"></div>
+                <div class="rows">
+                    <a href="/oauth/manage" class="button accent">시작하기</a>
+                    <div class="row-space"></div>
+                    <a href="/board/doc-oauth" class="button">사용 가이드</a>
+                </div>
+            </div>
+        </section>
     </main>
+    <script src="/lib/aos/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <%- include('../../common/common') %>
 </body>
 </html>

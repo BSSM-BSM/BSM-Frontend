@@ -1,4 +1,4 @@
-const cacheName = '1.4.1.8';
+const cacheName = '1.5.0';
 const cacheFiles = [
     '/',
     '/meal',
@@ -32,13 +32,15 @@ const cacheFiles = [
     '/css/etc/timetable.css',
     '/css/etc/user.css',
 ];
-const libCacheName = 'lib-1.4.1.2';
+const libCacheName = 'lib-1.5.0';
 const libCacheFiles = [
     '/lib/axios.js',
     '/lib/vue.js',
     '/lib/tinymce/tinymce.min.js',
+    '/lib/aos/aos.js',
+    '/lib/aos/aos.css',
 ];
-const etcCacheName = 'etc-1.4.0.2';
+const etcCacheName = 'etc-1.5.0';
 const etcCacheFiles = [
     '/favicon.ico',
     '/icons/logo.png',
@@ -57,6 +59,7 @@ const etcCacheFiles = [
     '/resource/common/images/people.svg',
     '/resource/common/images/bell.svg',
     '/resource/common/images/cloud.svg',
+    '/resource/common/images/calendar-clock.svg',
     '/resource/user/profile_images/profile_default.png',
     '/resource/user/profile_images/profile_-1.png'
 ];

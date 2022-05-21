@@ -200,6 +200,9 @@ footer{
 .col-space-10{
   height: 10rem;
 }
+.col-space-20{
+  height: 20rem;
+}
 .left_slide_menu{
   position: relative;
   align-self: stretch;
@@ -217,7 +220,8 @@ footer{
   opacity: 0;
   position: absolute;
   top: 0;
-  right: -100%;
+  right: 0;
+  transform: translateX(100%);
   height: 100%;
   word-break: keep-all;
   padding: 1rem;
@@ -229,7 +233,7 @@ footer{
 .menu_list:hover{
   pointer-events: all;
   opacity: 1;
-  right: 0;
+  transform: translateX(0);
 }
 
 .title{
