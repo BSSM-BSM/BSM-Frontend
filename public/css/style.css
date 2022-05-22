@@ -992,6 +992,12 @@ table{
   main,.container{
     width: 100%;
   }
+  .rows.mobile{
+    flex-direction: column;
+  }
+  .rows.mobile-reverse{
+    flex-direction: column-reverse;
+  }
   .title{
     padding: 11rem 0 0 0;
   }
