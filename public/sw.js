@@ -1,4 +1,4 @@
-const cacheName = '1.5.1';
+const cacheName = '1.5.0.2';
 const cacheFiles = [
     '/',
     '/meal',
@@ -32,13 +32,15 @@ const cacheFiles = [
     '/css/etc/timetable.css',
     '/css/etc/user.css',
 ];
-const libCacheName = 'lib-1.5.0';
+const libCacheName = 'lib-1.5.0.2';
 const libCacheFiles = [
     '/lib/axios.js',
     '/lib/vue.js',
     '/lib/tinymce/tinymce.min.js',
     '/lib/aos/aos.js',
     '/lib/aos/aos.css',
+    '/lib/prism/prism.js',
+    '/lib/prism/prism.css',
 ];
 const etcCacheName = 'etc-1.5.0';
 const etcCacheFiles = [

@@ -7,9 +7,9 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
   -webkit-box-sizing:  border-box;
   -moz-box-sizing:  border-box;
   border-collapse:  collapse;
-  line-height: 1.2;
-  vertical-align: middle;
-  font-family:NotoSans,-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
+  line-height: inherit;
+  vertical-align: inherit;
+  font-family: inherit;
 }
 :root{
   --black:  #000;
@@ -122,6 +122,9 @@ body{
   background-size: cover;
   transition: background-color .5s;
   padding-bottom: 5rem;
+  line-height: 1.2;
+  vertical-align: middle;
+  font-family:NotoSans,-apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
 }
 @keyframes blocking_click{
   0%{

@@ -134,6 +134,7 @@ const postRefresh = (changeUrlPath = true) => {
                 $$('.note-video-clip').forEach(e => {
                     e.outerHTML = `<div class="video-container">${e.outerHTML}</div>`;
                 });
+                Prism.highlightAll();
             },1);
             progress(50);
             commentRefresh();
@@ -167,8 +168,8 @@ const likeSend = (like) => {
             like
         },
         callback:(data) => {
-            post.like = data.like;
-            post.totalLike = data.totalLike;
+            postView.post.like = data.like;
+            postView.post.totalLike = data.totalLike;
         }
     })
 }

@@ -56,9 +56,10 @@ tinymce.init({
     skin: localStorage.getItem('theme')=='dark'? 'oxide-dark': undefined,
     content_css: localStorage.getItem('theme')?? undefined,
     plugins: [
-        'code','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks','media','table','wordcount'
+        'code','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks','media','table','wordcount','codesample'
     ],
-    toolbar: 'undo redo | bold italic | alignleft alignright aligncenter alignjustify | emoticon image media | preview code',
+    toolbar: 'undo redo codesample | bold italic | alignleft alignright aligncenter alignjustify | emoticon image media | preview code',
+    codesample_global_prismjs: true,
     setup: (tinymceEditor) => {
         tinymceEditor.ui.registry.addButton('emoticon', {
             text: '이모티콘',
@@ -96,7 +97,7 @@ tinymce.init({
         cssLink.rel = 'stylesheet';
         cssLink.type = 'text/css';
         const css = document.createElement('style');
-        css.innerHTML = `html{font-size:62.5%}ul,ol,li{list-style:none}h1{font-size:3.8rem}h2{font-size:2.4rem}h3{font-size:3.2rem}h4{font-size:2.2rem}p{font-size:1.5rem}a{text-decoration:none}`;
+        css.innerHTML = `html{font-size:16px}ul,ol,li{list-style:none}a{text-decoration:none}`;
         tinymce.activeEditor.contentDocument.head.appendChild(cssLink);
         tinymce.activeEditor.contentDocument.head.appendChild(css);
     }

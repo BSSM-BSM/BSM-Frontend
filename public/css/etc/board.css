@@ -236,6 +236,11 @@
 #post.hide{
   right: -100%;
 }
+#post code{
+  line-height: initial;
+  vertical-align: initial;
+  font-family: initial;
+}
 .post_wrap{
   padding: 5rem;
   padding-top: 10rem;

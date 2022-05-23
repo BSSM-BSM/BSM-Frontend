@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     <div class="post_content"><div v-html="post.content"></div></div>
-                    <div class="post_like_wrap post_like">
+                    <div class="post_like rows">
                         <button class="like_button like icon" onclick="likeSend(1)" :class="{on:post.like>0}"><object data="/resource/common/images/like.svg"></object></button>
                         <span class="post_like_cnt">{{post.totalLike}}</span>
                         <button class="like_button dislike icon" onclick="likeSend(-1)" :class="{on:post.like<0}"><object data="/resource/common/images/like.svg"></object></button>
@@ -168,6 +168,8 @@
     </main>
     <script src="/js/etc/board/load.js"></script>
     <script src="/js/etc/board/board.js"></script>
+    <link rel="stylesheet" href="/lib/prism/prism.css">
+    <script src="/lib/prism/prism.js"></script>
     <script src="/js/etc/board/post.js"></script>
     <script src="/lib/tinymce/tinymce.min.js"></script>
     <script src="/js/etc/board/postWrite.js"></script>
