@@ -42,17 +42,5 @@
         <button class="button main_button accent">다시 시도</button>
     </div>
     <script src="/js/oauth/login.js"></script>
-    <script>
-        popup.noClose = true;
-        if (user.isLogin) {
-            authentication();
-        } else {
-            $('#login_box .popup_close_button')? $('#login_box .popup_close_button').style.display = 'none': undefined;
-            showLoginBox();
-            account.loginCallback = () => {
-                authentication();
-            }
-        }
-    </script>
 </body>
 </html>

@@ -1,6 +1,16 @@
 const clientId = new URLSearchParams(location.search).get("clientId");
 const redirectURI = new URLSearchParams(location.search).get("redirectURI");
 document.addEventListener('DOMContentLoaded', () => {
+    popup.noClose = true;
+    if (user.isLogin) {
+        authentication();
+    } else {
+        $('#login_box .popup_close_button')? $('#login_box .popup_close_button').style.display = 'none': undefined;
+        showLoginBox();
+        account.loginCallback = () => {
+            authentication();
+        }
+    }
     $('#oauth_box .main_button').onclick = () => {
         authorization();
     }
@@ -27,6 +37,9 @@ const authentication = () => {
             popupOpen($('#oauth_authentication_failed_box'));
         },
         callback:(data) => {
+            if (data.authorized) {
+                return authorization();
+            }
             oauthBoxView.serviceDomain = data.domain;
             oauthBoxView.serviceName = data.serviceName;
             oauthBoxView.scope = data.scope;
@@ -42,8 +55,8 @@ const authorization = () => {
         method: 'post',
         url: '/oauth/authorization',
         payload: {
-            clientId: new URLSearchParams(location.search).get("clientId"),
-            redirectURI: new URLSearchParams(location.search).get("redirectURI")
+            clientId,
+            redirectURI
         },
         errorCallback:() => {
             popupOpen($('#oauth_authorization_failed_box'));
