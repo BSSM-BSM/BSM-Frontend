@@ -32,6 +32,7 @@ const viewUserInfo = () => {
                 }
             });
             userInfoView.user.usercode = viewUsercode;
+            userInfoView.user.created = userInfoView.user?.created?.split(' ')[0]?? null;
             switch (data.user.userType) {
                 case 'anonymous':
                     userInfoView.user.nickname="Anonymous";
