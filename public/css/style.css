@@ -75,8 +75,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 html{
   font-size: 62.5%;
-  height: 100%;
   /* 1rem == 10px */
+  height: 100%;
   scroll-behavior: smooth;
   height:  calc(var(--vh, 1vh) * 100);
   overflow: overlay;

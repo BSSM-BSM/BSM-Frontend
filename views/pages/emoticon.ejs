@@ -62,24 +62,24 @@
             data() {
                 return {
                     mode:'upload',
-                    emoticon:{
+                    emoticon: {
                         imgSrc:''
                     },
-                    emoticons:[
-                        {imgSrc:''},
-                        {imgSrc:''},
-                        {imgSrc:''},
-                        {imgSrc:''}
+                    emoticons: [
+                        {imgSrc: ''},
+                        {imgSrc: ''},
+                        {imgSrc: ''},
+                        {imgSrc: ''}
                     ]
                 }
             },
-            methods:{
+            methods: {
                 change: function(i, e) {
                     if (e.files.length) {
-                        if (i==-1) this.emoticon.imgSrc = window.URL.createObjectURL(e.files[0]);
+                        if (i == -1) this.emoticon.imgSrc = window.URL.createObjectURL(e.files[0]);
                         else this.emoticons[i].imgSrc = window.URL.createObjectURL(e.files[0]);
                     } else {
-                        if (i==-1) this.emoticon.imgSrc = '';
+                        if (i == -1) this.emoticon.imgSrc = '';
                         else this.emoticons[i].imgSrc = '';
                     }
                 },
@@ -93,20 +93,20 @@
                     this.emoticon.imgSrc = '';
                     this.emoticons.splice(0);
                     this.emoticons=[
-                        {imgSrc:''},
-                        {imgSrc:''},
-                        {imgSrc:''},
-                        {imgSrc:''}
+                        {imgSrc: ''},
+                        {imgSrc: ''},
+                        {imgSrc: ''},
+                        {imgSrc: ''}
                     ]
                     $('.emoticon_upload .emoticon_info_file .name').value = null
                     $('.emoticon_upload .emoticon_info_file .description').value = null
                     $('.emoticon_upload .emoticon_info_file [type=file]').value = null
                 },
                 changeMode: function() {
-                    if (this.mode=='upload') {
-                        this.mode='remove'
+                    if (this.mode == 'upload') {
+                        this.mode = 'remove'
                     } else {
-                        this.mode='upload'
+                        this.mode = 'upload'
                     }
                 },
             }
@@ -135,7 +135,7 @@
                 method:'post',
                 payload:files,
                 url:'/emoticon',
-                success:data=>{
+                success: data => {
                     alert("업로드에 성공하였습니다");
                     emoticonFilesView.init()
                     popupClose($('.emoticon_upload_box'))
