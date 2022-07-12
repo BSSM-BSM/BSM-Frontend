@@ -36,7 +36,9 @@ const postView = Vue.createApp({
             methods: {
                 focusComment: function(focus) {
                     comment.focus = focus;
-                    editor = $(`.comment_write.write_${comment.focus} .write`);
+                    setTimeout(() => {
+                        editor = $(`.comment_write.write_${focus} .write`)
+                    }, 1);
                 }
             },
             computed: {
@@ -55,7 +57,9 @@ const postView = Vue.createApp({
     methods: {
         focusComment: function(focus) {
             comment.focus = focus;
-            editor = $(`.comment_write.write_${comment.focus} .write`);
+            setTimeout(() => {
+                editor = $(`.comment_write.write_${focus} .write`)
+            }, 1);
         },
         changeEditorCategory: function(category) {
             this.category = category;

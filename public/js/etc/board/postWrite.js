@@ -2,21 +2,11 @@ const postEditorInit = () => {
     $('#post_write').title.value = '';
     tinymce.activeEditor.setContent('');
     postView.category = 'normal';
-    loadPost();
-}
-
-const loadPost = () => {
     if (!postNo) {
         return;
     }
-    ajax({
-        method:'get',
-        url: `/post/${boardType}/${postNo}`,
-        callback:data => {
-            $('#post_write').title.value = data.post.title;
-            tinymce.activeEditor.setContent(data.post.content);
-        }
-    })
+    $('#post_write').title.value = postView.post.title;
+    tinymce.activeEditor.setContent(postView.post.content);
 }
 
 $('#post_write').addEventListener('submit', (event) => {
