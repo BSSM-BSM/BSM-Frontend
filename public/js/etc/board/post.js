@@ -218,6 +218,7 @@ const commentWrite = (depth, parentIdx) => {
         url,
         payload:{
             comment:$(`.comment_write.write_${parentIdx} .write`).innerHTML,
+            is_secret: $(`.comment_write.write_${parentIdx}`).is_secret.checked
         },
         callback:() => {
             $(`.comment_write.write_${parentIdx} .write`).innerHTML='';

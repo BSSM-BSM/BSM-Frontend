@@ -353,7 +353,7 @@
   border-radius: 1rem;
   cursor: pointer;
 }
-.comment_item_wrap.deleted{
+.comment_item_wrap:is(.is_delete, .is_secret){
   cursor: unset;
   color: gray;
 }

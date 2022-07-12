@@ -60,6 +60,10 @@
                     <div class="write_wrap">
                         <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                         <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                        <label>
+                            <input type="checkbox" name="is_secret">
+                            관리자에게만 공개
+                        </label>
                     </div>
                     <br>
                     <div class="button" onclick="commentRefresh()">댓글 새로고침</div>
@@ -136,8 +140,9 @@
                 </div>
                 <script type="text/x-template" id="comment_item_template">
                     <div class="comment_item">
-                        <div class="comment_item_wrap" v-if="item.deleted" :class="{deleted:item.deleted}">삭제된 댓글 입니다</div>
-                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx)" v-if="!item.deleted">
+                        <div class="comment_item_wrap" v-if="item.is_delete" :class="{is_delete:item.is_delete}">삭제된 댓글 입니다</div>
+                        <div class="comment_item_wrap" v-if="item.is_secret" :class="{is_secret:item.is_secret}">비밀 댓글 입니다</div>
+                        <div class="comment_item_wrap" v-on:click="focusComment(item.idx)" v-if="!item.is_delete && !item.is_secret">
                             <div class="comment_item_info_wrap">
                                 <div class="left_wrap">
                                     <img :src="`/resource/user/profile_images/profile_${item.usercode}.png`" onerror="this.src='/resource/user/profile_images/profile_default.png'" alt="" class="user_profile">
@@ -153,10 +158,14 @@
                             <div class="comment_item_content" v-html="item.comment"></div>
                         </div>
                         <comment-item v-if="isParent" class="comment_child" v-for="(child, index) in item.child" :item="child"></comment-item>
-                        <form v-if="comment.focus==item.idx && !item.deleted" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
+                        <form v-if="comment.focus==item.idx && !item.is_delete" :class="`comment_write write_${item.idx}`" method="post" autocomplete="off" :onsubmit="`commentWrite(${item.depth}, ${item.idx});return false;`">
                             <div class="write_wrap">
                                 <pre class="textarea write" style="width:100%;min-height:10rem;" contenteditable="true" onkeydown="editorNewline(this)" required></pre>
                                 <button class="clear_button icon emoticon_button" onclick="loadEmoticon();return false;"><object data="/resource/common/images/emoticon.svg"></object></button>
+                                <label>
+                                    <input type="checkbox" name="is_secret">
+                                    관리자에게만 공개
+                                </label>
                             </div>
                             <br>
                             <button class="button accent">답글 작성</button>
