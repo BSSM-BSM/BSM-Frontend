@@ -65,7 +65,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
   --input:  rgba(192, 192, 192, .3);
 
-  --menu-background:  #20212488;
+  --menu-background:  #33333388;
 
   --dim:  rgba(0, 0, 0, .3);
   --shadow:  .1rem .1rem 1rem rgba(0, 0, 0, .2);
@@ -75,8 +75,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 html{
   font-size: 62.5%;
-  /* 1rem == 10px */
   height: 100%;
+  /* 1rem == 10px */
   scroll-behavior: smooth;
   height:  calc(var(--vh, 1vh) * 100);
   overflow: overlay;
@@ -362,16 +362,27 @@ header{
 }
 header nav{
   color: var(--text);
-  box-shadow: var(--shadow);
-  background-color: var(--menu-background);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+}
+:is(body.no_scroll, header.on) nav {
+    padding: .5rem;
 }
 header nav, header nav *{
   transition: .25s;
 }
-:is(body.no_scroll, header.on) nav .top_menu{
-  padding: 0;
+.top_menu{
+    margin: 0 auto;
+    padding: .5rem;
+    max-width: 132rem;
+    border-radius: 1rem;
+    display: flex;
+    box-shadow: var(--shadow);
+    background-color: var(--menu-background);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+:is(body.no_scroll, header.on) nav .top_menu {
+  padding: 0 .5rem;
 }
 .top_menu span{
   color: var(--text);
@@ -382,7 +393,7 @@ header nav, header nav *{
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
-  border-radius: .75rem;
+  border-radius: 1rem;
   transition: all .25s;
 }
 .menu_button:hover{
@@ -412,7 +423,8 @@ header nav, header nav *{
   transform: translateY(-.295rem) rotate(25deg);
 }
 .top_menu_item{
-  text-align: center; border-radius: .5rem;
+  text-align: center;
+  border-radius: 1rem;
   height: auto;
 }
 .top_menu_item.home{
@@ -421,10 +433,8 @@ header nav, header nav *{
   line-height: 0;
 }
 .top_menu_item.home a img{
-  height: 5rem; padding: 1.2rem 2rem;
-}
-.top_menu{
-  margin: 0 auto; padding: 1.5rem 0; max-width: 132rem; display: flex;
+  height: 5rem;
+  padding: 1.2rem 2rem;
 }
 .top_menu .left_wrap{
   display: flex;
@@ -481,7 +491,12 @@ header nav, header nav *{
 }
 
 .side_menu{
-  position: fixed; z-index: 100; left: -100%; top: 0; width: 100%; height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   transition: left .4s;
@@ -1004,8 +1019,12 @@ table{
   .title{
     padding: 11rem 0 0 0;
   }
+  header nav{
+    padding: .5rem;
+  }
   .top_menu{
-    width: auto; padding: 0rem;
+    width: auto;
+    padding: 0 !important;
   }
   .top_menu_item:not(.user_menu, #all_menu, .theme_toggle, .no_hide){
     display: none;
